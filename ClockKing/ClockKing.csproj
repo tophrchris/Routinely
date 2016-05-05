@@ -92,9 +92,20 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewController.cs" />
-    <Compile Include="ViewController.designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
+    <Compile Include="ViewModel\CheckPointListDataSource.cs" />
+    <Compile Include="ViewModel\DataModel.cs" />
+    <Compile Include="ViewModel\Conversions.cs" />
+    <Compile Include="CheckPointTableViewController.cs" />
+    <Compile Include="CheckPointTableViewController.designer.cs">
+      <DependentUpon>CheckPointTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationController.cs" />
+    <Compile Include="NavigationController.designer.cs">
+      <DependentUpon>NavigationController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CheckPointDetailController.cs" />
+    <Compile Include="CheckPointDetailController.designer.cs">
+      <DependentUpon>CheckPointDetailController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
@@ -103,5 +114,8 @@
       <Project>{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}</Project>
       <Name>clockking.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 </Project>
