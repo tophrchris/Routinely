@@ -75,7 +75,7 @@ namespace ClockKing.Model
 		{
 			get
 			{
-				return this.timeStamp - this.timeStamp.Date;
+				return this.timeStamp.TimeOfDay;
 			}
 		}
 	}
@@ -105,9 +105,7 @@ namespace ClockKing.Model
 				this.secondEvent.Name,
 				this.secondEvent.averageObservedTime,
 				this.firstEvent.Emoji);
-
 		}
-
 	}
 }
 

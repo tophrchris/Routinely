@@ -78,6 +78,9 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="MonoTouch.Dialog-1" />
+    <Reference Include="PickerCells">
+      <HintPath>..\Components\pickercells-1.1\lib\ios-unified\PickerCells.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -122,5 +125,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="pickercells">
+      <Version>1.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>
