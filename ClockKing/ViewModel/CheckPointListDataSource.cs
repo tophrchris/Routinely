@@ -23,7 +23,7 @@ namespace ClockKing
 
 		public override nint RowsInSection (UITableView tableView, nint section)
 		{
-			return this.Controller.CheckPointData.CheckPointPairs.Count;
+			return this.Controller.CheckPointData.CheckPointPairs.Count();
 		}
 
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
@@ -36,36 +36,33 @@ namespace ClockKing
 
 			return cell;
 		}
-
-
+			
 		public override void AccessoryButtonTapped (UITableView tableView, NSIndexPath indexPath)
 		{
 
-			var f = this.Controller.CheckPointData.CheckPointPairs.ElementAt (indexPath.Row).firstEvent;
+			var f = this.
+				Controller.
+				CheckPointData.
+				CheckPointPairs.ElementAt (indexPath.Row).firstEvent;
 
-			UIAlertController okAlertController = UIAlertController.Create ("accessory tapped", 
-				f.Name, UIAlertControllerStyle.Alert);
-			okAlertController.AddAction(UIAlertAction.Create("OK",
-				UIAlertActionStyle.Default, null));
+			UIAlertController okAlertController = 
+				UIAlertController.Create (
+					"accessory tapped", 
+					f.Name,
+					UIAlertControllerStyle.ActionSheet);
+
+			okAlertController.AddAction(
+					UIAlertAction.Create("OK",
+					UIAlertActionStyle.Default,
+					null));
 
 			this.Controller.PresentViewController (okAlertController,true,null);
 		}
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-
-			var f = this.Controller.CheckPointData.CheckPointPairs.ElementAt (indexPath.Row).firstEvent;
-
-			UIAlertController okAlertController = UIAlertController.Create ("Row Selected", 
-				f.Name, UIAlertControllerStyle.Alert);
-			okAlertController.AddAction(UIAlertAction.Create("OK",
-				UIAlertActionStyle.Default, null));
-
-			this.Controller.PerformSegue ("CheckPointDetail", this);
-
+			this.Controller.PerformSegue ("CheckPointDetail",indexPath );
 		}
-
 	}
-
 }
 

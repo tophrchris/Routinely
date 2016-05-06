@@ -11,19 +11,11 @@ using UIKit;
 
 namespace ClockKing
 {
-	[Register ("CheckPointDetailController")]
-	partial class CheckPointDetailController
+	[Register ("AddNewCheckPointController")]
+	partial class AddNewCheckPointController
 	{
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UIView Detail { get; set; }
-
 		void ReleaseDesignerOutlets ()
 		{
-			if (Detail != null) {
-				Detail.Dispose ();
-				Detail = null;
-			}
 		}
 	}
 }

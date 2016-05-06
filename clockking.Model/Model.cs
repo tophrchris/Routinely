@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace clockking.Model
+namespace ClockKing.Model
 {
 	public class CheckPoint
 	{
@@ -82,8 +82,8 @@ namespace clockking.Model
 
 	public class CheckPointPair
 	{
-		private CheckPoint firstEvent;
-		private CheckPoint secondEvent;
+		public CheckPoint firstEvent;
+		public CheckPoint secondEvent;
 
 		public CheckPointPair(CheckPoint first, CheckPoint second)
 		{

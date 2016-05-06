@@ -25,32 +25,45 @@ namespace ClockKing
 				(typeof(UITableViewCell),
 				CheckPointDataSource.CheckPointListCellId);
 
-			TableView.SeparatorColor = UIColor.Blue;
-			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.DoubleLineEtched;
-
-			// blur effect
-			TableView.SeparatorEffect = 
-				UIBlurEffect.FromStyle(UIBlurEffectStyle.Dark);
-
-			//vibrancy effect
-			var effect = UIBlurEffect.FromStyle(UIBlurEffectStyle.Light);
-			TableView.SeparatorEffect = UIVibrancyEffect.FromBlurEffect(effect);
+			TableView.SeparatorColor = UIColor.Gray;
+			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
 
 			this.TableView.Source = new CheckPointDataSource (this);
 
+			this.NavigationItem.SetRightBarButtonItem(
+				new UIBarButtonItem("+", UIBarButtonItemStyle.Bordered, (sender,args) => 
+					this.PerformSegue("AddCheckPoint",this)
+				), true);
 		}
 
 		public void DecorateCell(UITableViewCell cell, CheckPointPair checkpoints)
 		{
 			cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
 			cell.TextLabel.Text = checkpoints.firstEvent.Name;
-			//cell.DetailTextLabel.Text = checkpoints.firstEvent.averageObservedTime.ToString();
 		}
 
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
 		{
 			base.PrepareForSegue (segue, sender);
+
+			if (segue.Identifier != "AddCheckPoint") 
+			{
+				var indexPath = sender as NSIndexPath;
+				var checkPoints = CheckPointData.CheckPointPairs.ElementAt (indexPath.Row);
+				var detailController = segue.DestinationViewController as CheckPointDetailController;
+				detailController.CheckPoints = checkPoints;
+			} else if (segue.Identifier == "AddCheckPoint") 
+			{
+				var addController = segue.DestinationViewController as AddNewCheckPointController;
+				addController.Parent=this;
+			}
 		}
+		public void AddNewCheckPoint(string title, TimeSpan target)
+		{
+			this.CheckPointData.AddNewCheckPoint (title, target);
+			this.TableView.ReloadData ();
+		}
+
 
 	}
 

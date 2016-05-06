@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using clockking.Model;
+using ClockKing.Model;
 
 
-namespace clockkingConsolePlayground
+namespace ClockKing.ConsolePlayground
 {
 	class MainClass
 	{

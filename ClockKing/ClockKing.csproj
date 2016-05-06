@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -106,6 +107,10 @@
     <Compile Include="CheckPointDetailController.cs" />
     <Compile Include="CheckPointDetailController.designer.cs">
       <DependentUpon>CheckPointDetailController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddNewCheckPointController.cs" />
+    <Compile Include="AddNewCheckPointController.designer.cs">
+      <DependentUpon>AddNewCheckPointController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

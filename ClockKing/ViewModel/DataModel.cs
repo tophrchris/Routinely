@@ -32,30 +32,22 @@ namespace ClockKing
 			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 12:32pm")));
 			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 1:32pm")));
 
-			this.refreshCheckPointPairs();
 
 		}
-		public List<CheckPointPair> CheckPointPairs { 
+		public IEnumerable<CheckPointPair> CheckPointPairs { 
 			get {
-				return this.checkPointPairs;
+				return CreateCheckPointPairs(this.checkPoints);
 			}
-			private set{
-				this.checkPointPairs = value;
-			}
+
 		}
 
 		public void AddNewCheckPoint(string title,TimeSpan TargetTime)
 		{
 			this.checkPoints.Add (title, new CheckPoint (){ Name = title, TargetTime = TargetTime });
-			this.refreshCheckPointPairs();
 		}
+			
 
-		private void refreshCheckPointPairs()
-		{
-			this.CheckPointPairs = CreateCheckPointPairs (this.checkPoints);
-		}
-
-		protected List<CheckPointPair> CreateCheckPointPairs(Dictionary<string,CheckPoint> checkPoints)
+		protected IEnumerable<CheckPointPair> CreateCheckPointPairs(Dictionary<string,CheckPoint> checkPoints)
 		{
 
 			var ordered = checkPoints
@@ -71,7 +63,7 @@ namespace ClockKing
 				from oe in gj.DefaultIfEmpty (first)
 				select new CheckPointPair (e1.checkpoint, oe.checkpoint);
 
-			return paired.ToList ();
+			return paired;
 		}
 	}
 }

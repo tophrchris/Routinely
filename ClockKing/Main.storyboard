@@ -53,7 +53,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue id="500" destination="442" kind="show" identifier="CheckPointDetail"/>
+                                    <segue id="676" destination="592" kind="show" identifier="CheckPointDetail"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -65,32 +65,69 @@
                     <navigationItem title="Check Points" id="307" key="navigationItem"/>
                     <connections>
                         <outlet property="CheckPointTableView" destination="255" id="name-outlet-255"/>
+                        <segue id="990" destination="932" kind="presentation" identifier="AddCheckPoint" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="260" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="506" y="182"/>
         </scene>
-        <scene sceneID="441">
+        <scene sceneID="591">
             <objects>
-                <viewController id="442" sceneMemberID="viewController" customClass="CheckPointDetailController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="439"/>
-                        <viewControllerLayoutGuide type="bottom" id="440"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="443">
+                <tableViewController id="592" sceneMemberID="viewController" customClass="CheckPointDetailController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="593">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <subviews/>
-                    </view>
-                    <connections>
-                        <outlet property="Detail" destination="443" id="name-outlet-443"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="444" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="596" rowHeight="44">
+                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="596" id="597">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="592" id="594"/>
+                            <outlet property="delegate" destination="592" id="595"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="598" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="499" y="1028"/>
+            <point key="canvasLocation" x="506" y="931"/>
+        </scene>
+        <scene sceneID="931">
+            <objects>
+                <tableViewController id="932" sceneMemberID="viewController" customClass="AddNewCheckPointController" title="Add New...">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="933">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="936" rowHeight="44">
+                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="936" id="937">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="932" id="934"/>
+                            <outlet property="delegate" destination="932" id="935"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue id="1041" destination="254" kind="show" identifier="Return"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="938" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1114" y="186"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
