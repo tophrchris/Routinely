@@ -3,19 +3,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{70609317-4723-42E6-A793-251704C6BD28}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ClockKing</RootNamespace>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{EE2C853D-36AF-4FDB-B1AD-8E90477E2198};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{4D597DC8-C32B-4E4C-A101-F52D6A35EDB7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ClockKing.WatchKitExtension</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>ClockKing</AssemblyName>
+    <AssemblyName>ClockKingWatchKitExtension</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -59,17 +59,18 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <IOSDebuggerPort>10001</IOSDebuggerPort>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchFloat32>true</MtouchFloat32>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
-    <MtouchDebug>true</MtouchDebug>
-    <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchFloat32>true</MtouchFloat32>
     <MtouchUseSGen>true</MtouchUseSGen>
   </PropertyGroup>
   <ItemGroup>
@@ -77,59 +78,37 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="MonoTouch.Dialog-1" />
-    <Reference Include="PickerCells">
-      <HintPath>..\Components\pickercells-1.1\lib\ios-unified\PickerCells.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
-    <InterfaceDefinition Include="Main.storyboard" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
-    <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewModel\CheckPointListDataSource.cs" />
-    <Compile Include="ViewModel\DataModel.cs" />
-    <Compile Include="ViewModel\Conversions.cs" />
-    <Compile Include="CheckPointTableViewController.cs" />
-    <Compile Include="CheckPointTableViewController.designer.cs">
-      <DependentUpon>CheckPointTableViewController.cs</DependentUpon>
+    <Compile Include="GlanceController.cs" />
+    <Compile Include="GlanceController.designer.cs">
+      <DependentUpon>GlanceController.cs</DependentUpon>
     </Compile>
-    <Compile Include="NavigationController.cs" />
-    <Compile Include="NavigationController.designer.cs">
-      <DependentUpon>NavigationController.cs</DependentUpon>
+    <Compile Include="InterfaceController.cs" />
+    <Compile Include="InterfaceController.designer.cs">
+      <DependentUpon>InterfaceController.cs</DependentUpon>
     </Compile>
-    <Compile Include="NavigationHelpers\AddCheckPointCommand.cs" />
-    <Compile Include="NavigationHelpers\CheckpointDetailCommand.cs" />
+    <Compile Include="NotificationController.cs" />
+    <Compile Include="NotificationController.designer.cs">
+      <DependentUpon>NotificationController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\clockking.Model\clockking.Model.csproj">
-      <Project>{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}</Project>
-      <Name>clockking.Model</Name>
+    <BundleResource Include="PushNotificationPayload.json" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.AppExtension.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\ClockKing.WatchKitApp\ClockKing.WatchKitApp.csproj">
+      <Project>{C061F9E2-0C93-4AA3-9B4A-45DEBD7ED214}</Project>
+      <Name>ClockKing.WatchKitApp</Name>
+      <IsWatchApp>True</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="..\ClockKing.WatchKitExtension\ClockKing.WatchKitExtension.csproj">
-      <Project>{4D597DC8-C32B-4E4C-A101-F52D6A35EDB7}</Project>
-      <Name>ClockKing.WatchKitExtension</Name>
-      <IsAppExtension>True</IsAppExtension>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-    <Folder Include="NavigationHelpers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <XamarinComponentReference Include="pickercells">
-      <Version>1.1</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
   </ItemGroup>
 </Project>

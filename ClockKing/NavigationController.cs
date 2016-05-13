@@ -7,16 +7,7 @@ namespace ClockKing
 {
 	partial class NavigationController : UINavigationController
 	{
-		public NavigationController (IntPtr handle) : base (handle)
-		{
-			Console.WriteLine ("hi");
-		}
-
-
-		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
-		{
-			base.PrepareForSegue (segue, sender);
-		}
+		public NavigationController(IntPtr id):base(id){}
 
 	}
 

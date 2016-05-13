@@ -13,12 +13,14 @@ namespace ClockKing
 	{
 
 		private CheckPointTableViewController Controller;
+		private CheckpointDetailCommand Detail;
 
 		public static NSString CheckPointListCellId = new NSString ("CheckPointListCellId");
 
 		public CheckPointDataSource (CheckPointTableViewController controller)
 		{ 
 			this.Controller = controller;
+			this.Detail=new CheckpointDetailCommand(this.Controller);
 		}
 
 		public override nint RowsInSection (UITableView tableView, nint section)
@@ -61,7 +63,7 @@ namespace ClockKing
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			this.Controller.PerformSegue ("CheckPointDetail",indexPath );
+			this.Detail.ShowDetailDialog (this.Controller.CheckPointData.CheckPointPairs.ElementAt(indexPath.Row));
 		}
 	}
 }

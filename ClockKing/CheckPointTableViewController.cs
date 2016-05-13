@@ -5,10 +5,12 @@ using UIKit;
 using ClockKing.Model;
 using System.Collections.Generic;
 using System.Linq;
-
+using MonoTouch.Dialog;
+using ClockKing.Commands;
 
 namespace ClockKing
 {
+	
 	public partial class CheckPointTableViewController : UITableViewController
 	{
 		public DataModel CheckPointData{ get; }
@@ -30,41 +32,23 @@ namespace ClockKing
 
 			this.TableView.Source = new CheckPointDataSource (this);
 
-			this.NavigationItem.SetRightBarButtonItem(
-				new UIBarButtonItem("+", UIBarButtonItemStyle.Bordered, (sender,args) => 
-					this.PerformSegue("AddCheckPoint",this)
-				), true);
+			var addCommand = new AddCheckPointCommand (this);
+
+			this.NavigationItem.SetRightBarButtonItem(addCommand.Button, true);
 		}
 
 		public void DecorateCell(UITableViewCell cell, CheckPointPair checkpoints)
 		{
+			
 			cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
 			cell.TextLabel.Text = checkpoints.firstEvent.Name;
+			//cell.DetailTextLabel.Text = checkpoints.firstEvent.averageObservedTime.ToString ();
 		}
-
-		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
-		{
-			base.PrepareForSegue (segue, sender);
-
-			if (segue.Identifier != "AddCheckPoint") 
-			{
-				var indexPath = sender as NSIndexPath;
-				var checkPoints = CheckPointData.CheckPointPairs.ElementAt (indexPath.Row);
-				var detailController = segue.DestinationViewController as CheckPointDetailController;
-				detailController.CheckPoints = checkPoints;
-			} else if (segue.Identifier == "AddCheckPoint") 
-			{
-				var addController = segue.DestinationViewController as AddNewCheckPointController;
-				addController.Parent=this;
-			}
-		}
+			
 		public void AddNewCheckPoint(string title, TimeSpan target)
 		{
 			this.CheckPointData.AddNewCheckPoint (title, target);
 			this.TableView.ReloadData ();
 		}
-
-
 	}
-
 }
