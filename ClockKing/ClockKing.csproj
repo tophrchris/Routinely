@@ -90,6 +90,9 @@
     <Reference Include="FitpulseTheme.iOS">
       <HintPath>..\Components\fitpulsetheme-1.2.4\lib\ios-unified\FitpulseTheme.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="SWTableViewCell">
+      <HintPath>..\Components\swtableviewcell-0.3.7.0\lib\ios-unified\SWTableViewCell.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -139,6 +142,10 @@
   <ItemGroup>
     <XamarinComponentReference Include="fitpulsetheme">
       <Version>1.2.4</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="swtableviewcell">
+      <Version>0.3.7.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

@@ -5,11 +5,12 @@ using CoreGraphics;
 using ClockKing.Model;
 using System.Collections.Generic;
 using System.Linq;
+using SWTableViewCells;
 
 
 namespace ClockKing
 {
-	public class CheckPointTableCell:UITableViewCell
+	public class CheckPointTableCell:SWTableViewCell
 	{
 		public UILabel TitleLabel { get; private set; }
 
@@ -33,10 +34,12 @@ namespace ClockKing
 			this.CreateAutoLabel ("MostRecent", "Last: {0}");
 
 			LayoutLabels (new CGPoint (73f, 33f), new CGSize (260f / 2f, 16f), 1f);
+		
+			var container = this.TextLabel.Superview;
 
-			base.AddSubview(TitleLabel);
+			container.AddSubview(TitleLabel);
 
-			base.AddSubviews (autoLabels.Select (kv => kv.Value.Item2).ToArray ());
+			container.AddSubviews (autoLabels.Select (kv => kv.Value.Item2).ToArray ());
 
 			this.ApplyStyles ();
 		}
@@ -56,6 +59,8 @@ namespace ClockKing
 
 		public void RenderCheckpoint(CheckPointPair checkpoints)
 		{
+			this.TextLabel.Text = "☀";
+			this.TextLabel.AdjustsFontSizeToFitWidth = true;
 			this.TitleLabel.Text = checkpoints.firstEvent.Name;
 			setLabel("TargetTime", checkpoints.firstEvent.TargetTime.ToString("t"));
 			setLabel ("avgTime", checkpoints.firstEvent.averageObservedTime.ToString ("t"));
