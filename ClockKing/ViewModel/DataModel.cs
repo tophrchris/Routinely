@@ -8,7 +8,6 @@ namespace ClockKing
 {
 	public class DataModel
 	{
-		private List<CheckPointPair> checkPointPairs;
 		private Dictionary<string,CheckPoint> checkPoints;
 
 		public DataModel ()

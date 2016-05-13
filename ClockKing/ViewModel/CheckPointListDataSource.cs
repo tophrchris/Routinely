@@ -15,8 +15,6 @@ namespace ClockKing
 		private CheckPointTableViewController Controller;
 		private CheckpointDetailCommand Detail;
 
-		public static NSString CheckPointListCellId = new NSString ("CheckPointListCellId");
-
 		public CheckPointDataSource (CheckPointTableViewController controller)
 		{ 
 			this.Controller = controller;
@@ -28,24 +26,29 @@ namespace ClockKing
 			return this.Controller.CheckPointData.CheckPointPairs.Count();
 		}
 
+		public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+		{
+			//would love to get this from CheckPointTableCell?
+			return 71;
+		}
+
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell (CheckPointListCellId, indexPath);
+			var cell = tableView.DequeueReusableCell (CheckPointTableCell.Key) as CheckPointTableCell;
+
+			if (cell == null)
+				cell = new CheckPointTableCell ();
 		
-			var checkPoints = this.Controller.CheckPointData.CheckPointPairs.ElementAt (indexPath.Row);
+			var checkPoints = GetCheckpointPair (indexPath.Row);
 
-			this.Controller.DecorateCell (cell, checkPoints);
-
+			cell.RenderCheckpoint (checkPoints);
 			return cell;
 		}
 			
 		public override void AccessoryButtonTapped (UITableView tableView, NSIndexPath indexPath)
 		{
 
-			var f = this.
-				Controller.
-				CheckPointData.
-				CheckPointPairs.ElementAt (indexPath.Row).firstEvent;
+			var f = GetCheckpointPair(indexPath.Row).firstEvent;
 
 			UIAlertController okAlertController = 
 				UIAlertController.Create (
@@ -63,8 +66,14 @@ namespace ClockKing
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			this.Detail.ShowDetailDialog (this.Controller.CheckPointData.CheckPointPairs.ElementAt(indexPath.Row));
+			this.Detail.ShowDetailDialog (GetCheckpointPair(indexPath));
 		}
+
+		private CheckPointPair GetCheckpointPair(NSIndexPath path)
+		{
+			return this.Controller.CheckPointData.CheckPointPairs.ElementAt (path.Row);
+		}
+
 	}
 }
 
