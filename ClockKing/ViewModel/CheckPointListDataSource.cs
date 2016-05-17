@@ -89,7 +89,7 @@ namespace ClockKing
 			else
 				return this.Controller.CheckPointData.DisabledCheckPoints;
 		}
-		private CheckPoint GetCheckpoint(NSIndexPath path)
+		public CheckPoint GetCheckpoint(NSIndexPath path)
 		{
 			return GetCheckpointsForSection (path.Section).ElementAt (path.Row);
 		}

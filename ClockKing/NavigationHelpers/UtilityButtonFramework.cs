@@ -47,6 +47,21 @@ namespace ClockKing
 		{
 			new UIAlertView (title, message,null, "OK", null).Show ();
 		}
+
+		public virtual UIPreviewAction AsPreviewAction(Action<UtilityButton> handler,UIPreviewActionStyle style)
+		{
+			return UIPreviewAction.Create (this.title,style,
+				(a,c)=>
+				{
+					handler(this);	
+				}
+			);
+		}
+
+		public virtual UIPreviewAction AsPreviewAction(Action<UtilityButton> handler )
+		{
+			return this.AsPreviewAction (handler, UIPreviewActionStyle.Default);	
+		}
 	}
 		
 		
