@@ -39,17 +39,32 @@ namespace ClockKing
 			}
 
 		}
+		public IEnumerable<CheckPoint> DisabledCheckPoints
+		{
+			get
+			{
+				return this.checkPoints.Where (cp => !cp.Value.Enabled).Select(kv=>kv.Value);
+			}
+		}
 
 		public void AddNewCheckPoint(string title,TimeSpan TargetTime)
 		{
 			this.checkPoints.Add (title, new CheckPoint (){ Name = title, TargetTime = TargetTime });
 		}
 			
+		public bool RemoveCheckPoint(CheckPoint toDelete)
+		{
+			if(this.checkPoints.ContainsKey(toDelete.Name))
+				return this.checkPoints.Remove (toDelete.Name);
+
+			return false;
+		}
 
 		protected IEnumerable<CheckPointPair> CreateCheckPointPairs(Dictionary<string,CheckPoint> checkPoints)
 		{
 
 			var ordered = checkPoints
+				.Where(cp=>cp.Value.Enabled)
 				.Select (kv => kv.Value)
 				.OrderBy (cp => cp.averageObservedTime)
 				.Select ((c, i) => new{index = i,checkpoint = c});

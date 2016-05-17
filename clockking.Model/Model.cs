@@ -11,10 +11,12 @@ namespace ClockKing.Model
 		public CheckPoint()
 		{
 			this.occurrences = new List<Occurrence> ();
+			this.Enabled = true;
 		}
 		public string Name { get; set; }
 		public string Color { get; set; }
 		public string Emoji { get; set; }
+		public bool Enabled { get; set; }
 		public TimeSpan TargetTime { get; set; }
 
 		public IEnumerable<Occurrence> Occurrences { get{return this.occurrences; }}

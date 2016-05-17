@@ -13,24 +13,38 @@ namespace ClockKing
 	public class CheckPointDataSource:UITableViewSource
 	{
 
-		private CheckPointTableViewController Controller;
-		private CheckpointDetailCommand Detail;
-		private CellDelegate Delegate;
+		private CheckPointController Controller;
 
-
-		public CheckPointDataSource (CheckPointTableViewController controller)
+		public CheckPointDataSource (CheckPointController controller)
 		{ 
 			this.Controller = controller;
-			this.Detail=new CheckpointDetailCommand(this.Controller);
-			var b = new UIButton (UIButtonType.RoundedRect);
-			b.SetTitle ("add", UIControlState.Normal);
-			this.Delegate = new CellDelegate ();
-
 		}
 
 		public override nint RowsInSection (UITableView tableView, nint section)
 		{
-			return this.Controller.CheckPointData.CheckPointPairs.Count();
+			if (section == 0)
+				return this.Controller.CheckPointData.CheckPointPairs.Count ();
+			else
+				return this.Controller.CheckPointData.DisabledCheckPoints.Count ();
+		}
+
+		public override nint NumberOfSections (UITableView tableView)
+		{
+			if (this.Controller.CheckPointData.DisabledCheckPoints.Any ())
+				return 2;
+			else
+				return 1;
+		}
+		public override string TitleForHeader (UITableView tableView, nint section)
+		{
+			if (!this.Controller.CheckPointData.DisabledCheckPoints.Any ())
+				return string.Empty;
+			
+			if (section == 0)
+				return "enabled";
+			else
+				return "disabled";
+			
 		}
 
 		public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
@@ -41,44 +55,50 @@ namespace ClockKing
 
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
+			CheckPoint found = GetCheckpoint (indexPath);
+		
+			var cell = CheckPointTableCellFactory (tableView, found);
+
+			return cell;
+
+		}
+
+		CheckPointTableCell CheckPointTableCellFactory (UITableView tableView, CheckPoint cpe)
+		{
 			var cell = tableView.DequeueReusableCell (CheckPointTableCell.Key) as CheckPointTableCell;
 
-			if (cell == null) {
-				
-				cell = new CheckPointTableCell ();
-				cell.Delegate = Delegate;
-				cell.RightUtilityButtons = RightButtons ();
-				cell.LeftUtilityButtons = LeftButtons ();
-			}
-		
-			var checkPoints = GetCheckpointPair (indexPath);
+			var utilButtons = this.Controller.UtilityButtonHandler;
+			if (cell == null)
+				cell = new CheckPointTableCell () {Delegate = utilButtons};
 
-			cell.RenderCheckpoint (checkPoints);
+			cell.CheckPoint = cpe;
+			utilButtons.AttachUtilityButtonsToCell (cell);
+			cell.RenderCheckpoint (cpe);
 			return cell;
 		}
-
-		static UIButton[] LeftButtons ()
+			
+		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			NSMutableArray bs = new NSMutableArray ();
-			bs.AddUtilityButton (UIColor.Red, "delete");
-			bs.AddUtilityButton (UIColor.Gray, "disable");
-			return NSArray.FromArray<UIButton> (bs);
+			this.Controller.Detail.ShowDetailDialog (GetCheckpoint(indexPath));
 		}
 
-		static UIButton[] RightButtons ()
+		private IEnumerable<CheckPoint> GetCheckpointsForSection(int section)
 		{
-			NSMutableArray bs = new NSMutableArray ();
-			bs.AddUtilityButton (UIColor.Green, "now");
-			bs.AddUtilityButton (UIColor.Yellow, "add");
-			//leftUtilityButtons.AddUtilityButton (UIColor.FromRGBA (1.0f, 0.231f, 0.188f, 1.0f), UIImage.FromBundle ("cross.png"));
-			//leftUtilityButtons.AddUtilityButton (UIColor.FromRGBA (0.55f, 0.27f, 0.07f, 1.0f), UIImage.FromBundle ("list.png"));
-			return NSArray.FromArray<UIButton> (bs);
+			if (section == 0)
+				return this.Controller.CheckPointData.CheckPointPairs.Select (cpp => cpp.firstEvent);
+			else
+				return this.Controller.CheckPointData.DisabledCheckPoints;
 		}
+		private CheckPoint GetCheckpoint(NSIndexPath path)
+		{
+			return GetCheckpointsForSection (path.Section).ElementAt (path.Row);
+		}
+
 
 		public override void AccessoryButtonTapped (UITableView tableView, NSIndexPath indexPath)
 		{
 
-			var f = GetCheckpointPair(indexPath).firstEvent;
+			var f = GetCheckpoint(indexPath);
 
 			UIAlertController okAlertController = 
 				UIAlertController.Create (
@@ -93,57 +113,6 @@ namespace ClockKing
 
 			this.Controller.PresentViewController (okAlertController,true,null);
 		}
-
-		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
-		{
-			this.Detail.ShowDetailDialog (GetCheckpointPair(indexPath));
-		}
-
-		private CheckPointPair GetCheckpointPair(NSIndexPath path)
-		{
-			return this.Controller.CheckPointData.CheckPointPairs.ElementAt (path.Row);
-		}
-
-	}
-
-
-	class CellDelegate : SWTableViewCellDelegate
-	{
-		
-
-		public override void DidTriggerLeftUtilityButton (SWTableViewCell cell, nint index)
-		{
-			Console.WriteLine ("Left button {0} was pressed.", index);
-
-			new UIAlertView ("Left Utility Buttons", string.Format ("Left button {0} was pressed.", index), null, "OK", null).Show ();
-		}
-
-		public override void DidTriggerRightUtilityButton (SWTableViewCell cell, nint index)
-		{
-			Console.WriteLine ("Right button {0} was pressed.", index);
-
-			new UIAlertView ("right Utility Buttons", string.Format ("right button {0} was pressed.", index), null, "OK", null).Show ();
-		}
-		public override bool ShouldHideUtilityButtonsOnSwipe (SWTableViewCell cell)
-		{
-			// allow just one cell's utility button to be open at once
-			return false;
-		}
-
-
-		public override bool CanSwipeToState (SWTableViewCell cell, SWCellState state)
-		{
-			switch (state) {
-			case SWCellState.Left:
-				// set to false to disable all left utility buttons appearing
-				return true;
-			case SWCellState.Right:
-				// set to false to disable all right utility buttons appearing
-				return true;
-			}
-			return true;
-		}
-			
 	}
 }
 

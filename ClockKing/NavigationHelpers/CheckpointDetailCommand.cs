@@ -18,9 +18,9 @@ namespace ClockKing
 
 		}
 
-		public void ShowDetailDialog(CheckPointPair Data)
+		public void ShowDetailDialog(CheckPoint Data)
 		{
-			var checkpoint = Data.firstEvent;
+			var checkpoint = Data;
 			var distinctTimes = checkpoint.Occurrences.Select (o => o.Time).Distinct();
 
 			var root = new RootElement (string.Format ("details for {0}", checkpoint.Name));

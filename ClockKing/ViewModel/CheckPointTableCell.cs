@@ -14,6 +14,8 @@ namespace ClockKing
 	{
 		public UILabel TitleLabel { get; private set; }
 
+		public CheckPoint CheckPoint { get; set;}
+
 		public Dictionary<string,Tuple<string,UILabel>> autoLabels;
 
 		public static readonly NSString Key = new NSString("cptc");
@@ -57,18 +59,20 @@ namespace ClockKing
 			TitleLabel.Font = UIFont.FromName ("HelveticaNeue-Bold", 18);
 		}
 
-		public void RenderCheckpoint(CheckPointPair checkpoints)
+		public void RenderCheckpoint(CheckPoint checkpoint)
 		{
+			this.CheckPoint = checkpoint;
+
 			this.TextLabel.Text = "☀";
 			this.TextLabel.AdjustsFontSizeToFitWidth = true;
-			this.TitleLabel.Text = checkpoints.firstEvent.Name;
-			setLabel("TargetTime", checkpoints.firstEvent.TargetTime.ToString("t"));
-			setLabel ("avgTime", checkpoints.firstEvent.averageObservedTime.ToString ("t"));
+			this.TitleLabel.Text = checkpoint.Name;
+			setLabel("TargetTime", checkpoint.TargetTime.ToString("t"));
+			setLabel ("avgTime", checkpoint.averageObservedTime.ToString ("t"));
 			setLabel ("Occurrences", 
-				checkpoints.firstEvent.Occurrences.Count ().ToString ());
-			if(checkpoints.firstEvent.Occurrences.Any())
+				checkpoint.Occurrences.Count ().ToString ());
+			if(checkpoint.Occurrences.Any())
 				setLabel ("MostRecent",
-					checkpoints.firstEvent.Occurrences
+					checkpoint.Occurrences
 					.OrderByDescending (o => o.timeStamp)
 					.First()
 					.timeStamp

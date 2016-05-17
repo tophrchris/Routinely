@@ -12,7 +12,7 @@ using UIKit;
 namespace ClockKing
 {
 	[Register ("CheckPointTableViewController")]
-	partial class CheckPointTableViewController
+	partial class CheckPointController
 	{
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]

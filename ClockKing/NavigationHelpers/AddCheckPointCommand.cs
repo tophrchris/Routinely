@@ -38,7 +38,7 @@ namespace ClockKing.Commands
 			var saveButton = new StringElement ("save", 
 				() =>{ 
 
-					((CheckPointTableViewController)this.Controller).AddNewCheckPoint(nameElement.Value,targetElement.DateValue.TimeOfDay);
+					((CheckPointController)this.Controller).AddNewCheckPoint(nameElement.Value,targetElement.DateValue.TimeOfDay);
 
 					dialogCancellation();
 
