@@ -1,6 +1,8 @@
 ﻿using Foundation;
 using UIKit;
 using Xamarin.Themes;
+using Xamarin.Themes.Core;
+using Xamarin.Themes.TrackBeam;
 
 namespace ClockKing
 {
@@ -19,7 +21,9 @@ namespace ClockKing
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
-			FitpulseTheme.Apply ();
+			//CashflowTheme.Apply ();
+			ThemeManager.Register<TrackBeamTheme> ().Apply ();
+			//FitpulseTheme.Apply ();
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			return true;

@@ -27,7 +27,7 @@ namespace ClockKing.Model
 		}
 		public Occurrence CreateOccurrence()
 		{
-			return this.CreateOccurrence (DateTime.Now);	
+			return this.CreateOccurrence (DateTime.Now.ToLocalTime());	
 		}
 
 		public Occurrence CreateOccurrence(DateTime observationTimeStamp)
@@ -95,6 +95,11 @@ namespace ClockKing.Model
 		public TimeSpan InterveningTime 
 		{
 			get{
+				if (this.secondEvent.averageObservedTime < this.firstEvent.averageObservedTime) 
+				{
+					var untilMidnight = TimeSpan.FromHours (24) - this.firstEvent.averageObservedTime;
+					return untilMidnight + this.secondEvent.averageObservedTime;
+				}
 				return this.secondEvent.averageObservedTime - this.firstEvent.averageObservedTime;
 			}
 		}

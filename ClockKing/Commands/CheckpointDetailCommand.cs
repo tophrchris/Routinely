@@ -29,7 +29,7 @@ namespace ClockKing
 			root.Add (timingSection);
 
 			timingSection.Add (new StringElement ("count", checkpoint.Occurrences.Count().ToString()));
-			timingSection.Add (new StringElement("average", checkpoint.averageObservedTime.ToString()));
+			timingSection.Add (new StringElement("average", (DateTime.Now.Date+ checkpoint.averageObservedTime).ToString("t")));
 
 			if (checkpoint.Occurrences.Any ()) {
 				timingSection.Add (new StringElement ("stdev", checkpoint.Occurrences.Average (o => checkpoint.averageObservedTime.Minutes - o.Time.Minutes).ToString ()));
@@ -74,25 +74,14 @@ namespace ClockKing
 		public CheckPointDetailViewController(UIViewController Parent,CheckPoint toDetail,RootElement root):base(root)
 		{
 			var parent = Parent as CheckPointController;
-
-			this.actions = new List<UIPreviewAction> ();
-
-
-			var executor = new Action<UtilityButton>((ub)=>
+		
+			var executor = new Action<Command>((ub)=>
 				{
 					if(ub.ExecuteFor(parent,toDetail))
 						parent.ReloadData();
 				});
 
-			if (toDetail.Enabled) {
-				this.actions.Add (new DisableCheckPointButton ().AsPreviewAction (executor));
-				this.actions.Add (new AddOccurrenceButton ().AsPreviewAction (executor));
-				this.actions.Add (new AddHistoricOccurrenceButton ().AsPreviewAction (executor));
-			} else {
-				this.actions.Add (new EnableCheckPointButton ().AsPreviewAction (executor));
-				this.actions.Add (new DeleteCheckPointButton ().AsPreviewAction (executor,UIPreviewActionStyle.Destructive));
-
-			}
+			this.actions = parent.commandManager.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
 		}
 
 		public override IUIPreviewActionItem[] PreviewActionItems 

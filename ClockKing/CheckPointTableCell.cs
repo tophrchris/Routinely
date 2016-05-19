@@ -63,11 +63,11 @@ namespace ClockKing
 		{
 			this.CheckPoint = checkpoint;
 
-			this.TextLabel.Text = "☀";
+			this.TextLabel.Text = string.IsNullOrEmpty(this.CheckPoint.Emoji)?"☀":this.CheckPoint.Emoji;
 			this.TextLabel.AdjustsFontSizeToFitWidth = true;
 			this.TitleLabel.Text = checkpoint.Name;
-			setLabel("TargetTime", checkpoint.TargetTime.ToString("t"));
-			setLabel ("avgTime", checkpoint.averageObservedTime.ToString ("t"));
+			setLabel("TargetTime", (DateTime.Now.Date+ checkpoint.TargetTime).ToString("t"));
+			setLabel ("avgTime", (DateTime.Now.Date+ checkpoint.averageObservedTime).ToString ("t"));
 			setLabel ("Occurrences", 
 				checkpoint.Occurrences.Count ().ToString ());
 			if(checkpoint.Occurrences.Any())
