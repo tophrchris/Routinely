@@ -49,7 +49,7 @@ namespace ClockKing.Commands
 					newcp.AddOccurrence (o);
 					this.Controller.CheckPointData.SaveOccurrence(o);
 				}
-
+				this.Controller.Notifier.EnsureNotifications(this.Controller.CheckPointData);
 				dialogCancellation ();
 			};
 

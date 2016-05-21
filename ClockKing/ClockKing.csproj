@@ -167,6 +167,7 @@
   <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="Commands\" />
+    <Folder Include="Settings\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="swtableviewcell">

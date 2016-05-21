@@ -23,8 +23,6 @@ namespace ClockKing
 		public NotificationManager Notifier{ get; set; }
 		private CheckPointDataSource Data{ get;  set; }
 
-
-	
 		public CheckPointController (NSObjectFlag t):base(t){}
 
 		public CheckPointController (IntPtr handle) : base (handle)
@@ -39,9 +37,7 @@ namespace ClockKing
 
 			this.Notifier.EnsureNotifications (this.CheckPointData);
 		}
-
-
-
+			
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -50,20 +46,39 @@ namespace ClockKing
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.Button, true);
 		}
 			
+
+
+
 		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji)
 		{
 			if (string.IsNullOrEmpty (emoji))
 				emoji = title.Substring (0, 2);
 			
 			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji);
+			this.Notifier.EnsureNotifications (this.CheckPointData);
 			this.ReloadData ();
 			return created;
+		}
+
+		public bool RemoveCheckpoint(CheckPoint toDelete)
+		{
+			var deleted =  this.CheckPointData.RemoveCheckPoint (toDelete);
+
+			if (deleted) 
+			{
+				this.Notifier.EnsureNotifications (this.CheckPointData);
+				this.ReloadData ();
+			}
+			return Delete;
 		}
 
 		public void ReloadData()
 		{
 			this.TableView.ReloadData ();
 		}
+
+
+
 
 		public override void TraitCollectionDidChange (UITraitCollection previousTraitCollection)
 		{
@@ -81,6 +96,7 @@ namespace ClockKing
 		{
 			this.Detail.ShowDetailDialog (viewControllerToCommit);
 		}
+
 		public  UIViewController GetViewControllerForPreview (IUIViewControllerPreviewing previewingContext, CoreGraphics.CGPoint location)
 		{
 

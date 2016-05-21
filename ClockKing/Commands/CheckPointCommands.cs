@@ -79,24 +79,20 @@ namespace ClockKing
 
 		public override bool ExecuteFor (CheckPointController controller, CheckPoint checkPoint)
 		{
-			
 			var okCancelAlertController = UIAlertController.Create("Please confirm:",
 				string.Format("Are you sure you would like to delete the checkpoint, {0}?",checkPoint.Name)
 					, UIAlertControllerStyle.ActionSheet);
-			var okAction = UIAlertAction.Create ("yes, delete!", UIAlertActionStyle.Default, (alert)=>PerformDeletion(controller,checkPoint));
+
+			var okAction = UIAlertAction.Create (
+				"yes, delete!",
+				UIAlertActionStyle.Default, 
+				(alert)=>controller.RemoveCheckpoint(checkPoint));
+			
 			okCancelAlertController.AddAction(okAction);
 			okCancelAlertController.AddAction(UIAlertAction.Create("nevermind", UIAlertActionStyle.Cancel, null));
 			controller.PresentModalViewController(okCancelAlertController, true);
 
 			return false;//always return false because the deletion callback will take care of reloading
-		}
-			
-		private bool PerformDeletion(CheckPointController controller, CheckPoint checkpoint)
-		{
-			var deleted = controller.CheckPointData.RemoveCheckPoint (checkpoint);
-			if(deleted)
-				controller.ReloadData ();
-			return deleted;
 		}
 	}
 }
