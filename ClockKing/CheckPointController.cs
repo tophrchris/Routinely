@@ -69,7 +69,7 @@ namespace ClockKing
 				this.Notifier.EnsureNotifications (this.CheckPointData);
 				this.ReloadData ();
 			}
-			return Delete;
+			return deleted;
 		}
 
 		public void ReloadData()

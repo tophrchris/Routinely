@@ -26,8 +26,10 @@ namespace ClockKing
 
 		public void EnsureNotifications(DataModel data)
 		{
-
 			var app = UIApplication.SharedApplication;
+
+			//app.CancelAllLocalNotifications ();
+
 			var scheduledNotifications = this.ScheduledNotifications;
 
 			var checkPoints = data.CheckPointPairs.Select (p => p.firstEvent);
@@ -53,11 +55,12 @@ namespace ClockKing
 								.Add(checkpoint.TargetTime)
 								.ToUniversalTime()
 								.ToNSDate(),
+				
 				AlertTitle=checkpoint.Name,
 				Category="AddObservation",
 				AlertBody=string.Format(formatString,
 					checkpoint.Name,
-					DateTime.Now.Day+checkpoint.averageObservedTime.ToString("t")),
+					(DateTime.Now.Date + checkpoint.averageObservedTime).ToString("t")),
 				RepeatInterval=NSCalendarUnit.Day
 				};
 					
@@ -72,7 +75,7 @@ namespace ClockKing
 			get{
 
 				var offsets = from i in new Dictionary<int,string> ()
-								{ { -15,"15 mins ago" }, { 0,"Just now!" }, { 15,"in 15 mins" } }
+								{ { -15,"a 15 mins ago" }, { 0,"Just now!" }, { 15,"in 15 mins" } }
 				               select new UIMutableUserNotificationAction ()
 								{
 									Identifier=string.Format("Add:{0}",i.Key),
