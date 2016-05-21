@@ -81,7 +81,7 @@ namespace ClockKing
 						parent.ReloadData();
 				});
 
-			this.actions = parent.commandManager.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
+			this.actions = parent.Commands.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
 		}
 
 		public override IUIPreviewActionItem[] PreviewActionItems 

@@ -66,7 +66,7 @@ namespace ClockKing
 					{Delegate = this.Controller.UtilityButtonHandler};
 
 			cell.RenderCheckpoint (checkpoint);
-			Controller.commandManager.AttachUtilityButtonsToCell (cell);
+			Controller.Commands.AttachUtilityButtonsToCell (cell);
 			return cell;
 		}
 			

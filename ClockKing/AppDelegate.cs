@@ -2,7 +2,6 @@
 using UIKit;
 using Xamarin.Themes;
 using Xamarin.Themes.Core;
-using Xamarin.Themes.TrackBeam;
 
 namespace ClockKing
 {
@@ -17,13 +16,21 @@ namespace ClockKing
 			get;
 			set;
 		}
-			
+		public CheckPointController Controller{ get; set; }
+		public CommandManager Commands{ get; set; }
+		public NotificationManager Notifications{ get; set; }	
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			//CashflowTheme.Apply ();
-			ThemeManager.Register<TrackBeamTheme> ().Apply ();
-			//FitpulseTheme.Apply ();
+			//ThemeManager.Register<TrackBeamTheme> ().Apply ();
+			FitpulseTheme.Apply ();
+
+
+			this.Commands = new CommandManager ();
+			this.Notifications = new NotificationManager (this.Commands);
+			this.Notifications.EnsureSettings (application);
+
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			return true;
@@ -58,6 +65,21 @@ namespace ClockKing
 		public override void WillTerminate (UIApplication application)
 		{
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
+		}
+
+		public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
+		{
+			try{
+			UIAlertController okayAlertController = UIAlertController.Create (notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
+			okayAlertController.AddAction (UIAlertAction.Create ("OK", UIAlertActionStyle.Default, null));
+				this.Window.RootViewController.PresentViewController (okayAlertController, true, null);
+			}catch{
+			}
+		}
+		public override void HandleAction (UIApplication application, string actionIdentifier, UILocalNotification localNotification, System.Action completionHandler)
+		{
+			//ReceivedLocalNotification (application, localNotification);
+			completionHandler ();
 		}
 	}
 }

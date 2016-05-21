@@ -6,15 +6,16 @@ using ClockKing.Model;
 using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Dialog;
+using ClockKing.Extensions;
 
 namespace ClockKing.Commands
 {
 	public class AddCheckPointCommand
 	{
-		protected UIViewController Controller{ get; set; }
+		protected CheckPointController Controller{ get; set; }
 		protected UIBarButtonItem BarButton{ get; set; }
 
-		public AddCheckPointCommand(UIViewController controller)
+		public AddCheckPointCommand(CheckPointController controller)
 		{
 			this.Controller = controller;
 			this.BarButton = new UIBarButtonItem ("+", UIBarButtonItemStyle.Bordered,(sender, args) => this.ShowAddCheckPointDialog());
@@ -43,8 +44,11 @@ namespace ClockKing.Commands
 					            targetElement.DateValue.ToLocalTime ().TimeOfDay,
 					            emojiElement.Value);
 
-				if (nowElement.Value)
-					newcp.AddOccurrence (newcp.CreateOccurrence ());
+				if (nowElement.Value){
+					var o = newcp.CreateOccurrence();
+					newcp.AddOccurrence (o);
+					this.Controller.CheckPointData.SaveOccurrence(o);
+				}
 
 				dialogCancellation ();
 			};
