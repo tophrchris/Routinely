@@ -2,6 +2,7 @@
 using ClockKing.Model;
 using UIKit;
 using Foundation;
+using System.Linq;
 
 namespace ClockKing
 {
@@ -36,6 +37,7 @@ namespace ClockKing
 
 	public class AddOccurrenceCommand:EnabledCheckpointCommand
 	{
+		public AddOccurrenceCommand(UIColor color,string label):base(color,label){}
 		public AddOccurrenceCommand():base(UIColor.Green,"Add")
 		{
 			this.Category = "Right";
@@ -44,15 +46,23 @@ namespace ClockKing
 
 		public override bool ExecuteFor (CheckPointController controller, CheckPoint checkPoint)
 		{
-			var o = checkPoint.CreateOccurrence ();
-			checkPoint.AddOccurrence (o);
-			controller.CheckPointData.SaveOccurrence (o);
+			var o = AddOccurrenceToCheckpoint (controller, checkPoint);
 			MsgBox ("added!", o.timeStamp.ToString ("t"));
 			return true;
 		}
+
+		protected Occurrence AddOccurrenceToCheckpoint(CheckPointController controller, CheckPoint checkPoint,int mins=0)
+		{
+			//move this further into controller
+			var o = checkPoint.CreateOccurrence(DateTime.Now.ToLocalTime().AddMinutes(mins));
+			checkPoint.AddOccurrence (o);
+			controller.CheckPointData.SaveOccurrence (o);
+			controller.RespondToModelChanges ();
+			return o;
+		}
 	}
 
-	public class AddHistoricOccurrenceCommand:EnabledCheckpointCommand
+	public class AddHistoricOccurrenceCommand:AddOccurrenceCommand
 	{
 		public AddHistoricOccurrenceCommand():base(UIColor.Orange,"Add...")
 		{
@@ -62,9 +72,27 @@ namespace ClockKing
 
 		public override bool ExecuteFor (CheckPointController controller, CheckPoint checkPoint)
 		{
-			var o = checkPoint.CreateOccurrence ();
-			checkPoint.AddOccurrence (o);
-			MsgBox ("added!", o.timeStamp.ToString ("t"));
+			
+			Action<int> adder = (n) =>{
+				AddOccurrenceToCheckpoint (controller, checkPoint, n);
+			};
+
+
+			var choices = new[]{ 15, 30, 60, 90 }.Select (i =>
+				UIAlertAction.Create (
+								string.Format ("{0} mins ago", i),
+				              	UIAlertActionStyle.Default,
+								a=>adder(i*-1)
+				              ));
+			var ac = UIAlertController.Create("Add",this.LongName,UIAlertControllerStyle.ActionSheet);
+
+			foreach (var a in choices)
+				ac.AddAction (a);
+
+			ac.AddAction (UIAlertAction.Create ("Custom...", UIAlertActionStyle.Default, (a)=>MsgBox("Custom Date","coming soon!")));
+			ac.AddAction (UIAlertAction.Create ("nevermind", UIAlertActionStyle.Cancel, null));
+
+			controller.PresentViewController (ac, true, null);
 			return true;
 		}
 	}

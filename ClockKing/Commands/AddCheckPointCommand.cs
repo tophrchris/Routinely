@@ -25,44 +25,10 @@ namespace ClockKing.Commands
 
 		protected void ShowAddCheckPointDialog()
 		{
-			var root = new RootElement("Add...");
-			var section = new Section ("New Checkpoint:");
-			var nameElement = new EntryElement ("name", "Name your checkpoint", "");
-			var instructions = new MultilineElement ("specify the time that you expect to complete this checkpoint, each day:");
-			var emojiElement = new EntryElement ("Emoji", "specify some emoji :P","");
-			var targetElement = new TimeElement ("target", DateTime.Now);
-			var nowElement = new BooleanElement ("Add Occurrence now?", false);
 
-			Action dialogCancellation = () => this.Controller.NavigationController.PopViewController (true);
-
-			Action saveAction = () => { 
-				var checkPointController = this.Controller as CheckPointController;
-
-				var newcp = checkPointController
-					.AddNewCheckPoint (
-					            nameElement.Value,
-					            targetElement.DateValue.ToLocalTime ().TimeOfDay,
-					            emojiElement.Value);
-
-				if (nowElement.Value){
-					var o = newcp.CreateOccurrence();
-					newcp.AddOccurrence (o);
-					this.Controller.CheckPointData.SaveOccurrence(o);
-				}
-				this.Controller.Notifier.EnsureNotifications(this.Controller.CheckPointData);
-				dialogCancellation ();
-			};
-
-			section.AddAll (new Element[]{ 	nameElement,
-											instructions,
-											emojiElement,
-											targetElement,
-											nowElement });
-			root.Add(section);
-
-			var mtd = new DialogViewController (root,true);
+			var root = new RootElement ("Add...");
+			var mtd = new AddNewCheckpointDialog (this.Controller, root,true);
 			this.Controller.NavigationController.PushViewController (mtd,true);
-			mtd.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>saveAction()),true);
 		}
 	}
 }

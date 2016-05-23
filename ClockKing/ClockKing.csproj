@@ -151,6 +151,8 @@
     <Compile Include="Commands\CheckPointCommands.cs" />
     <Compile Include="CheckPointTableCell.cs" />
     <Compile Include="Commands\NotificationManager.cs" />
+    <Compile Include="Dialogs\AddNewCheckpointDialog.cs" />
+    <Compile Include="Dialogs\AddHistoricInstanceDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -168,6 +170,7 @@
     <Folder Include="ViewModel\" />
     <Folder Include="Commands\" />
     <Folder Include="Settings\" />
+    <Folder Include="Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="swtableviewcell">

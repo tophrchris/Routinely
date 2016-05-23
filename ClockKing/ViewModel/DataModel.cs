@@ -11,12 +11,14 @@ namespace ClockKing
 	{
 		private Dictionary<string,CheckPoint> checkPoints;
 
-		public DataModel ()
+		public DataModel (bool loadOccurrences = true)
 		{
 			this.checkPoints = LoadCheckPoints();
-			LoadOccurrences ();
+			if(loadOccurrences)
+				LoadOccurrences ();
 
 		}
+
 		public IEnumerable<CheckPointPair> CheckPointPairs { 
 			get 
 			{

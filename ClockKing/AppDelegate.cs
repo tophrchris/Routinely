@@ -2,7 +2,8 @@
 using UIKit;
 using Xamarin.Themes;
 using Xamarin.Themes.Core;
-
+using System.Linq;
+using System;
 namespace ClockKing
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the
@@ -16,6 +17,9 @@ namespace ClockKing
 			get;
 			set;
 		}
+			
+		public bool RequiresDataRefresh { get; set; }
+
 		public CheckPointController Controller{ get; set; }
 		public CommandManager Commands{ get; set; }
 		public NotificationManager Notifications{ get; set; }	
@@ -25,12 +29,11 @@ namespace ClockKing
 			//CashflowTheme.Apply ();
 			//ThemeManager.Register<TrackBeamTheme> ().Apply ();
 			FitpulseTheme.Apply ();
-
-
+ 
 			this.Commands = new CommandManager ();
 			this.Notifications = new NotificationManager (this.Commands);
 			this.Notifications.EnsureSettings (application);
-
+			this.RequiresDataRefresh = true;
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 			return true;
@@ -58,6 +61,9 @@ namespace ClockKing
 
 		public override void OnActivated (UIApplication application)
 		{
+			if (this.Controller!=null) 
+				this.Controller.ConditionallyRefreshData ();
+
 			// Restart any tasks that were paused (or not yet started) while the application was inactive. 
 			// If the application was previously in the background, optionally refresh the user interface.
 		}
@@ -78,8 +84,15 @@ namespace ClockKing
 		}
 		public override void HandleAction (UIApplication application, string actionIdentifier, UILocalNotification localNotification, System.Action completionHandler)
 		{
-			//ReceivedLocalNotification (application, localNotification);
+			var data = new DataModel (false);
+			var found = data.CheckPointPairs.Select (cpp => cpp.firstEvent).FirstOrDefault (c => c.Name == localNotification.AlertTitle);
+			var actionBits = actionIdentifier.Split(':');
+			var mins = int.Parse(actionBits [1]);
+			var occ = found.CreateOccurrence (DateTime.Now.AddMinutes (mins));
+			data.SaveOccurrence (occ);
+			this.RequiresDataRefresh = true;
 			completionHandler ();
+
 		}
 	}
 }

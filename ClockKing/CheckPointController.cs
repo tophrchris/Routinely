@@ -15,38 +15,50 @@ namespace ClockKing
 	
 	public partial class CheckPointController : UITableViewController,IUIViewControllerPreviewingDelegate
 	{
-		public DataModel CheckPointData{ get; }
+		public DataModel CheckPointData{ get; set;}
 		public CommandManager Commands{ get; }
 		public CheckpointCommandDelegate UtilityButtonHandler{ get; set; }
 		public CheckpointDetailCommand Detail{ get; set; }
 		public AddCheckPointCommand AddCommand{ get; set; }
 		public NotificationManager Notifier{ get; set; }
 		private CheckPointDataSource Data{ get;  set; }
+		private AppDelegate appDelegate{ get; set; }
 
 		public CheckPointController (NSObjectFlag t):base(t){}
 
 		public CheckPointController (IntPtr handle) : base (handle)
 		{
-			var appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
-			this.CheckPointData = new DataModel ();
-			this.Commands = appDelegate.Commands;
+			this.appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
+			this.appDelegate.Controller = this;
 			this.Notifier = appDelegate.Notifications;
+
+			ConditionallyRefreshData ();
+
+			this.Commands = appDelegate.Commands;
+
 			this.UtilityButtonHandler = new CheckpointCommandDelegate (this);
 			this.AddCommand = new AddCheckPointCommand (this);
 			this.Detail = new CheckpointDetailCommand (this);
+			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.Button, true);
+			this.Data = new CheckPointDataSource (this);
 
-			this.Notifier.EnsureNotifications (this.CheckPointData);
 		}
 			
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			this.Data = new CheckPointDataSource (this);
 			this.TableView.Source = this.Data;
-			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.Button, true);
+			Console.WriteLine ("vdl");
+		}
+
+		public override void ViewDidAppear (bool animated)
+		{			
+			base.ViewDidAppear (animated);
+			this.ConditionallyRefreshData ();
+			Console.WriteLine ("vda");
 		}
 			
-
+			
 
 
 		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji)
@@ -71,10 +83,27 @@ namespace ClockKing
 			return deleted;
 		}
 
+
+
+		public bool ConditionallyRefreshData()
+		{
+			if (appDelegate.RequiresDataRefresh) 
+			{
+				this.CheckPointData = new DataModel ();
+				appDelegate.RequiresDataRefresh = false;
+				Console.WriteLine ("crd");
+				this.RespondToModelChanges ();
+				return true;
+			}
+			return false;
+		}
+
 		public void RespondToModelChanges()
 		{
-			this.TableView.ReloadData ();
+			if(this.IsViewLoaded)
+				this.TableView.ReloadData ();
 			this.Notifier.EnsureNotifications (this.CheckPointData);
+			Console.WriteLine ("rmc");
 		}
 
 
