@@ -55,7 +55,7 @@ namespace ClockKing
 								.Add(checkpoint.TargetTime)
 								.ToUniversalTime()
 								.ToNSDate(),
-				
+				SoundName=UILocalNotification.DefaultSoundName,
 				AlertTitle=checkpoint.Name,
 				Category="AddObservation",
 				AlertBody=string.Format(formatString,
@@ -75,7 +75,7 @@ namespace ClockKing
 			get{
 
 				var offsets = from i in new Dictionary<int,string> ()
-								{ { -15,"a 15 mins ago" }, { 0,"Just now!" }, { 15,"in 15 mins" } }
+								{ { -15,"15 mins ago" }, { 0,"Just now!" }, { 15,"in 15 mins" } }
 				               select new UIMutableUserNotificationAction ()
 								{
 									Identifier=string.Format("Add:{0}",i.Key),
@@ -90,7 +90,7 @@ namespace ClockKing
 
 				var addObservationCategory = new UIMutableUserNotificationCategory();
 				addObservationCategory.Identifier="AddObservation";
-				addObservationCategory.SetActions(offsets.ToArray(),UIUserNotificationActionContext.Default);
+				addObservationCategory.SetActions(offsets.ToList().ToArray(),UIUserNotificationActionContext.Default);
 
 				return new[]{ addObservationCategory };
 			}

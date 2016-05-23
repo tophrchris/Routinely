@@ -55,8 +55,9 @@ namespace ClockKing
 				emoji = title.Substring (0, 2);
 			
 			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji);
-			this.Notifier.EnsureNotifications (this.CheckPointData);
-			this.ReloadData ();
+			if(created!=null)
+				this.RespondToModelChanges ();
+			
 			return created;
 		}
 
@@ -65,16 +66,15 @@ namespace ClockKing
 			var deleted =  this.CheckPointData.RemoveCheckPoint (toDelete);
 
 			if (deleted) 
-			{
-				this.Notifier.EnsureNotifications (this.CheckPointData);
-				this.ReloadData ();
-			}
+				this.RespondToModelChanges ();
+			
 			return deleted;
 		}
 
-		public void ReloadData()
+		public void RespondToModelChanges()
 		{
 			this.TableView.ReloadData ();
+			this.Notifier.EnsureNotifications (this.CheckPointData);
 		}
 
 

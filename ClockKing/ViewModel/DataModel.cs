@@ -172,7 +172,8 @@ namespace ClockKing
 			var ordered = checkPoints
 				.Where(cp=>cp.Value.Enabled)
 				.Select (kv => kv.Value)
-				.OrderBy (cp => cp.averageObservedTime)
+				.OrderBy (cp => cp.TargetTime)
+				.ThenBy(cp=>cp.averageObservedTime)
 				.Select ((c, i) => new{index = i,checkpoint = c});
 			if (ordered.Any ()) {
 				var first = ordered.First ();

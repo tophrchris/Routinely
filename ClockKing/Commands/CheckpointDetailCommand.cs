@@ -78,7 +78,7 @@ namespace ClockKing
 			var executor = new Action<Command>((ub)=>
 				{
 					if(ub.ExecuteFor(parent,toDetail))
-						parent.ReloadData();
+						parent.RespondToModelChanges();
 				});
 
 			this.actions = parent.Commands.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
