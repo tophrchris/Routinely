@@ -53,12 +53,7 @@ namespace ClockKing
 
 		protected Occurrence AddOccurrenceToCheckpoint(CheckPointController controller, CheckPoint checkPoint,int mins=0)
 		{
-			//move this further into controller
-			var o = checkPoint.CreateOccurrence(DateTime.Now.ToLocalTime().AddMinutes(mins));
-			checkPoint.AddOccurrence (o);
-			controller.CheckPointData.SaveOccurrence (o);
-			controller.RespondToModelChanges ();
-			return o;
+			return controller.AddOccurrenceToCheckPoint (checkPoint, mins);
 		}
 	}
 
@@ -73,27 +68,33 @@ namespace ClockKing
 		public override bool ExecuteFor (CheckPointController controller, CheckPoint checkPoint)
 		{
 			
-			Action<int> adder = (n) =>{
-				AddOccurrenceToCheckpoint (controller, checkPoint, n);
-			};
-
-
-			var choices = new[]{ 15, 30, 60, 90 }.Select (i =>
-				UIAlertAction.Create (
-								string.Format ("{0} mins ago", i),
-				              	UIAlertActionStyle.Default,
-								a=>adder(i*-1)
-				              ));
-			var ac = UIAlertController.Create("Add",this.LongName,UIAlertControllerStyle.ActionSheet);
-
-			foreach (var a in choices)
-				ac.AddAction (a);
+			var ac = CreateActionSheet (controller, checkPoint);
 
 			ac.AddAction (UIAlertAction.Create ("Custom...", UIAlertActionStyle.Default, (a)=>MsgBox("Custom Date","coming soon!")));
 			ac.AddAction (UIAlertAction.Create ("nevermind", UIAlertActionStyle.Cancel, null));
 
 			controller.PresentViewController (ac, true, null);
+
 			return true;
+		}
+		public UIAlertController CreateActionSheet(CheckPointController controller,CheckPoint checkPoint)
+		{
+			Action<int> adder = (n) =>{
+				AddOccurrenceToCheckpoint (controller, checkPoint, n);
+			};
+
+			var choices = new[]{ 15, 30, 60, 90 }.Select (i =>
+				UIAlertAction.Create (
+					string.Format ("{0} mins ago", i),
+					UIAlertActionStyle.Default,
+					a=>adder(i*-1)
+				));
+			var ac = UIAlertController.Create("Add",this.LongName,UIAlertControllerStyle.ActionSheet);
+
+			foreach (var a in choices)
+				ac.AddAction (a);
+
+			return ac;
 		}
 	}
 
@@ -113,7 +114,7 @@ namespace ClockKing
 
 			var okAction = UIAlertAction.Create (
 				"yes, delete!",
-				UIAlertActionStyle.Default, 
+				UIAlertActionStyle.Destructive, 
 				(alert)=>controller.RemoveCheckpoint(checkPoint));
 			
 			okCancelAlertController.AddAction(okAction);

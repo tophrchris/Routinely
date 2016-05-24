@@ -9,12 +9,6 @@ namespace ClockKing
 {
 	public class NotificationManager
 	{
-		private CommandManager commandManager{ get; set;}
-		public NotificationManager (CommandManager commandMgr)
-		{
-			this.commandManager = commandMgr;
-		}
-
 		public UILocalNotification[] ScheduledNotifications 
 		{
 			get
@@ -22,13 +16,13 @@ namespace ClockKing
 				return UIApplication.SharedApplication.ScheduledLocalNotifications;
 			}
 		}
-
-
-		public void EnsureNotifications(DataModel data)
+			
+		public void EnsureNotifications(DataModel data,bool resetExisting=false)
 		{
 			var app = UIApplication.SharedApplication;
 
-			//app.CancelAllLocalNotifications ();
+			if(resetExisting)
+				app.CancelAllLocalNotifications ();
 
 			var scheduledNotifications = this.ScheduledNotifications;
 
@@ -75,22 +69,29 @@ namespace ClockKing
 			get{
 
 				var offsets = from i in new Dictionary<int,string> ()
-								{ { -15,"15 mins ago" }, { 0,"Just now!" }, { 15,"in 15 mins" } }
+								{ 
+									{ 10,"Snooze" },
+									{0,"Just now!"},
+									{ -15,"about {0} mins ago" }, 
+									{ -30,"about {0} mins ago" }
+								}
 				               select new UIMutableUserNotificationAction ()
 								{
 									Identifier=string.Format("Add:{0}",i.Key),
-									Title=i.Value,
+									Title=string.Format(i.Value,Math.Abs((double)i.Key)),
 									ActivationMode=UIUserNotificationActivationMode.Background,
 									AuthenticationRequired=false,
-									Destructive=false,
-									
+									Destructive=i.Value=="Snooze",
 									Behavior=UIUserNotificationActionBehavior.Default
 								};
-						
+
+				var actions = offsets.ToArray ();
+				var minimalActions = actions.Where (a => !a.Title.Contains ("about")).ToArray ();
 
 				var addObservationCategory = new UIMutableUserNotificationCategory();
 				addObservationCategory.Identifier="AddObservation";
-				addObservationCategory.SetActions(offsets.ToList().ToArray(),UIUserNotificationActionContext.Default);
+				addObservationCategory.SetActions(minimalActions,UIUserNotificationActionContext.Minimal);
+				addObservationCategory.SetActions(actions,UIUserNotificationActionContext.Default);
 
 				return new[]{ addObservationCategory };
 			}

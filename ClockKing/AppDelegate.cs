@@ -4,6 +4,8 @@ using Xamarin.Themes;
 using Xamarin.Themes.Core;
 using System.Linq;
 using System;
+using ClockKing.Extensions;
+
 namespace ClockKing
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the
@@ -31,7 +33,7 @@ namespace ClockKing
 			FitpulseTheme.Apply ();
  
 			this.Commands = new CommandManager ();
-			this.Notifications = new NotificationManager (this.Commands);
+			this.Notifications = new NotificationManager ();
 			this.Notifications.EnsureSettings (application);
 			this.RequiresDataRefresh = true;
 			// Override point for customization after application launch.
@@ -76,21 +78,44 @@ namespace ClockKing
 		public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
 		{
 			try{
-			UIAlertController okayAlertController = UIAlertController.Create (notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
-			okayAlertController.AddAction (UIAlertAction.Create ("OK", UIAlertActionStyle.Default, null));
-				this.Window.RootViewController.PresentViewController (okayAlertController, true, null);
+				
+				var opts = UIAlertController.Create(notification.AlertTitle,notification.AlertBody,UIAlertControllerStyle.ActionSheet);
+
+				opts.AddAction(UIAlertAction.Create("Done!",UIAlertActionStyle.Default,
+					(a)=>this.Controller.AddOccurrenceToCheckPoint(notification.AlertTitle,0)));
+
+				opts.AddAction(UIAlertAction.Create("Snooze",UIAlertActionStyle.Default,
+					(a)=>{
+						notification.FireDate=DateTime.Now.AddMinutes(10).ToUniversalTime().ToNSDate();
+						application.ScheduleLocalNotification(notification);
+					}));
+
+				opts.AddAction(UIAlertAction.Create("Cancel",UIAlertActionStyle.Cancel,null));
+
+				this.Window.RootViewController.PresentViewController (opts, true, null);
 			}catch{
 			}
+
 		}
+
+		/// <summary>
+		/// TODO: move this implementation *somewhere*;  either commands or controller?
+		/// </summary>
 		public override void HandleAction (UIApplication application, string actionIdentifier, UILocalNotification localNotification, System.Action completionHandler)
 		{
 			var data = new DataModel (false);
 			var found = data.CheckPointPairs.Select (cpp => cpp.firstEvent).FirstOrDefault (c => c.Name == localNotification.AlertTitle);
 			var actionBits = actionIdentifier.Split(':');
-			var mins = int.Parse(actionBits [1]);
-			var occ = found.CreateOccurrence (DateTime.Now.AddMinutes (mins));
-			data.SaveOccurrence (occ);
-			this.RequiresDataRefresh = true;
+			var mins = int.Parse (actionBits [1]);	
+			if (mins > 0) {
+				localNotification.FireDate = DateTime.Now.AddMinutes (mins).ToUniversalTime ().ToNSDate ();
+				application.ScheduleLocalNotification (localNotification);
+
+			} else {
+				var occ = found.CreateOccurrence (DateTime.Now.AddMinutes (mins));
+				data.SaveOccurrence (occ);
+				this.RequiresDataRefresh = true;
+			}
 			completionHandler ();
 
 		}

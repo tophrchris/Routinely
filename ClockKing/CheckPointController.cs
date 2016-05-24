@@ -48,14 +48,12 @@ namespace ClockKing
 		{
 			base.ViewDidLoad ();
 			this.TableView.Source = this.Data;
-			Console.WriteLine ("vdl");
 		}
 
 		public override void ViewDidAppear (bool animated)
 		{			
 			base.ViewDidAppear (animated);
 			this.ConditionallyRefreshData ();
-			Console.WriteLine ("vda");
 		}
 			
 			
@@ -83,6 +81,26 @@ namespace ClockKing
 			return deleted;
 		}
 
+		public Occurrence AddOccurrenceToCheckPoint(string checkPointName, int mins)
+		{
+			var found = this.CheckPointData
+							.CheckPointPairs
+							.Select (cpp => cpp.firstEvent)
+				.FirstOrDefault (cp => cp.Name == checkPointName);
+			return this.AddOccurrenceToCheckPoint (found, mins);
+
+
+		}
+
+		public Occurrence AddOccurrenceToCheckPoint(CheckPoint checkPoint,int mins)
+		{
+			var o = checkPoint.CreateOccurrence(DateTime.Now.ToLocalTime().AddMinutes(mins));
+			checkPoint.AddOccurrence (o);
+			this.CheckPointData.SaveOccurrence (o);
+			this.RespondToModelChanges ();
+			return o;
+		}
+
 
 
 		public bool ConditionallyRefreshData()
@@ -91,7 +109,6 @@ namespace ClockKing
 			{
 				this.CheckPointData = new DataModel ();
 				appDelegate.RequiresDataRefresh = false;
-				Console.WriteLine ("crd");
 				this.RespondToModelChanges ();
 				return true;
 			}
@@ -103,7 +120,6 @@ namespace ClockKing
 			if(this.IsViewLoaded)
 				this.TableView.ReloadData ();
 			this.Notifier.EnsureNotifications (this.CheckPointData);
-			Console.WriteLine ("rmc");
 		}
 
 
