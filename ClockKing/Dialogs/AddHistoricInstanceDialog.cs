@@ -1,49 +1,72 @@
 ﻿using System;
 using UIKit;
+using MonoTouch.Dialog;
+using ClockKing.Model;
+using ClockKing.Extensions;
 
 namespace ClockKing
 {
-	public class AddHistoricInstanceDialog:UIViewController
+	public class AddHistoricInstanceDialog:DialogViewController
 	{
-		public AddHistoricInstanceDialog ()
+		public CheckPointController Controller;
+		private CheckPoint checkPoint;
+
+		private UIDatePicker picker { get; set; }
+		private BooleanElement nowSwitch{ get; set; }
+
+
+		public AddHistoricInstanceDialog (
+			CheckPointController controller, 
+			RootElement root, 
+			CheckPoint checkpoint, 
+			bool pushing
+		) : base (root, pushing)
 		{
-			
+			this.Controller = controller;
+			this.checkPoint = checkpoint;
+
+			this.picker = new UIDatePicker (){ Mode = UIDatePickerMode.DateAndTime };
+			this.picker.MaximumDate = DateTime.UtcNow.ToNSDate();
+
+			var pickerElement = new UIViewElement (string.Empty, this.picker, false);
+			this.nowSwitch = new BooleanElement ("default to current time:", true);
+
+			picker.ValueChanged += (s, e) => nowSwitch.Value=false;
+
+			nowSwitch.ValueChanged += (s, e) => {
+				if (nowSwitch.Value)
+					this.picker.Date = DateTime.UtcNow.ToNSDate ();
+			};
+
+
+			this.Root.Add (new Section ("checkpoint info")
+				{
+					new StringElement("Name",checkpoint.Name),
+					new StringElement("Target Time",
+						(DateTime.Today.Date+checkpoint.TargetTime).ToString("t")),
+					new StringElement("Last Occurrence",checkpoint.SinceLastOccurrence.ToString("g"))
+				}
+			);
+			this.Root.Add (new Section ("occurrence")
+				{
+					new MultilineElement("specify the time of the occurrence:"),
+					pickerElement,
+					nowSwitch});
+
+
+			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>this.Save()),true);
+
 		}
 
-		public override void ViewDidLoad ()
+		public bool Save()
 		{
-			base.ViewDidLoad ();
+			this.Controller.AddOccurrenceToCheckPoint (this.checkPoint,
+				this.picker.Date.ToDateTime ().ToLocalTime ());
 
-
-
-			var Rows = new UIStackView ();
-			Rows.Axis = UILayoutConstraintAxis.Vertical;
-			Rows.Alignment = UIStackViewAlignment.Center;
-			Rows.Distribution = UIStackViewDistribution.EqualSpacing;
-			Rows.Spacing = 30;
-
-			var label = new UITextField ();
-			label.Text = "o hai!";
-			var picker = new UIDatePicker (){ Mode = UIDatePickerMode.DateAndTime };
-
-
-			Rows.Frame = View.Bounds;
-
-
-
-			Rows.AddArrangedSubview (label);
-			Rows.AddArrangedSubview (picker);
-
-			View.AddSubview (Rows);
-			Rows.LayoutIfNeeded ();
-
-
-
-
-			//UIView.Animate (.25, () => Rows.LayoutIfNeeded ());
-
-
+			this.Controller.NavigationController.PopViewController (true);
+			return true;
 		}
+
 
 	}
 }

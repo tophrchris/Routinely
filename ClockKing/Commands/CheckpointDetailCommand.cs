@@ -11,9 +11,9 @@ namespace ClockKing
 	public class CheckpointDetailCommand
 	{
 
-		protected UIViewController Controller{ get; set;}
+		protected CheckPointController Controller{ get; set;}
 
-		public CheckpointDetailCommand (UIViewController controller)
+		public CheckpointDetailCommand (CheckPointController controller)
 		{
 			this.Controller = controller;
 
@@ -25,25 +25,29 @@ namespace ClockKing
 			var distinctTimes = checkpoint.Occurrences.Select (o => o.Time).Distinct();
 
 			var root = new RootElement (string.Format ("details for {0}", checkpoint.Name));
-			var timingSection = new Section ("occurences");
+			var timingSection = new Section ("Stats:");
 			root.Add (timingSection);
 
 			timingSection.Add (new StringElement ("count", checkpoint.Occurrences.Count().ToString()));
 			timingSection.Add (new StringElement("average", (DateTime.Now.Date+ checkpoint.averageObservedTime).ToString("t")));
+			timingSection.Add (new StringElement("next",checkpoint.UntilNextTargetTime.ToString("t")));
 
 			if (checkpoint.Occurrences.Any ()) {
 				timingSection.Add (new StringElement ("stdev", checkpoint.Occurrences.Average (o => checkpoint.averageObservedTime.Minutes - o.Time.Minutes).ToString ()));
-				timingSection.Add (new StringElement ("earliest", distinctTimes.OrderBy (o => o.TotalMinutes).First ().ToString ()));
-				timingSection.Add (new StringElement ("latest", distinctTimes.OrderByDescending (o => o.TotalMinutes).First ().ToString ()));
+				timingSection.Add (new StringElement ("earliest", distinctTimes.OrderBy (o => o.TotalMinutes).First ().ToString ("t")));
+				timingSection.Add (new StringElement ("latest", distinctTimes.OrderByDescending (o => o.TotalMinutes).First ().ToString ("t")));
+				timingSection.Add (new StringElement ("since latest",checkpoint.SinceLastOccurrence.ToString("t")));
 
-				var ds = new Section ("details");
-				var detailRoot = new RootElement ("details");
-				var detailsSection = new Section ();
-				ds.Add (root);
+
+
+				var detailRoot = new RootElement ("details root");
+				var detailsSection = new Section("Occurrence History:");
 				detailRoot.Add (detailsSection);
 				detailsSection.AddAll (
-					checkpoint.Occurrences.Select (o => new StringElement (o.timeStamp.Date.ToString (), o.Time.ToString ())));
-
+					checkpoint
+					.Occurrences
+					.OrderByDescending(o=>o.timeStamp)
+					.Select (o => new StringElement (o.timeStamp.ToString ("d"), o.timeStamp.ToString ("t"))));
 				root.Add (detailRoot);
 			}
 

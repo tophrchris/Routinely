@@ -2,6 +2,8 @@
 using MonoTouch.Dialog;
 using Foundation;
 using UIKit;
+using ClockKing.Extensions;
+using System.Linq;
 
 namespace ClockKing
 {
@@ -13,30 +15,43 @@ namespace ClockKing
 		private TimeElement targetElement { get; set; }
 		private EntryElement emojiElement { get; set; }
 		private BooleanElement nowElement { get; set; }
+		private UIDatePicker picker { get; set; }
+		private BooleanElement nowSwitch{ get; set; }
 
 		public AddNewCheckpointDialog (CheckPointController controller, RootElement root, bool pushing) : base (root, pushing)
 		{
 			this.Controller = controller;
+			this.Style = UITableViewStyle.Grouped;
 
-
-			var section = new Section ("New Checkpoint:");
-			this.nameElement = new EntryElement ("name", "Name your checkpoint", "");
-			var instructions = new MultilineElement ("specify the time that you expect to complete this checkpoint, each day:");
-			this.emojiElement = new EntryElement ("Emoji", "specify some emoji :P","");
-			this.targetElement = new TimeElement ("target", DateTime.Now);
+			this.nameElement = new EntryElement ("Name", "Name your checkpoint", "");
+			this.emojiElement = new EntryElement ("Abbreviation", "a short (2-letter) name","");
 			this.nowElement = new BooleanElement ("Add Occurrence now?", false);
+			this.picker = new UIDatePicker (){ Mode = UIDatePickerMode.Time };
+			this.nowSwitch = new BooleanElement ("default to current time:", true);
 
-			section.AddAll (new Element[]{ 	
-				nameElement,
-				instructions,
-				emojiElement,
-				targetElement,
-				nowElement });
-			
-			this.Root.Add(section);
+			var instructions = new MultilineElement ("What time do you expect to complete this checkpoint, each day?");
+			var pickerWrapper = new UIViewElement (string.Empty, picker, false);
 
+
+
+			picker.ValueChanged += (s, e) => nowSwitch.Value=false;
+
+			nowSwitch.ValueChanged += (s, e) => {
+				if (nowSwitch.Value)
+					this.picker.Date = DateTime.UtcNow.ToNSDate ();
+			};
+
+			this.Root.Add(new Section ("New Checkpoint:")
+				{ 	
+					nameElement,
+					emojiElement,
+					instructions,
+					pickerWrapper,
+					nowSwitch,
+					nowElement 
+				});
+					
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>this.Save()),true);
-
 		}
 
 		public bool Save(){
@@ -44,7 +59,7 @@ namespace ClockKing
 			var newcp = this.Controller
 					.AddNewCheckPoint (
 						nameElement.Value,
-						targetElement.DateValue.ToLocalTime ().TimeOfDay,
+					picker.Date.ToDateTime().ToLocalTime().TimeOfDay,
 						emojiElement.Value);
 
 				if (nowElement.Value){

@@ -11,7 +11,7 @@ namespace ClockKing.Extensions
 		/// <remarks>
 		/// It also has calls for NIX reference point 1970 but appears to be problematic
 		/// </remarks>
-		private static DateTime nsRef = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Local); // last zero is milliseconds
+		private static DateTime nsRef = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc); // last zero is milliseconds
 
 		#endregion
 
