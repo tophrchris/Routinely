@@ -5,6 +5,7 @@ using ClockKing.Model;
 using MonoTouch.Dialog;
 using System.Linq;
 using System.Collections.Generic;
+using Humanizer;
 
 namespace ClockKing
 {
@@ -28,15 +29,21 @@ namespace ClockKing
 			var timingSection = new Section ("Stats:");
 			root.Add (timingSection);
 
-			timingSection.Add (new StringElement ("count", checkpoint.Occurrences.Count().ToString()));
-			timingSection.Add (new StringElement("average", (DateTime.Now.Date+ checkpoint.averageObservedTime).ToString("t")));
-			timingSection.Add (new StringElement("next",checkpoint.UntilNextTargetTime.ToString("t")));
+			timingSection.Add (new StringElement ("count",
+				checkpoint.Occurrences.Count().ToString()));
+			timingSection.Add (new StringElement("average", 
+				(DateTime.Now.Date+ checkpoint.averageObservedTime).ToString("t")));
+			timingSection.Add (new StringElement("next",
+				"in " + checkpoint.UntilNextTargetTime.Humanize(2)));
 
 			if (checkpoint.Occurrences.Any ()) {
-				timingSection.Add (new StringElement ("stdev", checkpoint.Occurrences.Average (o => checkpoint.averageObservedTime.Minutes - o.Time.Minutes).ToString ()));
-				timingSection.Add (new StringElement ("earliest", distinctTimes.OrderBy (o => o.TotalMinutes).First ().ToString ("t")));
-				timingSection.Add (new StringElement ("latest", distinctTimes.OrderByDescending (o => o.TotalMinutes).First ().ToString ("t")));
-				timingSection.Add (new StringElement ("since latest",checkpoint.SinceLastOccurrence.ToString("t")));
+				//timingSection.Add (new StringElement ("stdev", checkpoint.Occurrences.Average (o => checkpoint.averageObservedTime.Minutes - o.Time.Minutes).ToString ()));
+				timingSection.Add (new StringElement ("earliest",
+					(DateTime.Today+ distinctTimes.OrderBy (o => o.TotalMinutes).First ()).ToString ("t")));
+				timingSection.Add (new StringElement ("latest",
+					(DateTime.Today+ distinctTimes.OrderByDescending (o => o.TotalMinutes).First ()).ToString ("t")));
+				timingSection.Add (new StringElement ("since most recent",
+					checkpoint.SinceLastOccurrence.Humanize(1)+" ago"));
 
 
 

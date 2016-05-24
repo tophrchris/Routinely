@@ -69,7 +69,7 @@ namespace ClockKing
 		{
 			
 			var ac = CreateActionSheet (controller, checkPoint);
-			var custom = new AddHistoricInstanceDialog(controller,new MonoTouch.Dialog.RootElement("root"),checkPoint,true);
+			var custom = new AddHistoricInstanceDialog(controller,new MonoTouch.Dialog.RootElement("Add Occurrence"),checkPoint,true);
 
 			ac.AddAction (UIAlertAction.Create ("Custom...", UIAlertActionStyle.Default,
 				(a)=>controller.NavigationController.PushViewController(custom,true)));

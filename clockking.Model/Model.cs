@@ -44,6 +44,37 @@ namespace ClockKing.Model
 				return TimeSpan.FromMinutes (avgminutes);
 			}
 		}
+		public DateTime MostRecentOccurrenceTimeStamp(DateTime ifNone)
+		{
+				return this.occurrences
+				.OrderByDescending (o => o.timeStamp)
+				.Select (o => o.timeStamp)
+					.DefaultIfEmpty (ifNone)
+				.FirstOrDefault ();
+		}
+
+		public TimeSpan SinceLastOccurrence
+		{
+			get{
+				var now = DateTime.Now;
+				var mostRecent = this.MostRecentOccurrenceTimeStamp(now);
+				return now - mostRecent;
+			}
+		}
+
+		public TimeSpan UntilNextTargetTime
+		{
+			get
+			{
+				var now = DateTime.Now;
+				var adjustment = this.TargetTime > now.TimeOfDay ? 0 : 1;
+				var next = DateTime.Today.AddDays (adjustment) + TargetTime;
+				return next - now;
+
+			}
+		}
+
+
 		public override string ToString ()
 		{
 			return string.Format ("{3}{0}: target={1}, avg={2}", 

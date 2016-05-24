@@ -15,7 +15,7 @@ namespace ClockKing
 		public CommandManager()
 		{
 			var cmds = CreateCommands ();
-			Commands = cmds.ToDictionary (u => u.Title);
+			Commands = cmds.ToDictionary (u => u.Name);
 		}
 
 		private List<Command> CreateCommands(){

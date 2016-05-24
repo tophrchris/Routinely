@@ -3,6 +3,7 @@ using UIKit;
 using MonoTouch.Dialog;
 using ClockKing.Model;
 using ClockKing.Extensions;
+using Humanizer;
 
 namespace ClockKing
 {
@@ -29,7 +30,11 @@ namespace ClockKing
 			this.picker.MaximumDate = DateTime.UtcNow.ToNSDate();
 
 			var pickerElement = new UIViewElement (string.Empty, this.picker, false);
-			this.nowSwitch = new BooleanElement ("default to current time:", true);
+
+			this.picker.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+
+			this.nowSwitch = new BooleanElement ("Reset to current time:", true);
+
 
 			picker.ValueChanged += (s, e) => nowSwitch.Value=false;
 
@@ -44,18 +49,17 @@ namespace ClockKing
 					new StringElement("Name",checkpoint.Name),
 					new StringElement("Target Time",
 						(DateTime.Today.Date+checkpoint.TargetTime).ToString("t")),
-					new StringElement("Last Occurrence",checkpoint.SinceLastOccurrence.ToString("g"))
+					new StringElement("Last Occurrence",checkpoint.SinceLastOccurrence.Humanize(1) +" ago.")
 				}
 			);
-			this.Root.Add (new Section ("occurrence")
+			this.Root.Add (new Section ("Occurrence")
 				{
-					new MultilineElement("specify the time of the occurrence:"),
+					new MultilineElement("Specify the time of the occurrence:"),
 					pickerElement,
 					nowSwitch});
 
 
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>this.Save()),true);
-
 		}
 
 		public bool Save()
@@ -66,8 +70,6 @@ namespace ClockKing
 			this.Controller.NavigationController.PopViewController (true);
 			return true;
 		}
-
-
 	}
 }
 

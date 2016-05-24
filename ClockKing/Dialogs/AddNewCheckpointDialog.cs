@@ -62,11 +62,9 @@ namespace ClockKing
 					picker.Date.ToDateTime().ToLocalTime().TimeOfDay,
 						emojiElement.Value);
 
-				if (nowElement.Value){
-					var o = newcp.CreateOccurrence();
-					newcp.AddOccurrence (o);
-					this.Controller.CheckPointData.SaveOccurrence(o);
-				}
+				if (nowElement.Value)
+					this.Controller.AddOccurrenceToCheckPoint(newcp,0);
+
 				
 				this.Controller.RespondToModelChanges ();
 				CancelDialog ();

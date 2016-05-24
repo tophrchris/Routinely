@@ -11,14 +11,14 @@ namespace ClockKing
 
 	public class Command:UIButton
 	{
-		public string Title;
+		public string Name;
 		public bool IsDestructive{ get; set; }
 		public string Category{ get; set; }
 		public string LongName{ get; set; }
 
 		public Command(UIColor Color,string Label):base(UIButtonType.Custom)
 		{
-			this.Title = Label;
+			this.Name = Label;
 			this.IsDestructive = false;
 			this.Category = string.Empty;
 			this.BackgroundColor = Color;
@@ -34,8 +34,7 @@ namespace ClockKing
 			
 		public virtual bool ExecuteFor(CheckPointController controller, CheckPoint checkPoint)
 		{
-			var commandName = this.Title;
-			MsgBox (string.Format ("Checkpoint:{0}", checkPoint.Name), commandName);
+			MsgBox (string.Format ("Checkpoint:{0}", checkPoint.Name), this.Name);
 			return false;
 		}
 
@@ -46,7 +45,7 @@ namespace ClockKing
 
 		public virtual UIPreviewAction AsPreviewAction(Action<Command> handler,UIPreviewActionStyle style)
 		{
-			var title = string.IsNullOrEmpty(this.LongName) ? this.Title : this.LongName;
+			var title = string.IsNullOrEmpty(this.LongName) ? this.Name : this.LongName;
 			return UIPreviewAction.Create (title,style,
 				(a,c)=>
 				{
@@ -72,12 +71,12 @@ namespace ClockKing
 			return toDecorate.Enabled;
 		}
 	}
-	public abstract class DisabledCheckpointCommand:Command
+	public abstract class DisabledCheckpointCommand:EnabledCheckpointCommand
 	{
 		public DisabledCheckpointCommand(UIColor color,string title):base(color,title){}
 		public override bool ShouldDecorate (CheckPoint toDecorate)
 		{
-			return !toDecorate.Enabled;
+			return !base.ShouldDecorate(toDecorate);
 		}
 	}
 		

@@ -13,12 +13,14 @@ namespace ClockKing
 	public class CheckPointDataSource:UITableViewSource
 	{
 
-		private CheckPointController Controller;
+		private CheckPointController Controller {get;}
+		private DataModel checkPointData { get; }
 		private string[] SectionNames = { "Active Checkpoints", "Disabled Checkpoints" };
 
-		public CheckPointDataSource (CheckPointController controller)
+		public CheckPointDataSource (CheckPointController controller,DataModel data)
 		{ 
 			this.Controller = controller;
+			this.checkPointData = data;
 		}
 
 		public override nint RowsInSection (UITableView tableView, nint section)
@@ -28,14 +30,14 @@ namespace ClockKing
 
 		public override nint NumberOfSections (UITableView tableView)
 		{
-			if (this.Controller.CheckPointData.DisabledCheckPoints.Any ())
+			if (this.checkPointData.DisabledCheckPoints.Any ())
 				return 2;
 			return 1;
 		}
 
 		public override string TitleForHeader (UITableView tableView, nint section)
 		{
-			if (!this.Controller.CheckPointData.DisabledCheckPoints.Any ())
+			if (!this.checkPointData.DisabledCheckPoints.Any ())
 				return string.Empty;
 			
 			return SectionNames [section];	
@@ -54,7 +56,7 @@ namespace ClockKing
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			this.Controller.Detail.ShowDetailDialog (GetCheckpoint(indexPath));
+			this.Controller.ShowDetailDialogFor(GetCheckpoint(indexPath));
 		}
 
 		CheckPointTableCell CheckPointTableCellFactory (UITableView tableView, CheckPoint checkpoint)
@@ -78,9 +80,9 @@ namespace ClockKing
 		private IEnumerable<CheckPoint> GetCheckpointsForSection(int section)
 		{
 			if (section == 0)
-				return this.Controller.CheckPointData.CheckPointPairs.Select (cpp => cpp.firstEvent);
+				return this.checkPointData.CheckPointPairs.Select (cpp => cpp.firstEvent);
 			else
-				return this.Controller.CheckPointData.DisabledCheckPoints;
+				return this.checkPointData.DisabledCheckPoints;
 		}
 	}
 }
