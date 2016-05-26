@@ -15,11 +15,13 @@ namespace ClockKing
 
 		private CheckPointController Controller {get;}
 		private DataModel checkPointData { get; }
+		private CheckPointGrouper grouper { get; set; }
 	
 		public GroupedCheckPointDataSource (CheckPointController controller,DataModel data)
 		{ 
 			this.Controller = controller;
 			this.checkPointData = data;
+			this.grouper = new CheckPointGrouper (this.checkPointData.checkPoints.Values);
 		}
 
 		public override nint RowsInSection (UITableView tableView, nint section)
@@ -29,12 +31,12 @@ namespace ClockKing
 
 		public override nint NumberOfSections (UITableView tableView)
 		{
-			return this.checkPointData.GroupedCheckPoints.Keys.Count;
+			return this.grouper.GroupedCheckPoints.Count ();
 		}
 
 		public override string TitleForHeader (UITableView tableView, nint section)
 		{
-			return this.checkPointData.GroupedCheckPoints.Keys.ToArray().ElementAt((int)section);
+			return this.grouper.GroupedCheckPoints.ElementAt((int)section).Key;
 		}
 
 		public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
@@ -71,9 +73,9 @@ namespace ClockKing
 			return GetCheckpointsForSection(path.Section).ElementAt (path.Row);
 		}
 
-		private LinkedList<CheckPoint> GetCheckpointsForSection(int section)
+		private IEnumerable<CheckPoint> GetCheckpointsForSection(int section)
 		{
-			return this.checkPointData.GroupedCheckPoints.ElementAt (section).Value;
+			return this.grouper.GroupedCheckPoints.ElementAt(section).Value;
 		}
 	}
 }

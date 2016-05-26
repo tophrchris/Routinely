@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
+
 namespace ClockKing.Model
 {
 	public class CheckPoint
@@ -44,6 +45,11 @@ namespace ClockKing.Model
 				return TimeSpan.FromMinutes (avgminutes);
 			}
 		}
+
+		public DateTime MostRecentOccurrenceTimeStamp(){
+			return MostRecentOccurrenceTimeStamp (DateTime.Now);
+		}
+
 		public DateTime MostRecentOccurrenceTimeStamp(DateTime ifNone)
 		{
 			return this.occurrences
@@ -74,6 +80,14 @@ namespace ClockKing.Model
 			}
 		}
 
+		public bool CompletedToday 
+		{
+			get
+			{
+				return this.occurrences.Any (o => o.timeStamp.Date == DateTime.Today);
+			}
+
+		}
 
 		public override string ToString ()
 		{

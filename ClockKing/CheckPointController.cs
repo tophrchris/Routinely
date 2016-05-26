@@ -16,7 +16,7 @@ namespace ClockKing
 	public partial class CheckPointController : UITableViewController,IUIViewControllerPreviewingDelegate
 	{
 		private DataModel CheckPointData{ get; set;}
-		private CheckPointDataSource Data{ get;  }
+		private GroupedCheckPointDataSource Data{ get;  }
 		private AppDelegate appDelegate{ get; }
 		private AddCheckPointCommand AddCommand{ get; }
 		private CheckpointDetailCommand Detail{ get;  }
@@ -40,7 +40,7 @@ namespace ClockKing
 			this.UtilityButtonHandler = new CheckpointCommandDelegate (this);
 			this.AddCommand = new AddCheckPointCommand (this);
 			this.Detail = new CheckpointDetailCommand (this);
-			this.Data = new CheckPointDataSource (this,CheckPointData);
+			this.Data = new GroupedCheckPointDataSource (this,CheckPointData);
 
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.Button, true);
 		}

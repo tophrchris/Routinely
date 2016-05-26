@@ -104,11 +104,4 @@
     <BundleResource Include="PushNotificationPayload.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.AppExtension.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\ClockKing.WatchKitApp\ClockKing.WatchKitApp.csproj">
-      <Project>{C061F9E2-0C93-4AA3-9B4A-45DEBD7ED214}</Project>
-      <Name>ClockKing.WatchKitApp</Name>
-      <IsWatchApp>True</IsWatchApp>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

@@ -136,7 +136,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewModel\CheckPointListDataSource.cs" />
     <Compile Include="ViewModel\DataModel.cs" />
     <Compile Include="ViewModel\Conversions.cs" />
     <Compile Include="NavigationController.cs" />

@@ -7,10 +7,36 @@ using System.IO;
 
 namespace ClockKing
 {
+	public class CheckPointGrouper
+	{
+		protected IEnumerable<CheckPoint> checkpoints { get; set; }
+		public CheckPointGrouper(IEnumerable<CheckPoint> toGroup){
+			this.checkpoints = toGroup;
+		}
+
+		public IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
+		{
+			get{
+				var cps = this.checkpoints;
+
+				var enabled = cps.Where (cp => cp.Enabled);
+				var disabled = cps.Where (cp => !cp.Enabled).OrderBy (cp => cp.TargetTime);
+				var completed = enabled.Where (c => c.CompletedToday).OrderBy (c => c.MostRecentOccurrenceTimeStamp ());
+				var upcoming = enabled.Where (c => !c.CompletedToday).OrderBy (c => c.TargetTime);
+
+				yield return new KeyValuePair<string,IEnumerable<CheckPoint>> ("Completed", completed);
+				yield return new KeyValuePair<string,IEnumerable<CheckPoint>> ("upcoming", upcoming);
+				yield return new KeyValuePair<string,IEnumerable<CheckPoint>> ("disabled", disabled);
+				yield break;
+			}
+		}
+
+	}
+
+
 	public class DataModel
 	{
-		private Dictionary<string,LinkedList<CheckPoint>> grouped { get; set; }
-		private Dictionary<string,CheckPoint> checkPoints { get; set;}
+		public Dictionary<string,CheckPoint> checkPoints { get; set;}
 		private ICheckPointDataProvider dataProvider { get; set; }
 
 		public DataModel (bool loadOccurrences = true)
@@ -18,37 +44,13 @@ namespace ClockKing
 			this.dataProvider = new CSVDataProvider ();
 			this.checkPoints = LoadCheckPoints();
 
-			LoadGroups ();
-
 			if(loadOccurrences)
 				LoadOccurrences ();
 		}
 
-		public void LoadGroups()
-		{
-			var cps = this.dataProvider.ReadCheckPoints ().ToList();
 
-			this.grouped = new Dictionary<string, LinkedList<CheckPoint>> ();
-			var enabled = cps.Where (cp => cp.Enabled);
-			var disabled = cps.Where (cp => !cp.Enabled).OrderBy (cp => cp.TargetTime);
-			var completed = enabled.Where (c => c.CompletedToday).OrderBy (c => c.MostRecentOccurrenceTimeStamp ());
-			var upcoming = enabled.Where(c=>!c.CompletedToday).OrderBy(c=>c.TargetTime);
 
-			if(completed.Any())
-				this.grouped.Add ("Completed", new LinkedList<CheckPoint>(completed));
-
-			if(upcoming.Any())
-				this.grouped.Add ("upcoming", new LinkedList<CheckPoint> (upcoming));
-
-			if (disabled.Any ())
-				this.grouped.Add ("Disabled", new LinkedList<CheckPoint> (disabled));
-		}
-
-		public Dictionary<string,LinkedList<CheckPoint>> GroupedCheckPoints{
-			get{
-				return this.grouped;
-				}
-		}
+	
 
 
 		public IEnumerable<CheckPointPair> CheckPointPairs { 
