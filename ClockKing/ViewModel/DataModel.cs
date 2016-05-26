@@ -9,15 +9,47 @@ namespace ClockKing
 {
 	public class DataModel
 	{
-		private Dictionary<string,CheckPoint> checkPoints;
+		private Dictionary<string,LinkedList<CheckPoint>> grouped { get; set; }
+		private Dictionary<string,CheckPoint> checkPoints { get; set;}
+		private ICheckPointDataProvider dataProvider { get; set; }
 
 		public DataModel (bool loadOccurrences = true)
 		{
+			this.dataProvider = new CSVDataProvider ();
 			this.checkPoints = LoadCheckPoints();
+
+			LoadGroups ();
+
 			if(loadOccurrences)
 				LoadOccurrences ();
-
 		}
+
+		public void LoadGroups()
+		{
+			var cps = this.dataProvider.ReadCheckPoints ().ToList();
+
+			this.grouped = new Dictionary<string, LinkedList<CheckPoint>> ();
+			var enabled = cps.Where (cp => cp.Enabled);
+			var disabled = cps.Where (cp => !cp.Enabled).OrderBy (cp => cp.TargetTime);
+			var completed = enabled.Where (c => c.CompletedToday).OrderBy (c => c.MostRecentOccurrenceTimeStamp ());
+			var upcoming = enabled.Where(c=>!c.CompletedToday).OrderBy(c=>c.TargetTime);
+
+			if(completed.Any())
+				this.grouped.Add ("Completed", new LinkedList<CheckPoint>(completed));
+
+			if(upcoming.Any())
+				this.grouped.Add ("upcoming", new LinkedList<CheckPoint> (upcoming));
+
+			if (disabled.Any ())
+				this.grouped.Add ("Disabled", new LinkedList<CheckPoint> (disabled));
+		}
+
+		public Dictionary<string,LinkedList<CheckPoint>> GroupedCheckPoints{
+			get{
+				return this.grouped;
+				}
+		}
+
 
 		public IEnumerable<CheckPointPair> CheckPointPairs { 
 			get 
@@ -33,6 +65,9 @@ namespace ClockKing
 				return this.checkPoints.Where (cp => !cp.Value.Enabled).Select(kv=>kv.Value);
 			}
 		}
+
+
+
 
 		public CheckPoint AddNewCheckPoint(string title,TimeSpan TargetTime,string emoji)
 		{
@@ -56,68 +91,28 @@ namespace ClockKing
 
 		public bool SaveCheckPoints()
 		{
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			var fileName = Path.Combine (documents, "checkpoints.csv");
-
-			var toWrite = this.checkPoints.Select (cp=>new{
-				cp.Value.Name,
-				cp.Value.TargetTime,
-				cp.Value.Enabled,
-				Emoji=(string.IsNullOrEmpty(cp.Value.Emoji))?"☀":cp.Value.Emoji    });
-
-			var lines = toWrite.Select (tw => string.Format ("{0}|{1}|{2}|{3}", tw.Name, tw.TargetTime, tw.Enabled,tw.Emoji)).ToArray();
-
-
-			File.WriteAllLines (fileName, lines);
-			return true;
-
+			var toWrite = this.checkPoints.Select (cp => cp.Value);
+			return dataProvider.WriteCheckPoints (toWrite);
 		}
 
 		public bool SaveOccurrences()
 		{
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			var fileName = Path.Combine (documents, "occurrences.csv");
-
-			var toWrite = this.checkPoints.SelectMany(cp=>cp.Value.Occurrences.Select(o=>
-				new {o.checkpointLabel,  o.timeStamp}));
-			var lines = toWrite.Select (tw => string.Format ("{0}|{1}", tw.checkpointLabel, tw.timeStamp)).ToArray ();
-
-			File.WriteAllLines (fileName, lines);
-			return true;
+			var toWrite = this.checkPoints.SelectMany (cp => cp.Value.Occurrences);
+			return this.dataProvider.WriteAllOccurrences (toWrite);
 		}
 
 		public void SaveOccurrence(Occurrence toSave)
 		{
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			var fileName = Path.Combine (documents, "occurrences.csv");
-			var lines = new[]{string.Format("{0}|{1}",toSave.checkpointLabel,toSave.timeStamp) };
-
-			File.AppendAllLines(fileName,lines);
+			this.dataProvider.WriteOccurrence (toSave);
 		}
 
 		public Dictionary<string,CheckPoint>  LoadCheckPoints()
 		{
 			var checkpoints = new Dictionary<string,CheckPoint> ();
 
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			var fileName = Path.Combine (documents, "checkpoints.csv");
+			foreach (var found in dataProvider.ReadCheckPoints())
+				checkpoints.Add (found.Name, found);
 
-			if (File.Exists(fileName))
-			{
-				var read = File.ReadAllLines (fileName);
-				if (read.Any ()) 
-				{
-				
-					foreach (var line in read) {
-						var parts = line.Split ('|');
-						var name = parts [0];
-						var targetTime = TimeSpan.Parse (parts [1]);
-						var enabled = bool.Parse (parts [2]);
-						var emoji = parts [3];
-						checkpoints.Add (name, new CheckPoint (){ Name = name, TargetTime = targetTime, Enabled = enabled,Emoji=emoji });
-					}
-				} 
-			}
 			if(!checkpoints.Any())
 				checkpoints = CreateDefaultCheckPoints ();
 			
@@ -126,47 +121,8 @@ namespace ClockKing
 
 		public void LoadOccurrences()
 		{
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			var fileName = Path.Combine (documents, "occurrences.csv");
-
-			if (File.Exists (fileName)) {
-				var read = File.ReadAllLines (fileName);
-				if (read.Any ()) {
-					foreach (var line in read) {
-						var parts = line.Split ('|');
-						var name = parts [0];
-						var timeStamp = DateTime.Parse (parts [1]);
-						if (checkPoints.ContainsKey (name))
-							checkPoints [name].AddOccurrence (
-								checkPoints [name].CreateOccurrence (timeStamp));
-					}
-				}
-			}
+			dataProvider.LoadOccurrences (this.checkPoints);
 		}
-					
-
-		public Dictionary<string,CheckPoint> CreateDefaultCheckPoints()
-		{
-			var defaults= new Dictionary<string,CheckPoint> () {
-				{"wakeup",new CheckPoint(){Name="wakeup",TargetTime=TimeSpan.FromHours(6)}},
-				{"Breakfast",new CheckPoint (){ Name = "Breakfast",TargetTime= TimeSpan.FromHours(9) }},
-				{"Lunch",new CheckPoint () { Name = "Lunch", TargetTime=TimeSpan.FromHours(12)}},
-				{"dinner",new CheckPoint(){Name="dinner",TargetTime=TimeSpan.FromHours(19)}},
-				{"bedtime",new CheckPoint(){Name="bedtime",TargetTime=TimeSpan.FromHours(23)}}
-			};
-			var b = defaults ["Breakfast"];
-			var l = defaults ["Lunch"];
-
-			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/1/16 9:05am")));
-			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/2/16 9:15am")));
-			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/3/16 9:32am")));
-			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 11:32am")));
-			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 12:32pm")));
-			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 1:32pm")));
-			return defaults;
-		}
-
-
 
 		protected IEnumerable<CheckPointPair> CreateCheckPointPairs(Dictionary<string,CheckPoint> checkPoints)
 		{
@@ -190,6 +146,30 @@ namespace ClockKing
 			} else
 				return new List<CheckPointPair> ();
 
+		}
+
+
+
+
+		public Dictionary<string,CheckPoint> CreateDefaultCheckPoints()
+		{
+			var defaults= new Dictionary<string,CheckPoint> () {
+				{"wakeup",new CheckPoint(){Name="wakeup",TargetTime=TimeSpan.FromHours(6)}},
+				{"Breakfast",new CheckPoint (){ Name = "Breakfast",TargetTime= TimeSpan.FromHours(9) }},
+				{"Lunch",new CheckPoint () { Name = "Lunch", TargetTime=TimeSpan.FromHours(12)}},
+				{"dinner",new CheckPoint(){Name="dinner",TargetTime=TimeSpan.FromHours(19)}},
+				{"bedtime",new CheckPoint(){Name="bedtime",TargetTime=TimeSpan.FromHours(23)}}
+			};
+			var b = defaults ["Breakfast"];
+			var l = defaults ["Lunch"];
+
+			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/1/16 9:05am")));
+			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/2/16 9:15am")));
+			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/3/16 9:32am")));
+			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 11:32am")));
+			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 12:32pm")));
+			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 1:32pm")));
+			return defaults;
 		}
 	}
 }

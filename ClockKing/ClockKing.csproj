@@ -156,17 +156,14 @@
     <Compile Include="Commands\NotificationManager.cs" />
     <Compile Include="Dialogs\AddNewCheckpointDialog.cs" />
     <Compile Include="Dialogs\AddHistoricInstanceDialog.cs" />
+    <Compile Include="ViewModel\CSVDataProvider.cs" />
+    <Compile Include="ViewModel\GroupedCheckPointListDataSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\clockking.Model\clockking.Model.csproj">
       <Project>{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}</Project>
       <Name>clockking.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClockKing.WatchKitExtension\ClockKing.WatchKitExtension.csproj">
-      <Project>{4D597DC8-C32B-4E4C-A101-F52D6A35EDB7}</Project>
-      <Name>ClockKing.WatchKitExtension</Name>
-      <IsAppExtension>True</IsAppExtension>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
