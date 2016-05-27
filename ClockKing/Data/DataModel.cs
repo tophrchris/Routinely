@@ -7,35 +7,9 @@ using System.IO;
 
 namespace ClockKing
 {
-	public class CheckPointGrouper
-	{
-		protected IEnumerable<CheckPoint> checkpoints { get; set; }
-		public CheckPointGrouper(IEnumerable<CheckPoint> toGroup){
-			this.checkpoints = toGroup;
-		}
-
-		public IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
-		{
-			get{
-				var cps = this.checkpoints;
-
-				var enabled = cps.Where (cp => cp.Enabled);
-				var disabled = cps.Where (cp => !cp.Enabled).OrderBy (cp => cp.TargetTime);
-				var completed = enabled.Where (c => c.CompletedToday).OrderBy (c => c.MostRecentOccurrenceTimeStamp ());
-				var upcoming = enabled.Where (c => !c.CompletedToday).OrderBy (c => c.TargetTime);
-
-				yield return new KeyValuePair<string,IEnumerable<CheckPoint>> ("Completed", completed);
-				yield return new KeyValuePair<string,IEnumerable<CheckPoint>> ("upcoming", upcoming);
-				yield return new KeyValuePair<string,IEnumerable<CheckPoint>> ("disabled", disabled);
-				yield break;
-			}
-		}
-
-	}
-
-
 	public class DataModel
 	{
+
 		public Dictionary<string,CheckPoint> checkPoints { get; set;}
 		private ICheckPointDataProvider dataProvider { get; set; }
 
@@ -47,29 +21,6 @@ namespace ClockKing
 			if(loadOccurrences)
 				LoadOccurrences ();
 		}
-
-
-
-	
-
-
-		public IEnumerable<CheckPointPair> CheckPointPairs { 
-			get 
-			{
-				return CreateCheckPointPairs(this.checkPoints);
-			}
-
-		}
-		public IEnumerable<CheckPoint> DisabledCheckPoints
-		{
-			get
-			{
-				return this.checkPoints.Where (cp => !cp.Value.Enabled).Select(kv=>kv.Value);
-			}
-		}
-
-
-
 
 		public CheckPoint AddNewCheckPoint(string title,TimeSpan TargetTime,string emoji)
 		{
@@ -83,6 +34,7 @@ namespace ClockKing
 		{
 			if (this.checkPoints.ContainsKey (toDelete.Name)) 
 			{
+				//TODO: delete observations
 				var removed= this.checkPoints.Remove (toDelete.Name);
 				if (removed)
 					SaveCheckPoints ();
@@ -125,34 +77,7 @@ namespace ClockKing
 		{
 			dataProvider.LoadOccurrences (this.checkPoints);
 		}
-
-		protected IEnumerable<CheckPointPair> CreateCheckPointPairs(Dictionary<string,CheckPoint> checkPoints)
-		{
-
-			var ordered = checkPoints
-				.Where(cp=>cp.Value.Enabled)
-				.Select (kv => kv.Value)
-				.OrderBy (cp => cp.TargetTime)
-				.ThenBy(cp=>cp.averageObservedTime)
-				.Select ((c, i) => new{index = i,checkpoint = c});
-			if (ordered.Any ()) {
-				var first = ordered.First ();
-
-				var paired = 
-					from e1 in ordered
-					join e2 in ordered on e1.index equals e2.index - 1 into gj
-					from oe in gj.DefaultIfEmpty (first)
-					select new CheckPointPair (e1.checkpoint, oe.checkpoint);
-				
-				return paired;
-			} else
-				return new List<CheckPointPair> ();
-
-		}
-
-
-
-
+			
 		public Dictionary<string,CheckPoint> CreateDefaultCheckPoints()
 		{
 			var defaults= new Dictionary<string,CheckPoint> () {

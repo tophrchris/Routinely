@@ -43,5 +43,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>

@@ -15,13 +15,13 @@ namespace ClockKing
 
 		private CheckPointController Controller {get;}
 		private DataModel checkPointData { get; }
-		private CheckPointGrouper grouper { get; set; }
+		private GroupCheckPointsByStatus grouper { get; set; }
 	
 		public GroupedCheckPointDataSource (CheckPointController controller,DataModel data)
 		{ 
 			this.Controller = controller;
 			this.checkPointData = data;
-			this.grouper = new CheckPointGrouper (this.checkPointData.checkPoints.Values);
+			this.grouper = new GroupCheckPointsByStatus (this.checkPointData.checkPoints.Values);
 		}
 
 		public override nint RowsInSection (UITableView tableView, nint section)

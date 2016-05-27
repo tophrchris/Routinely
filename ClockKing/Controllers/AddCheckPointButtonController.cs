@@ -10,12 +10,12 @@ using ClockKing.Extensions;
 
 namespace ClockKing.Commands
 {
-	public class AddCheckPointCommand
+	public class AddCheckPointButtonController
 	{
 		protected CheckPointController Controller{ get; set; }
 		protected UIBarButtonItem BarButton{ get; set; }
 
-		public AddCheckPointCommand(CheckPointController controller)
+		public AddCheckPointButtonController(CheckPointController controller)
 		{
 			this.Controller = controller;
 			this.BarButton = new UIBarButtonItem ("+", UIBarButtonItemStyle.Bordered,(sender, args) => this.ShowAddCheckPointDialog());

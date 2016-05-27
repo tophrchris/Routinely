@@ -86,8 +86,23 @@ namespace ClockKing.Model
 			{
 				return this.occurrences.Any (o => o.timeStamp.Date == DateTime.Today);
 			}
-
 		}
+
+		public bool TargetTimePassed 
+		{
+			get 
+			{
+				return this.TargetTime < DateTime.Now.TimeOfDay;
+			}
+		}
+		public bool TargetTimeUpcoming 
+		{
+			get 
+			{
+				return !this.TargetTimePassed;
+			}
+		}
+
 
 		public override string ToString ()
 		{

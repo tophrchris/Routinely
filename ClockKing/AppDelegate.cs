@@ -6,6 +6,9 @@ using System.Linq;
 using System;
 using ClockKing.Extensions;
 
+using Xamarin.Themes.Core;
+using Xamarin.Themes.TrackBeam;
+
 namespace ClockKing
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the
@@ -22,15 +25,16 @@ namespace ClockKing
 			
 		public bool RequiresDataRefresh { get; set; }
 
+		public ClockKingOptions Options { get; set; }
 		public CheckPointController Controller{ get; set; }
 		public CommandManager Commands{ get; set; }
 		public NotificationManager Notifications{ get; set; }	
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
-			//CashflowTheme.Apply ();
-			//ThemeManager.Register<TrackBeamTheme> ().Apply ();
-			FitpulseTheme.Apply ();
+			this.Options = new ClockKingOptions ();
+			this.Options.Theme = Themes.TrackBeam;
+			this.Options.ApplyTheme ();
  
 			this.Commands = new CommandManager ();
 			this.Notifications = new NotificationManager ();
@@ -75,6 +79,8 @@ namespace ClockKing
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
 
+
+		/// TODO: move this implementation *somewhere*;  either commands or controller?
 		public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
 		{
 			try{
@@ -95,20 +101,18 @@ namespace ClockKing
 				this.Window.RootViewController.PresentViewController (opts, true, null);
 			}catch{
 			}
-
 		}
-
-		/// <summary>
+			
 		/// TODO: move this implementation *somewhere*;  either commands or controller?
-		/// </summary>
 		public override void HandleAction (UIApplication application, string actionIdentifier, UILocalNotification localNotification, System.Action completionHandler)
 		{
 			var data = new DataModel (false);
-			var found = data.CheckPointPairs.Select (cpp => cpp.firstEvent).FirstOrDefault (c => c.Name == localNotification.AlertTitle);
+			var found = data.checkPoints [localNotification.AlertTitle]; 
 			var actionBits = actionIdentifier.Split(':');
 			var mins = int.Parse (actionBits [1]);	
 			if (mins > 0) {
 				localNotification.FireDate = DateTime.Now.AddMinutes (mins).ToUniversalTime ().ToNSDate ();
+				localNotification.RepeatInterval = 0;
 				application.ScheduleLocalNotification (localNotification);
 
 			} else {
@@ -117,7 +121,6 @@ namespace ClockKing
 				this.RequiresDataRefresh = true;
 			}
 			completionHandler ();
-
 		}
 	}
 }

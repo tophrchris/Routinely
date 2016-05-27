@@ -30,13 +30,21 @@ namespace ClockKing.Model
 				var read = File.ReadAllLines (this.CheckpointPath);
 				if (read.Any ()) 
 				{
+					CheckPoint created = new CheckPoint();
 					foreach (var line in read) {
+						try{
 						var parts = line.Split ('|');
 						var name = parts [0];
 						var targetTime = TimeSpan.Parse (parts [1]);
 						var enabled = bool.Parse (parts [2]);
 						var emoji = parts [3];
-						yield return new CheckPoint (){ Name = name, TargetTime = targetTime, Enabled = enabled,Emoji=emoji };
+							created = new CheckPoint (){ Name = name, TargetTime = targetTime, Enabled = enabled,Emoji=emoji };
+						}catch(Exception e)
+						{
+							Console.WriteLine (e.Message);
+						}
+						yield return created;
+
 					}
 				} 
 			}
@@ -49,8 +57,8 @@ namespace ClockKing.Model
 				var read = File.ReadAllLines (this.OccurrencesPath);
 				if (read.Any ()) 
 				{
-					foreach (var line in read) 
-					{
+					foreach (var line in read) {
+
 						var parts = line.Split ('|');
 						var name = parts [0];
 						var timeStamp = DateTime.Parse (parts [1]);
@@ -60,12 +68,15 @@ namespace ClockKing.Model
 					}
 				}
 			}
-			return checkPoints.Sum (cp => cp.Value.Occurrences.Count ());
+			return 0;//checkPoints.Sum (cp => cp.Value.Occurrences.Count ());
 		}
 
 
 		public bool WriteCheckPoints(IEnumerable<CheckPoint> CheckPoints)
 		{
+			if(File.Exists(occurrencesFileName))
+				File.Delete(occurrencesFileName);
+
 			var toWrite = CheckPoints.Select (cp=>new{
 				cp.Name,
 				cp.TargetTime,

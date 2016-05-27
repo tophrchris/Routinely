@@ -120,6 +120,18 @@
     <Reference Include="Humanizer">
       <HintPath>..\packages\Humanizer.Core.2.0.1\lib\portable-win+net45+wp8+wpa81\Humanizer.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Themes.TrackBeam">
+      <HintPath>..\Components\trackbeamtheme-1.5.2\lib\ios-unified\Xamarin.Themes.TrackBeam.dll</HintPath>
+    </Reference>
+    <Reference Include="BrownLeatherTheme.iOS">
+      <HintPath>..\Components\brown-leather-theme-1.4.1\lib\ios-unified\BrownLeatherTheme.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="FoodyTheme.iOS">
+      <HintPath>..\Components\foodytheme-1.1.1\lib\ios-unified\FoodyTheme.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="MapperTheme.iOS">
+      <HintPath>..\Components\mappertheme-1.1.2\lib\ios-unified\MapperTheme.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -136,8 +148,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewModel\DataModel.cs" />
-    <Compile Include="ViewModel\Conversions.cs" />
     <Compile Include="NavigationController.cs" />
     <Compile Include="NavigationController.designer.cs">
       <DependentUpon>NavigationController.cs</DependentUpon>
@@ -146,17 +156,28 @@
     <Compile Include="CheckPointController.designer.cs">
       <DependentUpon>CheckPointController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Commands\AddCheckPointCommand.cs" />
-    <Compile Include="Commands\CheckpointDetailCommand.cs" />
     <Compile Include="Commands\CommandFramework.cs" />
-    <Compile Include="Commands\CommandManager.cs" />
-    <Compile Include="Commands\CheckPointCommands.cs" />
     <Compile Include="CheckPointTableCell.cs" />
-    <Compile Include="Commands\NotificationManager.cs" />
     <Compile Include="Dialogs\AddNewCheckpointDialog.cs" />
     <Compile Include="Dialogs\AddHistoricInstanceDialog.cs" />
-    <Compile Include="ViewModel\CSVDataProvider.cs" />
-    <Compile Include="ViewModel\GroupedCheckPointListDataSource.cs" />
+    <Compile Include="Dialogs\NotificationReviewDialog.cs" />
+    <Compile Include="Commands\DisabledCheckPointCommand.cs" />
+    <Compile Include="Commands\EnabledCheckPointCommand.cs" />
+    <Compile Include="Commands\AddOccurrenceCommand.cs" />
+    <Compile Include="Commands\AddHistoricOccurrenceCommand.cs" />
+    <Compile Include="Commands\DeleteCheckpointCommand.cs" />
+    <Compile Include="Controllers\NotificationManager.cs" />
+    <Compile Include="Controllers\CommandManager.cs" />
+    <Compile Include="Controllers\AddCheckPointButtonController.cs" />
+    <Compile Include="Controllers\CheckpointDetailCommand.cs" />
+    <Compile Include="Commands\CheckPointCommandDelegate.cs" />
+    <Compile Include="Controllers\ShowNotificationListCommand.cs" />
+    <Compile Include="Data\DataModel.cs" />
+    <Compile Include="Data\Conversions.cs" />
+    <Compile Include="Data\CSVDataProvider.cs" />
+    <Compile Include="Data\GroupedCheckPointListDataSource.cs" />
+    <Compile Include="Data\GroupCheckPointsByStatus.cs" />
+    <Compile Include="Data\ClockKingOptions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -166,10 +187,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModel\" />
     <Folder Include="Commands\" />
-    <Folder Include="Settings\" />
     <Folder Include="Dialogs\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="swtableviewcell">
@@ -186,6 +207,22 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="fitpulsetheme">
       <Version>1.2.4</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="trackbeamtheme">
+      <Version>1.5.2</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="brown-leather-theme">
+      <Version>1.4.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="foodytheme">
+      <Version>1.1.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="mappertheme">
+      <Version>1.1.2</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

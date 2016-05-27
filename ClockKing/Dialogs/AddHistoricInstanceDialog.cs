@@ -16,12 +16,7 @@ namespace ClockKing
 		private BooleanElement nowSwitch{ get; set; }
 
 
-		public AddHistoricInstanceDialog (
-			CheckPointController controller, 
-			RootElement root, 
-			CheckPoint checkpoint, 
-			bool pushing
-		) : base (root, pushing)
+		public AddHistoricInstanceDialog (CheckPointController controller, RootElement root, CheckPoint checkpoint, bool pushing) : base (root, pushing)
 		{
 			this.Controller = controller;
 			this.checkPoint = checkpoint;

@@ -16,9 +16,10 @@ namespace ClockKing
 	public partial class CheckPointController : UITableViewController,IUIViewControllerPreviewingDelegate
 	{
 		private DataModel CheckPointData{ get; set;}
-		private GroupedCheckPointDataSource Data{ get;  }
+		private GroupedCheckPointDataSource Data{ get; }
 		private AppDelegate appDelegate{ get; }
-		private AddCheckPointCommand AddCommand{ get; }
+		private AddCheckPointButtonController AddCommand{ get; }
+		private ShowNotificationListCommand showNotifications{ get; }
 		private CheckpointDetailCommand Detail{ get;  }
 
 		public CommandManager Commands{ get; }
@@ -38,10 +39,14 @@ namespace ClockKing
 
 			this.Commands = appDelegate.Commands;
 			this.UtilityButtonHandler = new CheckpointCommandDelegate (this);
-			this.AddCommand = new AddCheckPointCommand (this);
+			this.AddCommand = new AddCheckPointButtonController (this);
+			this.showNotifications = new ShowNotificationListCommand (this);
 			this.Detail = new CheckpointDetailCommand (this);
 			this.Data = new GroupedCheckPointDataSource (this,CheckPointData);
 
+
+
+			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.Button,true);
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.Button, true);
 		}
 			
@@ -62,6 +67,15 @@ namespace ClockKing
 			this.Detail.ShowDetailDialog (checkpoint);
 		}	
 
+		public void ResetNotifications()
+		{
+			this.Notifier.EnsureNotifications (this.CheckPointData, true);
+		}
+
+		public void RewriteOccurrences()
+		{
+			this.CheckPointData.SaveOccurrences ();
+		}
 
 		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji)
 		{
@@ -87,10 +101,7 @@ namespace ClockKing
 
 		public Occurrence AddOccurrenceToCheckPoint(string checkPointName, int mins)
 		{
-			var found = this.CheckPointData
-							.CheckPointPairs
-							.Select (cpp => cpp.firstEvent)
-				.FirstOrDefault (cp => cp.Name == checkPointName);
+			var found = this.CheckPointData.checkPoints [checkPointName];
 			return this.AddOccurrenceToCheckPoint (found, mins);
 		}
 
