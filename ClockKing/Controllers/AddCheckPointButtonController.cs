@@ -23,7 +23,7 @@ namespace ClockKing.Commands
 
 		public UIBarButtonItem Button{get{return this.BarButton;}}
 
-		protected void ShowAddCheckPointDialog()
+		public void ShowAddCheckPointDialog()
 		{
 
 			var root = new RootElement ("Add...");

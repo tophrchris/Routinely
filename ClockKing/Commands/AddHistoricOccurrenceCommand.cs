@@ -17,10 +17,9 @@ namespace ClockKing
 		{
 
 			var ac = CreateActionSheet (controller, checkPoint);
-			var custom = new AddHistoricInstanceDialog(controller,new MonoTouch.Dialog.RootElement("Add Occurrence"),checkPoint,true);
 
 			ac.AddAction (UIAlertAction.Create ("Custom...", UIAlertActionStyle.Default,
-				(a)=>controller.NavigationController.PushViewController(custom,true)));
+				(a)=>this.ShowCustomDialog(controller,checkPoint)));
 			ac.AddAction (UIAlertAction.Create ("nevermind", UIAlertActionStyle.Cancel, null));
 
 			controller.PresentViewController (ac, true, null);
@@ -45,6 +44,11 @@ namespace ClockKing
 				ac.AddAction (a);
 
 			return ac;
+		}
+		public void ShowCustomDialog(CheckPointController controller, CheckPoint checkPoint)
+		{
+			var custom = new AddHistoricInstanceDialog(controller,new MonoTouch.Dialog.RootElement("Add Occurrence"),checkPoint,true);
+			controller.NavigationController.PushViewController (custom, true);
 		}
 	}
 

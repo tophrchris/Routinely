@@ -120,6 +120,47 @@ namespace ClockKing
 			};
 		}
 
+		public static void HandleLocalNotification(UIApplication application, UILocalNotification notification)
+		{
+
+			var app = application.Delegate as AppDelegate;
+
+			var opts = UIAlertController.Create(notification.AlertTitle,notification.AlertBody,UIAlertControllerStyle.ActionSheet);
+
+			opts.AddAction(UIAlertAction.Create("Done!",UIAlertActionStyle.Default,
+				(a)=>app.Controller.AddOccurrenceToCheckPoint(notification.AlertTitle,0)));
+
+			opts.AddAction(UIAlertAction.Create("Snooze",UIAlertActionStyle.Default,
+				(a)=>{
+					notification.FireDate=DateTime.Now.AddMinutes(10).ToUniversalTime().ToNSDate();
+					application.ScheduleLocalNotification(notification);
+				}));
+
+			opts.AddAction(UIAlertAction.Create("Cancel",UIAlertActionStyle.Cancel,null));
+
+			app.Window.RootViewController.PresentViewController (opts, true, null);
+		}
+
+		public static bool HandleNotificationAction(UIApplication application,UILocalNotification localNotification, string actionIdentifier)
+		{
+			var data = new DataModel (false);
+			var found = data.checkPoints [localNotification.AlertTitle]; 
+			var actionBits = actionIdentifier.Split(':');
+			var mins = int.Parse (actionBits [1]);	
+			if (mins > 0) {
+				localNotification.FireDate = DateTime.Now.AddMinutes (mins).ToUniversalTime ().ToNSDate ();
+				localNotification.RepeatInterval = 0;
+				application.ScheduleLocalNotification (localNotification);
+
+			} else {
+				var occ = found.CreateOccurrence (DateTime.Now.AddMinutes (mins));
+				data.SaveOccurrence (occ);
+				return true;
+			}
+			return false;
+		}
+
+
 
 		public UIUserNotificationCategory[] NotificationCategories
 		{

@@ -22,6 +22,27 @@ namespace ClockKing
 				LoadOccurrences ();
 		}
 
+
+		public CheckPoint NextCheckpoint
+		{
+			get{
+				var o= this.checkPoints.Values
+					.Where(cp=>!cp.CompletedToday)
+					.OrderBy (cp => cp.TargetTime);
+				return o.FirstOrDefault(cp => cp.TargetTime > DateTime.Now.ToLocalTime ().TimeOfDay);
+			}
+		}
+
+		public CheckPoint LastCheckpoint
+		{
+			get{
+				var o= this.checkPoints.Values
+					.Where(cp=>!cp.CompletedToday)
+					.OrderByDescending (cp => cp.TargetTime);
+				return o.FirstOrDefault(cp => cp.TargetTime < DateTime.Now.ToLocalTime ().TimeOfDay);
+			}
+		}
+
 		public CheckPoint AddNewCheckPoint(string title,TimeSpan TargetTime,string emoji)
 		{
 			var newcp = new CheckPoint (){ Name = title, TargetTime = TargetTime, Emoji = emoji };

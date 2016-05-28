@@ -123,9 +123,6 @@
     <Reference Include="Xamarin.Themes.TrackBeam">
       <HintPath>..\Components\trackbeamtheme-1.5.2\lib\ios-unified\Xamarin.Themes.TrackBeam.dll</HintPath>
     </Reference>
-    <Reference Include="BrownLeatherTheme.iOS">
-      <HintPath>..\Components\brown-leather-theme-1.4.1\lib\ios-unified\BrownLeatherTheme.iOS.dll</HintPath>
-    </Reference>
     <Reference Include="FoodyTheme.iOS">
       <HintPath>..\Components\foodytheme-1.1.1\lib\ios-unified\FoodyTheme.iOS.dll</HintPath>
     </Reference>
@@ -144,6 +141,8 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="EmojiSharp\License.txt" />
+    <None Include="EmojiSharp\EmojiLicense.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -171,13 +170,16 @@
     <Compile Include="Controllers\AddCheckPointButtonController.cs" />
     <Compile Include="Controllers\CheckpointDetailCommand.cs" />
     <Compile Include="Commands\CheckPointCommandDelegate.cs" />
-    <Compile Include="Controllers\ShowNotificationListCommand.cs" />
     <Compile Include="Data\DataModel.cs" />
     <Compile Include="Data\Conversions.cs" />
     <Compile Include="Data\CSVDataProvider.cs" />
     <Compile Include="Data\GroupedCheckPointListDataSource.cs" />
     <Compile Include="Data\GroupCheckPointsByStatus.cs" />
     <Compile Include="Data\ClockKingOptions.cs" />
+    <Compile Include="Controllers\ShortcutManager.cs" />
+    <Compile Include="Data\GroupCheckPointsByTimeOfDay.cs" />
+    <Compile Include="Controllers\ShowSettingsMenuCommand.cs" />
+    <Compile Include="EmojiSharp\Emoji.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -211,10 +213,6 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="trackbeamtheme">
       <Version>1.5.2</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="brown-leather-theme">
-      <Version>1.4.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="foodytheme">

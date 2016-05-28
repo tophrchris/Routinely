@@ -18,14 +18,14 @@ namespace ClockKing
 		private DataModel CheckPointData{ get; set;}
 		private GroupedCheckPointDataSource Data{ get; }
 		private AppDelegate appDelegate{ get; }
-		private AddCheckPointButtonController AddCommand{ get; }
-		private ShowNotificationListCommand showNotifications{ get; }
+		public AddCheckPointButtonController AddCommand{ get; }
+		private ShowSettingsMenuCommand showNotifications{ get; }
 		private CheckpointDetailCommand Detail{ get;  }
 
 		public CommandManager Commands{ get; }
 		public CheckpointCommandDelegate UtilityButtonHandler{ get; }
 		public NotificationManager Notifier{ get;  }
-
+		public ClockKingOptions Options { get { return this.appDelegate.Options; } }
 
 		public CheckPointController (NSObjectFlag t):base(t){}
 
@@ -34,27 +34,34 @@ namespace ClockKing
 			this.appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
 			this.appDelegate.Controller = this;
 			this.Notifier = appDelegate.Notifications;
+			this.CheckPointData = appDelegate.CheckPointData;
 
 			ConditionallyRefreshData ();
 
 			this.Commands = appDelegate.Commands;
 			this.UtilityButtonHandler = new CheckpointCommandDelegate (this);
 			this.AddCommand = new AddCheckPointButtonController (this);
-			this.showNotifications = new ShowNotificationListCommand (this);
+			this.showNotifications = new ShowSettingsMenuCommand (this);
 			this.Detail = new CheckpointDetailCommand (this);
 			this.Data = new GroupedCheckPointDataSource (this,CheckPointData);
 
-
-
 			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.Button,true);
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.Button, true);
+
 		}
+
 			
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			this.TableView.Source = this.Data;
+
+			this.RefreshControl.ValueChanged += (o, e) => {
+				this.RefreshControl.EndRefreshing();
+				this.AddCommand.ShowAddCheckPointDialog();
+			};
 		}
+
 
 		public override void ViewDidAppear (bool animated)
 		{			
@@ -64,7 +71,9 @@ namespace ClockKing
 			
 		public void ShowDetailDialogFor(CheckPoint checkpoint)
 		{
+			this.NavigationItem.HidesBackButton = false;
 			this.Detail.ShowDetailDialog (checkpoint);
+
 		}	
 
 		public void ResetNotifications()
@@ -120,17 +129,29 @@ namespace ClockKing
 		}
 
 
-
 		public bool ConditionallyRefreshData()
 		{
-			if (appDelegate.RequiresDataRefresh) 
-			{
-				this.CheckPointData = new DataModel ();
+			var updated= this.ConditionallyRefreshData (appDelegate.RequiresDataRefresh);
+			if (updated)
 				appDelegate.RequiresDataRefresh = false;
+			return updated;
+		}
+
+		public bool ConditionallyRefreshData(bool condition)
+		{
+
+			var dataUpdated = false;
+			if (condition) 
+			{
+				this.appDelegate.CheckPointData = new DataModel ();
 				this.RespondToModelChanges ();
-				return true;
+				dataUpdated=true;
 			}
-			return false;
+			if(this.IsViewLoaded)
+				while (appDelegate.LaunchActions.Any ())
+					appDelegate.LaunchActions.Dequeue ().Invoke (this);
+			
+			return dataUpdated;
 		}
 
 		public void RespondToModelChanges()

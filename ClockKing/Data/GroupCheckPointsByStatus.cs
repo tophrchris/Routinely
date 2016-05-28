@@ -7,14 +7,11 @@ using System.IO;
 
 namespace ClockKing
 {
-	public class GroupCheckPointsByStatus
+	public class GroupCheckPointsByStatus:CheckPointGrouper
 	{
-		protected IEnumerable<CheckPoint> checkpoints { get; set; }
-		public GroupCheckPointsByStatus(IEnumerable<CheckPoint> toGroup){
-			this.checkpoints = toGroup;
-		}
+		public GroupCheckPointsByStatus(IEnumerable<CheckPoint> toGroup):base(toGroup){}
 
-		public IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
+		public override IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
 		{
 			get{
 				var cps = this.checkpoints;

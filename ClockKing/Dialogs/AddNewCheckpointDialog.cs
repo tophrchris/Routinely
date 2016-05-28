@@ -4,6 +4,7 @@ using Foundation;
 using UIKit;
 using ClockKing.Extensions;
 using System.Linq;
+using EmojiSharp;
 
 namespace ClockKing
 {
@@ -32,7 +33,34 @@ namespace ClockKing
 			var instructions = new MultilineElement ("What time do you expect to complete this checkpoint, each day?");
 			var pickerWrapper = new UIViewElement (string.Empty, picker, false);
 
+			this.nameElement.NotifyChangedOnKeyStroke = true;
 
+			this.nameElement.Changed += (s, ev) => {
+				var words = this.nameElement.Value.Split(' ');
+
+//				var emojiNames = Emoji.All.Where(e=>e.Value.AppleHasImage).Select(e=>e.Key.ToLower()).ToList();
+//
+//				var wordsToSearch = words.Where(w=>w.Length>2).Select(w=>w.ToLower());
+//
+//				if(wordsToSearch.Any(w=>emojiNames.Any(e=>e.ToLower().Contains(w)))){
+//					var foundEmoji = emojiNames.Where(e=>wordsToSearch.Any(w=>e.ToLower().Contains(w)));
+//					if(foundEmoji.Any())
+//					{
+//						var key = foundEmoji.First();
+//						this.emojiElement.Value = Emoji.All.First(e=>e.Key.ToLower()==key).Value.AsShortcode();
+//						//this.emojiElement.Value="wtf!";
+//					}
+//				}
+//				else{
+				if(words.Count()>1)
+					this.emojiElement.Value = string.Join("", words.Where(w=>w.Length>0).Take(2).Select(w=>w.Substring(0,1)).ToArray());
+				else
+					if(words[0].Length>0)
+						this.emojiElement.Value = words[0].Substring(0,this.nameElement.Value.Length>1?2:1); 
+					else
+						this.emojiElement.Value = string.Empty;
+				//}
+			};
 
 			picker.ValueChanged += (s, e) => nowSwitch.Value=false;
 

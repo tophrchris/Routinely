@@ -45,5 +45,9 @@
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+	</array>
 </dict>
 </plist>

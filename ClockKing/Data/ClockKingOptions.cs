@@ -5,6 +5,7 @@ using Xamarin.Themes.Core;
 using System;
 using Xamarin.Themes.Core;
 using Xamarin.Themes.TrackBeam;
+using System.Collections.Generic;
 
 namespace ClockKing
 {
@@ -13,16 +14,24 @@ namespace ClockKing
 		public Themes Theme{ get; set; }
 		public GroupingChoices GroupingChoice { get; set; }
 	
+		public ClockKingOptions()
+		{
+			this.Theme = Themes.Foody;
+			this.GroupingChoice = GroupingChoices.ByStatus;
+		}
+
 		public void ApplyTheme()
 		{
-			if (this.Theme == Themes.FitPulse)
-				FitpulseTheme.Apply ();
-			if(this.Theme==Themes.TrackBeam)
-				ThemeManager.Register<TrackBeamTheme> ().Apply ();
-			if(this.Theme==Themes.GunMetal)
-				GunmetalTheme.Apply();
-			if(this.Theme==Themes.CashFlow)
-				GunmetalTheme.Apply();
+			var themer = new Dictionary<Themes,Action> ();
+			themer.Add (Themes.FitPulse,()=> FitpulseTheme.Apply ());
+			themer.Add (Themes.TrackBeam,()=> ThemeManager.Register<TrackBeamTheme>().Apply());
+			themer.Add (Themes.GunMetal,()=> GunmetalTheme.Apply ());
+			themer.Add (Themes.CashFlow,()=> CashflowTheme.Apply ());
+			themer.Add (Themes.Foody,()=> FoodyTheme.Apply ());
+			themer.Add (Themes.Mapper,()=> MapperTheme.Apply ());
+
+			if (themer.ContainsKey (this.Theme))
+				themer [this.Theme].Invoke ();
 		}
 	}
 
@@ -33,7 +42,9 @@ namespace ClockKing
 		FitPulse,
 		TrackBeam,
 		GunMetal,
-		CashFlow
+		CashFlow,
+		Foody,
+		Mapper
 	}
 	public enum GroupingChoices
 	{

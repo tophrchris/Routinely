@@ -39,6 +39,9 @@ namespace ClockKing.Extensions
 			return nsRef.AddSeconds(nsDate.SecondsSinceReferenceDate);
 		}
 
+		public static string ToAMPMString(this TimeSpan ts){
+			return (DateTime.Today.Date + ts).ToString ("t");
+		}
 	}
 }
 

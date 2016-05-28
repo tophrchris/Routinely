@@ -76,7 +76,13 @@ namespace ClockKing.Model
 				var adjustment = this.TargetTime > now.TimeOfDay ? 0 : 1;
 				var next = DateTime.Today.AddDays (adjustment) + TargetTime;
 				return next - now;
+			}
+		}
 
+		public DateTime TargetTimeToday
+		{
+			get{
+				return (DateTime.Today + this.TargetTime);
 			}
 		}
 

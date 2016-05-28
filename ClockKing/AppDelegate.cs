@@ -5,7 +5,8 @@ using Xamarin.Themes.Core;
 using System.Linq;
 using System;
 using ClockKing.Extensions;
-
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Themes.Core;
 using Xamarin.Themes.TrackBeam;
 
@@ -24,26 +25,52 @@ namespace ClockKing
 		}
 			
 		public bool RequiresDataRefresh { get; set; }
-
 		public ClockKingOptions Options { get; set; }
+		public DataModel CheckPointData { get; set; }
 		public CheckPointController Controller{ get; set; }
 		public CommandManager Commands{ get; set; }
 		public NotificationManager Notifications{ get; set; }	
+		private UIApplicationShortcutItem LastShortcutItem { get; set; }
+		public Queue<Action<CheckPointController>> LaunchActions{ get; set; }
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			this.Options = new ClockKingOptions ();
 			this.Options.Theme = Themes.TrackBeam;
 			this.Options.ApplyTheme ();
- 
+		
 			this.Commands = new CommandManager ();
 			this.Notifications = new NotificationManager ();
+			this.CheckPointData = new DataModel ();
 			this.Notifications.EnsureSettings (application);
-			this.RequiresDataRefresh = true;
-			// Override point for customization after application launch.
-			// If not required for your application you can safely delete this method
-			return true;
+			this.LaunchActions = new Queue<Action<CheckPointController>> ();
+
+			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
+			application.SetMinimumBackgroundFetchInterval (UIApplication.BackgroundFetchIntervalMinimum);
+
+
+			var PerformAdditionalHandling = true;
+			if (launchOptions != null) 
+			{
+				this.LastShortcutItem = launchOptions [UIApplication.LaunchOptionsShortcutItemKey] as UIApplicationShortcutItem;
+				PerformAdditionalHandling = (LastShortcutItem == null);
+			}
+
+			return PerformAdditionalHandling;
 		}
+			
+
+		public override void PerformFetch (UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+		{
+			ShortcutManager.CreateShortcutItems (application,new DataModel());
+			completionHandler (UIBackgroundFetchResult.NewData);
+		}
+
+		public override void PerformActionForShortcutItem (UIApplication application, UIApplicationShortcutItem shortcutItem, UIOperationHandler completionHandler)
+		{
+			completionHandler (ShortcutManager.HandleShortcut (application, shortcutItem));
+		}
+
 
 		public override void OnResignActivation (UIApplication application)
 		{
@@ -70,6 +97,12 @@ namespace ClockKing
 			if (this.Controller!=null) 
 				this.Controller.ConditionallyRefreshData ();
 
+			if (LastShortcutItem != null) 
+			{
+				ShortcutManager.HandleShortcut (application, LastShortcutItem);
+				LastShortcutItem = null;
+			}
+
 			// Restart any tasks that were paused (or not yet started) while the application was inactive. 
 			// If the application was previously in the background, optionally refresh the user interface.
 		}
@@ -83,43 +116,16 @@ namespace ClockKing
 		/// TODO: move this implementation *somewhere*;  either commands or controller?
 		public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
 		{
-			try{
-				
-				var opts = UIAlertController.Create(notification.AlertTitle,notification.AlertBody,UIAlertControllerStyle.ActionSheet);
-
-				opts.AddAction(UIAlertAction.Create("Done!",UIAlertActionStyle.Default,
-					(a)=>this.Controller.AddOccurrenceToCheckPoint(notification.AlertTitle,0)));
-
-				opts.AddAction(UIAlertAction.Create("Snooze",UIAlertActionStyle.Default,
-					(a)=>{
-						notification.FireDate=DateTime.Now.AddMinutes(10).ToUniversalTime().ToNSDate();
-						application.ScheduleLocalNotification(notification);
-					}));
-
-				opts.AddAction(UIAlertAction.Create("Cancel",UIAlertActionStyle.Cancel,null));
-
-				this.Window.RootViewController.PresentViewController (opts, true, null);
-			}catch{
-			}
+			NotificationManager.HandleLocalNotification (application,notification);
 		}
 			
 		/// TODO: move this implementation *somewhere*;  either commands or controller?
 		public override void HandleAction (UIApplication application, string actionIdentifier, UILocalNotification localNotification, System.Action completionHandler)
 		{
-			var data = new DataModel (false);
-			var found = data.checkPoints [localNotification.AlertTitle]; 
-			var actionBits = actionIdentifier.Split(':');
-			var mins = int.Parse (actionBits [1]);	
-			if (mins > 0) {
-				localNotification.FireDate = DateTime.Now.AddMinutes (mins).ToUniversalTime ().ToNSDate ();
-				localNotification.RepeatInterval = 0;
-				application.ScheduleLocalNotification (localNotification);
-
-			} else {
-				var occ = found.CreateOccurrence (DateTime.Now.AddMinutes (mins));
-				data.SaveOccurrence (occ);
+			var dataChanged = NotificationManager.HandleNotificationAction (application, localNotification, actionIdentifier);
+			if (dataChanged)
 				this.RequiresDataRefresh = true;
-			}
+			
 			completionHandler ();
 		}
 	}

@@ -7,16 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Dialog;
 using ClockKing.Extensions;
+using EmojiSharp;
 
 namespace ClockKing.Commands
 {
-	public class ShowNotificationListCommand
+	public class ShowSettingsMenuCommand
 	{
-		
+
+
+
 		protected CheckPointController Controller{ get; set; }
 		protected UIBarButtonItem BarButton{ get; set; }
 
-		public ShowNotificationListCommand (CheckPointController controller)
+		public ShowSettingsMenuCommand (CheckPointController controller)
 		{
 			this.Controller = controller;
 
@@ -25,20 +28,24 @@ namespace ClockKing.Commands
 			acs.AddAction (UIAlertAction.Create ("show Notifications", UIAlertActionStyle.Default,
 				(a) => this.ShowNotificationsDialog ()));
 
+			acs.AddAction(UIAlertAction.Create("change sort",UIAlertActionStyle.Default,
+				(a)=>
+				{
+					var app = UIApplication.SharedApplication.Delegate as AppDelegate;
+					app.Options.GroupingChoice=
+						(app.Options.GroupingChoice==GroupingChoices.ByStatus)?
+								GroupingChoices.ByTimeOfDay:
+								GroupingChoices.ByStatus;
+					app.RequiresDataRefresh=true;
+					app.Controller.ConditionallyRefreshData();
+				}
+			));
+
 			acs.AddAction(UIAlertAction.Create("reset notifications",UIAlertActionStyle.Destructive,
 				(a)=>this.Controller.ResetNotifications()));
 
 			acs.AddAction(UIAlertAction.Create("Trim occurrences",UIAlertActionStyle.Destructive,
 				(a)=>this.Controller.RewriteOccurrences()));
-
-			acs.AddAction(UIAlertAction.Create("fitpulse",UIAlertActionStyle.Destructive,
-				(a)=>
-				{
-					var app = UIApplication.SharedApplication.Delegate as AppDelegate;
-					app.Options.Theme=Themes.FitPulse;
-					app.Options.ApplyTheme();
-				}
-			));
 
 			acs.AddAction(UIAlertAction.Create("nevermind",UIAlertActionStyle.Cancel,null));
 
@@ -52,7 +59,7 @@ namespace ClockKing.Commands
 		protected void ShowNotificationsDialog()
 		{
 
-			var root = new RootElement ("Add...");
+			var root = new RootElement ("Notifications");
 			var mtd = new NotificationReviewDialog (this.Controller, root);
 			this.Controller.NavigationController.PushViewController (mtd,true);
 		}
