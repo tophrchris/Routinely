@@ -27,7 +27,7 @@ namespace ClockKing.Commands
 		{
 
 			var root = new RootElement ("Add...");
-			var mtd = new AddNewCheckpointDialog (this.Controller, root,true);
+			var mtd = new CheckPointEditingDialog (this.Controller, root,true);
 			this.Controller.NavigationController.PushViewController (mtd,true);
 		}
 	}

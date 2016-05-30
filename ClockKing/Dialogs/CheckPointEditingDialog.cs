@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace ClockKing
 {
-	public class AddNewCheckpointDialog:DialogViewController
+	public class CheckPointEditingDialog:DialogViewController
 	{
 		CheckPointController Controller{ get; set; }
 
@@ -26,7 +26,7 @@ namespace ClockKing
 		private BooleanElement SuggestEmoji{ get; set; }
 		private bool SuggestAbbreviations = true;
 
-		public AddNewCheckpointDialog (CheckPointController controller, RootElement root, bool pushing) : base (root, pushing)
+		public CheckPointEditingDialog (CheckPointController controller, RootElement root, bool pushing) : base (root, pushing)
 		{
 			this.Controller = controller;
 			this.Style = UITableViewStyle.Grouped;
@@ -74,12 +74,15 @@ namespace ClockKing
 
 			this.nameElement.Value = toEdit.Name;
 			this.emojiElement.Value = toEdit.Emoji;
-			this.picker.Date = toEdit.TargetTimeToday.ToUniversalTime().ToNSDate ();
+			//this.picker.Date = toEdit.TargetTimeToday.ToUniversalTime().ToNSDate ();
 			var section = this.Root.First();
+			section.Remove (4);
 			section.Remove (this.nowElement.IndexPath.Row);
 			section.Remove (this.nowSwitch.IndexPath.Row);
+			var targetTimeElement = new TimeElement ("Target time", toEdit.TargetTimeToday);
 			var enabledSwitch = new BooleanElement ("Enabled?", toEdit.Enabled);
-			section.Add(enabledSwitch);
+			section.Add(new Element[]{targetTimeElement, enabledSwitch});
+
 			if (knownEmoji.Contains (toEdit.Emoji))
 				SuggestAbbreviations = false;
 
@@ -101,7 +104,7 @@ namespace ClockKing
 						
 
 					toEdit.Emoji=this.emojiElement.Value;
-					toEdit.TargetTime=this.picker.Date.ToDateTime().ToLocalTime().TimeOfDay;
+					toEdit.TargetTime=targetTimeElement.DateValue.TimeOfDay;
 					toEdit.Enabled= enabledSwitch.Value;
 					if(nameChanged)
 						toEdit.Name=this.nameElement.Value;

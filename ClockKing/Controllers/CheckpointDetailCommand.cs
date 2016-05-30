@@ -98,10 +98,11 @@ namespace ClockKing
 		public void CreateOptions(UIViewController dialog,CheckPoint Data)
 		{
 			var acs = UIAlertController.Create ("options", "stuff to do", UIAlertControllerStyle.ActionSheet);
+
 			acs.AddAction(UIAlertAction.Create("Edit",UIAlertActionStyle.Default,a=>{
 				var c = dialog as CheckPointDetailViewController;
 				var root = new RootElement("Edit");
-				var d = new AddNewCheckpointDialog(this.Controller,root,true);
+				var d = new CheckPointEditingDialog(this.Controller,root,true);
 				d.RenderForCheckPoint(Data);
 				this.Controller.NavigationController.PushViewController(d,true);
 			}));
