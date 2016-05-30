@@ -25,6 +25,8 @@ namespace ClockKing
 		{
 			var checkpoint = Data;
 
+			this.LastCheckpointDetailed = checkpoint;
+
 			var root = new RootElement (string.Format ("{0}", checkpoint.Name));
 			root.Add(GetDetailSections(Data));
 
@@ -73,11 +75,8 @@ namespace ClockKing
 
 		public void ShowDetailDialog(CheckPoint Data)
 		{
-			var mtd = GetDetailDialog (Data);
 
-			this.LastCheckpointDetailed = Data;
-
-			ShowDetailDialog (mtd, Data);
+			ShowDetailDialog (GetDetailDialog (Data), Data);
 
 		}
 		public void ShowDetailDialog(UIViewController dialog,CheckPoint Data=null)
