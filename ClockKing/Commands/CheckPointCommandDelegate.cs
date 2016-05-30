@@ -17,19 +17,29 @@ namespace ClockKing
 		{
 			this.Controller = controller;
 		}
+		public override bool ShouldHideUtilityButtonsOnSwipe (SWTableViewCell cell)
+		{
+			return true;
+		}
+
+		public override void DidEndScrolling (SWTableViewCell cell)
+		{
+			//TODO: this is where we could auto do-someting?
+			//Console.WriteLine ("end scrolling!");
+		}
 
 		public override void DidTriggerLeftUtilityButton (SWTableViewCell cell, nint index)
 		{
 			var cpp = ((CheckPointTableCell)cell).CheckPoint;
-			if(this.ExecuteCommandForCheckpoint (cpp, cell.LeftUtilityButtons, (int)index))
-				this.Controller.TableView.ReloadData();
+			if (this.ExecuteCommandForCheckpoint (cpp, cell.LeftUtilityButtons, (int)index))
+				this.Controller.RespondToModelChanges ();
 		}
 
 		public override void DidTriggerRightUtilityButton (SWTableViewCell cell, nint index)
 		{
 			var cpp = ((CheckPointTableCell)cell).CheckPoint;
-			if(this.ExecuteCommandForCheckpoint (cpp, cell.RightUtilityButtons, (int)index))
-				this.Controller.TableView.ReloadData();
+			if (this.ExecuteCommandForCheckpoint (cpp, cell.RightUtilityButtons, (int)index))
+				this.Controller.RespondToModelChanges ();
 		}
 
 		private bool ExecuteCommandForCheckpoint(CheckPoint checkPoint, IEnumerable<UIButton> buttons, int triggeredButtonIndex)

@@ -20,6 +20,7 @@ namespace ClockKing
 
 		private List<Command> CreateCommands(){
 			return new List<Command> () {
+				new EditCheckPointCommand(),
 				new EnableCheckPointCommand(),
 				new DisableCheckPointCommand(),
 				new AddOccurrenceCommand(),
@@ -27,6 +28,15 @@ namespace ClockKing
 				new DeleteCheckPointCommand()
 			};
 		}
+
+
+		public IEnumerable<UIAlertAction> GetAlertActionsForCheckpoint(CheckPoint selected,Action<Command> handler)
+		{
+			return this.Commands.Values
+				.Where (c => c.ShouldDecorate (selected))
+				.Select (c => c.AsAlertAction (handler));
+		}
+
 
 		public IEnumerable<UIPreviewAction> GetPreviewActionsForCheckpoint(CheckPoint toView,Action<Command> handler)
 		{
@@ -37,13 +47,10 @@ namespace ClockKing
 
 		public bool AttachUtilityButtonsToCell(CheckPointTableCell cell)
 		{
-
 			var cmdsForThisCell = this.CreateCommands ();
-			var active = cmdsForThisCell
-				.Where (u => u.ShouldDecorate (cell.CheckPoint))
-				.Select(u=>u);
+			var active = cmdsForThisCell.Where (u => u.ShouldDecorate (cell.CheckPoint));
 			var grouped = active.GroupBy (u => u.Category);
-
+	
 			foreach(var g in grouped)
 			{
 				if (g.Key == "Left")

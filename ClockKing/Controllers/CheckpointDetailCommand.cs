@@ -96,30 +96,22 @@ namespace ClockKing
 		}
 		public void CreateOptions(UIViewController dialog,CheckPoint Data)
 		{
-			var acs = UIAlertController.Create ("options", "stuff to do", UIAlertControllerStyle.ActionSheet);
+			var acs = UIAlertController.Create (string.Format("options for {0}",Data.Name), "stuff to do", UIAlertControllerStyle.ActionSheet);
 
-			acs.AddAction(UIAlertAction.Create("Edit",UIAlertActionStyle.Default,a=>{
-				var c = dialog as CheckPointDetailViewController;
-				var root = new RootElement("Edit");
-				var d = new CheckPointEditingDialog(this.Controller,root,true);
-				d.RenderForCheckPoint(Data);
-				this.Controller.NavigationController.PushViewController(d,true);
-			}));
+			var handler = new Action<Command> ((c) => 
+				{
+					if(c.ExecuteFor(this.Controller,Data))
+					{
+						this.Controller.ConditionallyRefreshData();
+						CreateOptions(this.Controller,Data);
+					}
+				});
 
+			foreach (var cmd in this.Controller.Commands.GetAlertActionsForCheckpoint(Data,handler))
+				acs.AddAction (cmd);
 
-			foreach (var cmd in this.Controller.Commands.Commands)
-				if (cmd.Value.ShouldDecorate (Data))
-					acs.AddAction (cmd.Value.AsAlertAction(c=>
-						{if(c.ExecuteFor(this.Controller,Data))
-							{	
-								//TODO: have to actually update this dialog as well?
-								this.Controller.ConditionallyRefreshData();
-								CreateOptions(dialog,Data);
-							}
-						}));
-
-			acs.AddAction (UIAlertAction.Create ("Nevermind", UIAlertActionStyle.Cancel, null));
-
+			acs.AddAction(UIAlertAction.Create("Nevermind!",UIAlertActionStyle.Cancel,null));
+							
 			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Edit,
 				(s, e) => this.Controller.PresentViewController(acs,true,null)
 			), true);

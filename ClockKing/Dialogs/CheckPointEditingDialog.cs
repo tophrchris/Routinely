@@ -101,10 +101,9 @@ namespace ClockKing
 							ShowError ("A goal already exists with the new name you've chosen.  Please choose a different name!");
 							return;
 					}
-						
 
 					toEdit.Emoji=this.emojiElement.Value;
-					toEdit.TargetTime=targetTimeElement.DateValue.TimeOfDay;
+					toEdit.TargetTime=targetTimeElement.DateValue.ToLocalTime().TimeOfDay;
 					toEdit.Enabled= enabledSwitch.Value;
 					if(nameChanged)
 						toEdit.Name=this.nameElement.Value;
