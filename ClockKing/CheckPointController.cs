@@ -71,9 +71,7 @@ namespace ClockKing
 			
 		public void ShowDetailDialogFor(CheckPoint checkpoint)
 		{
-			this.NavigationItem.HidesBackButton = false;
 			this.Detail.ShowDetailDialog (checkpoint);
-
 		}	
 
 		public void ResetNotifications()
@@ -84,6 +82,20 @@ namespace ClockKing
 		public void RewriteOccurrences()
 		{
 			this.CheckPointData.SaveOccurrences ();
+		}
+
+		public bool CheckPointExists(string name)
+		{
+			return this.CheckPointData.checkPoints.ContainsKey (name);
+		}
+
+		public bool ResaveCheckpoints()
+		{
+			var saved = this.CheckPointData.SaveCheckPoints ();
+			if (saved)
+				this.RespondToModelChanges ();
+			return saved;
+
 		}
 
 		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji)
@@ -159,6 +171,7 @@ namespace ClockKing
 			if(this.IsViewLoaded)
 				this.TableView.ReloadData ();
 			this.Notifier.EnsureNotifications (this.CheckPointData);
+			ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
 		}
 
 
@@ -178,6 +191,7 @@ namespace ClockKing
 			 
 		public  void CommitViewController (IUIViewControllerPreviewing previewingContext, UIViewController viewControllerToCommit)
 		{
+			
 			this.Detail.ShowDetailDialog (viewControllerToCommit);
 		}
 

@@ -13,6 +13,7 @@ namespace ClockKing
 	{
 
 		protected CheckPointController Controller{ get; set;}
+		protected CheckPoint LastCheckpointDetailed { get; set;}
 
 		public CheckpointDetailCommand (CheckPointController controller)
 		{
@@ -23,11 +24,21 @@ namespace ClockKing
 		public UIViewController GetDetailDialog(CheckPoint Data)
 		{
 			var checkpoint = Data;
+
+			var root = new RootElement (string.Format ("{0}", checkpoint.Name));
+			root.Add(GetDetailSections(Data));
+
+			return new CheckPointDetailViewController (this.Controller,Data, root);
+		}
+
+		public Section[] GetDetailSections(CheckPoint checkpoint)
+		{
 			var distinctTimes = checkpoint.Occurrences.Select (o => o.Time).Distinct();
 
-			var root = new RootElement (string.Format ("details for {0}", checkpoint.Name));
+			var sectionsToReturn = new List<Section> ();
+
 			var timingSection = new Section ("Stats:");
-			root.Add (timingSection);
+			sectionsToReturn.Add (timingSection);
 
 			timingSection.Add (new StringElement ("count",
 				checkpoint.Occurrences.Count().ToString()));
@@ -45,35 +56,72 @@ namespace ClockKing
 				timingSection.Add (new StringElement ("since most recent",
 					checkpoint.SinceLastOccurrence.Humanize(1)+" ago"));
 
-
-
-				var detailRoot = new RootElement ("details root");
+				//var detailRoot = new RootElement ("details root");
 				var detailsSection = new Section("Occurrence History:");
-				detailRoot.Add (detailsSection);
+
 				detailsSection.AddAll (
 					checkpoint
 					.Occurrences
 					.OrderByDescending(o=>o.timeStamp)
 					.Select (o => new StringElement (o.timeStamp.ToString ("d"), o.timeStamp.ToString ("t"))));
-				root.Add (detailRoot);
+
+				sectionsToReturn.Add (detailsSection);
 			}
 
-			return new CheckPointDetailViewController (this.Controller,Data, root);
+			return sectionsToReturn.ToArray ();
 		}
 
 		public void ShowDetailDialog(CheckPoint Data)
 		{
 			var mtd = GetDetailDialog (Data);
 
-			ShowDetailDialog (mtd);
+			this.LastCheckpointDetailed = Data;
+
+			ShowDetailDialog (mtd, Data);
 
 		}
-		public void ShowDetailDialog(UIViewController dialog)
+		public void ShowDetailDialog(UIViewController dialog,CheckPoint Data=null)
 		{
+			if (Data == null)
+				Data = LastCheckpointDetailed;
+			
 			this.Controller.NavigationController.PushViewController (dialog,true);
 
-			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Done,
-				(s,e)=>this.Controller.NavigationController.PopViewController(true)
+			dialog.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Done,
+				(s, e) => this.Controller.NavigationController.PopViewController (true)
+			), true);
+
+			CreateOptions (dialog, Data);
+
+
+		}
+		public void CreateOptions(UIViewController dialog,CheckPoint Data)
+		{
+			var acs = UIAlertController.Create ("options", "stuff to do", UIAlertControllerStyle.ActionSheet);
+			acs.AddAction(UIAlertAction.Create("Edit",UIAlertActionStyle.Default,a=>{
+				var c = dialog as CheckPointDetailViewController;
+				var root = new RootElement("Edit");
+				var d = new AddNewCheckpointDialog(this.Controller,root,true);
+				d.RenderForCheckPoint(Data);
+				this.Controller.NavigationController.PushViewController(d,true);
+			}));
+
+
+			foreach (var cmd in this.Controller.Commands.Commands)
+				if (cmd.Value.ShouldDecorate (Data))
+					acs.AddAction (cmd.Value.AsAlertAction(c=>
+						{if(c.ExecuteFor(this.Controller,Data))
+							{	
+								//TODO: have to actually update this dialog as well?
+								this.Controller.ConditionallyRefreshData();
+								CreateOptions(dialog,Data);
+							}
+						}));
+
+			acs.AddAction (UIAlertAction.Create ("Nevermind", UIAlertActionStyle.Cancel, null));
+
+			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Edit,
+				(s, e) => this.Controller.PresentViewController(acs,true,null)
 			), true);
 		}
 	}
@@ -93,6 +141,12 @@ namespace ClockKing
 				});
 
 			this.actions = parent.Commands.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			this.NavigationItem.HidesBackButton = false;
 		}
 
 		public override IUIPreviewActionItem[] PreviewActionItems 

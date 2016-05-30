@@ -49,7 +49,7 @@ namespace EmojiSharp
 
         public override string ToString()
         {
-            return ShortName;
+			return this.Unified;
         }
 
         public string AsShortcode()
@@ -66,7 +66,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 264,
 
-                Unified = "00A9",
+                Unified = "\U0000000A9",
                 Variations = new string[] { "00A9-FE0F" },
 
                 Docomo = "E731",
@@ -122,7 +122,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 275,
 
-                Unified = "203C",
+				Unified = "\U0000203C",
                 Variations = new string[] { "203C-FE0F" },
 
                 Docomo = "E704",
@@ -150,7 +150,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 276,
 
-                Unified = "2049",
+                Unified = "\U00002049",
                 Variations = new string[] { "2049-FE0F" },
 
                 Docomo = "E703",
@@ -178,7 +178,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 263,
 
-                Unified = "2122",
+                Unified = "\U00002122",
                 Variations = new string[] { "2122-FE0F" },
 
                 Docomo = "E732",
@@ -206,7 +206,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 252,
 
-                Unified = "2139",
+                Unified = "\U00002139",
                 Variations = new string[] { "2139-FE0F" },
 
                 Docomo = null,
@@ -234,7 +234,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 227,
 
-                Unified = "2194",
+                Unified = "\U00002194",
                 Variations = new string[] { "2194-FE0F" },
 
                 Docomo = "E73C",
@@ -262,7 +262,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 226,
 
-                Unified = "2195",
+                Unified = "\U00002195",
                 Variations = new string[] { "2195-FE0F" },
 
                 Docomo = "E73D",
@@ -290,7 +290,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 225,
 
-                Unified = "2196",
+                Unified = "\U00002196",
                 Variations = new string[] { "2196-FE0F" },
 
                 Docomo = "E697",
@@ -318,7 +318,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 222,
 
-                Unified = "2197",
+                Unified = "\U00002197",
                 Variations = new string[] { "2197-FE0F" },
 
                 Docomo = "E678",
@@ -346,7 +346,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 223,
 
-                Unified = "2198",
+                Unified = "\U00002198",
                 Variations = new string[] { "2198-FE0F" },
 
                 Docomo = "E696",
@@ -374,7 +374,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 224,
 
-                Unified = "2199",
+                Unified = "\U00002199",
                 Variations = new string[] { "2199-FE0F" },
 
                 Docomo = "E6A5",
@@ -402,7 +402,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 230,
 
-                Unified = "21A9",
+                Unified = "\U000021A9",
                 Variations = new string[] { "21A9-FE0F" },
 
                 Docomo = "E6DA",
@@ -430,7 +430,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 229,
 
-                Unified = "21AA",
+                Unified = "\U000021AA",
                 Variations = new string[] { "21AA-FE0F" },
 
                 Docomo = null,
@@ -458,7 +458,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 1,
 
-                Unified = "231A",
+                Unified = "\U0000231A",
                 Variations = new string[] { "231A-FE0F" },
 
                 Docomo = "E71F",
@@ -486,7 +486,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 7,
 
-                Unified = "231B",
+                Unified = "\U0000231B",
                 Variations = new string[] { "231B-FE0F" },
 
                 Docomo = "E71C",
@@ -514,7 +514,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 214,
 
-                Unified = "23E9",
+                Unified = "\U000023E9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -542,7 +542,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 215,
 
-                Unified = "23EA",
+                Unified = "\U000023EA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -570,7 +570,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 216,
 
-                Unified = "23EB",
+                Unified = "\U000023EB",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -598,7 +598,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 217,
 
-                Unified = "23EC",
+                Unified = "\U000023EC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -626,7 +626,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 5,
 
-                Unified = "23F0",
+                Unified = "\U000023F0",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -654,7 +654,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 6,
 
-                Unified = "23F3",
+                Unified = "\U000023F3",
                 Variations = new string[] {  },
 
                 Docomo = "E71C",
@@ -682,7 +682,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 286,
 
-                Unified = "24C2",
+                Unified = "\U000024C2",
                 Variations = new string[] { "24C2-FE0F" },
 
                 Docomo = "E65C",
@@ -710,7 +710,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 312,
 
-                Unified = "25AA",
+                Unified = "\U000025AA",
                 Variations = new string[] { "25AA-FE0F" },
 
                 Docomo = null,
@@ -738,7 +738,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 313,
 
-                Unified = "25AB",
+                Unified = "\U000025AB",
                 Variations = new string[] { "25AB-FE0F" },
 
                 Docomo = null,
@@ -766,7 +766,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 210,
 
-                Unified = "25B6",
+                Unified = "\U000025B6",
                 Variations = new string[] { "25B6-FE0F" },
 
                 Docomo = null,
@@ -794,7 +794,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 211,
 
-                Unified = "25C0",
+                Unified = "\U000025C0",
                 Variations = new string[] { "25C0-FE0F" },
 
                 Docomo = null,
@@ -822,7 +822,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 317,
 
-                Unified = "25FB",
+                Unified = "\U000025FB",
                 Variations = new string[] { "25FB-FE0F" },
 
                 Docomo = null,
@@ -850,7 +850,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 316,
 
-                Unified = "25FC",
+                Unified = "\U000025FC",
                 Variations = new string[] { "25FC-FE0F" },
 
                 Docomo = null,
@@ -878,7 +878,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 319,
 
-                Unified = "25FD",
+                Unified = "\U000025FD",
                 Variations = new string[] { "25FD-FE0F" },
 
                 Docomo = null,
@@ -906,7 +906,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 318,
 
-                Unified = "25FE",
+                Unified = "\U000025FE",
                 Variations = new string[] { "25FE-FE0F" },
 
                 Docomo = null,
@@ -934,7 +934,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 90,
 
-                Unified = "2600",
+                Unified = "\U00002600",
                 Variations = new string[] { "2600-FE0F" },
 
                 Docomo = "E63E",
@@ -962,7 +962,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 92,
 
-                Unified = "2601",
+                Unified = "\U00002601",
                 Variations = new string[] { "2601-FE0F" },
 
                 Docomo = "E63F",
@@ -990,7 +990,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 15,
 
-                Unified = "260E",
+                Unified = "\U0000260E",
                 Variations = new string[] { "260E-FE0F" },
 
                 Docomo = "E687",
@@ -1018,7 +1018,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 300,
 
-                Unified = "2611",
+                Unified = "\U00002611",
                 Variations = new string[] { "2611-FE0F" },
 
                 Docomo = null,
@@ -1046,7 +1046,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 95,
 
-                Unified = "2614",
+                Unified = "\U00002614",
                 Variations = new string[] { "2614-FE0F" },
 
                 Docomo = "E640",
@@ -1074,7 +1074,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 51,
 
-                Unified = "2615",
+                Unified = "\U00002615",
                 Variations = new string[] { "2615-FE0F" },
 
                 Docomo = "E670",
@@ -1102,7 +1102,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 139,
 
-                Unified = "261D",
+                Unified = "\U0000261D",
                 Variations = new string[] { "261D-FE0F" },
 
                 Docomo = null,
@@ -1130,7 +1130,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 13,
 
-                Unified = "263A",
+                Unified = "\U0000263A",
                 Variations = new string[] { "263A-FE0F" },
 
                 Docomo = "E6F0",
@@ -1158,7 +1158,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 190,
 
-                Unified = "2648",
+                Unified = "\U00002648",
                 Variations = new string[] { "2648-FE0F" },
 
                 Docomo = "E646",
@@ -1186,7 +1186,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 191,
 
-                Unified = "2649",
+                Unified = "\U00002649",
                 Variations = new string[] { "2649-FE0F" },
 
                 Docomo = "E647",
@@ -1214,7 +1214,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 192,
 
-                Unified = "264A",
+                Unified = "\U0000264A",
                 Variations = new string[] { "264A-FE0F" },
 
                 Docomo = "E648",
@@ -1242,7 +1242,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 193,
 
-                Unified = "264B",
+                Unified = "\U0000264B",
                 Variations = new string[] { "264B-FE0F" },
 
                 Docomo = "E649",
@@ -1270,7 +1270,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 194,
 
-                Unified = "264C",
+                Unified = "\U0000264C",
                 Variations = new string[] { "264C-FE0F" },
 
                 Docomo = "E64A",
@@ -1298,7 +1298,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 195,
 
-                Unified = "264D",
+                Unified = "\U0000264D",
                 Variations = new string[] { "264D-FE0F" },
 
                 Docomo = "E64B",
@@ -1326,7 +1326,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 196,
 
-                Unified = "264E",
+                Unified = "\U0000264E",
                 Variations = new string[] { "264E-FE0F" },
 
                 Docomo = "E64C",
@@ -1354,7 +1354,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 197,
 
-                Unified = "264F",
+                Unified = "\U0000264F",
                 Variations = new string[] { "264F-FE0F" },
 
                 Docomo = "E64D",
@@ -1382,7 +1382,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 198,
 
-                Unified = "2650",
+                Unified = "\U00002650",
                 Variations = new string[] { "2650-FE0F" },
 
                 Docomo = "E64E",
@@ -1410,7 +1410,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 199,
 
-                Unified = "2651",
+                Unified = "\U00002651",
                 Variations = new string[] { "2651-FE0F" },
 
                 Docomo = "E64F",
@@ -1438,7 +1438,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 200,
 
-                Unified = "2652",
+                Unified = "\U00002652",
                 Variations = new string[] { "2652-FE0F" },
 
                 Docomo = "E650",
@@ -1466,7 +1466,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 201,
 
-                Unified = "2653",
+                Unified = "\U00002653",
                 Variations = new string[] { "2653-FE0F" },
 
                 Docomo = "E651",
@@ -1494,7 +1494,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 296,
 
-                Unified = "2660",
+                Unified = "\U00002660",
                 Variations = new string[] { "2660-FE0F" },
 
                 Docomo = "E68E",
@@ -1522,7 +1522,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 297,
 
-                Unified = "2663",
+                Unified = "\U00002663",
                 Variations = new string[] { "2663-FE0F" },
 
                 Docomo = "E690",
@@ -1550,7 +1550,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 298,
 
-                Unified = "2665",
+                Unified = "\U00002665",
                 Variations = new string[] { "2665-FE0F" },
 
                 Docomo = "E68D",
@@ -1578,7 +1578,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 299,
 
-                Unified = "2666",
+                Unified = "\U00002666",
                 Variations = new string[] { "2666-FE0F" },
 
                 Docomo = "E68F",
@@ -1606,7 +1606,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 292,
 
-                Unified = "2668",
+                Unified = "\U00002668",
                 Variations = new string[] { "2668-FE0F" },
 
                 Docomo = "E6F7",
@@ -1634,7 +1634,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 293,
 
-                Unified = "267B",
+                Unified = "\U0000267B",
                 Variations = new string[] { "267B-FE0F" },
 
                 Docomo = "E735",
@@ -1662,7 +1662,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 206,
 
-                Unified = "267F",
+                Unified = "\U0000267F",
                 Variations = new string[] { "267F-FE0F" },
 
                 Docomo = "E69B",
@@ -1690,7 +1690,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 40,
 
-                Unified = "2693",
+                Unified = "\U00002693",
                 Variations = new string[] { "2693-FE0F" },
 
                 Docomo = "E661",
@@ -1718,7 +1718,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 291,
 
-                Unified = "26A0",
+                Unified = "\U000026A0",
                 Variations = new string[] { "26A0-FE0F" },
 
                 Docomo = "E737",
@@ -1746,7 +1746,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 87,
 
-                Unified = "26A1",
+                Unified = "\U000026A1",
                 Variations = new string[] { "26A1-FE0F" },
 
                 Docomo = "E642",
@@ -1774,7 +1774,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 301,
 
-                Unified = "26AA",
+                Unified = "\U000026AA",
                 Variations = new string[] { "26AA-FE0F" },
 
                 Docomo = "E69C",
@@ -1802,7 +1802,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 302,
 
-                Unified = "26AB",
+                Unified = "\U000026AB",
                 Variations = new string[] { "26AB-FE0F" },
 
                 Docomo = "E69C",
@@ -1830,7 +1830,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 16,
 
-                Unified = "26BD",
+                Unified = "\U000026BD",
                 Variations = new string[] { "26BD-FE0F" },
 
                 Docomo = "E656",
@@ -1858,7 +1858,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 19,
 
-                Unified = "26BE",
+                Unified = "\U000026BE",
                 Variations = new string[] { "26BE-FE0F" },
 
                 Docomo = "E653",
@@ -1886,7 +1886,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 10,
 
-                Unified = "26C4",
+                Unified = "\U000026C4",
                 Variations = new string[] { "26C4-FE0F" },
 
                 Docomo = "E641",
@@ -1914,7 +1914,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 91,
 
-                Unified = "26C5",
+                Unified = "\U000026C5",
                 Variations = new string[] { "26C5-FE0F" },
 
                 Docomo = "E63E-E63F",
@@ -1942,7 +1942,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 287,
 
-                Unified = "26CE",
+                Unified = "\U000026CE",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -1970,7 +1970,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 139,
 
-                Unified = "26D4",
+                Unified = "\U000026D4",
                 Variations = new string[] { "26D4-FE0F" },
 
                 Docomo = "E72F",
@@ -1998,7 +1998,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 78,
 
-                Unified = "26EA",
+                Unified = "\U000026EA",
                 Variations = new string[] { "26EA-FE0F" },
 
                 Docomo = null,
@@ -2026,7 +2026,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 59,
 
-                Unified = "26F2",
+                Unified = "\U000026F2",
                 Variations = new string[] { "26F2-FE0F" },
 
                 Docomo = null,
@@ -2054,7 +2054,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 22,
 
-                Unified = "26F3",
+                Unified = "\U000026F3",
                 Variations = new string[] { "26F3-FE0F" },
 
                 Docomo = "E654",
@@ -2082,7 +2082,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 43,
 
-                Unified = "26F5",
+                Unified = "\U000026F5",
                 Variations = new string[] { "26F5-FE0F" },
 
                 Docomo = "E6A3",
@@ -2110,7 +2110,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 14,
 
-                Unified = "26FA",
+                Unified = "\U000026FA",
                 Variations = new string[] { "26FA-FE0F" },
 
                 Docomo = null,
@@ -2138,7 +2138,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 32,
 
-                Unified = "26FD",
+                Unified = "\U000026FD",
                 Variations = new string[] { "26FD-FE0F" },
 
                 Docomo = "E66B",
@@ -2166,7 +2166,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 110,
 
-                Unified = "2702",
+                Unified = "\U00002702",
                 Variations = new string[] { "2702-FE0F" },
 
                 Docomo = "E675",
@@ -2194,7 +2194,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 169,
 
-                Unified = "2705",
+                Unified = "\U00002705",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -2222,7 +2222,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 38,
 
-                Unified = "2708",
+                Unified = "\U00002708",
                 Variations = new string[] { "2708-FE0F" },
 
                 Docomo = "E662",
@@ -2250,7 +2250,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 72,
 
-                Unified = "2709",
+                Unified = "\U00002709",
                 Variations = new string[] { "2709-FE0F" },
 
                 Docomo = "E6D3",
@@ -2278,7 +2278,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 147,
 
-                Unified = "270A",
+                Unified = "\U0000270A",
                 Variations = new string[] {  },
 
                 Docomo = "E693",
@@ -2306,7 +2306,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 148,
 
-                Unified = "270B",
+                Unified = "\U0000270B",
                 Variations = new string[] {  },
 
                 Docomo = "E695",
@@ -2334,7 +2334,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 145,
 
-                Unified = "270C",
+                Unified = "\U0000270C",
                 Variations = new string[] { "270C-FE0F" },
 
                 Docomo = "E694",
@@ -2362,7 +2362,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 118,
 
-                Unified = "270F",
+                Unified = "\U0000270F",
                 Variations = new string[] { "270F-FE0F" },
 
                 Docomo = "E719",
@@ -2390,7 +2390,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 117,
 
-                Unified = "2712",
+                Unified = "\U00002712",
                 Variations = new string[] { "2712-FE0F" },
 
                 Docomo = "E6AE",
@@ -2418,7 +2418,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 261,
 
-                Unified = "2714",
+                Unified = "\U00002714",
                 Variations = new string[] { "2714-FE0F" },
 
                 Docomo = null,
@@ -2446,7 +2446,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 260,
 
-                Unified = "2716",
+                Unified = "\U00002716",
                 Variations = new string[] { "2716-FE0F" },
 
                 Docomo = null,
@@ -2474,7 +2474,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 15,
 
-                Unified = "2728",
+                Unified = "\U00002728",
                 Variations = new string[] {  },
 
                 Docomo = "E6FA",
@@ -2502,7 +2502,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 167,
 
-                Unified = "2733",
+                Unified = "\U00002733",
                 Variations = new string[] { "2733-FE0F" },
 
                 Docomo = "E6F8",
@@ -2530,7 +2530,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 170,
 
-                Unified = "2734",
+                Unified = "\U00002734",
                 Variations = new string[] { "2734-FE0F" },
 
                 Docomo = "E6F8",
@@ -2558,7 +2558,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 97,
 
-                Unified = "2744",
+                Unified = "\U00002744",
                 Variations = new string[] { "2744-FE0F" },
 
                 Docomo = null,
@@ -2586,7 +2586,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 166,
 
-                Unified = "2747",
+                Unified = "\U00002747",
                 Variations = new string[] { "2747-FE0F" },
 
                 Docomo = "E6FA",
@@ -2614,7 +2614,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 277,
 
-                Unified = "274C",
+                Unified = "\U0000274C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -2642,7 +2642,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 168,
 
-                Unified = "274E",
+                Unified = "\U0000274E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -2670,7 +2670,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 272,
 
-                Unified = "2753",
+                Unified = "\U00002753",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -2698,7 +2698,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 274,
 
-                Unified = "2754",
+                Unified = "\U00002754",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -2726,7 +2726,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 273,
 
-                Unified = "2755",
+                Unified = "\U00002755",
                 Variations = new string[] {  },
 
                 Docomo = "E702",
@@ -2754,7 +2754,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 271,
 
-                Unified = "2757",
+                Unified = "\U00002757",
                 Variations = new string[] { "2757-FE0F" },
 
                 Docomo = "E702",
@@ -2782,7 +2782,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 25,
 
-                Unified = "2764",
+                Unified = "\U00002764",
                 Variations = new string[] { "2764-FE0F" },
 
                 Docomo = "E6EC",
@@ -2810,7 +2810,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 256,
 
-                Unified = "2795",
+                Unified = "\U00002795",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -2838,7 +2838,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 257,
 
-                Unified = "2796",
+                Unified = "\U00002796",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -2866,7 +2866,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 259,
 
-                Unified = "2797",
+                Unified = "\U00002797",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -2894,7 +2894,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 218,
 
-                Unified = "27A1",
+                Unified = "\U000027A1",
                 Variations = new string[] { "27A1-FE0F" },
 
                 Docomo = null,
@@ -2922,7 +2922,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 268,
 
-                Unified = "27B0",
+                Unified = "\U000027B0",
                 Variations = new string[] {  },
 
                 Docomo = "E70A",
@@ -2950,7 +2950,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 269,
 
-                Unified = "27BF",
+                Unified = "\U000027BF",
                 Variations = new string[] {  },
 
                 Docomo = "E6DF",
@@ -2978,7 +2978,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 231,
 
-                Unified = "2934",
+                Unified = "\U00002934",
                 Variations = new string[] { "2934-FE0F" },
 
                 Docomo = "E6F5",
@@ -3006,7 +3006,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 232,
 
-                Unified = "2935",
+                Unified = "\U00002935",
                 Variations = new string[] { "2935-FE0F" },
 
                 Docomo = "E700",
@@ -3034,7 +3034,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 219,
 
-                Unified = "2B05",
+                Unified = "\U00002B05",
                 Variations = new string[] { "2B05-FE0F" },
 
                 Docomo = null,
@@ -3062,7 +3062,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 220,
 
-                Unified = "2B06",
+                Unified = "\U00002B06",
                 Variations = new string[] { "2B06-FE0F" },
 
                 Docomo = null,
@@ -3090,7 +3090,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 221,
 
-                Unified = "2B07",
+                Unified = "\U00002B07",
                 Variations = new string[] { "2B07-FE0F" },
 
                 Docomo = null,
@@ -3118,7 +3118,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 314,
 
-                Unified = "2B1B",
+                Unified = "\U00002B1B",
                 Variations = new string[] { "2B1B-FE0F" },
 
                 Docomo = null,
@@ -3146,7 +3146,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 315,
 
-                Unified = "2B1C",
+                Unified = "\U00002B1C",
                 Variations = new string[] { "2B1C-FE0F" },
 
                 Docomo = null,
@@ -3174,7 +3174,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 99,
 
-                Unified = "2B50",
+                Unified = "\U00002B50",
                 Variations = new string[] { "2B50-FE0F" },
 
                 Docomo = null,
@@ -3202,7 +3202,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 278,
 
-                Unified = "2B55",
+                Unified = "\U00002B55",
                 Variations = new string[] { "2B55-FE0F" },
 
                 Docomo = "E6A0",
@@ -3230,7 +3230,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 258,
 
-                Unified = "3030",
+                Unified = "\U00003030",
                 Variations = new string[] { "3030-FE0F" },
 
                 Docomo = "E709",
@@ -3258,7 +3258,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 270,
 
-                Unified = "303D",
+                Unified = "\U0000303D",
                 Variations = new string[] { "303D-FE0F" },
 
                 Docomo = null,
@@ -3286,7 +3286,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 151,
 
-                Unified = "3297",
+                Unified = "\U00003297",
                 Variations = new string[] { "3297-FE0F" },
 
                 Docomo = null,
@@ -3314,7 +3314,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 150,
 
-                Unified = "3299",
+                Unified = "\U00003299",
                 Variations = new string[] { "3299-FE0F" },
 
                 Docomo = "E734",
@@ -3342,7 +3342,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 50,
 
-                Unified = "1F004",
+                Unified = "\U0001F004",
                 Variations = new string[] { "1F004-FE0F" },
 
                 Docomo = null,
@@ -3370,7 +3370,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 49,
 
-                Unified = "1F0CF",
+                Unified = "\U0001F0CF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -3398,7 +3398,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 174,
 
-                Unified = "1F170",
+                Unified = "\U0001F170",
                 Variations = new string[] { "1F170-FE0F" },
 
                 Docomo = null,
@@ -3426,7 +3426,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 175,
 
-                Unified = "1F171",
+                Unified = "\U0001F171",
                 Variations = new string[] { "1F171-FE0F" },
 
                 Docomo = null,
@@ -3454,7 +3454,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 178,
 
-                Unified = "1F17E",
+                Unified = "\U0001F17E",
                 Variations = new string[] { "1F17E-FE0F" },
 
                 Docomo = null,
@@ -3482,7 +3482,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 181,
 
-                Unified = "1F17F",
+                Unified = "\U0001F17F",
                 Variations = new string[] { "1F17F-FE0F" },
 
                 Docomo = "E66C",
@@ -3510,7 +3510,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 176,
 
-                Unified = "1F18E",
+                Unified = "\U0001F18E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -3538,7 +3538,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 177,
 
-                Unified = "1F191",
+                Unified = "\U0001F191",
                 Variations = new string[] {  },
 
                 Docomo = "E6DB",
@@ -3566,7 +3566,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 183,
 
-                Unified = "1F192",
+                Unified = "\U0001F192",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -3594,7 +3594,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 184,
 
-                Unified = "1F193",
+                Unified = "\U0001F193",
                 Variations = new string[] {  },
 
                 Docomo = "E6D7",
@@ -3622,7 +3622,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 180,
 
-                Unified = "1F194",
+                Unified = "\U0001F194",
                 Variations = new string[] {  },
 
                 Docomo = "E6D8",
@@ -3650,7 +3650,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 185,
 
-                Unified = "1F195",
+                Unified = "\U0001F195",
                 Variations = new string[] {  },
 
                 Docomo = "E6DD",
@@ -3678,7 +3678,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 186,
 
-                Unified = "1F196",
+                Unified = "\U0001F196",
                 Variations = new string[] {  },
 
                 Docomo = "E72F",
@@ -3706,7 +3706,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 187,
 
-                Unified = "1F197",
+                Unified = "\U0001F197",
                 Variations = new string[] {  },
 
                 Docomo = "E70B",
@@ -3734,7 +3734,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 179,
 
-                Unified = "1F198",
+                Unified = "\U0001F198",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -3762,7 +3762,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 188,
 
-                Unified = "1F199",
+                Unified = "\U0001F199",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -3790,7 +3790,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 173,
 
-                Unified = "1F19A",
+                Unified = "\U0001F19A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -3818,7 +3818,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 163,
 
-                Unified = "1F201",
+                Unified = "\U0001F201",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -3846,7 +3846,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 162,
 
-                Unified = "1F202",
+                Unified = "\U0001F202",
                 Variations = new string[] { "1F202-FE0F" },
 
                 Docomo = null,
@@ -3874,7 +3874,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 156,
 
-                Unified = "1F21A",
+                Unified = "\U0001F21A",
                 Variations = new string[] { "1F21A-FE0F" },
 
                 Docomo = null,
@@ -3902,7 +3902,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 164,
 
-                Unified = "1F22F",
+                Unified = "\U0001F22F",
                 Variations = new string[] { "1F22F-FE0F" },
 
                 Docomo = null,
@@ -3930,7 +3930,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 154,
 
-                Unified = "1F232",
+                Unified = "\U0001F232",
                 Variations = new string[] {  },
 
                 Docomo = "E738",
@@ -3958,7 +3958,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 161,
 
-                Unified = "1F233",
+                Unified = "\U0001F233",
                 Variations = new string[] {  },
 
                 Docomo = "E739",
@@ -3986,7 +3986,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 152,
 
-                Unified = "1F234",
+                Unified = "\U0001F234",
                 Variations = new string[] {  },
 
                 Docomo = "E73A",
@@ -4014,7 +4014,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 153,
 
-                Unified = "1F235",
+                Unified = "\U0001F235",
                 Variations = new string[] {  },
 
                 Docomo = "E73B",
@@ -4042,7 +4042,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 155,
 
-                Unified = "1F236",
+                Unified = "\U0001F236",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4070,7 +4070,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 159,
 
-                Unified = "1F237",
+                Unified = "\U0001F237",
                 Variations = new string[] { "1F237-FE0F" },
 
                 Docomo = null,
@@ -4098,7 +4098,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 157,
 
-                Unified = "1F238",
+                Unified = "\U0001F238",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4126,7 +4126,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 160,
 
-                Unified = "1F239",
+                Unified = "\U0001F239",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4154,7 +4154,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 158,
 
-                Unified = "1F23A",
+                Unified = "\U0001F23A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4182,7 +4182,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 148,
 
-                Unified = "1F250",
+                Unified = "\U0001F250",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4210,7 +4210,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 147,
 
-                Unified = "1F251",
+                Unified = "\U0001F251",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4238,7 +4238,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 285,
 
-                Unified = "1F300",
+                Unified = "\U0001F300",
                 Variations = new string[] {  },
 
                 Docomo = "E643",
@@ -4266,7 +4266,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 57,
 
-                Unified = "1F301",
+                Unified = "\U0001F301",
                 Variations = new string[] {  },
 
                 Docomo = "E644",
@@ -4294,7 +4294,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 31,
 
-                Unified = "1F302",
+                Unified = "\U0001F302",
                 Variations = new string[] {  },
 
                 Docomo = "E645",
@@ -4322,7 +4322,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 64,
 
-                Unified = "1F303",
+                Unified = "\U0001F303",
                 Variations = new string[] {  },
 
                 Docomo = "E6B3",
@@ -4350,7 +4350,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 101,
 
-                Unified = "1F304",
+                Unified = "\U0001F304",
                 Variations = new string[] {  },
 
                 Docomo = "E63E",
@@ -4378,7 +4378,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 102,
 
-                Unified = "1F305",
+                Unified = "\U0001F305",
                 Variations = new string[] {  },
 
                 Docomo = "E63E",
@@ -4406,7 +4406,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 63,
 
-                Unified = "1F306",
+                Unified = "\U0001F306",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4434,7 +4434,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 62,
 
-                Unified = "1F307",
+                Unified = "\U0001F307",
                 Variations = new string[] {  },
 
                 Docomo = "E63E",
@@ -4462,7 +4462,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 103,
 
-                Unified = "1F308",
+                Unified = "\U0001F308",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4490,7 +4490,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 65,
 
-                Unified = "1F309",
+                Unified = "\U0001F309",
                 Variations = new string[] {  },
 
                 Docomo = "E6B3",
@@ -4518,7 +4518,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 104,
 
-                Unified = "1F30A",
+                Unified = "\U0001F30A",
                 Variations = new string[] {  },
 
                 Docomo = "E73F",
@@ -4546,7 +4546,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 105,
 
-                Unified = "1F30B",
+                Unified = "\U0001F30B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4574,7 +4574,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 106,
 
-                Unified = "1F30C",
+                Unified = "\U0001F30C",
                 Variations = new string[] {  },
 
                 Docomo = "E6B3",
@@ -4602,7 +4602,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 110,
 
-                Unified = "1F30D",
+                Unified = "\U0001F30D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4630,7 +4630,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 111,
 
-                Unified = "1F30E",
+                Unified = "\U0001F30E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4658,7 +4658,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 112,
 
-                Unified = "1F30F",
+                Unified = "\U0001F30F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4686,7 +4686,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 109,
 
-                Unified = "1F310",
+                Unified = "\U0001F310",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4714,7 +4714,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 113,
 
-                Unified = "1F311",
+                Unified = "\U0001F311",
                 Variations = new string[] {  },
 
                 Docomo = "E69C",
@@ -4742,7 +4742,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 114,
 
-                Unified = "1F312",
+                Unified = "\U0001F312",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4770,7 +4770,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 115,
 
-                Unified = "1F313",
+                Unified = "\U0001F313",
                 Variations = new string[] {  },
 
                 Docomo = "E69E",
@@ -4798,7 +4798,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 116,
 
-                Unified = "1F314",
+                Unified = "\U0001F314",
                 Variations = new string[] {  },
 
                 Docomo = "E69D",
@@ -4826,7 +4826,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 117,
 
-                Unified = "1F315",
+                Unified = "\U0001F315",
                 Variations = new string[] {  },
 
                 Docomo = "E6A0",
@@ -4854,7 +4854,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 118,
 
-                Unified = "1F316",
+                Unified = "\U0001F316",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4882,7 +4882,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 119,
 
-                Unified = "1F317",
+                Unified = "\U0001F317",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4910,7 +4910,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 120,
 
-                Unified = "1F318",
+                Unified = "\U0001F318",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4938,7 +4938,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 89,
 
-                Unified = "1F319",
+                Unified = "\U0001F319",
                 Variations = new string[] {  },
 
                 Docomo = "E69F",
@@ -4966,7 +4966,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 121,
 
-                Unified = "1F31A",
+                Unified = "\U0001F31A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -4994,7 +4994,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 123,
 
-                Unified = "1F31B",
+                Unified = "\U0001F31B",
                 Variations = new string[] {  },
 
                 Docomo = "E69E",
@@ -5022,7 +5022,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 124,
 
-                Unified = "1F31C",
+                Unified = "\U0001F31C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5050,7 +5050,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 122,
 
-                Unified = "1F31D",
+                Unified = "\U0001F31D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5078,7 +5078,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 125,
 
-                Unified = "1F31E",
+                Unified = "\U0001F31E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5106,7 +5106,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 98,
 
-                Unified = "1F31F",
+                Unified = "\U0001F31F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5134,7 +5134,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 100,
 
-                Unified = "1F320",
+                Unified = "\U0001F320",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5162,7 +5162,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 20,
 
-                Unified = "1F330",
+                Unified = "\U0001F330",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5190,7 +5190,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 1,
 
-                Unified = "1F331",
+                Unified = "\U0001F331",
                 Variations = new string[] {  },
 
                 Docomo = "E746",
@@ -5218,7 +5218,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 2,
 
-                Unified = "1F332",
+                Unified = "\U0001F332",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5246,7 +5246,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 3,
 
-                Unified = "1F333",
+                Unified = "\U0001F333",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5274,7 +5274,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 4,
 
-                Unified = "1F334",
+                Unified = "\U0001F334",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5302,7 +5302,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 5,
 
-                Unified = "1F335",
+                Unified = "\U0001F335",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5330,7 +5330,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 6,
 
-                Unified = "1F337",
+                Unified = "\U0001F337",
                 Variations = new string[] {  },
 
                 Docomo = "E743",
@@ -5358,7 +5358,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 7,
 
-                Unified = "1F338",
+                Unified = "\U0001F338",
                 Variations = new string[] {  },
 
                 Docomo = "E748",
@@ -5386,7 +5386,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 8,
 
-                Unified = "1F339",
+                Unified = "\U0001F339",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5414,7 +5414,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 9,
 
-                Unified = "1F33A",
+                Unified = "\U0001F33A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5442,7 +5442,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 10,
 
-                Unified = "1F33B",
+                Unified = "\U0001F33B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5470,7 +5470,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 11,
 
-                Unified = "1F33C",
+                Unified = "\U0001F33C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5498,7 +5498,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 3,
 
-                Unified = "1F33D",
+                Unified = "\U0001F33D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5526,7 +5526,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 13,
 
-                Unified = "1F33E",
+                Unified = "\U0001F33E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5554,7 +5554,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 14,
 
-                Unified = "1F33F",
+                Unified = "\U0001F33F",
                 Variations = new string[] {  },
 
                 Docomo = "E741",
@@ -5582,7 +5582,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 15,
 
-                Unified = "1F340",
+                Unified = "\U0001F340",
                 Variations = new string[] {  },
 
                 Docomo = "E741",
@@ -5610,7 +5610,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 16,
 
-                Unified = "1F341",
+                Unified = "\U0001F341",
                 Variations = new string[] {  },
 
                 Docomo = "E747",
@@ -5638,7 +5638,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 17,
 
-                Unified = "1F342",
+                Unified = "\U0001F342",
                 Variations = new string[] {  },
 
                 Docomo = "E747",
@@ -5666,7 +5666,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 18,
 
-                Unified = "1F343",
+                Unified = "\U0001F343",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5694,7 +5694,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 19,
 
-                Unified = "1F344",
+                Unified = "\U0001F344",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5722,7 +5722,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 1,
 
-                Unified = "1F345",
+                Unified = "\U0001F345",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5750,7 +5750,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 2,
 
-                Unified = "1F346",
+                Unified = "\U0001F346",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5778,7 +5778,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 5,
 
-                Unified = "1F347",
+                Unified = "\U0001F347",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5806,7 +5806,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 6,
 
-                Unified = "1F348",
+                Unified = "\U0001F348",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5834,7 +5834,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 7,
 
-                Unified = "1F349",
+                Unified = "\U0001F349",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5862,7 +5862,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 8,
 
-                Unified = "1F34A",
+                Unified = "\U0001F34A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5890,7 +5890,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 9,
 
-                Unified = "1F34B",
+                Unified = "\U0001F34B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5918,7 +5918,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 10,
 
-                Unified = "1F34C",
+                Unified = "\U0001F34C",
                 Variations = new string[] {  },
 
                 Docomo = "E744",
@@ -5946,7 +5946,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 11,
 
-                Unified = "1F34D",
+                Unified = "\U0001F34D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -5974,7 +5974,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 12,
 
-                Unified = "1F34E",
+                Unified = "\U0001F34E",
                 Variations = new string[] {  },
 
                 Docomo = "E745",
@@ -6002,7 +6002,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 13,
 
-                Unified = "1F34F",
+                Unified = "\U0001F34F",
                 Variations = new string[] {  },
 
                 Docomo = "E745",
@@ -6030,7 +6030,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 14,
 
-                Unified = "1F350",
+                Unified = "\U0001F350",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6058,7 +6058,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 15,
 
-                Unified = "1F351",
+                Unified = "\U0001F351",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6086,7 +6086,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 16,
 
-                Unified = "1F352",
+                Unified = "\U0001F352",
                 Variations = new string[] {  },
 
                 Docomo = "E742",
@@ -6114,7 +6114,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 17,
 
-                Unified = "1F353",
+                Unified = "\U0001F353",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6142,7 +6142,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 18,
 
-                Unified = "1F354",
+                Unified = "\U0001F354",
                 Variations = new string[] {  },
 
                 Docomo = "E673",
@@ -6170,7 +6170,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 19,
 
-                Unified = "1F355",
+                Unified = "\U0001F355",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6198,7 +6198,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 20,
 
-                Unified = "1F356",
+                Unified = "\U0001F356",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6226,7 +6226,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 21,
 
-                Unified = "1F357",
+                Unified = "\U0001F357",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6254,7 +6254,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 22,
 
-                Unified = "1F358",
+                Unified = "\U0001F358",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6282,7 +6282,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 23,
 
-                Unified = "1F359",
+                Unified = "\U0001F359",
                 Variations = new string[] {  },
 
                 Docomo = "E749",
@@ -6310,7 +6310,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 24,
 
-                Unified = "1F35A",
+                Unified = "\U0001F35A",
                 Variations = new string[] {  },
 
                 Docomo = "E74C",
@@ -6338,7 +6338,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 25,
 
-                Unified = "1F35B",
+                Unified = "\U0001F35B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6366,7 +6366,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 26,
 
-                Unified = "1F35C",
+                Unified = "\U0001F35C",
                 Variations = new string[] {  },
 
                 Docomo = "E74C",
@@ -6394,7 +6394,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 27,
 
-                Unified = "1F35D",
+                Unified = "\U0001F35D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6422,7 +6422,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 28,
 
-                Unified = "1F35E",
+                Unified = "\U0001F35E",
                 Variations = new string[] {  },
 
                 Docomo = "E74D",
@@ -6450,7 +6450,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 29,
 
-                Unified = "1F35F",
+                Unified = "\U0001F35F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6478,7 +6478,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 4,
 
-                Unified = "1F360",
+                Unified = "\U0001F360",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6506,7 +6506,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 30,
 
-                Unified = "1F361",
+                Unified = "\U0001F361",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6534,7 +6534,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 31,
 
-                Unified = "1F362",
+                Unified = "\U0001F362",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6562,7 +6562,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 32,
 
-                Unified = "1F363",
+                Unified = "\U0001F363",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6590,7 +6590,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 33,
 
-                Unified = "1F364",
+                Unified = "\U0001F364",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6618,7 +6618,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 34,
 
-                Unified = "1F365",
+                Unified = "\U0001F365",
                 Variations = new string[] {  },
 
                 Docomo = "E643",
@@ -6646,7 +6646,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 35,
 
-                Unified = "1F366",
+                Unified = "\U0001F366",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6674,7 +6674,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 36,
 
-                Unified = "1F367",
+                Unified = "\U0001F367",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6702,7 +6702,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 37,
 
-                Unified = "1F368",
+                Unified = "\U0001F368",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6730,7 +6730,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 38,
 
-                Unified = "1F369",
+                Unified = "\U0001F369",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6758,7 +6758,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 39,
 
-                Unified = "1F36A",
+                Unified = "\U0001F36A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6786,7 +6786,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 40,
 
-                Unified = "1F36B",
+                Unified = "\U0001F36B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6814,7 +6814,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 41,
 
-                Unified = "1F36C",
+                Unified = "\U0001F36C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6842,7 +6842,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 42,
 
-                Unified = "1F36D",
+                Unified = "\U0001F36D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6870,7 +6870,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 43,
 
-                Unified = "1F36E",
+                Unified = "\U0001F36E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6898,7 +6898,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 44,
 
-                Unified = "1F36F",
+                Unified = "\U0001F36F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6926,7 +6926,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 45,
 
-                Unified = "1F370",
+                Unified = "\U0001F370",
                 Variations = new string[] {  },
 
                 Docomo = "E74A",
@@ -6954,7 +6954,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 46,
 
-                Unified = "1F371",
+                Unified = "\U0001F371",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -6982,7 +6982,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 47,
 
-                Unified = "1F372",
+                Unified = "\U0001F372",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7010,7 +7010,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 48,
 
-                Unified = "1F373",
+                Unified = "\U0001F373",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7038,7 +7038,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 49,
 
-                Unified = "1F374",
+                Unified = "\U0001F374",
                 Variations = new string[] {  },
 
                 Docomo = "E66F",
@@ -7066,7 +7066,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 50,
 
-                Unified = "1F375",
+                Unified = "\U0001F375",
                 Variations = new string[] {  },
 
                 Docomo = "E71E",
@@ -7094,7 +7094,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 52,
 
-                Unified = "1F376",
+                Unified = "\U0001F376",
                 Variations = new string[] {  },
 
                 Docomo = "E74B",
@@ -7122,7 +7122,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 53,
 
-                Unified = "1F377",
+                Unified = "\U0001F377",
                 Variations = new string[] {  },
 
                 Docomo = "E756",
@@ -7150,7 +7150,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 54,
 
-                Unified = "1F378",
+                Unified = "\U0001F378",
                 Variations = new string[] {  },
 
                 Docomo = "E671",
@@ -7178,7 +7178,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 55,
 
-                Unified = "1F379",
+                Unified = "\U0001F379",
                 Variations = new string[] {  },
 
                 Docomo = "E671",
@@ -7206,7 +7206,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 56,
 
-                Unified = "1F37A",
+                Unified = "\U0001F37A",
                 Variations = new string[] {  },
 
                 Docomo = "E672",
@@ -7234,7 +7234,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 57,
 
-                Unified = "1F37B",
+                Unified = "\U0001F37B",
                 Variations = new string[] {  },
 
                 Docomo = "E672",
@@ -7262,7 +7262,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Foods,
                 SortOrder = 58,
 
-                Unified = "1F37C",
+                Unified = "\U0001F37C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7290,7 +7290,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 1,
 
-                Unified = "1F380",
+                Unified = "\U0001F380",
                 Variations = new string[] {  },
 
                 Docomo = "E684",
@@ -7318,7 +7318,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 2,
 
-                Unified = "1F381",
+                Unified = "\U0001F381",
                 Variations = new string[] {  },
 
                 Docomo = "E685",
@@ -7346,7 +7346,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 3,
 
-                Unified = "1F382",
+                Unified = "\U0001F382",
                 Variations = new string[] {  },
 
                 Docomo = "E686",
@@ -7374,7 +7374,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 4,
 
-                Unified = "1F383",
+                Unified = "\U0001F383",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7402,7 +7402,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 5,
 
-                Unified = "1F384",
+                Unified = "\U0001F384",
                 Variations = new string[] {  },
 
                 Docomo = "E6A4",
@@ -7430,7 +7430,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 106,
 
-                Unified = "1F385",
+                Unified = "\U0001F385",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7458,7 +7458,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 9,
 
-                Unified = "1F386",
+                Unified = "\U0001F386",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7486,7 +7486,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 10,
 
-                Unified = "1F387",
+                Unified = "\U0001F387",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7514,7 +7514,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 13,
 
-                Unified = "1F388",
+                Unified = "\U0001F388",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7542,7 +7542,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 11,
 
-                Unified = "1F389",
+                Unified = "\U0001F389",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7570,7 +7570,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 12,
 
-                Unified = "1F38A",
+                Unified = "\U0001F38A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7598,7 +7598,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 6,
 
-                Unified = "1F38B",
+                Unified = "\U0001F38B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7626,7 +7626,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 22,
 
-                Unified = "1F38C",
+                Unified = "\U0001F38C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7654,7 +7654,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 7,
 
-                Unified = "1F38D",
+                Unified = "\U0001F38D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7682,7 +7682,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 19,
 
-                Unified = "1F38E",
+                Unified = "\U0001F38E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7710,7 +7710,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 20,
 
-                Unified = "1F38F",
+                Unified = "\U0001F38F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7738,7 +7738,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 21,
 
-                Unified = "1F390",
+                Unified = "\U0001F390",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7766,7 +7766,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 8,
 
-                Unified = "1F391",
+                Unified = "\U0001F391",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7794,7 +7794,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 36,
 
-                Unified = "1F392",
+                Unified = "\U0001F392",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7822,7 +7822,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 17,
 
-                Unified = "1F393",
+                Unified = "\U0001F393",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7850,7 +7850,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 51,
 
-                Unified = "1F3A0",
+                Unified = "\U0001F3A0",
                 Variations = new string[] {  },
 
                 Docomo = "E679",
@@ -7878,7 +7878,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 52,
 
-                Unified = "1F3A1",
+                Unified = "\U0001F3A1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7906,7 +7906,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 53,
 
-                Unified = "1F3A2",
+                Unified = "\U0001F3A2",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -7934,7 +7934,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 15,
 
-                Unified = "1F3A3",
+                Unified = "\U0001F3A3",
                 Variations = new string[] {  },
 
                 Docomo = "E751",
@@ -7962,7 +7962,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 35,
 
-                Unified = "1F3A4",
+                Unified = "\U0001F3A4",
                 Variations = new string[] {  },
 
                 Docomo = "E676",
@@ -7990,7 +7990,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 10,
 
-                Unified = "1F3A5",
+                Unified = "\U0001F3A5",
                 Variations = new string[] {  },
 
                 Docomo = "E677",
@@ -8018,7 +8018,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 254,
 
-                Unified = "1F3A6",
+                Unified = "\U0001F3A6",
                 Variations = new string[] {  },
 
                 Docomo = "E677",
@@ -8046,7 +8046,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 34,
 
-                Unified = "1F3A7",
+                Unified = "\U0001F3A7",
                 Variations = new string[] {  },
 
                 Docomo = "E67A",
@@ -8074,7 +8074,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 41,
 
-                Unified = "1F3A8",
+                Unified = "\U0001F3A8",
                 Variations = new string[] {  },
 
                 Docomo = "E67B",
@@ -8102,7 +8102,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 38,
 
-                Unified = "1F3A9",
+                Unified = "\U0001F3A9",
                 Variations = new string[] {  },
 
                 Docomo = "E67C",
@@ -8130,7 +8130,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 39,
 
-                Unified = "1F3AA",
+                Unified = "\U0001F3AA",
                 Variations = new string[] {  },
 
                 Docomo = "E67D",
@@ -8158,7 +8158,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 37,
 
-                Unified = "1F3AB",
+                Unified = "\U0001F3AB",
                 Variations = new string[] {  },
 
                 Docomo = "E67E",
@@ -8186,7 +8186,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 40,
 
-                Unified = "1F3AC",
+                Unified = "\U0001F3AC",
                 Variations = new string[] {  },
 
                 Docomo = "E6AC",
@@ -8214,7 +8214,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 36,
 
-                Unified = "1F3AD",
+                Unified = "\U0001F3AD",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8242,7 +8242,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 47,
 
-                Unified = "1F3AE",
+                Unified = "\U0001F3AE",
                 Variations = new string[] {  },
 
                 Docomo = "E68B",
@@ -8270,7 +8270,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 42,
 
-                Unified = "1F3AF",
+                Unified = "\U0001F3AF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8298,7 +8298,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 45,
 
-                Unified = "1F3B0",
+                Unified = "\U0001F3B0",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8326,7 +8326,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 43,
 
-                Unified = "1F3B1",
+                Unified = "\U0001F3B1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8354,7 +8354,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 46,
 
-                Unified = "1F3B2",
+                Unified = "\U0001F3B2",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8382,7 +8382,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 44,
 
-                Unified = "1F3B3",
+                Unified = "\U0001F3B3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8410,7 +8410,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 48,
 
-                Unified = "1F3B4",
+                Unified = "\U0001F3B4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8438,7 +8438,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 31,
 
-                Unified = "1F3B5",
+                Unified = "\U0001F3B5",
                 Variations = new string[] {  },
 
                 Docomo = "E6F6",
@@ -8466,7 +8466,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 32,
 
-                Unified = "1F3B6",
+                Unified = "\U0001F3B6",
                 Variations = new string[] {  },
 
                 Docomo = "E6FF",
@@ -8494,7 +8494,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 29,
 
-                Unified = "1F3B7",
+                Unified = "\U0001F3B7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8522,7 +8522,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 27,
 
-                Unified = "1F3B8",
+                Unified = "\U0001F3B8",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8550,7 +8550,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 26,
 
-                Unified = "1F3B9",
+                Unified = "\U0001F3B9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8578,7 +8578,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 30,
 
-                Unified = "1F3BA",
+                Unified = "\U0001F3BA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8606,7 +8606,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 28,
 
-                Unified = "1F3BB",
+                Unified = "\U0001F3BB",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8634,7 +8634,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 33,
 
-                Unified = "1F3BC",
+                Unified = "\U0001F3BC",
                 Variations = new string[] {  },
 
                 Docomo = "E6FF",
@@ -8662,7 +8662,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 24,
 
-                Unified = "1F3BD",
+                Unified = "\U0001F3BD",
                 Variations = new string[] {  },
 
                 Docomo = "E652",
@@ -8690,7 +8690,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 20,
 
-                Unified = "1F3BE",
+                Unified = "\U0001F3BE",
                 Variations = new string[] {  },
 
                 Docomo = "E655",
@@ -8718,7 +8718,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 9,
 
-                Unified = "1F3BF",
+                Unified = "\U0001F3BF",
                 Variations = new string[] {  },
 
                 Docomo = "E657",
@@ -8746,7 +8746,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 17,
 
-                Unified = "1F3C0",
+                Unified = "\U0001F3C0",
                 Variations = new string[] {  },
 
                 Docomo = "E658",
@@ -8774,7 +8774,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 25,
 
-                Unified = "1F3C1",
+                Unified = "\U0001F3C1",
                 Variations = new string[] {  },
 
                 Docomo = "E659",
@@ -8802,7 +8802,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 8,
 
-                Unified = "1F3C2",
+                Unified = "\U0001F3C2",
                 Variations = new string[] {  },
 
                 Docomo = "E712",
@@ -8830,7 +8830,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 1,
 
-                Unified = "1F3C3",
+                Unified = "\U0001F3C3",
                 Variations = new string[] {  },
 
                 Docomo = "E733",
@@ -8858,7 +8858,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 6,
 
-                Unified = "1F3C4",
+                Unified = "\U0001F3C4",
                 Variations = new string[] {  },
 
                 Docomo = "E712",
@@ -8886,7 +8886,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 23,
 
-                Unified = "1F3C6",
+                Unified = "\U0001F3C6",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8914,7 +8914,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 13,
 
-                Unified = "1F3C7",
+                Unified = "\U0001F3C7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8942,7 +8942,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 18,
 
-                Unified = "1F3C8",
+                Unified = "\U0001F3C8",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8970,7 +8970,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 21,
 
-                Unified = "1F3C9",
+                Unified = "\U0001F3C9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -8998,7 +8998,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 5,
 
-                Unified = "1F3CA",
+                Unified = "\U0001F3CA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9026,7 +9026,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 66,
 
-                Unified = "1F3E0",
+                Unified = "\U0001F3E0",
                 Variations = new string[] {  },
 
                 Docomo = "E663",
@@ -9054,7 +9054,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 67,
 
-                Unified = "1F3E1",
+                Unified = "\U0001F3E1",
                 Variations = new string[] {  },
 
                 Docomo = "E663",
@@ -9082,7 +9082,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 68,
 
-                Unified = "1F3E2",
+                Unified = "\U0001F3E2",
                 Variations = new string[] {  },
 
                 Docomo = "E664",
@@ -9110,7 +9110,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 71,
 
-                Unified = "1F3E3",
+                Unified = "\U0001F3E3",
                 Variations = new string[] {  },
 
                 Docomo = "E665",
@@ -9138,7 +9138,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 72,
 
-                Unified = "1F3E4",
+                Unified = "\U0001F3E4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9166,7 +9166,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 73,
 
-                Unified = "1F3E5",
+                Unified = "\U0001F3E5",
                 Variations = new string[] {  },
 
                 Docomo = "E666",
@@ -9194,7 +9194,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 74,
 
-                Unified = "1F3E6",
+                Unified = "\U0001F3E6",
                 Variations = new string[] {  },
 
                 Docomo = "E667",
@@ -9222,7 +9222,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 189,
 
-                Unified = "1F3E7",
+                Unified = "\U0001F3E7",
                 Variations = new string[] {  },
 
                 Docomo = "E668",
@@ -9250,7 +9250,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 75,
 
-                Unified = "1F3E8",
+                Unified = "\U0001F3E8",
                 Variations = new string[] {  },
 
                 Docomo = "E669",
@@ -9278,7 +9278,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 76,
 
-                Unified = "1F3E9",
+                Unified = "\U0001F3E9",
                 Variations = new string[] {  },
 
                 Docomo = "E669-E6EF",
@@ -9306,7 +9306,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 79,
 
-                Unified = "1F3EA",
+                Unified = "\U0001F3EA",
                 Variations = new string[] {  },
 
                 Docomo = "E66A",
@@ -9334,7 +9334,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 80,
 
-                Unified = "1F3EB",
+                Unified = "\U0001F3EB",
                 Variations = new string[] {  },
 
                 Docomo = "E73E",
@@ -9362,7 +9362,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 69,
 
-                Unified = "1F3EC",
+                Unified = "\U0001F3EC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9390,7 +9390,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 70,
 
-                Unified = "1F3ED",
+                Unified = "\U0001F3ED",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9418,7 +9418,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 23,
 
-                Unified = "1F3EE",
+                Unified = "\U0001F3EE",
                 Variations = new string[] {  },
 
                 Docomo = "E74B",
@@ -9446,7 +9446,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 61,
 
-                Unified = "1F3EF",
+                Unified = "\U0001F3EF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9474,7 +9474,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 60,
 
-                Unified = "1F3F0",
+                Unified = "\U0001F3F0",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9502,7 +9502,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Other,
                 SortOrder = 0,
 
-                Unified = "1F3FB",
+                Unified = "\U0001F3FB",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9530,7 +9530,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Other,
                 SortOrder = 0,
 
-                Unified = "1F3FC",
+                Unified = "\U0001F3FC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9558,7 +9558,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Other,
                 SortOrder = 0,
 
-                Unified = "1F3FD",
+                Unified = "\U0001F3FD",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9586,7 +9586,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Other,
                 SortOrder = 0,
 
-                Unified = "1F3FE",
+                Unified = "\U0001F3FE",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9614,7 +9614,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Other,
                 SortOrder = 0,
 
-                Unified = "1F3FF",
+                Unified = "\U0001F3FF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9642,7 +9642,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 21,
 
-                Unified = "1F400",
+                Unified = "\U0001F400",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9670,7 +9670,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 22,
 
-                Unified = "1F401",
+                Unified = "\U0001F401",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9698,7 +9698,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 25,
 
-                Unified = "1F402",
+                Unified = "\U0001F402",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9726,7 +9726,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 26,
 
-                Unified = "1F403",
+                Unified = "\U0001F403",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9754,7 +9754,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 27,
 
-                Unified = "1F404",
+                Unified = "\U0001F404",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9782,7 +9782,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 29,
 
-                Unified = "1F405",
+                Unified = "\U0001F405",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9810,7 +9810,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 30,
 
-                Unified = "1F406",
+                Unified = "\U0001F406",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9838,7 +9838,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 32,
 
-                Unified = "1F407",
+                Unified = "\U0001F407",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9866,7 +9866,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 34,
 
-                Unified = "1F408",
+                Unified = "\U0001F408",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9894,7 +9894,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 67,
 
-                Unified = "1F409",
+                Unified = "\U0001F409",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9922,7 +9922,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 69,
 
-                Unified = "1F40A",
+                Unified = "\U0001F40A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9950,7 +9950,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 73,
 
-                Unified = "1F40B",
+                Unified = "\U0001F40B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -9978,7 +9978,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 81,
 
-                Unified = "1F40C",
+                Unified = "\U0001F40C",
                 Variations = new string[] {  },
 
                 Docomo = "E74E",
@@ -10006,7 +10006,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 70,
 
-                Unified = "1F40D",
+                Unified = "\U0001F40D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10034,7 +10034,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 36,
 
-                Unified = "1F40E",
+                Unified = "\U0001F40E",
                 Variations = new string[] {  },
 
                 Docomo = "E754",
@@ -10062,7 +10062,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 38,
 
-                Unified = "1F40F",
+                Unified = "\U0001F40F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10090,7 +10090,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 40,
 
-                Unified = "1F410",
+                Unified = "\U0001F410",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10118,7 +10118,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 39,
 
-                Unified = "1F411",
+                Unified = "\U0001F411",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10146,7 +10146,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 66,
 
-                Unified = "1F412",
+                Unified = "\U0001F412",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10174,7 +10174,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 41,
 
-                Unified = "1F413",
+                Unified = "\U0001F413",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10202,7 +10202,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 42,
 
-                Unified = "1F414",
+                Unified = "\U0001F414",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10230,7 +10230,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 55,
 
-                Unified = "1F415",
+				Unified = "\U0001F415",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10258,7 +10258,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 52,
 
-                Unified = "1F416",
+                Unified = "\U0001F416",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10286,7 +10286,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 51,
 
-                Unified = "1F417",
+                Unified = "\U0001F417",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10314,7 +10314,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 48,
 
-                Unified = "1F418",
+                Unified = "\U0001F418",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10342,7 +10342,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 76,
 
-                Unified = "1F419",
+                Unified = "\U0001F419",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10370,7 +10370,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 80,
 
-                Unified = "1F41A",
+                Unified = "\U0001F41A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10398,7 +10398,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 82,
 
-                Unified = "1F41B",
+                Unified = "\U0001F41B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10426,7 +10426,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 83,
 
-                Unified = "1F41C",
+                Unified = "\U0001F41C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10454,7 +10454,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 84,
 
-                Unified = "1F41D",
+                Unified = "\U0001F41D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10482,7 +10482,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 85,
 
-                Unified = "1F41E",
+                Unified = "\U0001F41E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10510,7 +10510,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 77,
 
-                Unified = "1F41F",
+                Unified = "\U0001F41F",
                 Variations = new string[] {  },
 
                 Docomo = "E751",
@@ -10538,7 +10538,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 78,
 
-                Unified = "1F420",
+                Unified = "\U0001F420",
                 Variations = new string[] {  },
 
                 Docomo = "E751",
@@ -10566,7 +10566,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 79,
 
-                Unified = "1F421",
+                Unified = "\U0001F421",
                 Variations = new string[] {  },
 
                 Docomo = "E751",
@@ -10594,7 +10594,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 71,
 
-                Unified = "1F422",
+                Unified = "\U0001F422",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10622,7 +10622,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 44,
 
-                Unified = "1F423",
+                Unified = "\U0001F423",
                 Variations = new string[] {  },
 
                 Docomo = "E74F",
@@ -10650,7 +10650,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 43,
 
-                Unified = "1F424",
+                Unified = "\U0001F424",
                 Variations = new string[] {  },
 
                 Docomo = "E74F",
@@ -10678,7 +10678,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 45,
 
-                Unified = "1F425",
+                Unified = "\U0001F425",
                 Variations = new string[] {  },
 
                 Docomo = "E74F",
@@ -10706,7 +10706,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 46,
 
-                Unified = "1F426",
+                Unified = "\U0001F426",
                 Variations = new string[] {  },
 
                 Docomo = "E74F",
@@ -10734,7 +10734,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 47,
 
-                Unified = "1F427",
+                Unified = "\U0001F427",
                 Variations = new string[] {  },
 
                 Docomo = "E750",
@@ -10762,7 +10762,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 60,
 
-                Unified = "1F428",
+                Unified = "\U0001F428",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10790,7 +10790,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 56,
 
-                Unified = "1F429",
+                Unified = "\U0001F429",
                 Variations = new string[] {  },
 
                 Docomo = "E6A1",
@@ -10818,7 +10818,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 49,
 
-                Unified = "1F42A",
+                Unified = "\U0001F42A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10846,7 +10846,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 50,
 
-                Unified = "1F42B",
+                Unified = "\U0001F42B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10874,7 +10874,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 75,
 
-                Unified = "1F42C",
+                Unified = "\U0001F42C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10902,7 +10902,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 23,
 
-                Unified = "1F42D",
+                Unified = "\U0001F42D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10930,7 +10930,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 28,
 
-                Unified = "1F42E",
+                Unified = "\U0001F42E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10958,7 +10958,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 31,
 
-                Unified = "1F42F",
+                Unified = "\U0001F42F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -10986,7 +10986,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 33,
 
-                Unified = "1F430",
+                Unified = "\U0001F430",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11014,7 +11014,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 35,
 
-                Unified = "1F431",
+                Unified = "\U0001F431",
                 Variations = new string[] {  },
 
                 Docomo = "E6A2",
@@ -11042,7 +11042,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 68,
 
-                Unified = "1F432",
+                Unified = "\U0001F432",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11070,7 +11070,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 74,
 
-                Unified = "1F433",
+                Unified = "\U0001F433",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11098,7 +11098,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 37,
 
-                Unified = "1F434",
+                Unified = "\U0001F434",
                 Variations = new string[] {  },
 
                 Docomo = "E754",
@@ -11126,7 +11126,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 62,
 
-                Unified = "1F435",
+                Unified = "\U0001F435",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11154,7 +11154,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 57,
 
-                Unified = "1F436",
+                Unified = "\U0001F436",
                 Variations = new string[] {  },
 
                 Docomo = "E6A1",
@@ -11182,7 +11182,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 53,
 
-                Unified = "1F437",
+                Unified = "\U0001F437",
                 Variations = new string[] {  },
 
                 Docomo = "E755",
@@ -11210,7 +11210,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 72,
 
-                Unified = "1F438",
+                Unified = "\U0001F438",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11238,7 +11238,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 24,
 
-                Unified = "1F439",
+                Unified = "\U0001F439",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11266,7 +11266,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 58,
 
-                Unified = "1F43A",
+                Unified = "\U0001F43A",
                 Variations = new string[] {  },
 
                 Docomo = "E6A1",
@@ -11294,7 +11294,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 59,
 
-                Unified = "1F43B",
+                Unified = "\U0001F43B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11322,7 +11322,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 61,
 
-                Unified = "1F43C",
+                Unified = "\U0001F43C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11350,7 +11350,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 54,
 
-                Unified = "1F43D",
+                Unified = "\U0001F43D",
                 Variations = new string[] {  },
 
                 Docomo = "E755",
@@ -11378,7 +11378,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 86,
 
-                Unified = "1F43E",
+                Unified = "\U0001F43E",
                 Variations = new string[] {  },
 
                 Docomo = "E698",
@@ -11406,7 +11406,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 131,
 
-                Unified = "1F440",
+                Unified = "\U0001F440",
                 Variations = new string[] {  },
 
                 Docomo = "E691",
@@ -11434,7 +11434,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 130,
 
-                Unified = "1F442",
+                Unified = "\U0001F442",
                 Variations = new string[] {  },
 
                 Docomo = "E692",
@@ -11462,7 +11462,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 132,
 
-                Unified = "1F443",
+                Unified = "\U0001F443",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11490,7 +11490,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 133,
 
-                Unified = "1F444",
+                Unified = "\U0001F444",
                 Variations = new string[] {  },
 
                 Docomo = "E6F9",
@@ -11518,7 +11518,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 135,
 
-                Unified = "1F445",
+                Unified = "\U0001F445",
                 Variations = new string[] {  },
 
                 Docomo = "E728",
@@ -11546,7 +11546,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 140,
 
-                Unified = "1F446",
+                Unified = "\U0001F446",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11574,7 +11574,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 141,
 
-                Unified = "1F447",
+                Unified = "\U0001F447",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11602,7 +11602,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 142,
 
-                Unified = "1F448",
+                Unified = "\U0001F448",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11630,7 +11630,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 143,
 
-                Unified = "1F449",
+                Unified = "\U0001F449",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11658,7 +11658,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 146,
 
-                Unified = "1F44A",
+                Unified = "\U0001F44A",
                 Variations = new string[] {  },
 
                 Docomo = "E6FD",
@@ -11686,7 +11686,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 136,
 
-                Unified = "1F44B",
+                Unified = "\U0001F44B",
                 Variations = new string[] {  },
 
                 Docomo = "E695",
@@ -11714,7 +11714,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 144,
 
-                Unified = "1F44C",
+                Unified = "\U0001F44C",
                 Variations = new string[] {  },
 
                 Docomo = "E70B",
@@ -11742,7 +11742,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 137,
 
-                Unified = "1F44D",
+                Unified = "\U0001F44D",
                 Variations = new string[] {  },
 
                 Docomo = "E727",
@@ -11770,7 +11770,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 138,
 
-                Unified = "1F44E",
+                Unified = "\U0001F44E",
                 Variations = new string[] {  },
 
                 Docomo = "E700",
@@ -11798,7 +11798,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 152,
 
-                Unified = "1F44F",
+                Unified = "\U0001F44F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11826,7 +11826,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 150,
 
-                Unified = "1F450",
+                Unified = "\U0001F450",
                 Variations = new string[] {  },
 
                 Docomo = "E695",
@@ -11854,7 +11854,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 18,
 
-                Unified = "1F451",
+                Unified = "\U0001F451",
                 Variations = new string[] {  },
 
                 Docomo = "E71A",
@@ -11882,7 +11882,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 39,
 
-                Unified = "1F452",
+                Unified = "\U0001F452",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11910,7 +11910,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 38,
 
-                Unified = "1F453",
+                Unified = "\U0001F453",
                 Variations = new string[] {  },
 
                 Docomo = "E69A",
@@ -11938,7 +11938,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 50,
 
-                Unified = "1F454",
+                Unified = "\U0001F454",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -11966,7 +11966,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 49,
 
-                Unified = "1F455",
+                Unified = "\U0001F455",
                 Variations = new string[] {  },
 
                 Docomo = "E70E",
@@ -11994,7 +11994,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 51,
 
-                Unified = "1F456",
+                Unified = "\U0001F456",
                 Variations = new string[] {  },
 
                 Docomo = "E711",
@@ -12022,7 +12022,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 46,
 
-                Unified = "1F457",
+                Unified = "\U0001F457",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12050,7 +12050,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 47,
 
-                Unified = "1F458",
+                Unified = "\U0001F458",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12078,7 +12078,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 45,
 
-                Unified = "1F459",
+                Unified = "\U0001F459",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12106,7 +12106,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 48,
 
-                Unified = "1F45A",
+                Unified = "\U0001F45A",
                 Variations = new string[] {  },
 
                 Docomo = "E70E",
@@ -12134,7 +12134,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 33,
 
-                Unified = "1F45B",
+                Unified = "\U0001F45B",
                 Variations = new string[] {  },
 
                 Docomo = "E70F",
@@ -12162,7 +12162,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 34,
 
-                Unified = "1F45C",
+                Unified = "\U0001F45C",
                 Variations = new string[] {  },
 
                 Docomo = "E682",
@@ -12190,7 +12190,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 32,
 
-                Unified = "1F45D",
+                Unified = "\U0001F45D",
                 Variations = new string[] {  },
 
                 Docomo = "E6AD",
@@ -12218,7 +12218,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 43,
 
-                Unified = "1F45E",
+                Unified = "\U0001F45E",
                 Variations = new string[] {  },
 
                 Docomo = "E699",
@@ -12246,7 +12246,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 44,
 
-                Unified = "1F45F",
+                Unified = "\U0001F45F",
                 Variations = new string[] {  },
 
                 Docomo = "E699",
@@ -12274,7 +12274,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 41,
 
-                Unified = "1F460",
+                Unified = "\U0001F460",
                 Variations = new string[] {  },
 
                 Docomo = "E674",
@@ -12302,7 +12302,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 40,
 
-                Unified = "1F461",
+                Unified = "\U0001F461",
                 Variations = new string[] {  },
 
                 Docomo = "E674",
@@ -12330,7 +12330,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 42,
 
-                Unified = "1F462",
+                Unified = "\U0001F462",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12358,7 +12358,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 68,
 
-                Unified = "1F463",
+                Unified = "\U0001F463",
                 Variations = new string[] {  },
 
                 Docomo = "E698",
@@ -12386,7 +12386,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 69,
 
-                Unified = "1F464",
+                Unified = "\U0001F464",
                 Variations = new string[] {  },
 
                 Docomo = "E6B1",
@@ -12414,7 +12414,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 70,
 
-                Unified = "1F465",
+                Unified = "\U0001F465",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12442,7 +12442,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 71,
 
-                Unified = "1F466",
+                Unified = "\U0001F466",
                 Variations = new string[] {  },
 
                 Docomo = "E6F0",
@@ -12470,7 +12470,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 72,
 
-                Unified = "1F467",
+                Unified = "\U0001F467",
                 Variations = new string[] {  },
 
                 Docomo = "E6F0",
@@ -12498,7 +12498,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 73,
 
-                Unified = "1F468",
+                Unified = "\U0001F468",
                 Variations = new string[] {  },
 
                 Docomo = "E6F0",
@@ -12526,7 +12526,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 74,
 
-                Unified = "1F469",
+                Unified = "\U0001F469",
                 Variations = new string[] {  },
 
                 Docomo = "E6F0",
@@ -12554,7 +12554,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 77,
 
-                Unified = "1F46A",
+                Unified = "\U0001F46A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12582,7 +12582,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 90,
 
-                Unified = "1F46B",
+                Unified = "\U0001F46B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12610,7 +12610,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 91,
 
-                Unified = "1F46C",
+                Unified = "\U0001F46C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12638,7 +12638,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 92,
 
-                Unified = "1F46D",
+                Unified = "\U0001F46D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12666,7 +12666,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 93,
 
-                Unified = "1F46E",
+                Unified = "\U0001F46E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12694,7 +12694,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 94,
 
-                Unified = "1F46F",
+                Unified = "\U0001F46F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12722,7 +12722,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 95,
 
-                Unified = "1F470",
+                Unified = "\U0001F470",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12750,7 +12750,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 96,
 
-                Unified = "1F471",
+                Unified = "\U0001F471",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12778,7 +12778,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 97,
 
-                Unified = "1F472",
+                Unified = "\U0001F472",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12806,7 +12806,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 98,
 
-                Unified = "1F473",
+                Unified = "\U0001F473",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12834,7 +12834,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 99,
 
-                Unified = "1F474",
+                Unified = "\U0001F474",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12862,7 +12862,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 100,
 
-                Unified = "1F475",
+                Unified = "\U0001F475",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12890,7 +12890,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 101,
 
-                Unified = "1F476",
+                Unified = "\U0001F476",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12918,7 +12918,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 102,
 
-                Unified = "1F477",
+                Unified = "\U0001F477",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12946,7 +12946,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 103,
 
-                Unified = "1F478",
+                Unified = "\U0001F478",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -12974,7 +12974,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 108,
 
-                Unified = "1F479",
+                Unified = "\U0001F479",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13002,7 +13002,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 109,
 
-                Unified = "1F47A",
+                Unified = "\U0001F47A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13030,7 +13030,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 107,
 
-                Unified = "1F47B",
+                Unified = "\U0001F47B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13058,7 +13058,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 105,
 
-                Unified = "1F47C",
+                Unified = "\U0001F47C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13086,7 +13086,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 112,
 
-                Unified = "1F47D",
+                Unified = "\U0001F47D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13114,7 +13114,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 113,
 
-                Unified = "1F47E",
+                Unified = "\U0001F47E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13142,7 +13142,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 10,
 
-                Unified = "1F47F",
+                Unified = "\U0001F47F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13170,7 +13170,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 111,
 
-                Unified = "1F480",
+                Unified = "\U0001F480",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13198,7 +13198,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 115,
 
-                Unified = "1F481",
+                Unified = "\U0001F481",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13226,7 +13226,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 104,
 
-                Unified = "1F482",
+                Unified = "\U0001F482",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13254,7 +13254,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 3,
 
-                Unified = "1F483",
+                Unified = "\U0001F483",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13282,7 +13282,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 37,
 
-                Unified = "1F484",
+                Unified = "\U0001F484",
                 Variations = new string[] {  },
 
                 Docomo = "E710",
@@ -13310,7 +13310,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 129,
 
-                Unified = "1F485",
+                Unified = "\U0001F485",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13338,7 +13338,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 121,
 
-                Unified = "1F486",
+                Unified = "\U0001F486",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13366,7 +13366,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 122,
 
-                Unified = "1F487",
+                Unified = "\U0001F487",
                 Variations = new string[] {  },
 
                 Docomo = "E675",
@@ -13394,7 +13394,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 56,
 
-                Unified = "1F488",
+                Unified = "\U0001F488",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13422,7 +13422,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 57,
 
-                Unified = "1F489",
+                Unified = "\U0001F489",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13450,7 +13450,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 58,
 
-                Unified = "1F48A",
+                Unified = "\U0001F48A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13478,7 +13478,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 134,
 
-                Unified = "1F48B",
+                Unified = "\U0001F48B",
                 Variations = new string[] {  },
 
                 Docomo = "E6F9",
@@ -13506,7 +13506,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 27,
 
-                Unified = "1F48C",
+                Unified = "\U0001F48C",
                 Variations = new string[] {  },
 
                 Docomo = "E717",
@@ -13534,7 +13534,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 24,
 
-                Unified = "1F48D",
+                Unified = "\U0001F48D",
                 Variations = new string[] {  },
 
                 Docomo = "E71B",
@@ -13562,7 +13562,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 30,
 
-                Unified = "1F48E",
+                Unified = "\U0001F48E",
                 Variations = new string[] {  },
 
                 Docomo = "E71B",
@@ -13590,7 +13590,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 126,
 
-                Unified = "1F48F",
+                Unified = "\U0001F48F",
                 Variations = new string[] {  },
 
                 Docomo = "E6F9",
@@ -13618,7 +13618,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 12,
 
-                Unified = "1F490",
+                Unified = "\U0001F490",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13646,7 +13646,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 123,
 
-                Unified = "1F491",
+                Unified = "\U0001F491",
                 Variations = new string[] {  },
 
                 Docomo = "E6ED",
@@ -13674,7 +13674,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 77,
 
-                Unified = "1F492",
+                Unified = "\U0001F492",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -13702,7 +13702,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 30,
 
-                Unified = "1F493",
+                Unified = "\U0001F493",
                 Variations = new string[] {  },
 
                 Docomo = "E6ED",
@@ -13730,7 +13730,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 26,
 
-                Unified = "1F494",
+                Unified = "\U0001F494",
                 Variations = new string[] {  },
 
                 Docomo = "E6EE",
@@ -13758,7 +13758,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 28,
 
-                Unified = "1F495",
+                Unified = "\U0001F495",
                 Variations = new string[] {  },
 
                 Docomo = "E6EF",
@@ -13786,7 +13786,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 32,
 
-                Unified = "1F496",
+                Unified = "\U0001F496",
                 Variations = new string[] {  },
 
                 Docomo = "E6EC",
@@ -13814,7 +13814,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 31,
 
-                Unified = "1F497",
+                Unified = "\U0001F497",
                 Variations = new string[] {  },
 
                 Docomo = "E6ED",
@@ -13842,7 +13842,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 33,
 
-                Unified = "1F498",
+                Unified = "\U0001F498",
                 Variations = new string[] {  },
 
                 Docomo = "E6EC",
@@ -13870,7 +13870,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 39,
 
-                Unified = "1F499",
+                Unified = "\U0001F499",
                 Variations = new string[] {  },
 
                 Docomo = "E6EC",
@@ -13898,7 +13898,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 38,
 
-                Unified = "1F49A",
+                Unified = "\U0001F49A",
                 Variations = new string[] {  },
 
                 Docomo = "E6EC",
@@ -13926,7 +13926,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 37,
 
-                Unified = "1F49B",
+                Unified = "\U0001F49B",
                 Variations = new string[] {  },
 
                 Docomo = "E6EC",
@@ -13954,7 +13954,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 36,
 
-                Unified = "1F49C",
+                Unified = "\U0001F49C",
                 Variations = new string[] {  },
 
                 Docomo = "E6EC",
@@ -13982,7 +13982,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 34,
 
-                Unified = "1F49D",
+                Unified = "\U0001F49D",
                 Variations = new string[] {  },
 
                 Docomo = "E6EC",
@@ -14010,7 +14010,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 29,
 
-                Unified = "1F49E",
+                Unified = "\U0001F49E",
                 Variations = new string[] {  },
 
                 Docomo = "E6ED",
@@ -14038,7 +14038,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 35,
 
-                Unified = "1F49F",
+                Unified = "\U0001F49F",
                 Variations = new string[] {  },
 
                 Docomo = "E6F8",
@@ -14066,7 +14066,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 295,
 
-                Unified = "1F4A0",
+                Unified = "\U0001F4A0",
                 Variations = new string[] {  },
 
                 Docomo = "E6F8",
@@ -14094,7 +14094,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 24,
 
-                Unified = "1F4A1",
+                Unified = "\U0001F4A1",
                 Variations = new string[] {  },
 
                 Docomo = "E6FB",
@@ -14122,7 +14122,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 294,
 
-                Unified = "1F4A2",
+                Unified = "\U0001F4A2",
                 Variations = new string[] {  },
 
                 Docomo = "E6FC",
@@ -14150,7 +14150,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 66,
 
-                Unified = "1F4A3",
+                Unified = "\U0001F4A3",
                 Variations = new string[] {  },
 
                 Docomo = "E6FE",
@@ -14178,7 +14178,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 130,
 
-                Unified = "1F4A4",
+                Unified = "\U0001F4A4",
                 Variations = new string[] {  },
 
                 Docomo = "E701",
@@ -14206,7 +14206,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 16,
 
-                Unified = "1F4A5",
+                Unified = "\U0001F4A5",
                 Variations = new string[] {  },
 
                 Docomo = "E705",
@@ -14234,7 +14234,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 94,
 
-                Unified = "1F4A6",
+                Unified = "\U0001F4A6",
                 Variations = new string[] {  },
 
                 Docomo = "E706",
@@ -14262,7 +14262,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 93,
 
-                Unified = "1F4A7",
+                Unified = "\U0001F4A7",
                 Variations = new string[] {  },
 
                 Docomo = "E707",
@@ -14290,7 +14290,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 96,
 
-                Unified = "1F4A8",
+                Unified = "\U0001F4A8",
                 Variations = new string[] {  },
 
                 Docomo = "E708",
@@ -14318,7 +14318,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 110,
 
-                Unified = "1F4A9",
+                Unified = "\U0001F4A9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14346,7 +14346,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 149,
 
-                Unified = "1F4AA",
+                Unified = "\U0001F4AA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14374,7 +14374,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Celebration,
                 SortOrder = 14,
 
-                Unified = "1F4AB",
+                Unified = "\U0001F4AB",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14402,7 +14402,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 134,
 
-                Unified = "1F4AC",
+                Unified = "\U0001F4AC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14430,7 +14430,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 133,
 
-                Unified = "1F4AD",
+                Unified = "\U0001F4AD",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14458,7 +14458,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 149,
 
-                Unified = "1F4AE",
+                Unified = "\U0001F4AE",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14486,7 +14486,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 279,
 
-                Unified = "1F4AF",
+                Unified = "\U0001F4AF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14514,7 +14514,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 29,
 
-                Unified = "1F4B0",
+                Unified = "\U0001F4B0",
                 Variations = new string[] {  },
 
                 Docomo = "E715",
@@ -14542,7 +14542,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 266,
 
-                Unified = "1F4B1",
+                Unified = "\U0001F4B1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14570,7 +14570,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 267,
 
-                Unified = "1F4B2",
+                Unified = "\U0001F4B2",
                 Variations = new string[] {  },
 
                 Docomo = "E715",
@@ -14598,7 +14598,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 27,
 
-                Unified = "1F4B3",
+                Unified = "\U0001F4B3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14626,7 +14626,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 51,
 
-                Unified = "1F4B4",
+                Unified = "\U0001F4B4",
                 Variations = new string[] {  },
 
                 Docomo = "E6D6",
@@ -14654,7 +14654,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 54,
 
-                Unified = "1F4B5",
+                Unified = "\U0001F4B5",
                 Variations = new string[] {  },
 
                 Docomo = "E715",
@@ -14682,7 +14682,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 52,
 
-                Unified = "1F4B6",
+                Unified = "\U0001F4B6",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14710,7 +14710,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 53,
 
-                Unified = "1F4B7",
+                Unified = "\U0001F4B7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14738,7 +14738,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 28,
 
-                Unified = "1F4B8",
+                Unified = "\U0001F4B8",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14766,7 +14766,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 165,
 
-                Unified = "1F4B9",
+                Unified = "\U0001F4B9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14794,7 +14794,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 39,
 
-                Unified = "1F4BA",
+                Unified = "\U0001F4BA",
                 Variations = new string[] {  },
 
                 Docomo = "E6B2",
@@ -14822,7 +14822,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 4,
 
-                Unified = "1F4BB",
+                Unified = "\U0001F4BB",
                 Variations = new string[] {  },
 
                 Docomo = "E716",
@@ -14850,7 +14850,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 35,
 
-                Unified = "1F4BC",
+                Unified = "\U0001F4BC",
                 Variations = new string[] {  },
 
                 Docomo = "E682",
@@ -14878,7 +14878,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 17,
 
-                Unified = "1F4BD",
+                Unified = "\U0001F4BD",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14906,7 +14906,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 18,
 
-                Unified = "1F4BE",
+                Unified = "\U0001F4BE",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -14934,7 +14934,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 19,
 
-                Unified = "1F4BF",
+                Unified = "\U0001F4BF",
                 Variations = new string[] {  },
 
                 Docomo = "E68C",
@@ -14962,7 +14962,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 20,
 
-                Unified = "1F4C0",
+                Unified = "\U0001F4C0",
                 Variations = new string[] {  },
 
                 Docomo = "E68C",
@@ -14990,7 +14990,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 115,
 
-                Unified = "1F4C1",
+                Unified = "\U0001F4C1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15018,7 +15018,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 116,
 
-                Unified = "1F4C2",
+                Unified = "\U0001F4C2",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15046,7 +15046,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 86,
 
-                Unified = "1F4C3",
+                Unified = "\U0001F4C3",
                 Variations = new string[] {  },
 
                 Docomo = "E689",
@@ -15074,7 +15074,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 85,
 
-                Unified = "1F4C4",
+                Unified = "\U0001F4C4",
                 Variations = new string[] {  },
 
                 Docomo = "E689",
@@ -15102,7 +15102,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 91,
 
-                Unified = "1F4C5",
+                Unified = "\U0001F4C5",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15130,7 +15130,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 92,
 
-                Unified = "1F4C6",
+                Unified = "\U0001F4C6",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15158,7 +15158,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 106,
 
-                Unified = "1F4C7",
+                Unified = "\U0001F4C7",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15186,7 +15186,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 88,
 
-                Unified = "1F4C8",
+                Unified = "\U0001F4C8",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15214,7 +15214,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 89,
 
-                Unified = "1F4C9",
+                Unified = "\U0001F4C9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15242,7 +15242,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 90,
 
-                Unified = "1F4CA",
+                Unified = "\U0001F4CA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15270,7 +15270,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 96,
 
-                Unified = "1F4CB",
+                Unified = "\U0001F4CB",
                 Variations = new string[] {  },
 
                 Docomo = "E689",
@@ -15298,7 +15298,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 109,
 
-                Unified = "1F4CC",
+                Unified = "\U0001F4CC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15326,7 +15326,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 112,
 
-                Unified = "1F4CD",
+                Unified = "\U0001F4CD",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15354,7 +15354,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 108,
 
-                Unified = "1F4CE",
+                Unified = "\U0001F4CE",
                 Variations = new string[] {  },
 
                 Docomo = "E730",
@@ -15382,7 +15382,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 113,
 
-                Unified = "1F4CF",
+                Unified = "\U0001F4CF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15410,7 +15410,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 111,
 
-                Unified = "1F4D0",
+                Unified = "\U0001F4D0",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15438,7 +15438,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 87,
 
-                Unified = "1F4D1",
+                Unified = "\U0001F4D1",
                 Variations = new string[] {  },
 
                 Docomo = "E689",
@@ -15466,7 +15466,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 100,
 
-                Unified = "1F4D2",
+                Unified = "\U0001F4D2",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15494,7 +15494,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 98,
 
-                Unified = "1F4D3",
+                Unified = "\U0001F4D3",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15522,7 +15522,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 99,
 
-                Unified = "1F4D4",
+                Unified = "\U0001F4D4",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15550,7 +15550,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 101,
 
-                Unified = "1F4D5",
+                Unified = "\U0001F4D5",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15578,7 +15578,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 97,
 
-                Unified = "1F4D6",
+                Unified = "\U0001F4D6",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15606,7 +15606,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 102,
 
-                Unified = "1F4D7",
+                Unified = "\U0001F4D7",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15634,7 +15634,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 103,
 
-                Unified = "1F4D8",
+                Unified = "\U0001F4D8",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15662,7 +15662,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 104,
 
-                Unified = "1F4D9",
+                Unified = "\U0001F4D9",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15690,7 +15690,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 105,
 
-                Unified = "1F4DA",
+                Unified = "\U0001F4DA",
                 Variations = new string[] {  },
 
                 Docomo = "E683",
@@ -15718,7 +15718,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 140,
 
-                Unified = "1F4DB",
+                Unified = "\U0001F4DB",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15746,7 +15746,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 95,
 
-                Unified = "1F4DC",
+                Unified = "\U0001F4DC",
                 Variations = new string[] {  },
 
                 Docomo = "E70A",
@@ -15774,7 +15774,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 119,
 
-                Unified = "1F4DD",
+                Unified = "\U0001F4DD",
                 Variations = new string[] {  },
 
                 Docomo = "E689",
@@ -15802,7 +15802,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 14,
 
-                Unified = "1F4DE",
+                Unified = "\U0001F4DE",
                 Variations = new string[] {  },
 
                 Docomo = "E687",
@@ -15830,7 +15830,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 13,
 
-                Unified = "1F4DF",
+                Unified = "\U0001F4DF",
                 Variations = new string[] {  },
 
                 Docomo = "E65A",
@@ -15858,7 +15858,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 16,
 
-                Unified = "1F4E0",
+                Unified = "\U0001F4E0",
                 Variations = new string[] {  },
 
                 Docomo = "E6D0",
@@ -15886,7 +15886,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 26,
 
-                Unified = "1F4E1",
+                Unified = "\U0001F4E1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15914,7 +15914,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 125,
 
-                Unified = "1F4E2",
+                Unified = "\U0001F4E2",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15942,7 +15942,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 124,
 
-                Unified = "1F4E3",
+                Unified = "\U0001F4E3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15970,7 +15970,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 77,
 
-                Unified = "1F4E4",
+                Unified = "\U0001F4E4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -15998,7 +15998,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 76,
 
-                Unified = "1F4E5",
+                Unified = "\U0001F4E5",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16026,7 +16026,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 78,
 
-                Unified = "1F4E6",
+                Unified = "\U0001F4E6",
                 Variations = new string[] {  },
 
                 Docomo = "E685",
@@ -16054,7 +16054,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 75,
 
-                Unified = "1F4E7",
+                Unified = "\U0001F4E7",
                 Variations = new string[] {  },
 
                 Docomo = "E6D3",
@@ -16082,7 +16082,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 74,
 
-                Unified = "1F4E8",
+                Unified = "\U0001F4E8",
                 Variations = new string[] {  },
 
                 Docomo = "E6CF",
@@ -16110,7 +16110,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 73,
 
-                Unified = "1F4E9",
+                Unified = "\U0001F4E9",
                 Variations = new string[] {  },
 
                 Docomo = "E6CF",
@@ -16138,7 +16138,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 81,
 
-                Unified = "1F4EA",
+                Unified = "\U0001F4EA",
                 Variations = new string[] {  },
 
                 Docomo = "E665",
@@ -16166,7 +16166,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 82,
 
-                Unified = "1F4EB",
+                Unified = "\U0001F4EB",
                 Variations = new string[] {  },
 
                 Docomo = "E665",
@@ -16194,7 +16194,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 83,
 
-                Unified = "1F4EC",
+                Unified = "\U0001F4EC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16222,7 +16222,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 84,
 
-                Unified = "1F4ED",
+                Unified = "\U0001F4ED",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16250,7 +16250,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 80,
 
-                Unified = "1F4EE",
+                Unified = "\U0001F4EE",
                 Variations = new string[] {  },
 
                 Docomo = "E665",
@@ -16278,7 +16278,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 79,
 
-                Unified = "1F4EF",
+                Unified = "\U0001F4EF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16306,7 +16306,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 70,
 
-                Unified = "1F4F0",
+                Unified = "\U0001F4F0",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16334,7 +16334,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 2,
 
-                Unified = "1F4F1",
+                Unified = "\U0001F4F1",
                 Variations = new string[] {  },
 
                 Docomo = "E688",
@@ -16362,7 +16362,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 3,
 
-                Unified = "1F4F2",
+                Unified = "\U0001F4F2",
                 Variations = new string[] {  },
 
                 Docomo = "E6CE",
@@ -16390,7 +16390,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 171,
 
-                Unified = "1F4F3",
+                Unified = "\U0001F4F3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16418,7 +16418,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 172,
 
-                Unified = "1F4F4",
+                Unified = "\U0001F4F4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16446,7 +16446,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 145,
 
-                Unified = "1F4F5",
+                Unified = "\U0001F4F5",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16474,7 +16474,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 253,
 
-                Unified = "1F4F6",
+                Unified = "\U0001F4F6",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16502,7 +16502,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 8,
 
-                Unified = "1F4F7",
+                Unified = "\U0001F4F7",
                 Variations = new string[] {  },
 
                 Docomo = "E681",
@@ -16530,7 +16530,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 9,
 
-                Unified = "1F4F9",
+                Unified = "\U0001F4F9",
                 Variations = new string[] {  },
 
                 Docomo = "E677",
@@ -16558,7 +16558,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 11,
 
-                Unified = "1F4FA",
+                Unified = "\U0001F4FA",
                 Variations = new string[] {  },
 
                 Docomo = "E68A",
@@ -16586,7 +16586,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 12,
 
-                Unified = "1F4FB",
+                Unified = "\U0001F4FB",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16614,7 +16614,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 21,
 
-                Unified = "1F4FC",
+                Unified = "\U0001F4FC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16642,7 +16642,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 233,
 
-                Unified = "1F500",
+                Unified = "\U0001F500",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16670,7 +16670,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 234,
 
-                Unified = "1F501",
+                Unified = "\U0001F501",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16698,7 +16698,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 235,
 
-                Unified = "1F502",
+                Unified = "\U0001F502",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16726,7 +16726,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 262,
 
-                Unified = "1F503",
+                Unified = "\U0001F503",
                 Variations = new string[] {  },
 
                 Docomo = "E735",
@@ -16754,7 +16754,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 228,
 
-                Unified = "1F504",
+                Unified = "\U0001F504",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16782,7 +16782,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 93,
 
-                Unified = "1F505",
+                Unified = "\U0001F505",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16810,7 +16810,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 94,
 
-                Unified = "1F506",
+                Unified = "\U0001F506",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16838,7 +16838,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 129,
 
-                Unified = "1F507",
+                Unified = "\U0001F507",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16866,7 +16866,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 126,
 
-                Unified = "1F508",
+                Unified = "\U0001F508",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16894,7 +16894,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 127,
 
-                Unified = "1F509",
+                Unified = "\U0001F509",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16922,7 +16922,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 128,
 
-                Unified = "1F50A",
+                Unified = "\U0001F50A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16950,7 +16950,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 22,
 
-                Unified = "1F50B",
+                Unified = "\U0001F50B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -16978,7 +16978,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 23,
 
-                Unified = "1F50C",
+                Unified = "\U0001F50C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17006,7 +17006,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 136,
 
-                Unified = "1F50D",
+                Unified = "\U0001F50D",
                 Variations = new string[] {  },
 
                 Docomo = "E6DC",
@@ -17034,7 +17034,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 137,
 
-                Unified = "1F50E",
+                Unified = "\U0001F50E",
                 Variations = new string[] {  },
 
                 Docomo = "E6DC",
@@ -17062,7 +17062,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 120,
 
-                Unified = "1F50F",
+                Unified = "\U0001F50F",
                 Variations = new string[] {  },
 
                 Docomo = "E6D9",
@@ -17090,7 +17090,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 121,
 
-                Unified = "1F510",
+                Unified = "\U0001F510",
                 Variations = new string[] {  },
 
                 Docomo = "E6D9",
@@ -17118,7 +17118,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 71,
 
-                Unified = "1F511",
+                Unified = "\U0001F511",
                 Variations = new string[] {  },
 
                 Docomo = "E6D9",
@@ -17146,7 +17146,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 122,
 
-                Unified = "1F512",
+                Unified = "\U0001F512",
                 Variations = new string[] {  },
 
                 Docomo = "E6D9",
@@ -17174,7 +17174,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 123,
 
-                Unified = "1F513",
+                Unified = "\U0001F513",
                 Variations = new string[] {  },
 
                 Docomo = "E6D9",
@@ -17202,7 +17202,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 131,
 
-                Unified = "1F514",
+                Unified = "\U0001F514",
                 Variations = new string[] {  },
 
                 Docomo = "E713",
@@ -17230,7 +17230,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 132,
 
-                Unified = "1F515",
+                Unified = "\U0001F515",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17258,7 +17258,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 69,
 
-                Unified = "1F516",
+                Unified = "\U0001F516",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17286,7 +17286,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 107,
 
-                Unified = "1F517",
+                Unified = "\U0001F517",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17314,7 +17314,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 303,
 
-                Unified = "1F518",
+                Unified = "\U0001F518",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17342,7 +17342,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 281,
 
-                Unified = "1F519",
+                Unified = "\U0001F519",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17370,7 +17370,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 280,
 
-                Unified = "1F51A",
+                Unified = "\U0001F51A",
                 Variations = new string[] {  },
 
                 Docomo = "E6B9",
@@ -17398,7 +17398,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 282,
 
-                Unified = "1F51B",
+                Unified = "\U0001F51B",
                 Variations = new string[] {  },
 
                 Docomo = "E6B8",
@@ -17426,7 +17426,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 284,
 
-                Unified = "1F51C",
+                Unified = "\U0001F51C",
                 Variations = new string[] {  },
 
                 Docomo = "E6B7",
@@ -17454,7 +17454,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 283,
 
-                Unified = "1F51D",
+                Unified = "\U0001F51D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17482,7 +17482,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 146,
 
-                Unified = "1F51E",
+                Unified = "\U0001F51E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17510,7 +17510,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 247,
 
-                Unified = "1F51F",
+                Unified = "\U0001F51F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17538,7 +17538,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 251,
 
-                Unified = "1F520",
+                Unified = "\U0001F520",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17566,7 +17566,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 250,
 
-                Unified = "1F521",
+                Unified = "\U0001F521",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17594,7 +17594,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 248,
 
-                Unified = "1F522",
+                Unified = "\U0001F522",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17622,7 +17622,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 255,
 
-                Unified = "1F523",
+                Unified = "\U0001F523",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17650,7 +17650,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 249,
 
-                Unified = "1F524",
+                Unified = "\U0001F524",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17678,7 +17678,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 88,
 
-                Unified = "1F525",
+                Unified = "\U0001F525",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17706,7 +17706,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 25,
 
-                Unified = "1F526",
+                Unified = "\U0001F526",
                 Variations = new string[] {  },
 
                 Docomo = "E6FB",
@@ -17734,7 +17734,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 62,
 
-                Unified = "1F527",
+                Unified = "\U0001F527",
                 Variations = new string[] {  },
 
                 Docomo = "E718",
@@ -17762,7 +17762,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 65,
 
-                Unified = "1F528",
+                Unified = "\U0001F528",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17790,7 +17790,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 64,
 
-                Unified = "1F529",
+                Unified = "\U0001F529",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17818,7 +17818,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 63,
 
-                Unified = "1F52A",
+                Unified = "\U0001F52A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17846,7 +17846,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 68,
 
-                Unified = "1F52B",
+                Unified = "\U0001F52B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17874,7 +17874,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 59,
 
-                Unified = "1F52C",
+                Unified = "\U0001F52C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17902,7 +17902,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 60,
 
-                Unified = "1F52D",
+                Unified = "\U0001F52D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17930,7 +17930,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 61,
 
-                Unified = "1F52E",
+                Unified = "\U0001F52E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17958,7 +17958,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 288,
 
-                Unified = "1F52F",
+                Unified = "\U0001F52F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -17986,7 +17986,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 289,
 
-                Unified = "1F530",
+                Unified = "\U0001F530",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18014,7 +18014,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 290,
 
-                Unified = "1F531",
+                Unified = "\U0001F531",
                 Variations = new string[] {  },
 
                 Docomo = "E71A",
@@ -18042,7 +18042,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 320,
 
-                Unified = "1F532",
+                Unified = "\U0001F532",
                 Variations = new string[] {  },
 
                 Docomo = "E69C",
@@ -18070,7 +18070,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 321,
 
-                Unified = "1F533",
+                Unified = "\U0001F533",
                 Variations = new string[] {  },
 
                 Docomo = "E69C",
@@ -18098,7 +18098,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 304,
 
-                Unified = "1F534",
+                Unified = "\U0001F534",
                 Variations = new string[] {  },
 
                 Docomo = "E69C",
@@ -18126,7 +18126,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 305,
 
-                Unified = "1F535",
+                Unified = "\U0001F535",
                 Variations = new string[] {  },
 
                 Docomo = "E69C",
@@ -18154,7 +18154,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 310,
 
-                Unified = "1F536",
+                Unified = "\U0001F536",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18182,7 +18182,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 311,
 
-                Unified = "1F537",
+                Unified = "\U0001F537",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18210,7 +18210,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 308,
 
-                Unified = "1F538",
+                Unified = "\U0001F538",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18238,7 +18238,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 309,
 
-                Unified = "1F539",
+                Unified = "\U0001F539",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18266,7 +18266,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 306,
 
-                Unified = "1F53A",
+                Unified = "\U0001F53A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18294,7 +18294,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 307,
 
-                Unified = "1F53B",
+                Unified = "\U0001F53B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18322,7 +18322,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 212,
 
-                Unified = "1F53C",
+                Unified = "\U0001F53C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18350,7 +18350,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 213,
 
-                Unified = "1F53D",
+                Unified = "\U0001F53D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18378,7 +18378,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 322,
 
-                Unified = "1F550",
+                Unified = "\U0001F550",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18406,7 +18406,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 323,
 
-                Unified = "1F551",
+                Unified = "\U0001F551",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18434,7 +18434,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 324,
 
-                Unified = "1F552",
+                Unified = "\U0001F552",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18462,7 +18462,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 325,
 
-                Unified = "1F553",
+                Unified = "\U0001F553",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18490,7 +18490,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 326,
 
-                Unified = "1F554",
+                Unified = "\U0001F554",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18518,7 +18518,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 327,
 
-                Unified = "1F555",
+                Unified = "\U0001F555",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18546,7 +18546,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 328,
 
-                Unified = "1F556",
+                Unified = "\U0001F556",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18574,7 +18574,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 329,
 
-                Unified = "1F557",
+                Unified = "\U0001F557",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18602,7 +18602,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 330,
 
-                Unified = "1F558",
+                Unified = "\U0001F558",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18630,7 +18630,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 331,
 
-                Unified = "1F559",
+                Unified = "\U0001F559",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18658,7 +18658,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 332,
 
-                Unified = "1F55A",
+                Unified = "\U0001F55A",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18686,7 +18686,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 333,
 
-                Unified = "1F55B",
+                Unified = "\U0001F55B",
                 Variations = new string[] {  },
 
                 Docomo = "E6BA",
@@ -18714,7 +18714,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 334,
 
-                Unified = "1F55C",
+                Unified = "\U0001F55C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18742,7 +18742,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 335,
 
-                Unified = "1F55D",
+                Unified = "\U0001F55D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18770,7 +18770,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 336,
 
-                Unified = "1F55E",
+                Unified = "\U0001F55E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18798,7 +18798,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 337,
 
-                Unified = "1F55F",
+                Unified = "\U0001F55F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18826,7 +18826,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 338,
 
-                Unified = "1F560",
+                Unified = "\U0001F560",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18854,7 +18854,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 339,
 
-                Unified = "1F561",
+                Unified = "\U0001F561",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18882,7 +18882,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 340,
 
-                Unified = "1F562",
+                Unified = "\U0001F562",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18910,7 +18910,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 341,
 
-                Unified = "1F563",
+                Unified = "\U0001F563",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18938,7 +18938,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 342,
 
-                Unified = "1F564",
+                Unified = "\U0001F564",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18966,7 +18966,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 343,
 
-                Unified = "1F565",
+                Unified = "\U0001F565",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -18994,7 +18994,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 344,
 
-                Unified = "1F566",
+                Unified = "\U0001F566",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19022,7 +19022,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 345,
 
-                Unified = "1F567",
+                Unified = "\U0001F567",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19050,7 +19050,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 107,
 
-                Unified = "1F5FB",
+                Unified = "\U0001F5FB",
                 Variations = new string[] {  },
 
                 Docomo = "E740",
@@ -19078,7 +19078,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 58,
 
-                Unified = "1F5FC",
+                Unified = "\U0001F5FC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19106,7 +19106,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 55,
 
-                Unified = "1F5FD",
+                Unified = "\U0001F5FD",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19134,7 +19134,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 108,
 
-                Unified = "1F5FE",
+                Unified = "\U0001F5FE",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19162,7 +19162,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 56,
 
-                Unified = "1F5FF",
+                Unified = "\U0001F5FF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19190,7 +19190,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 1,
 
-                Unified = "1F600",
+                Unified = "\U0001F600",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19218,7 +19218,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 2,
 
-                Unified = "1F601",
+                Unified = "\U0001F601",
                 Variations = new string[] {  },
 
                 Docomo = "E753",
@@ -19246,7 +19246,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 3,
 
-                Unified = "1F602",
+                Unified = "\U0001F602",
                 Variations = new string[] {  },
 
                 Docomo = "E72A",
@@ -19274,7 +19274,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 4,
 
-                Unified = "1F603",
+                Unified = "\U0001F603",
                 Variations = new string[] {  },
 
                 Docomo = "E6F0",
@@ -19302,7 +19302,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 5,
 
-                Unified = "1F604",
+                Unified = "\U0001F604",
                 Variations = new string[] {  },
 
                 Docomo = "E6F0",
@@ -19330,7 +19330,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 6,
 
-                Unified = "1F605",
+                Unified = "\U0001F605",
                 Variations = new string[] {  },
 
                 Docomo = "E722",
@@ -19358,7 +19358,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 7,
 
-                Unified = "1F606",
+                Unified = "\U0001F606",
                 Variations = new string[] {  },
 
                 Docomo = "E72A",
@@ -19386,7 +19386,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 8,
 
-                Unified = "1F607",
+                Unified = "\U0001F607",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19414,7 +19414,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 9,
 
-                Unified = "1F608",
+                Unified = "\U0001F608",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19442,7 +19442,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 11,
 
-                Unified = "1F609",
+                Unified = "\U0001F609",
                 Variations = new string[] {  },
 
                 Docomo = "E729",
@@ -19470,7 +19470,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 12,
 
-                Unified = "1F60A",
+                Unified = "\U0001F60A",
                 Variations = new string[] {  },
 
                 Docomo = "E6F0",
@@ -19498,7 +19498,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 14,
 
-                Unified = "1F60B",
+                Unified = "\U0001F60B",
                 Variations = new string[] {  },
 
                 Docomo = "E752",
@@ -19526,7 +19526,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 15,
 
-                Unified = "1F60C",
+                Unified = "\U0001F60C",
                 Variations = new string[] {  },
 
                 Docomo = "E721",
@@ -19554,7 +19554,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 16,
 
-                Unified = "1F60D",
+                Unified = "\U0001F60D",
                 Variations = new string[] {  },
 
                 Docomo = "E726",
@@ -19582,7 +19582,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 17,
 
-                Unified = "1F60E",
+                Unified = "\U0001F60E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19610,7 +19610,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 18,
 
-                Unified = "1F60F",
+                Unified = "\U0001F60F",
                 Variations = new string[] {  },
 
                 Docomo = "E72C",
@@ -19638,7 +19638,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 19,
 
-                Unified = "1F610",
+                Unified = "\U0001F610",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19666,7 +19666,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 20,
 
-                Unified = "1F611",
+                Unified = "\U0001F611",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19694,7 +19694,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 21,
 
-                Unified = "1F612",
+                Unified = "\U0001F612",
                 Variations = new string[] {  },
 
                 Docomo = "E725",
@@ -19722,7 +19722,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 22,
 
-                Unified = "1F613",
+                Unified = "\U0001F613",
                 Variations = new string[] {  },
 
                 Docomo = "E723",
@@ -19750,7 +19750,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 23,
 
-                Unified = "1F614",
+                Unified = "\U0001F614",
                 Variations = new string[] {  },
 
                 Docomo = "E720",
@@ -19778,7 +19778,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 24,
 
-                Unified = "1F615",
+                Unified = "\U0001F615",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19806,7 +19806,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 25,
 
-                Unified = "1F616",
+                Unified = "\U0001F616",
                 Variations = new string[] {  },
 
                 Docomo = "E6F3",
@@ -19834,7 +19834,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 26,
 
-                Unified = "1F617",
+                Unified = "\U0001F617",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19862,7 +19862,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 27,
 
-                Unified = "1F618",
+                Unified = "\U0001F618",
                 Variations = new string[] {  },
 
                 Docomo = "E726",
@@ -19890,7 +19890,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 28,
 
-                Unified = "1F619",
+                Unified = "\U0001F619",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19918,7 +19918,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 29,
 
-                Unified = "1F61A",
+                Unified = "\U0001F61A",
                 Variations = new string[] {  },
 
                 Docomo = "E726",
@@ -19946,7 +19946,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 30,
 
-                Unified = "1F61B",
+                Unified = "\U0001F61B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -19974,7 +19974,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 31,
 
-                Unified = "1F61C",
+                Unified = "\U0001F61C",
                 Variations = new string[] {  },
 
                 Docomo = "E728",
@@ -20002,7 +20002,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 32,
 
-                Unified = "1F61D",
+                Unified = "\U0001F61D",
                 Variations = new string[] {  },
 
                 Docomo = "E728",
@@ -20030,7 +20030,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 33,
 
-                Unified = "1F61E",
+                Unified = "\U0001F61E",
                 Variations = new string[] {  },
 
                 Docomo = "E6F2",
@@ -20058,7 +20058,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 34,
 
-                Unified = "1F61F",
+                Unified = "\U0001F61F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20086,7 +20086,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 35,
 
-                Unified = "1F620",
+                Unified = "\U0001F620",
                 Variations = new string[] {  },
 
                 Docomo = "E6F1",
@@ -20114,7 +20114,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 36,
 
-                Unified = "1F621",
+                Unified = "\U0001F621",
                 Variations = new string[] {  },
 
                 Docomo = "E724",
@@ -20142,7 +20142,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 37,
 
-                Unified = "1F622",
+                Unified = "\U0001F622",
                 Variations = new string[] {  },
 
                 Docomo = "E72E",
@@ -20170,7 +20170,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 38,
 
-                Unified = "1F623",
+                Unified = "\U0001F623",
                 Variations = new string[] {  },
 
                 Docomo = "E72B",
@@ -20198,7 +20198,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 39,
 
-                Unified = "1F624",
+                Unified = "\U0001F624",
                 Variations = new string[] {  },
 
                 Docomo = "E753",
@@ -20226,7 +20226,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 40,
 
-                Unified = "1F625",
+                Unified = "\U0001F625",
                 Variations = new string[] {  },
 
                 Docomo = "E723",
@@ -20254,7 +20254,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 41,
 
-                Unified = "1F626",
+                Unified = "\U0001F626",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20282,7 +20282,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 42,
 
-                Unified = "1F627",
+                Unified = "\U0001F627",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20310,7 +20310,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 43,
 
-                Unified = "1F628",
+                Unified = "\U0001F628",
                 Variations = new string[] {  },
 
                 Docomo = "E757",
@@ -20338,7 +20338,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 44,
 
-                Unified = "1F629",
+                Unified = "\U0001F629",
                 Variations = new string[] {  },
 
                 Docomo = "E6F3",
@@ -20366,7 +20366,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 45,
 
-                Unified = "1F62A",
+                Unified = "\U0001F62A",
                 Variations = new string[] {  },
 
                 Docomo = "E701",
@@ -20394,7 +20394,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 46,
 
-                Unified = "1F62B",
+                Unified = "\U0001F62B",
                 Variations = new string[] {  },
 
                 Docomo = "E72B",
@@ -20422,7 +20422,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 47,
 
-                Unified = "1F62C",
+                Unified = "\U0001F62C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20450,7 +20450,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 48,
 
-                Unified = "1F62D",
+                Unified = "\U0001F62D",
                 Variations = new string[] {  },
 
                 Docomo = "E72D",
@@ -20478,7 +20478,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 49,
 
-                Unified = "1F62E",
+                Unified = "\U0001F62E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20506,7 +20506,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 50,
 
-                Unified = "1F62F",
+                Unified = "\U0001F62F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20534,7 +20534,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 51,
 
-                Unified = "1F630",
+                Unified = "\U0001F630",
                 Variations = new string[] {  },
 
                 Docomo = "E723",
@@ -20562,7 +20562,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 52,
 
-                Unified = "1F631",
+                Unified = "\U0001F631",
                 Variations = new string[] {  },
 
                 Docomo = "E757",
@@ -20590,7 +20590,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 53,
 
-                Unified = "1F632",
+                Unified = "\U0001F632",
                 Variations = new string[] {  },
 
                 Docomo = "E6F4",
@@ -20618,7 +20618,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 54,
 
-                Unified = "1F633",
+                Unified = "\U0001F633",
                 Variations = new string[] {  },
 
                 Docomo = "E72A",
@@ -20646,7 +20646,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 55,
 
-                Unified = "1F634",
+                Unified = "\U0001F634",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20674,7 +20674,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 56,
 
-                Unified = "1F635",
+                Unified = "\U0001F635",
                 Variations = new string[] {  },
 
                 Docomo = "E6F4",
@@ -20702,7 +20702,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 57,
 
-                Unified = "1F636",
+                Unified = "\U0001F636",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20730,7 +20730,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 58,
 
-                Unified = "1F637",
+                Unified = "\U0001F637",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -20758,7 +20758,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 59,
 
-                Unified = "1F638",
+                Unified = "\U0001F638",
                 Variations = new string[] {  },
 
                 Docomo = "E753",
@@ -20786,7 +20786,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 60,
 
-                Unified = "1F639",
+                Unified = "\U0001F639",
                 Variations = new string[] {  },
 
                 Docomo = "E72A",
@@ -20814,7 +20814,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 61,
 
-                Unified = "1F63A",
+                Unified = "\U0001F63A",
                 Variations = new string[] {  },
 
                 Docomo = "E6F0",
@@ -20842,7 +20842,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 62,
 
-                Unified = "1F63B",
+                Unified = "\U0001F63B",
                 Variations = new string[] {  },
 
                 Docomo = "E726",
@@ -20870,7 +20870,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 63,
 
-                Unified = "1F63C",
+                Unified = "\U0001F63C",
                 Variations = new string[] {  },
 
                 Docomo = "E753",
@@ -20898,7 +20898,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 64,
 
-                Unified = "1F63D",
+                Unified = "\U0001F63D",
                 Variations = new string[] {  },
 
                 Docomo = "E726",
@@ -20926,7 +20926,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 65,
 
-                Unified = "1F63E",
+                Unified = "\U0001F63E",
                 Variations = new string[] {  },
 
                 Docomo = "E724",
@@ -20954,7 +20954,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 66,
 
-                Unified = "1F63F",
+                Unified = "\U0001F63F",
                 Variations = new string[] {  },
 
                 Docomo = "E72E",
@@ -20982,7 +20982,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 67,
 
-                Unified = "1F640",
+                Unified = "\U0001F640",
                 Variations = new string[] {  },
 
                 Docomo = "E6F3",
@@ -21010,7 +21010,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 116,
 
-                Unified = "1F645",
+                Unified = "\U0001F645",
                 Variations = new string[] {  },
 
                 Docomo = "E72F",
@@ -21038,7 +21038,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 117,
 
-                Unified = "1F646",
+                Unified = "\U0001F646",
                 Variations = new string[] {  },
 
                 Docomo = "E70B",
@@ -21066,7 +21066,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 114,
 
-                Unified = "1F647",
+                Unified = "\U0001F647",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21094,7 +21094,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 63,
 
-                Unified = "1F648",
+                Unified = "\U0001F648",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21122,7 +21122,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 64,
 
-                Unified = "1F649",
+                Unified = "\U0001F649",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21150,7 +21150,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Nature,
                 SortOrder = 65,
 
-                Unified = "1F64A",
+                Unified = "\U0001F64A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21178,7 +21178,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 118,
 
-                Unified = "1F64B",
+                Unified = "\U0001F64B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21206,7 +21206,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 151,
 
-                Unified = "1F64C",
+                Unified = "\U0001F64C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21234,7 +21234,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 120,
 
-                Unified = "1F64D",
+                Unified = "\U0001F64D",
                 Variations = new string[] {  },
 
                 Docomo = "E6F3",
@@ -21262,7 +21262,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 119,
 
-                Unified = "1F64E",
+                Unified = "\U0001F64E",
                 Variations = new string[] {  },
 
                 Docomo = "E6F1",
@@ -21290,7 +21290,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.People,
                 SortOrder = 153,
 
-                Unified = "1F64F",
+                Unified = "\U0001F64F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21318,7 +21318,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 36,
 
-                Unified = "1F680",
+                Unified = "\U0001F680",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21346,7 +21346,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 37,
 
-                Unified = "1F681",
+                Unified = "\U0001F681",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21374,7 +21374,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 3,
 
-                Unified = "1F682",
+                Unified = "\U0001F682",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21402,7 +21402,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 1,
 
-                Unified = "1F683",
+                Unified = "\U0001F683",
                 Variations = new string[] {  },
 
                 Docomo = "E65B",
@@ -21430,7 +21430,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 6,
 
-                Unified = "1F684",
+                Unified = "\U0001F684",
                 Variations = new string[] {  },
 
                 Docomo = "E65D",
@@ -21458,7 +21458,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 7,
 
-                Unified = "1F685",
+                Unified = "\U0001F685",
                 Variations = new string[] {  },
 
                 Docomo = "E65D",
@@ -21486,7 +21486,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 8,
 
-                Unified = "1F686",
+                Unified = "\U0001F686",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21514,7 +21514,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 9,
 
-                Unified = "1F687",
+                Unified = "\U0001F687",
                 Variations = new string[] {  },
 
                 Docomo = "E65C",
@@ -21542,7 +21542,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 10,
 
-                Unified = "1F688",
+                Unified = "\U0001F688",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21570,7 +21570,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 11,
 
-                Unified = "1F689",
+                Unified = "\U0001F689",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21598,7 +21598,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 12,
 
-                Unified = "1F68A",
+                Unified = "\U0001F68A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21626,7 +21626,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 4,
 
-                Unified = "1F68B",
+                Unified = "\U0001F68B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21654,7 +21654,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 13,
 
-                Unified = "1F68C",
+                Unified = "\U0001F68C",
                 Variations = new string[] {  },
 
                 Docomo = "E660",
@@ -21682,7 +21682,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 14,
 
-                Unified = "1F68D",
+                Unified = "\U0001F68D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21710,7 +21710,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 15,
 
-                Unified = "1F68E",
+                Unified = "\U0001F68E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21738,7 +21738,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 31,
 
-                Unified = "1F68F",
+                Unified = "\U0001F68F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21766,7 +21766,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 16,
 
-                Unified = "1F690",
+                Unified = "\U0001F690",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21794,7 +21794,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 17,
 
-                Unified = "1F691",
+                Unified = "\U0001F691",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21822,7 +21822,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 18,
 
-                Unified = "1F692",
+                Unified = "\U0001F692",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21850,7 +21850,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 19,
 
-                Unified = "1F693",
+                Unified = "\U0001F693",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21878,7 +21878,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 20,
 
-                Unified = "1F694",
+                Unified = "\U0001F694",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21906,7 +21906,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 22,
 
-                Unified = "1F695",
+                Unified = "\U0001F695",
                 Variations = new string[] {  },
 
                 Docomo = "E65E",
@@ -21934,7 +21934,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 23,
 
-                Unified = "1F696",
+                Unified = "\U0001F696",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -21962,7 +21962,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 24,
 
-                Unified = "1F697",
+                Unified = "\U0001F697",
                 Variations = new string[] {  },
 
                 Docomo = "E65E",
@@ -21990,7 +21990,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 25,
 
-                Unified = "1F698",
+                Unified = "\U0001F698",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22018,7 +22018,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 26,
 
-                Unified = "1F699",
+                Unified = "\U0001F699",
                 Variations = new string[] {  },
 
                 Docomo = "E65F",
@@ -22046,7 +22046,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 27,
 
-                Unified = "1F69A",
+                Unified = "\U0001F69A",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22074,7 +22074,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 28,
 
-                Unified = "1F69B",
+                Unified = "\U0001F69B",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22102,7 +22102,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 29,
 
-                Unified = "1F69C",
+                Unified = "\U0001F69C",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22130,7 +22130,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 5,
 
-                Unified = "1F69D",
+                Unified = "\U0001F69D",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22158,7 +22158,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 2,
 
-                Unified = "1F69E",
+                Unified = "\U0001F69E",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22186,7 +22186,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 46,
 
-                Unified = "1F69F",
+                Unified = "\U0001F69F",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22214,7 +22214,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 45,
 
-                Unified = "1F6A0",
+                Unified = "\U0001F6A0",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22242,7 +22242,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 44,
 
-                Unified = "1F6A1",
+                Unified = "\U0001F6A1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22270,7 +22270,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 41,
 
-                Unified = "1F6A2",
+                Unified = "\U0001F6A2",
                 Variations = new string[] {  },
 
                 Docomo = "E661",
@@ -22298,7 +22298,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 4,
 
-                Unified = "1F6A3",
+                Unified = "\U0001F6A3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22326,7 +22326,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 42,
 
-                Unified = "1F6A4",
+                Unified = "\U0001F6A4",
                 Variations = new string[] {  },
 
                 Docomo = "E6A3",
@@ -22354,7 +22354,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 35,
 
-                Unified = "1F6A5",
+                Unified = "\U0001F6A5",
                 Variations = new string[] {  },
 
                 Docomo = "E66D",
@@ -22382,7 +22382,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 34,
 
-                Unified = "1F6A6",
+                Unified = "\U0001F6A6",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22410,7 +22410,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 33,
 
-                Unified = "1F6A7",
+                Unified = "\U0001F6A7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22438,7 +22438,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 21,
 
-                Unified = "1F6A8",
+                Unified = "\U0001F6A8",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22466,7 +22466,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 114,
 
-                Unified = "1F6A9",
+                Unified = "\U0001F6A9",
                 Variations = new string[] {  },
 
                 Docomo = "E6DE",
@@ -22494,7 +22494,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 52,
 
-                Unified = "1F6AA",
+                Unified = "\U0001F6AA",
                 Variations = new string[] {  },
 
                 Docomo = "E714",
@@ -22522,7 +22522,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 138,
 
-                Unified = "1F6AB",
+                Unified = "\U0001F6AB",
                 Variations = new string[] {  },
 
                 Docomo = "E738",
@@ -22550,7 +22550,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 67,
 
-                Unified = "1F6AC",
+                Unified = "\U0001F6AC",
                 Variations = new string[] {  },
 
                 Docomo = "E67F",
@@ -22578,7 +22578,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 208,
 
-                Unified = "1F6AD",
+                Unified = "\U0001F6AD",
                 Variations = new string[] {  },
 
                 Docomo = "E680",
@@ -22606,7 +22606,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 209,
 
-                Unified = "1F6AE",
+                Unified = "\U0001F6AE",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22634,7 +22634,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 142,
 
-                Unified = "1F6AF",
+                Unified = "\U0001F6AF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22662,7 +22662,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 207,
 
-                Unified = "1F6B0",
+                Unified = "\U0001F6B0",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22690,7 +22690,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 144,
 
-                Unified = "1F6B1",
+                Unified = "\U0001F6B1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22718,7 +22718,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 30,
 
-                Unified = "1F6B2",
+                Unified = "\U0001F6B2",
                 Variations = new string[] {  },
 
                 Docomo = "E71D",
@@ -22746,7 +22746,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 143,
 
-                Unified = "1F6B3",
+                Unified = "\U0001F6B3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22774,7 +22774,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 11,
 
-                Unified = "1F6B4",
+                Unified = "\U0001F6B4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22802,7 +22802,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 12,
 
-                Unified = "1F6B5",
+                Unified = "\U0001F6B5",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22830,7 +22830,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 2,
 
-                Unified = "1F6B6",
+                Unified = "\U0001F6B6",
                 Variations = new string[] {  },
 
                 Docomo = "E733",
@@ -22858,7 +22858,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 141,
 
-                Unified = "1F6B7",
+                Unified = "\U0001F6B7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22886,7 +22886,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 135,
 
-                Unified = "1F6B8",
+                Unified = "\U0001F6B8",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22914,7 +22914,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 203,
 
-                Unified = "1F6B9",
+                Unified = "\U0001F6B9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22942,7 +22942,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 204,
 
-                Unified = "1F6BA",
+                Unified = "\U0001F6BA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -22970,7 +22970,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 202,
 
-                Unified = "1F6BB",
+                Unified = "\U0001F6BB",
                 Variations = new string[] {  },
 
                 Docomo = "E66E",
@@ -22998,7 +22998,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 205,
 
-                Unified = "1F6BC",
+                Unified = "\U0001F6BC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23026,7 +23026,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 55,
 
-                Unified = "1F6BD",
+                Unified = "\U0001F6BD",
                 Variations = new string[] {  },
 
                 Docomo = "E66E",
@@ -23054,7 +23054,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 182,
 
-                Unified = "1F6BE",
+                Unified = "\U0001F6BE",
                 Variations = new string[] {  },
 
                 Docomo = "E66E",
@@ -23082,7 +23082,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 53,
 
-                Unified = "1F6BF",
+                Unified = "\U0001F6BF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23110,7 +23110,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Activity,
                 SortOrder = 7,
 
-                Unified = "1F6C0",
+                Unified = "\U0001F6C0",
                 Variations = new string[] {  },
 
                 Docomo = "E6F7",
@@ -23138,7 +23138,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Symbols,
                 SortOrder = 54,
 
-                Unified = "1F6C1",
+                Unified = "\U0001F6C1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23166,7 +23166,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 47,
 
-                Unified = "1F6C2",
+                Unified = "\U0001F6C2",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23194,7 +23194,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 48,
 
-                Unified = "1F6C3",
+                Unified = "\U0001F6C3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23222,7 +23222,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 49,
 
-                Unified = "1F6C4",
+                Unified = "\U0001F6C4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23250,7 +23250,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 50,
 
-                Unified = "1F6C5",
+                Unified = "\U0001F6C5",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23586,7 +23586,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 121,
 
-                Unified = "1F1E6-1F1EA",
+                Unified = "\U0001F1E6-1F1EA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23614,7 +23614,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 82,
 
-                Unified = "1F1E6-1F1F9",
+                Unified = "\U0001F1E6-1F1F9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23642,7 +23642,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 81,
 
-                Unified = "1F1E6-1F1FA",
+                Unified = "\U0001F1E6-1F1FA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23670,7 +23670,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 83,
 
-                Unified = "1F1E7-1F1EA",
+                Unified = "\U0001F1E7-1F1EA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23698,7 +23698,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 84,
 
-                Unified = "1F1E7-1F1F7",
+                Unified = "\U0001F1E7-1F1F7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23726,7 +23726,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 85,
 
-                Unified = "1F1E8-1F1E6",
+                Unified = "\U0001F1E8-1F1E6",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23754,7 +23754,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 117,
 
-                Unified = "1F1E8-1F1ED",
+                Unified = "\U0001F1E8-1F1ED",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23782,7 +23782,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 86,
 
-                Unified = "1F1E8-1F1F1",
+                Unified = "\U0001F1E8-1F1F1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23810,7 +23810,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 87,
 
-                Unified = "1F1E8-1F1F3",
+                Unified = "\U0001F1E8-1F1F3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23838,7 +23838,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 88,
 
-                Unified = "1F1E8-1F1F4",
+                Unified = "\U0001F1E8-1F1F4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23866,7 +23866,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 92,
 
-                Unified = "1F1E9-1F1EA",
+                Unified = "\U0001F1E9-1F1EA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23894,7 +23894,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 89,
 
-                Unified = "1F1E9-1F1F0",
+                Unified = "\U0001F1E9-1F1F0",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23922,7 +23922,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 115,
 
-                Unified = "1F1EA-1F1F8",
+                Unified = "\U0001F1EA-1F1F8",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23950,7 +23950,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 90,
 
-                Unified = "1F1EB-1F1EE",
+                Unified = "\U0001F1EB-1F1EE",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -23978,7 +23978,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 91,
 
-                Unified = "1F1EB-1F1F7",
+                Unified = "\U0001F1EB-1F1F7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24006,7 +24006,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 119,
 
-                Unified = "1F1EC-1F1E7",
+                Unified = "\U0001F1EC-1F1E7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24034,7 +24034,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 93,
 
-                Unified = "1F1ED-1F1F0",
+                Unified = "\U0001F1ED-1F1F0",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24062,7 +24062,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 95,
 
-                Unified = "1F1EE-1F1E9",
+                Unified = "\U0001F1EE-1F1E9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24090,7 +24090,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 96,
 
-                Unified = "1F1EE-1F1EA",
+                Unified = "\U0001F1EE-1F1EA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24118,7 +24118,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 97,
 
-                Unified = "1F1EE-1F1F1",
+                Unified = "\U0001F1EE-1F1F1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24146,7 +24146,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 94,
 
-                Unified = "1F1EE-1F1F3",
+                Unified = "\U0001F1EE-1F1F3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24174,7 +24174,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 98,
 
-                Unified = "1F1EE-1F1F9",
+                Unified = "\U0001F1EE-1F1F9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24202,7 +24202,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 99,
 
-                Unified = "1F1EF-1F1F5",
+                Unified = "\U0001F1EF-1F1F5",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24230,7 +24230,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 100,
 
-                Unified = "1F1F0-1F1F7",
+                Unified = "\U0001F1F0-1F1F7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24258,7 +24258,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 101,
 
-                Unified = "1F1F2-1F1F4",
+                Unified = "\U0001F1F2-1F1F4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24286,7 +24286,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 103,
 
-                Unified = "1F1F2-1F1FD",
+                Unified = "\U0001F1F2-1F1FD",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24314,7 +24314,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 102,
 
-                Unified = "1F1F2-1F1FE",
+                Unified = "\U0001F1F2-1F1FE",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24342,7 +24342,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 104,
 
-                Unified = "1F1F3-1F1F1",
+                Unified = "\U0001F1F3-1F1F1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24370,7 +24370,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 106,
 
-                Unified = "1F1F3-1F1F4",
+                Unified = "\U0001F1F3-1F1F4",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24398,7 +24398,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 105,
 
-                Unified = "1F1F3-1F1FF",
+                Unified = "\U0001F1F3-1F1FF",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24426,7 +24426,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 107,
 
-                Unified = "1F1F5-1F1ED",
+                Unified = "\U0001F1F5-1F1ED",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24454,7 +24454,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 108,
 
-                Unified = "1F1F5-1F1F1",
+                Unified = "\U0001F1F5\U0001F1F1",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24482,7 +24482,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 110,
 
-                Unified = "1F1F5-1F1F7",
+                Unified = "\U0001F1F5-1F1F7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24510,7 +24510,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 109,
 
-                Unified = "1F1F5-1F1F9",
+                Unified = "\U0001F1F5-1F1F9",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24538,7 +24538,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 111,
 
-                Unified = "1F1F7-1F1FA",
+                Unified = "\U0001F1F7-1F1FA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24566,7 +24566,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 112,
 
-                Unified = "1F1F8-1F1E6",
+                Unified = "\U0001F1F8-1F1E6",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24594,7 +24594,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 116,
 
-                Unified = "1F1F8-1F1EA",
+                Unified = "\U0001F1F8-1F1EA",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24622,7 +24622,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 113,
 
-                Unified = "1F1F8-1F1EC",
+                Unified = "\U0001F1F8-1F1EC",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24650,7 +24650,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 118,
 
-                Unified = "1F1F9-1F1F7",
+                Unified = "\U0001F1F9-1F1F7",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24678,7 +24678,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 120,
 
-                Unified = "1F1FA-1F1F8",
+                Unified = "\U0001F1FA-1F1F8",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24706,7 +24706,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 122,
 
-                Unified = "1F1FB-1F1F3",
+                Unified = "\U0001F1FB-1F1F3",
                 Variations = new string[] {  },
 
                 Docomo = null,
@@ -24734,7 +24734,7 @@ namespace EmojiSharp
                 Category = EmojiCategory.Places,
                 SortOrder = 114,
 
-                Unified = "1F1FF-1F1E6",
+                Unified = "\U0001F1FF-1F1E6",
                 Variations = new string[] {  },
 
                 Docomo = null,

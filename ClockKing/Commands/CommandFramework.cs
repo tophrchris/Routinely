@@ -45,12 +45,24 @@ namespace ClockKing
 		public virtual UIPreviewAction AsPreviewAction(Action<Command> handler,UIPreviewActionStyle style)
 		{
 			var title = string.IsNullOrEmpty(this.LongName) ? this.Name : this.LongName;
+
 			return UIPreviewAction.Create (title,style,
 				(a,c)=>
 				{
 					handler(this);	
 				}
 			);
+		}
+
+		public virtual UIAlertAction AsAlertAction (Action<Command> handler)
+		{
+			var title = string.IsNullOrEmpty(this.LongName) ? this.Name : this.LongName;
+
+			return UIAlertAction.Create(
+					title,
+					this.IsDestructive?UIAlertActionStyle.Destructive:UIAlertActionStyle.Default,
+				(a)=>handler(this));
+			
 		}
 
 		public virtual UIPreviewAction AsPreviewAction(Action<Command> handler )

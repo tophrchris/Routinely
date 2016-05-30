@@ -5,6 +5,10 @@ using UIKit;
 using ClockKing.Extensions;
 using System.Linq;
 using EmojiSharp;
+using System.Text;
+using System.Unicode;
+using System.Collections.Generic;
+
 
 namespace ClockKing
 {
@@ -18,49 +22,39 @@ namespace ClockKing
 		private BooleanElement nowElement { get; set; }
 		private UIDatePicker picker { get; set; }
 		private BooleanElement nowSwitch{ get; set; }
+		private List<string> emojiNames { get; set; }
+		private BooleanElement SuggestEmoji{ get; set; }
+		private bool SuggestAbbreviations = true;
 
 		public AddNewCheckpointDialog (CheckPointController controller, RootElement root, bool pushing) : base (root, pushing)
 		{
 			this.Controller = controller;
 			this.Style = UITableViewStyle.Grouped;
+			this.emojiNames = Emoji.All.Where (kv => kv.Value.AppleHasImage).Select (kv => kv.Key.ToLower ()).ToList ();
 
 			this.nameElement = new EntryElement ("Name", "Name your checkpoint", "");
 			this.emojiElement = new EntryElement ("Abbreviation", "a short (2-letter) name","");
 			this.nowElement = new BooleanElement ("Add Occurrence now?", false);
 			this.picker = new UIDatePicker (){ Mode = UIDatePickerMode.Time };
+			this.SuggestEmoji = new BooleanElement ("suggest emoji for abbreviation?", true);
 			this.nowSwitch = new BooleanElement ("default to current time:", true);
 
 			var instructions = new MultilineElement ("What time do you expect to complete this checkpoint, each day?");
 			var pickerWrapper = new UIViewElement (string.Empty, picker, false);
 
+			var checkPointForm = new Section ("Goal:") { 	
+				nameElement,
+				SuggestEmoji,
+				emojiElement,
+				instructions,
+				pickerWrapper,
+				nowSwitch,
+				nowElement 
+			};
+
 			this.nameElement.NotifyChangedOnKeyStroke = true;
 
-			this.nameElement.Changed += (s, ev) => {
-				var words = this.nameElement.Value.Split(' ');
-
-//				var emojiNames = Emoji.All.Where(e=>e.Value.AppleHasImage).Select(e=>e.Key.ToLower()).ToList();
-//
-//				var wordsToSearch = words.Where(w=>w.Length>2).Select(w=>w.ToLower());
-//
-//				if(wordsToSearch.Any(w=>emojiNames.Any(e=>e.ToLower().Contains(w)))){
-//					var foundEmoji = emojiNames.Where(e=>wordsToSearch.Any(w=>e.ToLower().Contains(w)));
-//					if(foundEmoji.Any())
-//					{
-//						var key = foundEmoji.First();
-//						this.emojiElement.Value = Emoji.All.First(e=>e.Key.ToLower()==key).Value.AsShortcode();
-//						//this.emojiElement.Value="wtf!";
-//					}
-//				}
-//				else{
-				if(words.Count()>1)
-					this.emojiElement.Value = string.Join("", words.Where(w=>w.Length>0).Take(2).Select(w=>w.Substring(0,1)).ToArray());
-				else
-					if(words[0].Length>0)
-						this.emojiElement.Value = words[0].Substring(0,this.nameElement.Value.Length>1?2:1); 
-					else
-						this.emojiElement.Value = string.Empty;
-				//}
-			};
+			this.nameElement.Changed += (s, ev) => AutoSetEmoji();
 
 			picker.ValueChanged += (s, e) => nowSwitch.Value=false;
 
@@ -69,20 +63,70 @@ namespace ClockKing
 					this.picker.Date = DateTime.UtcNow.ToNSDate ();
 			};
 
-			this.Root.Add(new Section ("New Checkpoint:")
-				{ 	
-					nameElement,
-					emojiElement,
-					instructions,
-					pickerWrapper,
-					nowSwitch,
-					nowElement 
-				});
+			this.Root.Add(checkPointForm);
 					
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>this.Save()),true);
 		}
 
-		public bool Save(){
+		public void RenderForCheckPoint(Model.CheckPoint toEdit)
+		{
+			var knownEmoji = Emoji.All.Where (e => e.Value.AppleHasImage).Select (e => e.Value.Unified).ToList ();
+
+			this.nameElement.Value = toEdit.Name;
+			this.emojiElement.Value = toEdit.Emoji;
+			this.picker.Date = toEdit.TargetTimeToday.ToUniversalTime().ToNSDate ();
+			var section = this.Root.First();
+			section.Remove (this.nowElement.IndexPath.Row);
+			section.Remove (this.nowSwitch.IndexPath.Row);
+			var enabledSwitch = new BooleanElement ("Enabled?", toEdit.Enabled);
+			section.Add(enabledSwitch);
+			if (knownEmoji.Contains (toEdit.Emoji))
+				SuggestAbbreviations = false;
+
+			SuggestEmoji.Value = SuggestAbbreviations;
+
+			var detailSections = new CheckpointDetailCommand (this.Controller).GetDetailSections (toEdit);
+
+			this.Root.Add (detailSections);
+
+			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>
+				{
+					var nameChanged = toEdit.Name!=this.nameElement.Value;
+
+					if(nameChanged && this.Controller.CheckPointExists(this.nameElement.Value))
+					{
+							ShowError ("A goal already exists with the new name you've chosen.  Please choose a different name!");
+							return;
+					}
+						
+
+					toEdit.Emoji=this.emojiElement.Value;
+					toEdit.TargetTime=this.picker.Date.ToDateTime().ToLocalTime().TimeOfDay;
+					toEdit.Enabled= enabledSwitch.Value;
+					if(nameChanged)
+						toEdit.Name=this.nameElement.Value;
+
+					this.Controller.ResaveCheckpoints();
+
+					if(nameChanged)
+						this.Controller.RewriteOccurrences();
+					
+					this.Controller.NavigationController.PopToRootViewController(true);
+				}),true);
+		}
+
+		public bool ShowError(string Message)
+		{
+			var acs = UIAlertController.Create ("Goal",Message, UIAlertControllerStyle.Alert);
+			acs.AddAction (UIAlertAction.Create ("Ok", UIAlertActionStyle.Default, null));
+			this.Controller.PresentViewController (acs, true, null);
+			return false;
+		}
+
+		public bool Save()
+		{
+			if (this.Controller.CheckPointExists (nameElement.Value))
+				return ShowError ("A goal already exists with that name.  Please choose a different name!");	
 			
 			var newcp = this.Controller
 					.AddNewCheckPoint (
@@ -93,15 +137,48 @@ namespace ClockKing
 				if (nowElement.Value)
 					this.Controller.AddOccurrenceToCheckPoint(newcp,0);
 
-				
 				this.Controller.RespondToModelChanges ();
 				CancelDialog ();
 
 			return true;
 		}
-		public void CancelDialog()
+		public void CancelDialog(bool animated=true)
 		{
-			this.Controller.NavigationController.PopViewController (true);
+			this.Controller.NavigationController.PopViewController (animated);
+		}
+
+		public void AutoSetEmoji()
+		{
+			if (!SuggestAbbreviations)
+				return;
+			
+			var wordsFoundInName = this.nameElement.Value.Split (' ');
+
+			var searchableWords = wordsFoundInName.Where (w => w.Length >= 2).Select (w => w.ToLower ()).ToList();
+
+			var foundEmojis = searchableWords.SelectMany (w => emojiNames.Where (e => e.Contains (w)));
+
+			if (foundEmojis.Any () && SuggestEmoji.Value) 
+			{
+				var sortedEmoji = foundEmojis
+					.OrderBy (e => e.Length - searchableWords.OrderByDescending(w=>w.Length).FirstOrDefault (w => e.Contains (w)).Length);
+
+				var bestEmojiName = sortedEmoji.First ();
+
+				var foundEmoji = Emoji.All [bestEmojiName].Unified;
+
+				if (foundEmoji.Length < 3)
+					this.emojiElement.Value = foundEmoji;
+			} 
+			else
+			{
+				if (wordsFoundInName.Where(w=>w.Length>1).Count () > 1)
+					this.emojiElement.Value = string.Join ("", wordsFoundInName.Where (w => w.Length > 0).Take (2).Select (w => w.Substring (0, 1)).ToArray ());
+				else if (wordsFoundInName [0].Length > 0)
+					this.emojiElement.Value = wordsFoundInName [0].Substring (0, this.nameElement.Value.Length > 1 ? 2 : 1);
+				else
+					this.emojiElement.Value = string.Empty;
+			}
 		}
 	}
 }

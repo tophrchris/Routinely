@@ -129,6 +129,9 @@
     <Reference Include="MapperTheme.iOS">
       <HintPath>..\Components\mappertheme-1.1.2\lib\ios-unified\MapperTheme.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="UnicodeInformation">
+      <HintPath>..\packages\UnicodeInformation.1.0.1.6\lib\portable-net45+win+MonoAndroid10+xamarinios10+MonoTouch10\UnicodeInformation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />

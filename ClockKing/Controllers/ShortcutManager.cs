@@ -22,12 +22,12 @@ namespace ClockKing
 				(targetCheckPoint)=>{
 
 					var uinfo = new NSDictionary<NSString, NSObject>(new NSString("cp"),new NSString(targetCheckPoint.Name));
-					var humanized = targetCheckPoint.TargetTimeToday.ToUniversalTime().Humanize();
+					//var humanized = targetCheckPoint.TargetTimeToday.ToUniversalTime().Humanize();
 
 					return  new UIMutableApplicationShortcutItem(AddOccurrence,
 						string.Format("{0} {1}",targetCheckPoint.Emoji, targetCheckPoint.Name))
 					{
-						LocalizedSubtitle=humanized,
+						LocalizedSubtitle=targetCheckPoint.TargetTimeToday.ToString("t"),
 						Icon=UIApplicationShortcutIcon.FromType(UIApplicationShortcutIconType.Task),
 						UserInfo = uinfo
 					};
