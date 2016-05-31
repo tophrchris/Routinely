@@ -168,10 +168,10 @@ namespace ClockKing
 
 		public void RespondToModelChanges()
 		{
-			if(this.IsViewLoaded)
-				this.TableView.ReloadData ();
-			this.Notifier.EnsureNotifications (this.CheckPointData);
-			ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
+				if (this.IsViewLoaded)
+					this.TableView.ReloadData ();
+				this.Notifier.EnsureNotifications (this.CheckPointData);
+				ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
 		}
 
 

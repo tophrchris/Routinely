@@ -3,7 +3,6 @@ using UIKit;
 using Xamarin.Themes;
 using Xamarin.Themes.Core;
 using System;
-using Xamarin.Themes.Core;
 using Xamarin.Themes.TrackBeam;
 using System.Collections.Generic;
 

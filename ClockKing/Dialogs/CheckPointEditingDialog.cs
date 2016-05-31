@@ -74,14 +74,13 @@ namespace ClockKing
 
 			this.nameElement.Value = toEdit.Name;
 			this.emojiElement.Value = toEdit.Emoji;
-			//this.picker.Date = toEdit.TargetTimeToday.ToUniversalTime().ToNSDate ();
 			var section = this.Root.First();
 			section.Remove (4);
 			section.Remove (this.nowElement.IndexPath.Row);
 			section.Remove (this.nowSwitch.IndexPath.Row);
 			var targetTimeElement = new TimeElement ("Target time", toEdit.TargetTimeToday);
 			var enabledSwitch = new BooleanElement ("Enabled?", toEdit.Enabled);
-			section.Add(new Element[]{targetTimeElement, enabledSwitch});
+			section.AddAll(new Element[]{targetTimeElement, enabledSwitch});
 
 			if (knownEmoji.Contains (toEdit.Emoji))
 				SuggestAbbreviations = false;

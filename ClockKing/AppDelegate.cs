@@ -6,8 +6,6 @@ using System.Linq;
 using System;
 using ClockKing.Extensions;
 using System.Collections.Generic;
-using System.Linq;
-using Xamarin.Themes.Core;
 using Xamarin.Themes.TrackBeam;
 
 namespace ClockKing
