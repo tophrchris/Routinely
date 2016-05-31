@@ -23,7 +23,7 @@
         </scene>
         <scene sceneID="253">
             <objects>
-                <tableViewController id="254" sceneMemberID="viewController" customClass="CheckPointTableViewController" hasRefreshControl="1" modalTransitionStyle="partialCurl">
+                <tableViewController id="254" sceneMemberID="viewController" customClass="CheckPointTableViewController" hasRefreshControl="1" modalTransitionStyle="crossDissolve">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="255" separatorStyle="singleLineEtched" allowsSelection="NO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
