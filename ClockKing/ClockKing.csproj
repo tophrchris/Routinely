@@ -184,6 +184,7 @@
     <Compile Include="EmojiSharp\Emoji.cs" />
     <Compile Include="Dialogs\CheckPointEditingDialog.cs" />
     <Compile Include="Commands\EditCheckPointCommand.cs" />
+    <Compile Include="Controllers\CheckPointDetailViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

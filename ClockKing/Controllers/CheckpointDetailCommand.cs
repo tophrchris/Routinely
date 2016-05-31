@@ -11,14 +11,12 @@ namespace ClockKing
 {
 	public class CheckpointDetailCommand
 	{
-
 		protected CheckPointController Controller{ get; set;}
 		protected CheckPoint LastCheckpointDetailed { get; set;}
 
 		public CheckpointDetailCommand (CheckPointController controller)
 		{
 			this.Controller = controller;
-
 		}
 
 		public UIViewController GetDetailDialog(CheckPoint Data)
@@ -49,8 +47,8 @@ namespace ClockKing
 			timingSection.Add (new StringElement("next",
 				"in " + checkpoint.UntilNextTargetTime.Humanize(2)));
 
-			if (checkpoint.Occurrences.Any ()) {
-				//timingSection.Add (new StringElement ("stdev", checkpoint.Occurrences.Average (o => checkpoint.averageObservedTime.Minutes - o.Time.Minutes).ToString ()));
+			if (checkpoint.Occurrences.Any ()) 
+			{
 				timingSection.Add (new StringElement ("earliest",
 					(DateTime.Today+ distinctTimes.OrderBy (o => o.TotalMinutes).First ()).ToString ("t")));
 				timingSection.Add (new StringElement ("latest",
@@ -58,7 +56,6 @@ namespace ClockKing
 				timingSection.Add (new StringElement ("since most recent",
 					checkpoint.SinceLastOccurrence.Humanize(1)+" ago"));
 
-				//var detailRoot = new RootElement ("details root");
 				var detailsSection = new Section("Occurrence History:");
 
 				detailsSection.AddAll (
@@ -75,10 +72,9 @@ namespace ClockKing
 
 		public void ShowDetailDialog(CheckPoint Data)
 		{
-
 			ShowDetailDialog (GetDetailDialog (Data), Data);
-
 		}
+
 		public void ShowDetailDialog(UIViewController dialog,CheckPoint Data=null)
 		{
 			if (Data == null)
@@ -91,9 +87,8 @@ namespace ClockKing
 			), true);
 
 			CreateOptions (dialog, Data);
-
-
 		}
+			
 		public void CreateOptions(UIViewController dialog,CheckPoint Data)
 		{
 			var acs = UIAlertController.Create (string.Format("options for {0}",Data.Name), "stuff to do", UIAlertControllerStyle.ActionSheet);
@@ -107,45 +102,13 @@ namespace ClockKing
 					}
 				});
 
-			foreach (var cmd in this.Controller.Commands.GetAlertActionsForCheckpoint(Data,handler))
-				acs.AddAction (cmd);
+			this.Controller.Commands.GetAlertActionsForCheckpoint(Data,handler).ToList().ForEach(cmd=>acs.AddAction (cmd));
 
 			acs.AddAction(UIAlertAction.Create("Nevermind!",UIAlertActionStyle.Cancel,null));
 							
 			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Edit,
 				(s, e) => this.Controller.PresentViewController(acs,true,null)
 			), true);
-		}
-	}
-
-	public class CheckPointDetailViewController:DialogViewController
-	{
-		private List<UIPreviewAction> actions { get; set;}
-
-		public CheckPointDetailViewController(UIViewController Parent,CheckPoint toDetail,RootElement root):base(root)
-		{
-			var parent = Parent as CheckPointController;
-		
-			var executor = new Action<Command>((ub)=>
-				{
-					if(ub.ExecuteFor(parent,toDetail))
-						parent.RespondToModelChanges();
-				});
-
-			this.actions = parent.Commands.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
-		}
-
-		public override void ViewDidLoad ()
-		{
-			base.ViewDidLoad ();
-			this.NavigationItem.HidesBackButton = false;
-		}
-
-		public override IUIPreviewActionItem[] PreviewActionItems 
-		{
-			get {
-				return this.actions.ToArray();
-			}
 		}
 	}
 }
