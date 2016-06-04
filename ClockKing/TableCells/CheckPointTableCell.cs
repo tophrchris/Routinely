@@ -55,7 +55,6 @@ namespace ClockKing
 
 		protected void CalculateSizes(float titleHeightAdjustment = 0f)
 		{
-			
 			var windowFrame = UIApplication.SharedApplication.KeyWindow.Frame;
 			var titleWidth = windowFrame.Width - EmojiSize - AccessoryPadding;
 			var titleCorner = new CGPoint ((padding * 2.0f) + EmojiSize, padding);
@@ -65,10 +64,6 @@ namespace ClockKing
 			var subLayoutCorner = new CGPoint (titleCorner.X, titleSize.Height + padding);
 			var subLayoutSize = new CGSize (titleSize.Width, (Height+titleHeightAdjustment) - subLayoutCorner.Y);
 			this.DetailRect = new CGRect (subLayoutCorner,subLayoutSize);
-
-		
-			foreach(var rect in new []{windowFrame,TitleRect,DetailRect})
-			Console.WriteLine ("{0},{1},{2},{3}",rect.X,rect.Y,rect.Width,rect.Height);
 		}
 
 		protected virtual void CreateSubViews(UIView container)
@@ -237,7 +232,6 @@ namespace ClockKing
 
 		public void updateAdditionalDetail()
 		{
-			Console.WriteLine (DateTime.Now.ToString());
 			var checkpoint = this.CheckPoint;
 			this.AdditionalDetail.Text = checkpoint.UntilNextTargetTime.Humanize ();
 		}
@@ -257,11 +251,7 @@ namespace ClockKing
 			this.ShowBarChartInLandscape = false;
 			this.RenderCheckpoint (checkpoint);
 			this.DetailStack.Distribution = UIStackViewDistribution.FillEqually;
-		
-
 		}
-
-
 	}
 }
 

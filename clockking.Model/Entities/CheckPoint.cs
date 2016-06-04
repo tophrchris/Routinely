@@ -20,6 +20,7 @@ namespace ClockKing.Core
 		public bool Enabled { get; set; }
 		public TimeSpan TargetTime { get; set; }
 
+		[JsonIgnore]
 		public IEnumerable<Occurrence> Occurrences { get{return this.occurrences; }}
 
 		public void AddOccurrence(Occurrence newOccurance)
@@ -35,6 +36,8 @@ namespace ClockKing.Core
 		{
 			return new Occurrence(this,observationTimeStamp);
 		}
+
+
 		public TimeSpan averageObservedTime
 		{
 			get{

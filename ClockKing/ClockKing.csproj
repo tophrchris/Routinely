@@ -135,6 +135,9 @@
     <Reference Include="Xamarin.Controls.BarChart.iOS">
       <HintPath>..\Components\barchart-1.1.2.1\lib\ios-unified\Xamarin.Controls.BarChart.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -191,6 +194,7 @@
     <Compile Include="Dialogs\CheckPointCellDialog.cs" />
     <Compile Include="Dialogs\CheckPointDetailDialog.cs" />
     <Compile Include="Controllers\AddCheckPointMenuCommand.cs" />
+    <Compile Include="Data\JSONDataProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

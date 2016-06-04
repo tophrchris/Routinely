@@ -9,24 +9,31 @@ namespace ClockKing.Core
 	public class CSVDataProvider:ICheckPointDataProvider
 	{
 		protected string MyDocumentsPath{ get; private set;}
-		private string CheckpointPath{ get; set;}
-		private string OccurrencesPath{ get; set; }
-		private static string checkpointFileName =  "checkpoints.csv";
-		private static string occurrencesFileName = "occurrences.csv";
+		protected string CheckpointPath{ get; set;}
+		protected string OccurrencesPath{ get; set; }
+		protected virtual string checkpointFileName { get; set; } =  "checkpoints";
+		protected virtual string occurrencesFileName  { get; set; } = "occurrences";
 
-		public CSVDataProvider()
+		public CSVDataProvider(string extension)
 		{
 			this.MyDocumentsPath = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			this.CheckpointPath = Path.Combine (this.MyDocumentsPath, checkpointFileName);
-			this.OccurrencesPath = Path.Combine (this.MyDocumentsPath, occurrencesFileName);
+			this.CheckpointPath = Path.Combine (this.MyDocumentsPath, checkpointFileName+extension);
+			this.OccurrencesPath = Path.Combine (this.MyDocumentsPath, occurrencesFileName+extension);
 		}
 
-		public IEnumerable<CheckPoint> ReadCheckPoints()
+		public CSVDataProvider():this(".csv")
+		{
+			
+		}
+
+		public virtual IEnumerable<CheckPoint> ReadCheckPoints()
 		{
 
 			if (File.Exists(this.CheckpointPath))
 			{
 				var read = File.ReadAllLines (this.CheckpointPath);
+				if(read.Count()>10)
+					yield break;
 				if (read.Any ()) 
 				{
 					CheckPoint created = new CheckPoint();
@@ -50,7 +57,7 @@ namespace ClockKing.Core
 			yield break;
 		}
 
-		public int LoadOccurrences(Dictionary<string,CheckPoint> checkPoints)
+		public virtual int LoadOccurrences(Dictionary<string,CheckPoint> checkPoints)
 		{
 			
 			if (File.Exists (this.OccurrencesPath)) {
@@ -94,10 +101,9 @@ namespace ClockKing.Core
 		}
 
 
-		public bool WriteCheckPoints(IEnumerable<CheckPoint> CheckPoints)
+		public virtual bool WriteCheckPoints(IEnumerable<CheckPoint> CheckPoints)
 		{
-			if(File.Exists(occurrencesFileName))
-				File.Delete(occurrencesFileName);
+			
 
 			var toWrite = CheckPoints.Select (cp=>new{
 				cp.Name,
@@ -111,8 +117,10 @@ namespace ClockKing.Core
 			return true;
 		}
 
-		public bool WriteAllOccurrences(IEnumerable<Occurrence> occurrences)
-		{
+		public virtual bool WriteAllOccurrences(IEnumerable<Occurrence> occurrences)
+		{ 
+			if(File.Exists(occurrencesFileName))
+				File.Delete(occurrencesFileName);
 			
 			var toWrite = occurrences.Select(o=> new {o.checkpointLabel,  o.timeStamp});
 			var lines = toWrite.Select (tw => string.Format ("{0}|{1}", tw.checkpointLabel, tw.timeStamp)).ToArray ();
@@ -120,7 +128,7 @@ namespace ClockKing.Core
 			return true;
 		}
 
-		public void WriteOccurrence(Occurrence toSave)
+		public virtual void WriteOccurrence(Occurrence toSave)
 		{
 			var lines = new[]{string.Format("{0}|{1}",toSave.checkpointLabel,toSave.timeStamp) };
 
