@@ -11,7 +11,6 @@ namespace ClockKing.Core
 		protected string CheckpointPath{ get { return Paths.GetCheckpointFileName (); }}
 		protected string OccurrencesPath{ get {return Paths.GetOccurrencesFileName (); } }
 
-
 		public CSVDataProvider(IPathProvider paths)
 		{
 			this.Paths = paths;
@@ -20,7 +19,6 @@ namespace ClockKing.Core
 
 		public virtual IEnumerable<CheckPoint> ReadCheckPoints()
 		{
-
 			if (Paths.Exists(this.CheckpointPath))
 			{
 				var read = Paths.ReadAllLines (this.CheckpointPath);
@@ -42,7 +40,6 @@ namespace ClockKing.Core
 							//Console.WriteLine (e.Message);
 						}
 						yield return created;
-
 					}
 				} 
 			}
@@ -51,7 +48,6 @@ namespace ClockKing.Core
 
 		public virtual int LoadOccurrences(Dictionary<string,CheckPoint> checkPoints)
 		{
-			
 			if (Paths.Exists (this.OccurrencesPath)) {
 				var read = Paths.ReadAllLines (this.OccurrencesPath);
 				if (read.Any ()) 
@@ -71,8 +67,8 @@ namespace ClockKing.Core
 			return 0;//checkPoints.Sum (cp => cp.Value.Occurrences.Count ());
 		}
 
-		private void createRandomOccurrences(Dictionary<string,CheckPoint> checkPoints){
-
+		private void createRandomOccurrences(Dictionary<string,CheckPoint> checkPoints)
+		{
 			var r = new Random ();
 
 			foreach (var cp in checkPoints.Values)
@@ -95,8 +91,6 @@ namespace ClockKing.Core
 
 		public virtual bool WriteCheckPoints(IEnumerable<CheckPoint> CheckPoints)
 		{
-			
-
 			var toWrite = CheckPoints.Select (cp=>new{
 				cp.Name,
 				cp.TargetTime,

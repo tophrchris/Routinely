@@ -34,7 +34,7 @@ namespace ClockKing
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			this.Options = new ClockKingOptions ();
-			this.Options.Theme = Themes.TrackBeam;
+			this.Options.Theme = Themes.Foody;
 			this.Options.ApplyTheme();
 		
 			this.Commands = new CommandManager ();
