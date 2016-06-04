@@ -1,5 +1,5 @@
 ﻿using System;
-using ClockKing.Model;
+using ClockKing.Core;
 using UIKit;
 
 namespace ClockKing
@@ -16,7 +16,7 @@ namespace ClockKing
 		public override bool ExecuteFor (CheckPointController controller, CheckPoint checkPoint)
 		{
 			var o = AddOccurrenceToCheckpoint (controller, checkPoint);
-			MsgBox ("added!", o.timeStamp.ToString ("t"));
+			//MsgBox ("added!", o.timeStamp.ToString ("t"));
 			return true;
 		}
 

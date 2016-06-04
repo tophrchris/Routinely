@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using ClockKing.Model;
+using ClockKing.Core;
 
 
 namespace ClockKing.ConsolePlayground

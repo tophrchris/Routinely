@@ -44,9 +44,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\clockking.Model\clockking.Model.csproj">
+    <ProjectReference Include="..\clockking.Model\clockking.Core.csproj">
       <Project>{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}</Project>
-      <Name>clockking.Model</Name>
+      <Name>clockking.Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

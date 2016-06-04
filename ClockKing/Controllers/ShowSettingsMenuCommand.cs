@@ -2,7 +2,7 @@
 using System;
 using System.CodeDom.Compiler;
 using UIKit;
-using ClockKing.Model;
+using ClockKing.Core;
 using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Dialog;
@@ -13,9 +13,6 @@ namespace ClockKing.Commands
 {
 	public class ShowSettingsMenuCommand
 	{
-
-
-
 		protected CheckPointController Controller{ get; set; }
 		protected UIBarButtonItem BarButton{ get; set; }
 
@@ -26,7 +23,7 @@ namespace ClockKing.Commands
 			var acs = UIAlertController.Create ("Settings", "settings will live here... kinda?", UIAlertControllerStyle.ActionSheet);
 
 			acs.AddAction (UIAlertAction.Create ("show Notifications", UIAlertActionStyle.Default,
-				(a) => this.ShowNotificationsDialog ()));
+				(a) => this.ShowDialog ()));
 
 			acs.AddAction(UIAlertAction.Create("change sort",UIAlertActionStyle.Default,
 				(a)=>
@@ -54,9 +51,9 @@ namespace ClockKing.Commands
 			
 		}
 
-		public UIBarButtonItem Button{get{return this.BarButton;}}
+		public UIBarButtonItem MenuCommand{get{return this.BarButton;}}
 
-		protected void ShowNotificationsDialog()
+		protected void ShowDialog()
 		{
 
 			var root = new RootElement ("Notifications");

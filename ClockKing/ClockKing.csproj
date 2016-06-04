@@ -132,6 +132,9 @@
     <Reference Include="UnicodeInformation">
       <HintPath>..\packages\UnicodeInformation.1.0.1.6\lib\portable-net45+win+MonoAndroid10+xamarinios10+MonoTouch10\UnicodeInformation.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Controls.BarChart.iOS">
+      <HintPath>..\Components\barchart-1.1.2.1\lib\ios-unified\Xamarin.Controls.BarChart.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -159,7 +162,6 @@
       <DependentUpon>CheckPointController.cs</DependentUpon>
     </Compile>
     <Compile Include="Commands\CommandFramework.cs" />
-    <Compile Include="CheckPointTableCell.cs" />
     <Compile Include="Dialogs\AddHistoricInstanceDialog.cs" />
     <Compile Include="Dialogs\NotificationReviewDialog.cs" />
     <Compile Include="Commands\DisabledCheckPointCommand.cs" />
@@ -169,7 +171,6 @@
     <Compile Include="Commands\DeleteCheckpointCommand.cs" />
     <Compile Include="Controllers\NotificationManager.cs" />
     <Compile Include="Controllers\CommandManager.cs" />
-    <Compile Include="Controllers\AddCheckPointButtonController.cs" />
     <Compile Include="Controllers\CheckpointDetailCommand.cs" />
     <Compile Include="Commands\CheckPointCommandDelegate.cs" />
     <Compile Include="Data\DataModel.cs" />
@@ -184,13 +185,18 @@
     <Compile Include="EmojiSharp\Emoji.cs" />
     <Compile Include="Dialogs\CheckPointEditingDialog.cs" />
     <Compile Include="Commands\EditCheckPointCommand.cs" />
-    <Compile Include="Controllers\CheckPointDetailViewController.cs" />
+    <Compile Include="TableCells\CheckPointTableCell.cs" />
+    <Compile Include="TableCells\CompletedTableCell.cs" />
+    <Compile Include="TableCells\TimeView.cs" />
+    <Compile Include="Dialogs\CheckPointCellDialog.cs" />
+    <Compile Include="Dialogs\CheckPointDetailDialog.cs" />
+    <Compile Include="Controllers\AddCheckPointMenuCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\clockking.Model\clockking.Model.csproj">
+    <ProjectReference Include="..\clockking.Model\clockking.Core.csproj">
       <Project>{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}</Project>
-      <Name>clockking.Model</Name>
+      <Name>clockking.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +204,7 @@
     <Folder Include="Dialogs\" />
     <Folder Include="Controllers\" />
     <Folder Include="Data\" />
+    <Folder Include="TableCells\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="swtableviewcell">
@@ -226,6 +233,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="mappertheme">
       <Version>1.1.2</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="barchart">
+      <Version>1.1.2.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

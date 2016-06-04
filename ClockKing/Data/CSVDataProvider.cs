@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
-
-namespace ClockKing.Model
+namespace ClockKing.Core
 {
 
 	public class CSVDataProvider:ICheckPointDataProvider
@@ -53,6 +52,7 @@ namespace ClockKing.Model
 
 		public int LoadOccurrences(Dictionary<string,CheckPoint> checkPoints)
 		{
+			
 			if (File.Exists (this.OccurrencesPath)) {
 				var read = File.ReadAllLines (this.OccurrencesPath);
 				if (read.Any ()) 
@@ -68,7 +68,29 @@ namespace ClockKing.Model
 					}
 				}
 			}
+
 			return 0;//checkPoints.Sum (cp => cp.Value.Occurrences.Count ());
+		}
+
+		private void createRandomOccurrences(Dictionary<string,CheckPoint> checkPoints){
+
+			var r = new Random ();
+
+			foreach (var cp in checkPoints.Values)
+			{
+				var maxDays = 2 + r.Next (8);
+				foreach (int i in Enumerable.Range(2,maxDays))
+				{
+					var mins = r.Next (90);
+					var direction = r.NextDouble () > .5d;
+					cp.AddOccurrence(
+						cp.CreateOccurrence(cp.TargetTimeToday
+							.AddDays(i*-1)
+							.AddMinutes(mins*((direction)?1:-1))));
+				}
+			}
+
+			WriteAllOccurrences (checkPoints.SelectMany (cp => cp.Value.Occurrences));
 		}
 
 

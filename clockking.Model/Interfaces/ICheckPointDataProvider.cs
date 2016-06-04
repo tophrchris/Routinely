@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ClockKing.Model
+namespace ClockKing.Core
 {
 	public interface ICheckPointDataProvider
 	{

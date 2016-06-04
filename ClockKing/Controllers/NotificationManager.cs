@@ -4,7 +4,7 @@ using UIKit;
 using System.Collections.Generic;
 using System.Linq;
 using ClockKing.Extensions;
-using ClockKing.Model;
+using ClockKing.Core;
 
 namespace ClockKing
 {

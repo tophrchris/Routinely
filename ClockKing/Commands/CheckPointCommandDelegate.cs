@@ -3,7 +3,7 @@ using Foundation;
 using UIKit;
 using SWTableViewCells;
 using System.Collections.Generic;
-using ClockKing.Model;
+using ClockKing.Core;
 using System.Linq;
 
 namespace ClockKing

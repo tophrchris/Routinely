@@ -2,7 +2,7 @@
 using System;
 using System.CodeDom.Compiler;
 using UIKit;
-using ClockKing.Model;
+using ClockKing.Core;
 using System.Collections.Generic;
 using System.Linq;
 using SWTableViewCells;
@@ -45,8 +45,7 @@ namespace ClockKing
 
 		public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 		{
-			//would love to get this from CheckPointTableCell?
-			return 71;
+			return CheckPointTableCell.Height;
 		}
 
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
@@ -61,11 +60,14 @@ namespace ClockKing
 
 		CheckPointTableCell CheckPointTableCellFactory (UITableView tableView, CheckPoint checkpoint)
 		{
-			var cell = tableView.DequeueReusableCell (CheckPointTableCell.Key) as CheckPointTableCell;
 
-			if (cell == null)
-				cell = new CheckPointTableCell () 
-			{Delegate = this.Controller.UtilityButtonHandler};
+			var key = false ? CompletedTableCell.Key : CheckPointTableCell.Key;
+			var cell = tableView.DequeueReusableCell (key) as CheckPointTableCell;
+
+			if (cell == null) {
+				cell = false ? new CompletedTableCell(): new CheckPointTableCell ();
+				cell.Delegate = this.Controller.UtilityButtonHandler;
+			}
 
 			cell.RenderCheckpoint (checkpoint);
 			Controller.Commands.AttachUtilityButtonsToCell (cell);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace ClockKing.Model
+namespace ClockKing.Core
 {
 	public class Occurrence
 	{
@@ -28,7 +28,18 @@ namespace ClockKing.Model
 		{
 			get
 			{
+
+				if(checkPoint.TargetTime>TimeSpan.FromHours(22))
+					if(this.timeStamp.TimeOfDay.Hours<2)
+						return this.timeStamp.TimeOfDay.Add(TimeSpan.FromHours(24));
+				
 				return this.timeStamp.TimeOfDay;
+			}
+		}
+		public DateTime Date
+		{
+			get{
+				return this.timeStamp.Date.Add (TimeSpan.FromDays (this.Time.TotalHours > 24.0D ? -1 : 0));
 			}
 		}
 	}

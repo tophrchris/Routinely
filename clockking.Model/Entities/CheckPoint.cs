@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 
-namespace ClockKing.Model
+namespace ClockKing.Core
 {
 	public class CheckPoint
 	{

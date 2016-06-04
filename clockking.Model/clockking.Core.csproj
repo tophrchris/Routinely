@@ -34,7 +34,7 @@
     <Compile Include="Entities\CheckPoint.cs" />
     <Compile Include="Entities\CheckPointPair.cs" />
     <Compile Include="Entities\Occurrence.cs" />
-    <Compile Include="ICheckPointDataProvider.cs" />
+    <Compile Include="Interfaces\ICheckPointDataProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -47,5 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>

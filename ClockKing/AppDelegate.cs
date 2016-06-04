@@ -36,6 +36,7 @@ namespace ClockKing
 			this.Options = new ClockKingOptions ();
 			this.Options.Theme = Themes.TrackBeam;
 			this.Options.ApplyTheme ();
+
 		
 			this.Commands = new CommandManager ();
 			this.Notifications = new NotificationManager ();
@@ -45,7 +46,7 @@ namespace ClockKing
 
 			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
 			application.SetMinimumBackgroundFetchInterval (UIApplication.BackgroundFetchIntervalMinimum);
-
+	
 
 			var PerformAdditionalHandling = true;
 			if (launchOptions != null) 

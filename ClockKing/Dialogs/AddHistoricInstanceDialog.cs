@@ -1,7 +1,7 @@
 ﻿using System;
 using UIKit;
 using MonoTouch.Dialog;
-using ClockKing.Model;
+using ClockKing.Core;
 using ClockKing.Extensions;
 using Humanizer;
 

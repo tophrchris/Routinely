@@ -1,5 +1,5 @@
 ﻿using System;
-using ClockKing.Model;
+using ClockKing.Core;
 using UIKit;
 
 namespace ClockKing
@@ -21,7 +21,10 @@ namespace ClockKing
 			var okAction = UIAlertAction.Create (
 				"yes, delete!",
 				UIAlertActionStyle.Destructive, 
-				(alert)=>controller.RemoveCheckpoint(checkPoint));
+				(alert)=>{
+					if(controller.RemoveCheckpoint(checkPoint))
+						controller.ResetNavigation();
+					});
 
 			okCancelAlertController.AddAction(okAction);
 			okCancelAlertController.AddAction(UIAlertAction.Create("nevermind", UIAlertActionStyle.Cancel, null));

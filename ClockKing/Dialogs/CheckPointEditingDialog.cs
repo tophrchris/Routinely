@@ -8,6 +8,8 @@ using EmojiSharp;
 using System.Text;
 using System.Unicode;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using ClockKing.Core;
 
 
 namespace ClockKing
@@ -30,8 +32,8 @@ namespace ClockKing
 		{
 			this.Controller = controller;
 			this.Style = UITableViewStyle.Grouped;
-			this.emojiNames = Emoji.All.Where (kv => kv.Value.AppleHasImage).Select (kv => kv.Key.ToLower ()).ToList ();
 
+			this.emojiNames = Emoji.All.Where (kv => kv.Value.AppleHasImage).Select (kv => kv.Key.ToLower ()).ToList ();
 			this.nameElement = new EntryElement ("Name", "Name your checkpoint", "");
 			this.emojiElement = new EntryElement ("Abbreviation", "a short (2-letter) name","");
 			this.nowElement = new BooleanElement ("Add Occurrence now?", false);
@@ -68,7 +70,7 @@ namespace ClockKing
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>this.Save()),true);
 		}
 
-		public void RenderForCheckPoint(Model.CheckPoint toEdit)
+		public void RenderForCheckPoint(ClockKing.Core.CheckPoint toEdit)
 		{
 			var knownEmoji = Emoji.All.Where (e => e.Value.AppleHasImage).Select (e => e.Value.Unified).ToList ();
 
@@ -87,9 +89,12 @@ namespace ClockKing
 
 			SuggestEmoji.Value = SuggestAbbreviations;
 
-			var detailSections = new CheckpointDetailCommand (this.Controller).GetDetailSections (toEdit);
 
-			this.Root.Add (detailSections);
+			var t = Task.Factory.StartNew (() => {	
+				Task.Delay(TimeSpan.FromSeconds(1)).Wait();	
+				var detailSections = CheckPointDetailDialog.GetDetailSections (toEdit,Controller);
+				this.InvokeOnMainThread(()=>UIView.Animate(.25d,()=>this.Root.Add(detailSections)));
+			});
 
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>
 				{
@@ -112,7 +117,7 @@ namespace ClockKing
 					if(nameChanged)
 						this.Controller.RewriteOccurrences();
 					
-					this.Controller.NavigationController.PopToRootViewController(true);
+					this.Controller.ResetNavigation();
 				}),true);
 		}
 
@@ -183,4 +188,3 @@ namespace ClockKing
 		}
 	}
 }
-

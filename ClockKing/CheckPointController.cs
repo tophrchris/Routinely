@@ -2,7 +2,7 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 using UIKit;
-using ClockKing.Model;
+using ClockKing.Core;
 using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Dialog;
@@ -18,7 +18,7 @@ namespace ClockKing
 		private DataModel CheckPointData{ get; set;}
 		private GroupedCheckPointDataSource Data{ get; }
 		private AppDelegate appDelegate{ get; }
-		public AddCheckPointButtonController AddCommand{ get; }
+		public AddCheckPointMenuCommand AddCommand{ get; }
 		private ShowSettingsMenuCommand showNotifications{ get; }
 		private CheckpointDetailCommand Detail{ get;  }
 
@@ -35,19 +35,21 @@ namespace ClockKing
 			this.appDelegate.Controller = this;
 			this.Notifier = appDelegate.Notifications;
 			this.CheckPointData = appDelegate.CheckPointData;
-
-			ConditionallyRefreshData ();
-
 			this.Commands = appDelegate.Commands;
 			this.UtilityButtonHandler = new CheckpointCommandDelegate (this);
-			this.AddCommand = new AddCheckPointButtonController (this);
+			this.AddCommand = new AddCheckPointMenuCommand (this);
 			this.showNotifications = new ShowSettingsMenuCommand (this);
 			this.Detail = new CheckpointDetailCommand (this);
 			this.Data = new GroupedCheckPointDataSource (this,CheckPointData);
 
-			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.Button,true);
-			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.Button, true);
+			this.ResetNavigation ();
+		}
 
+		public void ResetNavigation(){
+			this.NavigationController.PopToRootViewController (true);
+			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.MenuCommand,true);
+			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
+			this.ConditionallyRefreshData ();
 		}
 
 			
@@ -58,10 +60,15 @@ namespace ClockKing
 
 			this.RefreshControl.ValueChanged += (o, e) => {
 				this.RefreshControl.EndRefreshing();
-				this.AddCommand.ShowAddCheckPointDialog();
+				this.AddCommand.ShowDialog();
 			};
 		}
 
+		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
+		{
+			base.DidRotate (fromInterfaceOrientation);
+			this.reloadTableView ();
+		}
 
 		public override void ViewDidAppear (bool animated)
 		{			
@@ -168,10 +175,14 @@ namespace ClockKing
 
 		public void RespondToModelChanges()
 		{
-				if (this.IsViewLoaded)
-					this.TableView.ReloadData ();
+			this.reloadTableView ();
 				this.Notifier.EnsureNotifications (this.CheckPointData);
 				ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
+		}
+		private void reloadTableView()
+		{
+			if (this.IsViewLoaded)
+				this.TableView.ReloadData ();
 		}
 
 

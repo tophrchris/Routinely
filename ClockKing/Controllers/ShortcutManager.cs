@@ -18,7 +18,7 @@ namespace ClockKing
 		{
 
 
-			var Create = new Func< ClockKing.Model.CheckPoint,UIMutableApplicationShortcutItem>(
+			var Create = new Func< ClockKing.Core.CheckPoint,UIMutableApplicationShortcutItem>(
 				(targetCheckPoint)=>{
 
 					var uinfo = new NSDictionary<NSString, NSObject>(new NSString("cp"),new NSString(targetCheckPoint.Name));
@@ -61,7 +61,7 @@ namespace ClockKing
 						app.LaunchActions.Enqueue(c=>new AddHistoricOccurrenceCommand().ShowCustomDialog(c,foundCheckPoint));
 					}},
 				{AddCheckpoint,()=>
-					app.LaunchActions.Enqueue(c=>c.AddCommand.ShowAddCheckPointDialog())}
+					app.LaunchActions.Enqueue(c=>c.AddCommand.ShowDialog())}
 				
 			};
 

@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clockkingConsolePlayground"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing", "ClockKing\ClockKing.csproj", "{70609317-4723-42E6-A793-251704C6BD28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clockking.Model", "clockking.Model\clockking.Model.csproj", "{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clockking.Core", "clockking.Model\clockking.Core.csproj", "{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing.WatchKitApp", "ClockKing.WatchKitApp\ClockKing.WatchKitApp.csproj", "{C061F9E2-0C93-4AA3-9B4A-45DEBD7ED214}"
 EndProject

@@ -3,7 +3,7 @@ using Foundation;
 using UIKit;
 using SWTableViewCells;
 using System.Collections.Generic;
-using ClockKing.Model;
+using ClockKing.Core;
 using System.Linq;
 
 namespace ClockKing
@@ -48,17 +48,57 @@ namespace ClockKing
 		public bool AttachUtilityButtonsToCell(CheckPointTableCell cell)
 		{
 			var cmdsForThisCell = this.CreateCommands ();
-			var active = cmdsForThisCell.Where (u => u.ShouldDecorate (cell.CheckPoint));
-			var grouped = active.GroupBy (u => u.Category);
+			var grouped = cmdsForThisCell
+				.Where (u => u.ShouldDecorate (cell.CheckPoint))
+				.GroupBy (u => u.Category, c => c.AsButton ());
 	
 			foreach(var g in grouped)
 			{
 				if (g.Key == "Left")
-					cell.LeftUtilityButtons = g.ToList().ToArray ();
+					cell.LeftUtilityButtons = g.ToArray ();
 				else if (g.Key == "Right")
-					cell.RightUtilityButtons = g.ToList().ToArray ();
+					cell.RightUtilityButtons = g.ToArray ();
 			}
 			return true;
+		}
+	}
+
+	public static class CommandExtensions
+	{
+		public static UIAlertAction AsAlertAction(this Command cmd, Action<Command> handler)
+		{
+
+			var title = string.IsNullOrEmpty(cmd.LongName) ? cmd.Name : cmd.LongName;
+
+			return UIAlertAction.Create(
+				title,
+				cmd.IsDestructive?UIAlertActionStyle.Destructive:UIAlertActionStyle.Default,
+				(a)=>handler(cmd));
+		}
+
+		public static UIPreviewAction AsPreviewAction(this Command cmd, Action<Command> handler,UIPreviewActionStyle style)
+		{
+			var title = string.IsNullOrEmpty(cmd.LongName) ? cmd.Name : cmd.LongName;
+
+			return UIPreviewAction.Create (title,style,(a,c)=>{handler(cmd);});
+		}
+
+		public static UIPreviewAction AsPreviewAction(this Command cmd,Action<Command> handler )
+		{
+			return cmd.AsPreviewAction (handler, 
+				(cmd.IsDestructive)?
+				UIPreviewActionStyle.Destructive:
+				UIPreviewActionStyle.Default);	
+		}
+		public static UIButton AsButton(this Command cmd)
+		{
+			var button = new UIButton (UIButtonType.Custom);
+			button.BackgroundColor = cmd.Color;
+			button.SetTitle (cmd.Name, UIControlState.Normal);
+			button.SetTitleColor (UIColor.White, UIControlState.Normal);
+			button.TitleLabel.AdjustsFontSizeToFitWidth = true;
+			return button;
+
 		}
 	}
 }

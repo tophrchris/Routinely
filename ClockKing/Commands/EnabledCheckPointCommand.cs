@@ -1,5 +1,5 @@
 ﻿using System;
-using ClockKing.Model;
+using ClockKing.Core;
 using UIKit;
 
 namespace ClockKing

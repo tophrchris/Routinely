@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ClockKing.Model
+namespace ClockKing.Core
 {
 	public class CheckPointPair
 	{
