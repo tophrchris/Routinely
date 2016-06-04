@@ -39,6 +39,7 @@
     <Compile Include="DataProviders\CSVDataProvider.cs" />
     <Compile Include="DataProviders\JSONDataProvider.cs" />
     <Compile Include="DataProviders\IPathProvider.cs" />
+    <Compile Include="EmojiSharp\Emoji.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -48,10 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="EmojiSharp\EmojiLicense.txt" />
+    <None Include="EmojiSharp\License.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Controllers\" />
     <Folder Include="DataProviders\" />
+    <Folder Include="EmojiSharp\" />
   </ItemGroup>
 </Project>

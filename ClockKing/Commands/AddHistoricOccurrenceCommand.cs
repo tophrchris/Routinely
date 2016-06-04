@@ -34,14 +34,13 @@ namespace ClockKing
 
 			var choices = new[]{ 15, 30, 60, 90 }.Select (i =>
 				UIAlertAction.Create (
-					string.Format ("{0} mins ago", i),
+					string.Format ("{0} mins ago- {1}", i, DateTime.Now.AddMinutes(i*-1).ToString("t") ),
 					UIAlertActionStyle.Default,
 					a=>adder(i*-1)
 				));
 			var ac = UIAlertController.Create("Add",this.LongName,UIAlertControllerStyle.ActionSheet);
 
-			foreach (var a in choices)
-				ac.AddAction (a);
+			choices.ToList ().ForEach (a => ac.AddAction (a));
 
 			return ac;
 		}

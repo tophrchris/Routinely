@@ -147,8 +147,6 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
-    <None Include="EmojiSharp\License.txt" />
-    <None Include="EmojiSharp\EmojiLicense.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -181,12 +179,10 @@
     <Compile Include="Controllers\ShortcutManager.cs" />
     <Compile Include="Data\GroupCheckPointsByTimeOfDay.cs" />
     <Compile Include="Controllers\ShowSettingsMenuCommand.cs" />
-    <Compile Include="EmojiSharp\Emoji.cs" />
     <Compile Include="Dialogs\CheckPointEditingDialog.cs" />
     <Compile Include="Commands\EditCheckPointCommand.cs" />
     <Compile Include="TableCells\CheckPointTableCell.cs" />
     <Compile Include="TableCells\CompletedTableCell.cs" />
-    <Compile Include="TableCells\TimeView.cs" />
     <Compile Include="Dialogs\CheckPointCellDialog.cs" />
     <Compile Include="Dialogs\CheckPointDetailDialog.cs" />
     <Compile Include="Controllers\AddCheckPointMenuCommand.cs" />
