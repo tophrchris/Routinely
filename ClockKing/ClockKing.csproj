@@ -81,29 +81,8 @@
     <Reference Include="SWTableViewCell">
       <HintPath>..\Components\swtableviewcell-0.3.7.0\lib\ios-unified\SWTableViewCell.dll</HintPath>
     </Reference>
-    <Reference Include="CashflowTheme.Controls.iOS.ADVPopoverProgressBar">
-      <HintPath>..\Components\cashflowtheme-1.2.2\lib\ios-unified\CashflowTheme.Controls.iOS.ADVPopoverProgressBar.dll</HintPath>
-    </Reference>
-    <Reference Include="CashflowTheme.Controls.iOS.Switches">
-      <HintPath>..\Components\cashflowtheme-1.2.2\lib\ios-unified\CashflowTheme.Controls.iOS.Switches.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Themes.Cashflow.iOS">
-      <HintPath>..\Components\cashflowtheme-1.2.2\lib\ios-unified\Xamarin.Themes.Cashflow.iOS.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Themes.Core">
       <HintPath>..\packages\Xamarin.Themes.Core.1.0.0.1\lib\Xamarin.iOS10\Xamarin.Themes.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="GunmetalTheme.Controls.iOS.AlertView">
-      <HintPath>..\Components\gunmetaltheme-1.4.1\lib\ios-unified\GunmetalTheme.Controls.iOS.AlertView.dll</HintPath>
-    </Reference>
-    <Reference Include="GunmetalTheme.Controls.iOS.ProgressBar">
-      <HintPath>..\Components\gunmetaltheme-1.4.1\lib\ios-unified\GunmetalTheme.Controls.iOS.ProgressBar.dll</HintPath>
-    </Reference>
-    <Reference Include="GunmetalTheme.Controls.iOS.Switch">
-      <HintPath>..\Components\gunmetaltheme-1.4.1\lib\ios-unified\GunmetalTheme.Controls.iOS.Switch.dll</HintPath>
-    </Reference>
-    <Reference Include="GunmetalTheme.iOS">
-      <HintPath>..\Components\gunmetaltheme-1.4.1\lib\ios-unified\GunmetalTheme.iOS.dll</HintPath>
     </Reference>
     <Reference Include="FitpulseTheme.Controls.iOS.ProgressBar">
       <HintPath>..\Components\fitpulsetheme-1.2.4\lib\ios-unified\FitpulseTheme.Controls.iOS.ProgressBar.dll</HintPath>
@@ -126,17 +105,35 @@
     <Reference Include="FoodyTheme.iOS">
       <HintPath>..\Components\foodytheme-1.1.1\lib\ios-unified\FoodyTheme.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="MapperTheme.iOS">
-      <HintPath>..\Components\mappertheme-1.1.2\lib\ios-unified\MapperTheme.iOS.dll</HintPath>
-    </Reference>
     <Reference Include="UnicodeInformation">
       <HintPath>..\packages\UnicodeInformation.1.0.1.6\lib\portable-net45+win+MonoAndroid10+xamarinios10+MonoTouch10\UnicodeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Controls.BarChart.iOS">
       <HintPath>..\Components\barchart-1.1.2.1\lib\ios-unified\Xamarin.Controls.BarChart.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="GridlockedTheme.iOS">
+      <HintPath>..\Components\gridlockedtheme-1.1.1\lib\ios-unified\GridlockedTheme.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="IndustrialTheme.iOS">
+      <HintPath>..\Components\industrial-theme-1.4.2\lib\ios-unified\IndustrialTheme.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="ProlificTheme.Controls.iOS.ProgressBar">
+      <HintPath>..\Components\prolifictheme-1.4.1\lib\ios-unified\ProlificTheme.Controls.iOS.ProgressBar.dll</HintPath>
+    </Reference>
+    <Reference Include="ProlificTheme.Controls.iOS.SegmentedControl">
+      <HintPath>..\Components\prolifictheme-1.4.1\lib\ios-unified\ProlificTheme.Controls.iOS.SegmentedControl.dll</HintPath>
+    </Reference>
+    <Reference Include="ProlificTheme.Controls.iOS.Switch">
+      <HintPath>..\Components\prolifictheme-1.4.1\lib\ios-unified\ProlificTheme.Controls.iOS.Switch.dll</HintPath>
+    </Reference>
+    <Reference Include="ProlificTheme.Utils.iOS">
+      <HintPath>..\Components\prolifictheme-1.4.1\lib\ios-unified\ProlificTheme.Utils.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="ProlificTheme.iOS">
+      <HintPath>..\Components\prolifictheme-1.4.1\lib\ios-unified\ProlificTheme.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +175,6 @@
     <Compile Include="Commands\CheckPointCommandDelegate.cs" />
     <Compile Include="Data\DataModel.cs" />
     <Compile Include="Data\Conversions.cs" />
-    <Compile Include="Data\CSVDataProvider.cs" />
     <Compile Include="Data\GroupedCheckPointListDataSource.cs" />
     <Compile Include="Data\GroupCheckPointsByStatus.cs" />
     <Compile Include="Data\ClockKingOptions.cs" />
@@ -194,7 +190,7 @@
     <Compile Include="Dialogs\CheckPointCellDialog.cs" />
     <Compile Include="Dialogs\CheckPointDetailDialog.cs" />
     <Compile Include="Controllers\AddCheckPointMenuCommand.cs" />
-    <Compile Include="Data\JSONDataProvider.cs" />
+    <Compile Include="Data\PathProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -215,14 +211,6 @@
       <Version>0.3.7.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
-    <XamarinComponentReference Include="cashflowtheme">
-      <Version>1.2.2</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="gunmetaltheme">
-      <Version>1.4.1</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="fitpulsetheme">
       <Version>1.2.4</Version>
       <Visible>False</Visible>
@@ -235,12 +223,20 @@
       <Version>1.1.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
-    <XamarinComponentReference Include="mappertheme">
-      <Version>1.1.2</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="barchart">
       <Version>1.1.2.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="gridlockedtheme">
+      <Version>1.1.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="industrial-theme">
+      <Version>1.4.2</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="prolifictheme">
+      <Version>1.4.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

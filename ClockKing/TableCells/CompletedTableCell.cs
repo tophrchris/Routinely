@@ -1,7 +1,6 @@
 ﻿using System;
 using Foundation;
 using UIKit;
-using Foundation;
 using CoreGraphics;
 using BarChart;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace ClockKing
 	public class CompletedTableCell:CheckPointTableCell
 	{
 
-		public static readonly NSString Key = new NSString("comcptc");
+		public static new readonly NSString Key = new NSString("comcptc");
 		protected BarChartView chart { get; set;}
 
 

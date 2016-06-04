@@ -90,7 +90,7 @@ namespace ClockKing
 			SuggestEmoji.Value = SuggestAbbreviations;
 
 
-			var t = Task.Factory.StartNew (() => {	
+			Task.Factory.StartNew (() => {	
 				Task.Delay(TimeSpan.FromSeconds(1)).Wait();	
 				var detailSections = CheckPointDetailDialog.GetDetailSections (toEdit,Controller);
 				this.InvokeOnMainThread(()=>UIView.Animate(.25d,()=>this.Root.Add(detailSections)));

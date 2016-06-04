@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Foundation;
 using System.IO;
 
 namespace ClockKing.Core
 {
 	public class JSONDataProvider:CSVDataProvider
 	{
-		public JSONDataProvider ():base(".json")
+		public JSONDataProvider (IPathProvider paths):base(paths)
 		{
 			
 		}
 
 		public override IEnumerable<CheckPoint> ReadCheckPoints ()
 		{
-			if (File.Exists (this.CheckpointPath)) {
-				var json = File.ReadAllText (this.CheckpointPath);
+			if (Paths.Exists (this.CheckpointPath)) {
+				var json = Paths.ReadAllText (this.CheckpointPath);
 
 				var found = JsonConvert.DeserializeObject<List<CheckPoint>> (json);// as IEnumerable<CheckPoint>;
 				var cv = found as IEnumerable<CheckPoint>;
@@ -31,7 +30,7 @@ namespace ClockKing.Core
 			string json = JsonConvert.SerializeObject (CheckPoints, Formatting.Indented,
 				new JsonSerializerSettings{ReferenceLoopHandling=ReferenceLoopHandling.Ignore});
 
-			File.WriteAllText (CheckpointPath, json);
+			Paths.WriteAllText (CheckpointPath, json);
 			return true;
 		}
 	}

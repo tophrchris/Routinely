@@ -16,5 +16,7 @@ namespace ClockKing.Core
 
 		void WriteOccurrence(Occurrence toSave);
 	}
+
+
 }
 

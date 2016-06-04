@@ -61,11 +61,11 @@ namespace ClockKing
 		CheckPointTableCell CheckPointTableCellFactory (UITableView tableView, CheckPoint checkpoint)
 		{
 
-			var key = false ? CompletedTableCell.Key : CheckPointTableCell.Key;
+			var key =  CheckPointTableCell.Key;
 			var cell = tableView.DequeueReusableCell (key) as CheckPointTableCell;
 
 			if (cell == null) {
-				cell = false ? new CompletedTableCell(): new CheckPointTableCell ();
+				cell =  new CheckPointTableCell ();
 				cell.Delegate = this.Controller.UtilityButtonHandler;
 			}
 

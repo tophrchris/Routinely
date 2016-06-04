@@ -5,33 +5,25 @@ using System.IO;
 
 namespace ClockKing.Core
 {
-
 	public class CSVDataProvider:ICheckPointDataProvider
 	{
-		protected string MyDocumentsPath{ get; private set;}
-		protected string CheckpointPath{ get; set;}
-		protected string OccurrencesPath{ get; set; }
-		protected virtual string checkpointFileName { get; set; } =  "checkpoints";
-		protected virtual string occurrencesFileName  { get; set; } = "occurrences";
+		protected IPathProvider Paths { get; set; }
+		protected string CheckpointPath{ get { return Paths.GetCheckpointFileName (); }}
+		protected string OccurrencesPath{ get {return Paths.GetOccurrencesFileName (); } }
 
-		public CSVDataProvider(string extension)
+
+		public CSVDataProvider(IPathProvider paths)
 		{
-			this.MyDocumentsPath = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			this.CheckpointPath = Path.Combine (this.MyDocumentsPath, checkpointFileName+extension);
-			this.OccurrencesPath = Path.Combine (this.MyDocumentsPath, occurrencesFileName+extension);
+			this.Paths = paths;
 		}
-
-		public CSVDataProvider():this(".csv")
-		{
 			
-		}
 
 		public virtual IEnumerable<CheckPoint> ReadCheckPoints()
 		{
 
-			if (File.Exists(this.CheckpointPath))
+			if (Paths.Exists(this.CheckpointPath))
 			{
-				var read = File.ReadAllLines (this.CheckpointPath);
+				var read = Paths.ReadAllLines (this.CheckpointPath);
 				if(read.Count()>10)
 					yield break;
 				if (read.Any ()) 
@@ -47,7 +39,7 @@ namespace ClockKing.Core
 							created = new CheckPoint (){ Name = name, TargetTime = targetTime, Enabled = enabled,Emoji=emoji };
 						}catch(Exception e)
 						{
-							Console.WriteLine (e.Message);
+							//Console.WriteLine (e.Message);
 						}
 						yield return created;
 
@@ -60,8 +52,8 @@ namespace ClockKing.Core
 		public virtual int LoadOccurrences(Dictionary<string,CheckPoint> checkPoints)
 		{
 			
-			if (File.Exists (this.OccurrencesPath)) {
-				var read = File.ReadAllLines (this.OccurrencesPath);
+			if (Paths.Exists (this.OccurrencesPath)) {
+				var read = Paths.ReadAllLines (this.OccurrencesPath);
 				if (read.Any ()) 
 				{
 					foreach (var line in read) {
@@ -113,18 +105,18 @@ namespace ClockKing.Core
 
 			var lines = toWrite.Select (tw => string.Format ("{0}|{1}|{2}|{3}", tw.Name, tw.TargetTime, tw.Enabled,tw.Emoji)).ToArray();
 
-			File.WriteAllLines (this.CheckpointPath, lines);
+			Paths.WriteAllLines (this.CheckpointPath, lines);
 			return true;
 		}
 
 		public virtual bool WriteAllOccurrences(IEnumerable<Occurrence> occurrences)
 		{ 
-			if(File.Exists(occurrencesFileName))
-				File.Delete(occurrencesFileName);
+			if(Paths.Exists(this.OccurrencesPath))
+				Paths.Delete(this.OccurrencesPath);
 			
 			var toWrite = occurrences.Select(o=> new {o.checkpointLabel,  o.timeStamp});
 			var lines = toWrite.Select (tw => string.Format ("{0}|{1}", tw.checkpointLabel, tw.timeStamp)).ToArray ();
-			File.WriteAllLines (this.OccurrencesPath, lines);
+			Paths.WriteAllLines (this.OccurrencesPath, lines);
 			return true;
 		}
 
@@ -132,7 +124,7 @@ namespace ClockKing.Core
 		{
 			var lines = new[]{string.Format("{0}|{1}",toSave.checkpointLabel,toSave.timeStamp) };
 
-			File.AppendAllLines(this.OccurrencesPath,lines);
+			Paths.AppendAllLines(this.OccurrencesPath,lines);
 		}
 	}
 }

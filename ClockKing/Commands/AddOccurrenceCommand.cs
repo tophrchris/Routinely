@@ -16,8 +16,8 @@ namespace ClockKing
 		public override bool ExecuteFor (CheckPointController controller, CheckPoint checkPoint)
 		{
 			var o = AddOccurrenceToCheckpoint (controller, checkPoint);
-			//MsgBox ("added!", o.timeStamp.ToString ("t"));
-			return true;
+			var added = o != null;
+			return added;
 		}
 
 		protected Occurrence AddOccurrenceToCheckpoint(CheckPointController controller, CheckPoint checkPoint,int mins=0)

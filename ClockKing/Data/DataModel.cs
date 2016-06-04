@@ -16,8 +16,8 @@ namespace ClockKing
 		public DataModel (bool loadOccurrences = true)
 		{
 			var com = new CompositeCheckPointDataProvider ();
-			com.AddProvider (new JSONDataProvider ());
-			com.AddProvider (new CSVDataProvider ());
+			com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
+			com.AddProvider (new CSVDataProvider (new PathProvider(".csv")));
 
 			this.dataProvider = com;
 			this.checkPoints = LoadCheckPoints();

@@ -35,8 +35,7 @@ namespace ClockKing
 		{
 			this.Options = new ClockKingOptions ();
 			this.Options.Theme = Themes.TrackBeam;
-			this.Options.ApplyTheme ();
-
+			this.Options.ApplyTheme();
 		
 			this.Commands = new CommandManager ();
 			this.Notifications = new NotificationManager ();
