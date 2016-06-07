@@ -113,7 +113,7 @@ namespace ClockKing
 
 			var sectionsToReturn = new List<Section> ();
 
-			var tableCell = new CheckPointCellDialog (checkpoint,Controller);
+			var tableCell = new CheckPointElement (checkpoint,Controller);
 
 			var cellHolder = new Section ("Goal:"){ tableCell };
  		
@@ -193,7 +193,7 @@ namespace ClockKing
 			var r = new RootElement("Alternative Targets");
 			var d = new DialogViewController(r);
 
-			r.Add (new Section ("Goal"){ new CheckPointCellDialog (checkpoint,Controller)});
+			r.Add (new Section ("Goal"){ new CheckPointElement (checkpoint,Controller)});
 
 			var s = new Section("alternate Target");
 			var t = new TimeElement("time",DateTime.Today+ (at.TargetTime??DateTime.Now.TimeOfDay));
@@ -228,8 +228,6 @@ namespace ClockKing
 				})
 			});
 
-
-
 			d.NavigationItem.SetRightBarButtonItem(
 				new UIBarButtonItem(UIBarButtonSystemItem.Save,
 					(so,ev)=>
@@ -254,13 +252,10 @@ namespace ClockKing
 			d.NavigationItem.SetLeftBarButtonItem(
 				new UIBarButtonItem(UIBarButtonSystemItem.Cancel,
 					(so,ev)=>d.DeactivateController(true)),true);
-
+			
 			return d;
-
-
 		}
-
-
+			
 
 		public override IUIPreviewActionItem[] PreviewActionItems 
 		{

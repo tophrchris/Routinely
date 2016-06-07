@@ -181,11 +181,11 @@
     <Compile Include="Commands\EditCheckPointCommand.cs" />
     <Compile Include="TableCells\CheckPointTableCell.cs" />
     <Compile Include="TableCells\CompletedTableCell.cs" />
-    <Compile Include="Dialogs\CheckPointCellDialog.cs" />
     <Compile Include="Dialogs\CheckPointDetailDialog.cs" />
     <Compile Include="Controllers\AddCheckPointMenuCommand.cs" />
     <Compile Include="Data\PathProvider.cs" />
     <Compile Include="Controllers\CheckPointCommandDelegate.cs" />
+    <Compile Include="Dialogs\CheckPointElement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

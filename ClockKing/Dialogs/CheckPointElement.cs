@@ -6,7 +6,7 @@ using UIKit;
 
 namespace ClockKing
 {
-	public class CheckPointCellDialog:OwnerDrawnElement
+	public class CheckPointElement:OwnerDrawnElement
 	{
 		CheckPoint data {get;set;}
 		CheckPointController controller {get;set;}
@@ -14,7 +14,7 @@ namespace ClockKing
 		bool CommandsAttached=false;
 	
 
-		public CheckPointCellDialog (CheckPoint source,CheckPointController controller):base(UITableViewCellStyle.Default, "sampleOwnerDrawnElement")
+		public CheckPointElement (CheckPoint source,CheckPointController controller):base(UITableViewCellStyle.Default, "sampleOwnerDrawnElement")
 		{
 			this.data = source;
 			this.controller = controller;
@@ -33,7 +33,6 @@ namespace ClockKing
 				this.cell = new CheckPointTableCell ();
 				view.AddSubview (cell);
 				//cell.Delegate = controller.UtilityButtonHandler;
-
 			}
 			cell.RenderCheckpointForDetail(this.data);
 			//if (!CommandsAttached) 
@@ -46,7 +45,6 @@ namespace ClockKing
 		{
 			return CheckPointTableCell.Height;
 		}
-
 	}
 }
 
