@@ -168,7 +168,11 @@ namespace ClockKing.Core
 		{
 			get
 			{
-				return this.occurrences.Any (o => o.TimeStamp.Date == DateTime.Today);
+                var mostRecent = this.occurrences
+                    .OrderByDescending(o => o.TimeStamp) 
+                    .FirstOrDefault();
+
+                return mostRecent.Date == DateTime.Today;
 			}
 		}
 
