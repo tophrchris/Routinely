@@ -170,8 +170,6 @@
     <Compile Include="Controllers\NotificationManager.cs" />
     <Compile Include="Controllers\CommandManager.cs" />
     <Compile Include="Controllers\CheckpointDetailCommand.cs" />
-    <Compile Include="Commands\CheckPointCommandDelegate.cs" />
-    <Compile Include="Data\DataModel.cs" />
     <Compile Include="Data\Conversions.cs" />
     <Compile Include="Data\GroupedCheckPointListDataSource.cs" />
     <Compile Include="Data\GroupCheckPointsByStatus.cs" />
@@ -187,6 +185,7 @@
     <Compile Include="Dialogs\CheckPointDetailDialog.cs" />
     <Compile Include="Controllers\AddCheckPointMenuCommand.cs" />
     <Compile Include="Data\PathProvider.cs" />
+    <Compile Include="Controllers\CheckPointCommandDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

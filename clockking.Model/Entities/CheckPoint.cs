@@ -9,23 +9,40 @@ namespace ClockKing.Core
 	public class CheckPoint
 	{
 		private List<Occurrence> occurrences;
+        private List<ScheduledTargetTime> targetTimeAlternatives;
+        private TimeSpan targetTime;
+
+        private DateTime createdOn;
 		public CheckPoint()
 		{
 			this.occurrences = new List<Occurrence> ();
+            this.targetTimeAlternatives = new List<ScheduledTargetTime>();
 			this.Enabled = true;
 		}
 		public string Name { get; set; }
 		public string Color { get; set; }
 		public string Emoji { get; set; }
 		public bool Enabled { get; set; }
-		public TimeSpan TargetTime { get; set; }
+        public TimeSpan TargetTime 
+        { 
+            get
+            {
+                return this.targetTime;
+            }
+            set
+            {
+                this.targetTime = value;    
+            }
+        }
 
 		[JsonIgnore]
 		public IEnumerable<Occurrence> Occurrences { get{return this.occurrences; }}
 
+        public IEnumerable<ScheduledTargetTime> TargetTimeAlternatives{ get { return this.targetTimeAlternatives; } }
+
 		public void AddOccurrence(Occurrence newOccurance)
 		{
-			this.occurrences.Add (newOccurance);
+            this.occurrences.Add(newOccurance);
 		}
 		public Occurrence CreateOccurrence()
 		{
@@ -35,7 +52,65 @@ namespace ClockKing.Core
 		public Occurrence CreateOccurrence(DateTime observationTimeStamp)
 		{
 			return new Occurrence(this,observationTimeStamp);
-		}
+        }
+
+        public ScheduledTargetTime AddAlternativeTarget(TimeSpan? alternativeTime, List<DayOfWeek> days)
+        {
+            var alt = new ScheduledTargetTime()
+                {TargetTime=alternativeTime,
+                    ApplicableDays=days.ToArray()};
+            
+            this.targetTimeAlternatives.Add(alt);
+            return alt;
+        }
+
+        public bool RemoveAlternativeTarget(ScheduledTargetTime toRemove)
+        {
+            return this.targetTimeAlternatives.Remove(toRemove);
+        }    
+
+
+        protected TimeSpan? AlternativeTargetTime
+        {
+            get
+            {
+                var today = DateTime.Now.DayOfWeek;
+                var relevantAlternative = this.targetTimeAlternatives
+                    .FirstOrDefault(t => t.ApplicableDays.Contains(today));
+                
+                return relevantAlternative?.TargetTime ?? this.targetTime;
+            }
+        }
+
+        public bool Active
+        {
+            get
+            {
+                var today = DateTime.Now.DayOfWeek;
+                var relevantAlternatives = this.targetTimeAlternatives.Where(t => t.ApplicableDays.Contains(today));
+                if (relevantAlternatives.Any(t => !t.TargetTime.HasValue))
+                    return false;
+                
+                return true;    
+            }
+
+        }
+
+        public DateTime CreatedOn 
+        {
+            get{
+                if (this.createdOn != DateTime.MinValue)
+                    return this.createdOn;
+                
+                if (this.occurrences.Any())
+                    return this.occurrences.OrderBy(o => o.TimeStamp).First().TimeStamp;
+                else
+                    return DateTime.Now;
+            }
+            set{
+                this.createdOn = value;
+            }
+        }
 
 
 		public TimeSpan averageObservedTime
@@ -56,8 +131,8 @@ namespace ClockKing.Core
 		public DateTime MostRecentOccurrenceTimeStamp(DateTime ifNone)
 		{
 			return this.occurrences
-				.OrderByDescending (o => o.timeStamp)
-				.Select (o => o.timeStamp)
+				.OrderByDescending (o => o.TimeStamp)
+				.Select (o => o.TimeStamp)
 				.DefaultIfEmpty (ifNone)
 				.FirstOrDefault ();
 		}
@@ -85,7 +160,7 @@ namespace ClockKing.Core
 		public DateTime TargetTimeToday
 		{
 			get{
-				return (DateTime.Today + this.TargetTime);
+				return (DateTime.Today + this.AlternativeTargetTime.Value);
 			}
 		}
 
@@ -93,7 +168,7 @@ namespace ClockKing.Core
 		{
 			get
 			{
-				return this.occurrences.Any (o => o.timeStamp.Date == DateTime.Today);
+				return this.occurrences.Any (o => o.TimeStamp.Date == DateTime.Today);
 			}
 		}
 
@@ -122,5 +197,10 @@ namespace ClockKing.Core
 				this.Emoji);
 		}
 	}
+    public class ScheduledTargetTime
+    {
+        public TimeSpan? TargetTime{ get; set; }
+        public DayOfWeek[] ApplicableDays{ get; set; }
+    }
 }
 

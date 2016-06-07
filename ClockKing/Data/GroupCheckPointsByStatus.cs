@@ -18,8 +18,11 @@ namespace ClockKing
 
 				var sections = new  Dictionary<string, IEnumerable<CheckPoint>>();
 
-				var enabled = cps.Where (cp => cp.Enabled);
+				var active = cps.Where (c => c.Active);
+
+				var enabled = active.Where (cp => cp.Enabled);
 				var notYetCompleted = enabled.Where (c => !c.CompletedToday); 
+
 
 				sections.Add("Completed",
 					enabled.Where (c => c.CompletedToday).OrderBy (c => c.MostRecentOccurrenceTimeStamp ()));
@@ -29,6 +32,8 @@ namespace ClockKing
 					notYetCompleted.Where(c=>c.TargetTime>DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
 				sections.Add ("Disabled",	
 					cps.Where (cp => !cp.Enabled).OrderBy (cp => cp.TargetTime));
+				sections.Add ("Inactive", 
+					cps.Where (c => !c.Active).OrderBy (c => c.CreatedOn));
 
 				foreach (var section in sections)
 					if (section.Value.Any ())

@@ -48,7 +48,7 @@ namespace ClockKing
 			CreateSubViews(this.TextLabel.Superview);
 			this.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 			this.Frame = new CGRect (new CGPoint (0, 0), new CGSize (UIApplication.SharedApplication.KeyWindow.Frame.Width, Height));
-			this.ShowBarChartInLandscape = true;
+			this.ShowBarChartInLandscape = false;
 		}
 
 		public CheckPointTableCell ():this(Key){ }
@@ -191,11 +191,11 @@ namespace ClockKing
 			var target = checkpoint.TargetTime.TotalMinutes;
 
 			var data = checkpoint.Occurrences
-				.OrderByDescending (o => o.timeStamp)
+				.OrderByDescending (o => o.TimeStamp)
 				.Select (o => new {delta=o.Time.TotalMinutes-target,occurance=o})
 				.Select (o => new BarModel () {Value = (float)o.delta,
 				ValueCaptionHidden = true,
-					Legend=o.occurance.timeStamp.Date.Day.ToString(),
+					Legend=o.occurance.TimeStamp.Date.Day.ToString(),
 				Color = (o.delta > 0) ? UIColor.Red : UIColor.Green
 				})
 				.Take(5)

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using ClockKing.Core;
 using System.Linq;
-using Foundation;
 using System.IO;
 
-namespace ClockKing
+namespace ClockKing.Core
 {
 	public class DataModel
 	{
@@ -13,19 +12,22 @@ namespace ClockKing
 		public Dictionary<string,CheckPoint> checkPoints { get; set;}
 		private ICheckPointDataProvider dataProvider { get; set; }
 
-		public DataModel (bool loadOccurrences = true)
+		public DataModel (ICheckPointDataProvider provider, bool loadOccurrences = true)
 		{
-			var com = new CompositeCheckPointDataProvider ();
-			com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
-			com.AddProvider (new CSVDataProvider (new PathProvider(".csv")));
-
-			this.dataProvider = com;
-			this.checkPoints = LoadCheckPoints();
-
-			if(loadOccurrences)
-				LoadOccurrences ();
+			this.dataProvider = provider;
+            RefreshData(loadOccurrences);
+			
 		}
 
+        public bool RefreshData(bool loadOccurrences=true)
+        {
+            this.checkPoints = LoadCheckPoints();
+
+            if(loadOccurrences)
+                LoadOccurrences ();
+
+            return true;
+        }
 
 		public CheckPoint NextCheckpoint
 		{

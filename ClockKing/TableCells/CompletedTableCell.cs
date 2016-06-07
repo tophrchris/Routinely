@@ -47,7 +47,7 @@ namespace ClockKing
 			var targetTime = (float)checkpoint.TargetTime.TotalMinutes ;
 
 			var data = checkpoint.Occurrences
-				.OrderByDescending (o => o.timeStamp)
+				.OrderByDescending (o => o.TimeStamp)
 				.Select (o => (float)o.Time.TotalMinutes)
 				.Select (m => targetTime - m)
 				.Take (10)

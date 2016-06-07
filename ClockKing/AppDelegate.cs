@@ -7,6 +7,7 @@ using System;
 using ClockKing.Extensions;
 using System.Collections.Generic;
 using Xamarin.Themes.TrackBeam;
+using ClockKing.Core;
 
 namespace ClockKing
 {
@@ -31,6 +32,18 @@ namespace ClockKing
 		private UIApplicationShortcutItem LastShortcutItem { get; set; }
 		public Queue<Action<CheckPointController>> LaunchActions{ get; set; }
 
+		public static ICheckPointDataProvider DefaultDataProvider
+		{
+			get{
+				var com = new CompositeCheckPointDataProvider ();
+				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
+				//com.AddProvider (new CSVDataProvider (new PathProvider(".csv")));
+				return com;
+			}
+
+		}
+
+
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			this.Options = new ClockKingOptions ();
@@ -39,9 +52,16 @@ namespace ClockKing
 		
 			this.Commands = new CommandManager ();
 			this.Notifications = new NotificationManager ();
-			this.CheckPointData = new DataModel ();
+
+			this.CheckPointData = new DataModel (DefaultDataProvider);
+
+
+			//this.CheckPointData.checkPoints ["Testing"].AddAlternativeTarget (null, new List<DayOfWeek> (){ DayOfWeek.Monday });
+
 			this.Notifications.EnsureSettings (application);
 			this.LaunchActions = new Queue<Action<CheckPointController>> ();
+
+
 
 			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
 			application.SetMinimumBackgroundFetchInterval (UIApplication.BackgroundFetchIntervalMinimum);
@@ -60,7 +80,8 @@ namespace ClockKing
 
 		public override void PerformFetch (UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
 		{
-			ShortcutManager.CreateShortcutItems (application,new DataModel());
+			
+			ShortcutManager.CreateShortcutItems (application,new DataModel(DefaultDataProvider));
 			completionHandler (UIBackgroundFetchResult.NewData);
 		}
 

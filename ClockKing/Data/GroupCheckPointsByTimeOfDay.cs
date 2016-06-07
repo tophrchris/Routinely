@@ -57,6 +57,7 @@ namespace ClockKing
 				};
 
 				var sections = checkpoints
+						.Where(cp=>cp.Active)
 						.Where(cp=>cp.Enabled)
 						.OrderBy(cp=>cp.TargetTime)
 						.Select (cp => new{CheckPoint = cp,
@@ -72,7 +73,10 @@ namespace ClockKing
 
 				if(checkpoints.Any(cp=>!cp.Enabled))
 					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
-								("Disabled", checkpoints.Where (cp => !cp.Enabled));
+						("Disabled", checkpoints.Where (cp => !cp.Enabled).OrderBy(cp=>cp.TargetTime));
+				if(checkpoints.Any(cp=>!cp.Active))
+					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
+						("Inactive", checkpoints.Where (cp => !cp.Active).OrderBy(cp=>cp.CreatedOn));
 
 				yield break;
 			}

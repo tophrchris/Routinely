@@ -122,7 +122,7 @@ namespace ClockKing
 			var deleted =  this.CheckPointData.RemoveCheckPoint (toDelete);
 
 			if (deleted) 
-				this.RespondToModelChanges ();
+				this.ConditionallyRefreshData (true);
 			
 			return deleted;
 		}
@@ -162,7 +162,7 @@ namespace ClockKing
 			var dataUpdated = false;
 			if (condition) 
 			{
-				this.appDelegate.CheckPointData = new DataModel ();
+				this.appDelegate.CheckPointData.RefreshData ();
 				this.RespondToModelChanges ();
 				dataUpdated=true;
 			}

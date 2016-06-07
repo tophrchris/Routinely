@@ -132,8 +132,10 @@ namespace ClockKing
 
 			opts.AddAction(UIAlertAction.Create("Snooze",UIAlertActionStyle.Default,
 				(a)=>{
-					notification.FireDate=DateTime.Now.AddMinutes(10).ToUniversalTime().ToNSDate();
-					application.ScheduleLocalNotification(notification);
+					var nn = notification;
+					nn.FireDate=DateTime.Now.AddMinutes(10).ToUniversalTime().ToNSDate();
+					nn.RepeatInterval=0;
+					application.ScheduleLocalNotification(nn);
 				}));
 
 			opts.AddAction(UIAlertAction.Create("Cancel",UIAlertActionStyle.Cancel,null));
@@ -143,14 +145,15 @@ namespace ClockKing
 
 		public static bool HandleNotificationAction(UIApplication application,UILocalNotification localNotification, string actionIdentifier)
 		{
-			var data = new DataModel (false);
+			var data = new DataModel (AppDelegate.DefaultDataProvider,false);
 			var found = data.checkPoints [localNotification.AlertTitle]; 
 			var actionBits = actionIdentifier.Split(':');
 			var mins = int.Parse (actionBits [1]);	
 			if (mins > 0) {
-				localNotification.FireDate = DateTime.Now.AddMinutes (mins).ToUniversalTime ().ToNSDate ();
-				localNotification.RepeatInterval = 0;
-				application.ScheduleLocalNotification (localNotification);
+				var nn = localNotification;
+				nn.FireDate = DateTime.Now.AddMinutes (mins).ToUniversalTime ().ToNSDate ();
+				nn.RepeatInterval = 0;
+				application.ScheduleLocalNotification (nn);
 
 			} else {
 				var occ = found.CreateOccurrence (DateTime.Now.AddMinutes (mins));
@@ -168,7 +171,7 @@ namespace ClockKing
 
 				var offsets = from i in new Dictionary<int,string> ()
 								{ 
-									{ 10,"Snooze" },
+									{ 1,"Snooze" },
 									{0,"Just now!"},
 									{ -15,"about {0} mins ago" }, 
 									{ -30,"about {0} mins ago" }

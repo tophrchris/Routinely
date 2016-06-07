@@ -48,6 +48,7 @@ namespace ClockKing.Core
 
 		public virtual int LoadOccurrences(Dictionary<string,CheckPoint> checkPoints)
 		{
+            var added = 0;
 			if (Paths.Exists (this.OccurrencesPath)) {
 				var read = Paths.ReadAllLines (this.OccurrencesPath);
 				if (read.Any ()) 
@@ -57,14 +58,18 @@ namespace ClockKing.Core
 						var parts = line.Split ('|');
 						var name = parts [0];
 						var timeStamp = DateTime.Parse (parts [1]);
-						if (checkPoints.ContainsKey (name))
-							checkPoints [name].AddOccurrence (
-								checkPoints [name].CreateOccurrence (timeStamp));
+                        if (checkPoints.ContainsKey(name))
+                        {
+                            checkPoints[name].AddOccurrence(
+                                checkPoints[name].CreateOccurrence(timeStamp));
+                            added++;
+                        }
 					}
 				}
 			}
 
-			return 0;//checkPoints.Sum (cp => cp.Value.Occurrences.Count ());
+
+            return added;
 		}
 
 		private void createRandomOccurrences(Dictionary<string,CheckPoint> checkPoints)
@@ -108,15 +113,15 @@ namespace ClockKing.Core
 			if(Paths.Exists(this.OccurrencesPath))
 				Paths.Delete(this.OccurrencesPath);
 			
-			var toWrite = occurrences.Select(o=> new {o.checkpointLabel,  o.timeStamp});
-			var lines = toWrite.Select (tw => string.Format ("{0}|{1}", tw.checkpointLabel, tw.timeStamp)).ToArray ();
+			var toWrite = occurrences.Select(o=> new {o.checkpointLabel,  o.TimeStamp});
+			var lines = toWrite.Select (tw => string.Format ("{0}|{1}", tw.checkpointLabel, tw.TimeStamp)).ToArray ();
 			Paths.WriteAllLines (this.OccurrencesPath, lines);
 			return true;
 		}
 
 		public virtual void WriteOccurrence(Occurrence toSave)
 		{
-			var lines = new[]{string.Format("{0}|{1}",toSave.checkpointLabel,toSave.timeStamp) };
+			var lines = new[]{string.Format("{0}|{1}",toSave.checkpointLabel,toSave.TimeStamp) };
 
 			Paths.AppendAllLines(this.OccurrencesPath,lines);
 		}

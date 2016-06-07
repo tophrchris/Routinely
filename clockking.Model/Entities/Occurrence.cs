@@ -8,14 +8,14 @@ namespace ClockKing.Core
 	public class Occurrence
 	{
 
-		private CheckPoint checkPoint;
+        private CheckPoint checkPoint{ get; set;}
 
-		public DateTime timeStamp; 
+        public DateTime TimeStamp{ get; set;}
 
 		public Occurrence(CheckPoint assignedCheckPoint,DateTime observedTime)
 		{
 			this.checkPoint = assignedCheckPoint;
-			this.timeStamp = observedTime;
+			this.TimeStamp = observedTime;
 		}
 
 		public string checkpointLabel { get { return this.CheckPoint.Name; } }
@@ -30,16 +30,16 @@ namespace ClockKing.Core
 			{
 
 				if(checkPoint.TargetTime>TimeSpan.FromHours(22))
-					if(this.timeStamp.TimeOfDay.Hours<2)
-						return this.timeStamp.TimeOfDay.Add(TimeSpan.FromHours(24));
+					if(this.TimeStamp.TimeOfDay.Hours<2)
+						return this.TimeStamp.TimeOfDay.Add(TimeSpan.FromHours(24));
 				
-				return this.timeStamp.TimeOfDay;
+				return this.TimeStamp.TimeOfDay;
 			}
 		}
 		public DateTime Date
 		{
 			get{
-				return this.timeStamp.Date.Add (TimeSpan.FromDays (this.Time.TotalHours > 24.0D ? -1 : 0));
+				return this.TimeStamp.Date.Add (TimeSpan.FromDays (this.Time.TotalHours > 24.0D ? -1 : 0));
 			}
 		}
 	}
