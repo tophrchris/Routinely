@@ -45,11 +45,11 @@ namespace ClockKing
 			this.ResetNavigation ();
 		}
 
-		public void ResetNavigation(){
+		public void ResetNavigation(bool refreshData=false){
 			this.NavigationController.PopToRootViewController (true);
 			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.MenuCommand,true);
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
-			this.ConditionallyRefreshData ();
+			this.ConditionallyRefreshData (refreshData);
 		}
 
 			

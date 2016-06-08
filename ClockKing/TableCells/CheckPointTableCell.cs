@@ -76,7 +76,7 @@ namespace ClockKing
 			this.EmojiLabel = new UILabel (new CGRect(padding,padding,EmojiSize,EmojiSize));
 
 			this.TitleLabel.BackgroundColor = UIColor.Clear;
-			this.TitleLabel.Font = UIFont.FromName ("HelveticaNeue-Bold", BaseFontSize);
+			this.TitleLabel.Font = UIFont.FromName ("AvenirNext-Regular", BaseFontSize);
 
 			this.ProgressLabel.TextColor=UIColor.FromRGB (.5f, .5f, .5f);
 			this.ProgressLabel.TextAlignment = UITextAlignment.Right;

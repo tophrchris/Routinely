@@ -6,6 +6,7 @@ using MonoTouch.Dialog;
 using System.Linq;
 using System.Collections.Generic;
 using Humanizer;
+using ClockKing.Extensions;
 
 namespace ClockKing
 {
@@ -66,7 +67,7 @@ namespace ClockKing
 		public void ResetNavigation()
 		{
 			this.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Done,
-				(s, e) => this.Controller.ResetNavigation()
+				(s, e) => this.Controller.ResetNavigation(true)
 			), true);
 
 			CreateOptions (this, toDetail);
@@ -90,11 +91,11 @@ namespace ClockKing
 				.ToList()
 				.ForEach(cmd=>acs.AddAction (cmd));
 
-			acs.AddAction(UIAlertAction.Create("add Alternative Target",UIAlertActionStyle.Default,
+			acs.AddAction(UIAlertAction.Create("Add Alternative Target",UIAlertActionStyle.Default,
 				(a)=>
 				{
-					var n = Data.AddAlternativeTarget(null,new List<DayOfWeek>(){DateTime.Today.DayOfWeek});
-					var d = GetDialogForAlternativeTarget(n,Data,this.Controller,this);
+					var n = Data.AddScheduledtarget(null,new List<DayOfWeek>(){DateTime.Today.DayOfWeek});
+					var d = new ScheduledTargetDialog(new RootElement("Scheduled Target"),n,Data,this.Controller,this);
 					this.NavigationController.PushViewController(d,true);
 				}));
 
@@ -120,44 +121,41 @@ namespace ClockKing
 			var Stats = new Section ("Stats:");
 			Stats.Add (new StringElement ("Enabled?", checkpoint.Enabled?"Yes":"No"));
 
-			var createdElement = new StringElement ("Created:");
+			Action reloader = () => UIView.Animate(.01d,()=>dialog.ReloadData());
 
-			var CreatedOnEnumerator = GetNextCreatedOnText (checkpoint).GetEnumerator();
-
-			CreatedOnEnumerator.MoveNext ();
-
-			createdElement.Value = CreatedOnEnumerator.Current;
-
-
-			createdElement.Tapped+=()=> {
-				CreatedOnEnumerator.MoveNext();
-				var found = CreatedOnEnumerator.Current;
-				createdElement.Value=found;
-				dialog.ReloadData();
-			};
-
+			var createdElement = new ToggledStringElement ("Created");
+			createdElement.PrimaryGenerator = () => checkpoint.CreatedOn.Humanize ();
+			createdElement.SecondaryGenerator = () => checkpoint.CreatedOn.ToString ("G");
+			createdElement.Tapped += reloader;
+			createdElement.Toggle ();
 			Stats.Add (createdElement);
-			Stats.Add (new StringElement("next",
-				"in " + checkpoint.UntilNextTargetTime.Humanize(2)));
-			
+
+			var nextElement = new ToggledStringElement ("Next");
+			nextElement.PrimaryGenerator = () => checkpoint.UntilNextTargetTime.Humanize (2);
+			nextElement.SecondaryGenerator = () => checkpoint.UntilNextTargetTime.ToAMPMString();
+			nextElement.Tapped += reloader;
+			nextElement.Toggle ();
+			Stats.Add (nextElement);
 
 			sectionsToReturn.Add (cellHolder);
 			sectionsToReturn.Add (Stats);
 
-			if (checkpoint.TargetTimeAlternatives.Any ()) 
+			if (checkpoint.ScheduledTargets.Any ()) 
 			{
 				Stats.Add (new StringElement ("Target", (DateTime.Today+ checkpoint.TargetTime).ToString ("t")));
 				var alts = new Section ("Alternative Targets");
 
-				foreach (var at in checkpoint.TargetTimeAlternatives) 
+				foreach (var at in checkpoint.ScheduledTargets) 
 				{
+					var maxDayLength = (at.ApplicableDays.Count () > 3) ? 3 : 10;	
 					var se = new StringElement( string.Join(", ",
-						at.ApplicableDays.Select(t=>t.ToString()).ToArray()),
+						at.ApplicableDays.Select(t=>t.ToString().Truncate(maxDayLength,"")).ToArray()),
 						at.TargetTime.HasValue?
 						(DateTime.Today+ at.TargetTime.Value).ToString("t"):"Inactive");
 					se.Tapped += () => 
 					{
-						var d = GetDialogForAlternativeTarget(at,checkpoint,Controller,dialog);
+						var root = new RootElement("Scheduled Target");
+						var d = new ScheduledTargetDialog(root,at,checkpoint,Controller,dialog);
 						dialog.NavigationController.PushViewController(d,true);	
 					};
 					alts.Add (se);
@@ -167,13 +165,26 @@ namespace ClockKing
 				
 			if (checkpoint.Occurrences.Any ()) 
 			{
-				Stats.Add (new StringElement ("earliest",
-					(DateTime.Today+ distinctTimes.OrderBy (o => o.TotalMinutes).First ()).ToString ("t")));
-				Stats.Add (new StringElement ("latest",
-					(DateTime.Today+ distinctTimes.OrderByDescending (o => o.TotalMinutes).First ()).ToString ("t")));
-				Stats.Add (new StringElement ("since most recent",
-					checkpoint.SinceLastOccurrence.Humanize(1)+" ago"));
+			
+				var earliest = new ToggledStringElement ("Earliest");
+				earliest.PrimaryGenerator = () => checkpoint.Earliest.Time.ToAMPMString ();
+				earliest.SecondaryGenerator = () => checkpoint.Earliest.TimeStamp.ToString ("G");
 
+				var latest = new ToggledStringElement ("Latest");
+				latest.PrimaryGenerator = () => checkpoint.Latest.Time.ToAMPMString ();
+				latest.SecondaryGenerator = () => checkpoint.Latest.TimeStamp.ToString ("G");
+
+				var mostRecent = new ToggledStringElement ("Since Most Recent");
+				mostRecent.PrimaryGenerator = () => checkpoint.SinceLastOccurrence.Humanize (1)+" ago";
+				mostRecent.SecondaryGenerator = () => checkpoint.MostRecentOccurrenceTimeStamp().ToString("G");
+
+				foreach (var el in new[]{earliest,latest,mostRecent})
+				{
+					el.Tapped += reloader;
+					el.Toggle ();
+					Stats.Add (el);
+				}
+					
 				var detailsSection = new Section("Occurrence History:");
 
 				detailsSection.AddAll (
@@ -188,103 +199,11 @@ namespace ClockKing
 			return sectionsToReturn.ToArray ();
 		}
 
-		public static DialogViewController GetDialogForAlternativeTarget(ScheduledTargetTime at,CheckPoint checkpoint, CheckPointController Controller,CheckPointDetailDialog dialog)
-		{
-			var r = new RootElement("Alternative Targets");
-			var d = new DialogViewController(r);
-
-			r.Add (new Section ("Goal"){ new CheckPointElement (checkpoint,Controller)});
-
-			var s = new Section("alternate Target");
-			var t = new TimeElement("time",DateTime.Today+ (at.TargetTime??DateTime.Now.TimeOfDay));
-
-			var inactiveSwitch = new BooleanElement("Goal is inactive on these days?",!at.TargetTime.HasValue);
-			inactiveSwitch.ValueChanged+=(so,ev)=>
-			{
-				if(inactiveSwitch.Value){
-					s.Remove(t);
-				}else{
-					s.Insert(1,t);
-				}
-			};
-
-			s.Add(inactiveSwitch);
-			if(at.TargetTime.HasValue)
-				s.Add(t);
-
-			var days = new Section("days");
-			for(var i =0;i<=6;i++)
-				days.Add(new CheckboxElement(((DayOfWeek)i).ToString(),
-					at.ApplicableDays.Contains(((DayOfWeek)i))));
-
-			r.Add(new Section[]{s,days});
-
-			r.Add (new Section ("delete") {new StringElement ("delete",
-				() => {
-					checkpoint.RemoveAlternativeTarget (at);
-					Controller.ResaveCheckpoints();
-					dialog.RespondToChanges();
-					d.DeactivateController(true);
-				})
-			});
-
-			d.NavigationItem.SetRightBarButtonItem(
-				new UIBarButtonItem(UIBarButtonSystemItem.Save,
-					(so,ev)=>
-					{
-						if(inactiveSwitch.Value)
-							at.TargetTime=null;
-						else
-							at.TargetTime=t.DateValue.ToLocalTime().TimeOfDay;
-
-						at.ApplicableDays=
-							days.Elements
-								.Select((el,i)=>new{index=i,element=el})
-								.Where(i=>((CheckboxElement)i.element).Value)
-								.Select(i=>(DayOfWeek)i.index)
-								.ToArray();
-
-						Controller.ResaveCheckpoints();
-						dialog.RespondToChanges();
-						d.DeactivateController(true);
-					}),true);
-
-			d.NavigationItem.SetLeftBarButtonItem(
-				new UIBarButtonItem(UIBarButtonSystemItem.Cancel,
-					(so,ev)=>d.DeactivateController(true)),true);
-			
-			return d;
-		}
-			
-
 		public override IUIPreviewActionItem[] PreviewActionItems 
 		{
 			get {
 				return this.actions.ToArray();
 			}
-		}
-
-		protected static IEnumerable<bool> ToggleCreatedOnText(StringElement e, CheckPoint checkpoint){
-			foreach (var s in GetNextCreatedOnText(checkpoint)) {
-				e.Value = s;
-				yield return true;
-			}
-
-			yield break;
-		}
-
-		protected static IEnumerable<string> GetNextCreatedOnText(CheckPoint checkpoint)
-		{
-			var humanized = false;
-			while (true) 
-			{
-				humanized = !humanized;
-				if (humanized)
-					yield return checkpoint.CreatedOn.Humanize ();
-				else
-					yield return checkpoint.CreatedOn.ToString ("G");
-			}
-			yield break;
 		}
 	}
 }

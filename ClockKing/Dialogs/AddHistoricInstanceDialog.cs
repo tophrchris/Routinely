@@ -62,6 +62,8 @@ namespace ClockKing
 			this.Controller.AddOccurrenceToCheckPoint (this.checkPoint,
 				this.picker.Date.ToDateTime ().ToLocalTime ());
 
+			this.Controller.RespondToModelChanges ();
+
 			this.Controller.NavigationController.PopViewController (true);
 			return true;
 		}

@@ -186,6 +186,9 @@
     <Compile Include="Data\PathProvider.cs" />
     <Compile Include="Controllers\CheckPointCommandDelegate.cs" />
     <Compile Include="Dialogs\CheckPointElement.cs" />
+    <Compile Include="Dialogs\ScheduledTargetDialog.cs" />
+    <Compile Include="Dialogs\SharedDialogs.cs" />
+    <Compile Include="Dialogs\ToggledStringElement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

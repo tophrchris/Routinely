@@ -9,36 +9,29 @@ namespace ClockKing.Core
 	public class CheckPoint
 	{
 		private List<Occurrence> occurrences;
-        private List<ScheduledTargetTime> targetTimeAlternatives;
-        private TimeSpan targetTime;
+        private List<ScheduledTargetTime> scheduledTargets;
 
         private DateTime createdOn;
 		public CheckPoint()
 		{
 			this.occurrences = new List<Occurrence> ();
-            this.targetTimeAlternatives = new List<ScheduledTargetTime>();
+            this.scheduledTargets = new List<ScheduledTargetTime>();
 			this.Enabled = true;
 		}
 		public string Name { get; set; }
 		public string Color { get; set; }
 		public string Emoji { get; set; }
 		public bool Enabled { get; set; }
-        public TimeSpan TargetTime 
+        public TimeSpan TargetTime
         { 
-            get
-            {
-                return this.targetTime;
-            }
-            set
-            {
-                this.targetTime = value;    
-            }
+            get;
+            set;
         }
 
 		[JsonIgnore]
 		public IEnumerable<Occurrence> Occurrences { get{return this.occurrences; }}
 
-        public IEnumerable<ScheduledTargetTime> TargetTimeAlternatives{ get { return this.targetTimeAlternatives; } }
+        public IEnumerable<ScheduledTargetTime> ScheduledTargets{ get { return this.scheduledTargets; } }
 
 		public void AddOccurrence(Occurrence newOccurance)
 		{
@@ -54,31 +47,31 @@ namespace ClockKing.Core
 			return new Occurrence(this,observationTimeStamp);
         }
 
-        public ScheduledTargetTime AddAlternativeTarget(TimeSpan? alternativeTime, List<DayOfWeek> days)
+        public ScheduledTargetTime AddScheduledtarget(TimeSpan? scheduledTargetTime, List<DayOfWeek> days)
         {
             var alt = new ScheduledTargetTime()
-                {TargetTime=alternativeTime,
+                {TargetTime=scheduledTargetTime,
                     ApplicableDays=days.ToArray()};
             
-            this.targetTimeAlternatives.Add(alt);
+            this.scheduledTargets.Add(alt);
             return alt;
         }
 
-        public bool RemoveAlternativeTarget(ScheduledTargetTime toRemove)
+        public bool RemoveScheduledTarget(ScheduledTargetTime toRemove)
         {
-            return this.targetTimeAlternatives.Remove(toRemove);
+            return this.scheduledTargets.Remove(toRemove);
         }    
 
 
-        protected TimeSpan? AlternativeTargetTime
+        protected TimeSpan ScheduledTargetTime
         {
             get
             {
                 var today = DateTime.Now.DayOfWeek;
-                var relevantAlternative = this.targetTimeAlternatives
+                var relevantScheduledTarget = this.scheduledTargets
                     .FirstOrDefault(t => t.ApplicableDays.Contains(today));
                 
-                return relevantAlternative?.TargetTime ?? this.targetTime;
+                return relevantScheduledTarget?.TargetTime ?? this.TargetTime;
             }
         }
 
@@ -87,7 +80,7 @@ namespace ClockKing.Core
             get
             {
                 var today = DateTime.Now.DayOfWeek;
-                var relevantAlternatives = this.targetTimeAlternatives.Where(t => t.ApplicableDays.Contains(today));
+                var relevantAlternatives = this.scheduledTargets.Where(t => t.ApplicableDays.Contains(today));
                 if (relevantAlternatives.Any(t => !t.TargetTime.HasValue))
                     return false;
                 
@@ -124,7 +117,8 @@ namespace ClockKing.Core
 			}
 		}
 
-		public DateTime MostRecentOccurrenceTimeStamp(){
+		public DateTime MostRecentOccurrenceTimeStamp()
+        {
 			return MostRecentOccurrenceTimeStamp (DateTime.Now);
 		}
 
@@ -159,15 +153,20 @@ namespace ClockKing.Core
 
 		public DateTime TargetTimeToday
 		{
-			get{
-				return (DateTime.Today + this.AlternativeTargetTime.Value);
-			}
+			get
+            {
+                return (DateTime.Today + this.ScheduledTargetTime);
+            }
+		
 		}
-
+            
 		public bool CompletedToday 
 		{
 			get
 			{
+                if (!this.occurrences.Any())
+                    return false;
+                
                 var mostRecent = this.occurrences
                     .OrderByDescending(o => o.TimeStamp) 
                     .FirstOrDefault();
@@ -180,7 +179,7 @@ namespace ClockKing.Core
 		{
 			get 
 			{
-				return this.TargetTime < DateTime.Now.TimeOfDay;
+				return this.ScheduledTargetTime < DateTime.Now.TimeOfDay;
 			}
 		}
 		public bool TargetTimeUpcoming 
@@ -191,6 +190,31 @@ namespace ClockKing.Core
 			}
 		}
 
+        protected IEnumerable<TimeSpan> DistinctTimes
+        {
+            get
+            {
+                return this.occurrences.Select(o => o.Time).Distinct();
+            }
+        }
+
+        public Occurrence Earliest
+        {
+            get
+            {
+                var em= this.DistinctTimes.OrderBy(o => o.TotalMinutes).FirstOrDefault().TotalMinutes;
+                return this.occurrences.OrderByDescending(o => o.TimeStamp).FirstOrDefault(o => o.Time.TotalMinutes == em);
+            }
+               
+        }
+        public Occurrence Latest
+        {
+            get
+            {
+                var em= this.DistinctTimes.OrderByDescending(o => o.TotalMinutes).FirstOrDefault().TotalMinutes;
+                return this.occurrences.OrderByDescending(o => o.TimeStamp).FirstOrDefault(o => o.Time.TotalMinutes == em);
+            }
+        }
 
 		public override string ToString ()
 		{
