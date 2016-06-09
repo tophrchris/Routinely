@@ -9,6 +9,7 @@ using MonoTouch.Dialog;
 using ClockKing.Commands;
 using SWTableViewCells;
 using CoreGraphics;
+using iiToastNotification.Unified;
 
 namespace ClockKing
 {
@@ -29,8 +30,17 @@ namespace ClockKing
 
 		public CheckPointController (NSObjectFlag t):base(t){}
 
+		private void notify(string title, string message,
+			ToastNotificationType Type = ToastNotificationType.Success,
+			int seconds=2)
+		{
+			iiToastNotifier.Notify (Type, title, message, TimeSpan.FromSeconds (seconds), null, false);
+		}
+
 		public CheckPointController (IntPtr handle) : base (handle)
 		{
+			
+			iiToastNotifier.Init ();
 			this.appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
 			this.appDelegate.Controller = this;
 			this.Notifier = appDelegate.Notifications;
@@ -88,7 +98,9 @@ namespace ClockKing
 
 		public void RewriteOccurrences()
 		{
+			notify ("success", "occurrences rewritten", ToastNotificationType.Warning);
 			this.CheckPointData.SaveOccurrences ();
+			this.ConditionallyRefreshData ();
 		}
 
 		public bool CheckPointExists(string name)
@@ -99,8 +111,11 @@ namespace ClockKing
 		public bool ResaveCheckpoints()
 		{
 			var saved = this.CheckPointData.SaveCheckPoints ();
-			if (saved)
-				this.RespondToModelChanges ();
+			if (saved) 
+			{
+				notify("Success", "Goals saved",ToastNotificationType.Warning);
+				this.RespondToModelChanges();
+			}
 			return saved;
 
 		}
@@ -111,18 +126,20 @@ namespace ClockKing
 				emoji = title.Substring (0, 2);
 			
 			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji);
-			if(created!=null)
+			if (created != null) 
+			{
+				notify("Success", "New Goal Added");
 				this.RespondToModelChanges ();
-			
+			}
 			return created;
 		}
 
 		public bool RemoveCheckpoint(CheckPoint toDelete)
 		{
 			var deleted =  this.CheckPointData.RemoveCheckPoint (toDelete);
-
+			notify("Success", "Goal Removed");
 			if (deleted) 
-				this.ConditionallyRefreshData (true);
+				this.RespondToModelChanges ();
 			
 			return deleted;
 		}
@@ -143,6 +160,7 @@ namespace ClockKing
 			var o = checkPoint.CreateOccurrence(when.ToLocalTime());
 			checkPoint.AddOccurrence (o);
 			this.CheckPointData.SaveOccurrence (o);
+			notify("Success", "Occurrence saved");
 			this.RespondToModelChanges ();
 			return o;
 		}
@@ -156,6 +174,13 @@ namespace ClockKing
 			return updated;
 		}
 
+
+		/// <summary>
+		/// this should be called if there is a chance that the data was updated without
+		/// user interaction.
+		/// </summary>
+		/// <returns><c>true</c>, if data was refreshed, <c>false</c> otherwise.</returns>
+		/// <param name="condition"></param>
 		public bool ConditionallyRefreshData(bool condition)
 		{
 
@@ -163,6 +188,7 @@ namespace ClockKing
 			if (condition) 
 			{
 				this.appDelegate.CheckPointData.RefreshData ();
+				notify ("done", "data refreshed", ToastNotificationType.Info, 1);
 				this.RespondToModelChanges ();
 				dataUpdated=true;
 			}
@@ -173,11 +199,16 @@ namespace ClockKing
 			return dataUpdated;
 		}
 
+		/// <summary>
+		/// this should be called if a model change has occurred without 
+		/// also interracting with the controller before navigating
+		/// </summary>
 		public void RespondToModelChanges()
 		{
 			this.reloadTableView ();
-				this.Notifier.EnsureNotifications (this.CheckPointData);
-				ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
+			notify ("done", "table reloaded", ToastNotificationType.Info, 1);
+			this.Notifier.EnsureNotifications (this.CheckPointData);
+			ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
 		}
 		private void reloadTableView()
 		{

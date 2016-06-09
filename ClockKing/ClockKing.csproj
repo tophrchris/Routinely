@@ -135,6 +135,9 @@
     <Reference Include="ProlificTheme.iOS">
       <HintPath>..\Components\prolifictheme-1.4.1\lib\ios-unified\ProlificTheme.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="iiToastNotification.Unified">
+      <HintPath>..\Components\iiToastNotification-1.0\lib\ios-unified\iiToastNotification.Unified.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -162,8 +165,6 @@
     <Compile Include="Commands\CommandFramework.cs" />
     <Compile Include="Dialogs\AddHistoricInstanceDialog.cs" />
     <Compile Include="Dialogs\NotificationReviewDialog.cs" />
-    <Compile Include="Commands\DisabledCheckPointCommand.cs" />
-    <Compile Include="Commands\EnabledCheckPointCommand.cs" />
     <Compile Include="Commands\AddOccurrenceCommand.cs" />
     <Compile Include="Commands\AddHistoricOccurrenceCommand.cs" />
     <Compile Include="Commands\DeleteCheckpointCommand.cs" />
@@ -189,6 +190,8 @@
     <Compile Include="Dialogs\ScheduledTargetDialog.cs" />
     <Compile Include="Dialogs\SharedDialogs.cs" />
     <Compile Include="Dialogs\ToggledStringElement.cs" />
+    <Compile Include="Commands\DisableCheckPointCommand.cs" />
+    <Compile Include="Commands\EnableCheckPointCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -235,6 +238,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="prolifictheme">
       <Version>1.4.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="iiToastNotification">
+      <Version>1.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

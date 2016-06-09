@@ -9,6 +9,7 @@ namespace ClockKing
 		public AddOccurrenceCommand(UIColor color,string label):base(color,label){}
 		public AddOccurrenceCommand():base(UIColor.Green,"Add")
 		{
+			this.ChangesCheckpoint = false;
 			this.Category = "Right";
 			this.LongName = "Add an occurrence right now";
 		}

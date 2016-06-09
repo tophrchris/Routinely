@@ -27,10 +27,10 @@ namespace ClockKing
 
 		}
 
-		public void RespondToChanges()
+		public void RespondToChanges(bool condition=false)
 		{
 			this.Render();
-			this.Controller.ConditionallyRefreshData (true);
+			this.Controller.ConditionallyRefreshData (condition);
 			CreateOptions (this,toDetail);
 		}
 
@@ -52,7 +52,11 @@ namespace ClockKing
 			var executor = new Action<Command>((ub)=>
 				{
 					if(ub.ExecuteFor(this.Controller,toDetail))
-						RespondToChanges();
+					{
+						if(ub.ChangesCheckpoint)
+							Controller.ResaveCheckpoints();
+						RespondToChanges(false);
+					}
 				});
 
 			this.actions = this.Controller.Commands.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
@@ -81,7 +85,11 @@ namespace ClockKing
 			var handler = new Action<Command> ((c) => 
 				{
 					if(c.ExecuteFor(this.Controller,Data))
-						RespondToChanges();
+					{
+						if(c.ChangesCheckpoint)
+							Controller.ResaveCheckpoints();
+						RespondToChanges(false);
+					}
 				});
 
 			acs.AddAction (new InPlaceEditCheckPointCommand (this).AsAlertAction (handler));
@@ -101,7 +109,7 @@ namespace ClockKing
 
 			acs.AddAction(UIAlertAction.Create("Nevermind!",UIAlertActionStyle.Cancel,null));
 
-			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Edit,
+			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem ("Actions",UIBarButtonItemStyle.Plain,
 				(s, e) => 
 				this.Controller.PresentViewController(acs,true,null)
 			), true);
@@ -184,14 +192,28 @@ namespace ClockKing
 					el.Toggle ();
 					Stats.Add (el);
 				}
-					
+
 				var detailsSection = new Section("Occurrence History:");
 
-				detailsSection.AddAll (
+				var occurenceElements = 
 					checkpoint
 					.Occurrences
-					.OrderByDescending(o=>o.TimeStamp)
-					.Select (o => new StringElement (o.Date.ToString("d"), o.TimeStamp.ToString ("t"))));
+					.OrderByDescending (o => o.TimeStamp)
+						.Select (o => new StringElement (o.Date.ToString ("d"),
+							()=>{
+								var c = SharedDialogs.ConfirmationDialog(
+									(a)=>
+									{
+										checkpoint.RemoveOccurrence(o);
+										Controller.RewriteOccurrences();
+										dialog.Render();
+									},Message:"Deleting this occurrence will affect averages and streaks.");
+								dialog.PresentModalViewController(c,true);
+							})
+						{
+								Value=	o.TimeStamp.ToString ("t")
+						});
+				detailsSection.AddAll (occurenceElements);
 
 				sectionsToReturn.Add (detailsSection);
 			}

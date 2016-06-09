@@ -125,9 +125,7 @@ namespace ClockKing
 		{
 			var handler = new Action<UIAlertAction> ((action) => {
 				checkpoint.RemoveScheduledTarget (ScheduledTarget);
-				Controller.ResaveCheckpoints ();
-				dialog.RespondToChanges ();
-				this.Close ();
+				this.Close (true);
 			});
 			var controller = SharedDialogs.ConfirmationDialog (handler,
 				Message:"This will delete the scheduled target",
@@ -165,14 +163,16 @@ namespace ClockKing
 				otherExisting.ApplicableDays = otherExisting.ApplicableDays.Concat (ScheduledTarget.ApplicableDays).Distinct().ToArray();
 				checkpoint.RemoveScheduledTarget (ScheduledTarget);
 			}
-				
-			Controller.ResaveCheckpoints ();
-			dialog.RespondToChanges ();
-			this.Close ();
+			this.Close (true);
 		}
 
-		protected void Close()
+		protected void Close(bool saveFirst=false)
 		{
+			if (saveFirst)
+			{
+				Controller.ResaveCheckpoints ();
+				dialog.RespondToChanges ();
+			}
 			this.DeactivateController (true);
 		}
 	}

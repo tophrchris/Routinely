@@ -24,7 +24,7 @@ namespace ClockKing
 
 			controller.PresentViewController (ac, true, null);
 
-			return true;
+			return false;
 		}
 		public UIAlertController CreateActionSheet(CheckPointController controller,CheckPoint checkPoint)
 		{

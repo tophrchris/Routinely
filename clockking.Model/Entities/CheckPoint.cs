@@ -46,6 +46,10 @@ namespace ClockKing.Core
 		{
 			return new Occurrence(this,observationTimeStamp);
         }
+        public void RemoveOccurrence(Occurrence toRemove)
+        {
+            this.occurrences.Remove(toRemove);
+        }
 
         public ScheduledTargetTime AddScheduledtarget(TimeSpan? scheduledTargetTime, List<DayOfWeek> days)
         {
@@ -88,12 +92,12 @@ namespace ClockKing.Core
             }
 
         }
-
+            
         public DateTime CreatedOn 
         {
             get{
-                if (this.createdOn != DateTime.MinValue)
-                    return this.createdOn;
+                //if (this.createdOn != DateTime.MinValue)
+                //    return this.createdOn;
                 
                 if (this.occurrences.Any())
                     return this.occurrences.OrderBy(o => o.TimeStamp).First().TimeStamp;

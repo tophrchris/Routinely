@@ -143,7 +143,6 @@ namespace ClockKing
 				if (nowElement.Value)
 					this.Controller.AddOccurrenceToCheckPoint(newcp,0);
 
-				this.Controller.RespondToModelChanges ();
 				CancelDialog ();
 
 			return true;

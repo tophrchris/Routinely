@@ -113,8 +113,10 @@ namespace ClockKing
 
 		public override void OnActivated (UIApplication application)
 		{
+			//this isn't right- we're constantly loading data twice? at least diskIO is cheap.  
+			//TODO: fix later?
 			if (this.Controller!=null) 
-				this.Controller.ConditionallyRefreshData ();
+				this.Controller.ConditionallyRefreshData (true);
 
 			if (LastShortcutItem != null) 
 			{

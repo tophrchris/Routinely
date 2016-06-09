@@ -31,22 +31,25 @@ namespace ClockKing
 		public override void DidTriggerLeftUtilityButton (SWTableViewCell cell, nint index)
 		{
 			var cpp = ((CheckPointTableCell)cell).CheckPoint;
-			if (this.ExecuteCommandForCheckpoint (cpp, cell.LeftUtilityButtons, (int)index))
-				this.Controller.RespondToModelChanges ();
+			this.ExecuteCommandForCheckpoint (cpp, cell.LeftUtilityButtons, (int)index);
 		}
 
 		public override void DidTriggerRightUtilityButton (SWTableViewCell cell, nint index)
 		{
 			var cpp = ((CheckPointTableCell)cell).CheckPoint;
-			if (this.ExecuteCommandForCheckpoint (cpp, cell.RightUtilityButtons, (int)index))
-				this.Controller.RespondToModelChanges ();
+			this.ExecuteCommandForCheckpoint (cpp, cell.RightUtilityButtons, (int)index);
 		}
 
 		private bool ExecuteCommandForCheckpoint(CheckPoint checkPoint, IEnumerable<UIButton> buttons, int triggeredButtonIndex)
 		{
 			var triggeredUtility = buttons.ElementAt (triggeredButtonIndex).CurrentTitle;
 			var foundUtil = this.Controller.Commands.Commands [triggeredUtility];
-			return  foundUtil.ExecuteFor (this.Controller, checkPoint);
+			var executed=  foundUtil.ExecuteFor (this.Controller, checkPoint);
+
+			if (executed && foundUtil.ChangesCheckpoint)
+					Controller.ResaveCheckpoints ();
+			
+			return executed ;
 		}
 	}
 }

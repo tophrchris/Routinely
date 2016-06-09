@@ -21,7 +21,7 @@ namespace ClockKing
 			editDialog.RenderForCheckPoint(checkPoint);
 			controller.NavigationController.PushViewController(editDialog,true);
 
-			return true;
+			return false;
 		}
 		public override bool ShouldDecorate (ClockKing.Core.CheckPoint toDecorate)
 		{

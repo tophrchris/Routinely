@@ -1,12 +1,14 @@
 ﻿using System;
 using MonoTouch.Dialog;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ClockKing
 {
 	public class ToggledStringElement:StringElement
 	{
 		private IEnumerator<string> generator;
+		private Func<string> currentGenerator;
 
 		public ToggledStringElement (string caption):base(caption)
 		{
@@ -22,6 +24,7 @@ namespace ClockKing
 			this.Value = next;
 		}
 
+
 		public Func<string> PrimaryGenerator { get; set;}
 		public Func<string> SecondaryGenerator {get;set;}
 
@@ -32,7 +35,8 @@ namespace ClockKing
 			while (true) 
 			{
 				primary = !primary;
-				yield return primary ? PrimaryGenerator () : SecondaryGenerator ();
+				currentGenerator = primary ? PrimaryGenerator : SecondaryGenerator;
+				yield return currentGenerator ();
 			}
 		}
 	}

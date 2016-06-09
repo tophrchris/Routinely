@@ -14,10 +14,12 @@ namespace ClockKing
 		public bool IsDestructive{ get; set; }
 		public string Category{ get; set; }
 		public string LongName{ get; set; }
+		public bool ChangesCheckpoint { get; set;}
 		public UIColor Color{ get; set; }
 
 		public Command(UIColor Color,string Label)
 		{
+			this.ChangesCheckpoint = true;
 			this.Name = Label;
 			this.IsDestructive = false;
 			this.Category = string.Empty;
