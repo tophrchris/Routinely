@@ -42,6 +42,13 @@ namespace ClockKing.Core
 				return this.TimeStamp.Date.Add (TimeSpan.FromDays (this.Time.TotalHours > 24.0D ? -1 : 0));
 			}
 		}
+        public int MinutesFromTarget
+        {
+            get
+            {
+                return  (int)this.Time.TotalMinutes - (int)this.checkPoint.TargetTimeForDay(this.Date.DayOfWeek).TotalMinutes ;
+            }
+        }
 	}
 
 }

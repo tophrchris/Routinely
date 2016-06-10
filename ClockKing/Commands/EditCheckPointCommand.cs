@@ -29,26 +29,25 @@ namespace ClockKing
 		}
 	}
 
-	public class InPlaceEditCheckPointCommand:Command
+	public class InPlaceEditCheckPointCommand:Command,IDialogBoundCommand
 	{
-		public InPlaceEditCheckPointCommand(UIColor Color, string Label):base(Color,Label){}
+		public DialogViewController ExistingDialog{ get; set;}
 
 		public InPlaceEditCheckPointCommand(DialogViewController existing):this()
 		{
 			this.ExistingDialog = existing;
 		}
 
-		public InPlaceEditCheckPointCommand ():base(UIColor.Magenta,"Edit")
+		public InPlaceEditCheckPointCommand ():base(UIColor.Magenta,"In Place Edit")
 		{
 			this.Category = "In Place";
-			this.LongName = "Edit Goal";
+			this.LongName = "Edit Goal...";
 		}
 
-		public DialogViewController ExistingDialog{ get; set;}
 
 		public override bool ExecuteFor (CheckPointController controller, ClockKing.Core.CheckPoint checkPoint)
 		{
-			
+			//TODO: this feels like a lot to live inside an ExecuteFor.
 			var editDialog = new CheckPointEditingDialog(controller,new RootElement("Edit"),true);
 			editDialog.RenderForCheckPoint(checkPoint);
 			ExistingDialog.Root.Insert (0,editDialog.Root.First());

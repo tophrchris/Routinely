@@ -31,7 +31,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\CheckPoint.cs" />
-    <Compile Include="Entities\CheckPointPair.cs" />
     <Compile Include="Entities\Occurrence.cs" />
     <Compile Include="DataProviders\ICheckPointDataProvider.cs" />
     <Compile Include="DataProviders\CompositeCheckPointDataProvider.cs" />
@@ -40,6 +39,7 @@
     <Compile Include="DataProviders\IPathProvider.cs" />
     <Compile Include="EmojiSharp\Emoji.cs" />
     <Compile Include="DataProviders\DataModel.cs" />
+    <Compile Include="Entities\CheckPointEvaluator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

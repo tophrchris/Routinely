@@ -16,36 +16,28 @@ namespace ClockKing
 	
 	public partial class CheckPointController : UITableViewController,IUIViewControllerPreviewingDelegate
 	{
-		private DataModel CheckPointData{ get; set;}
-		private GroupedCheckPointDataSource Data{ get; }
 		private AppDelegate appDelegate{ get; }
-		public AddCheckPointMenuCommand AddCommand{ get; }
 		private ShowSettingsMenuCommand showNotifications{ get; }
 		private CheckpointDetailCommand Detail{ get;  }
-
-		public CommandManager Commands{ get; }
+		private GroupedCheckPointDataSource Data{ get; }
 		public CheckpointCommandDelegate UtilityButtonHandler{ get; }
-		public NotificationManager Notifier{ get;  }
-		public ClockKingOptions Options { get { return this.appDelegate.Options; } }
+		public AddCheckPointMenuCommand AddCommand{ get; }
+		private CheckPointDetailDialog currentDetailDialog {get;set;}
+
+		private DataModel CheckPointData	{ get{return this.appDelegate.CheckPointData; }}
+		public NotificationManager Notifier	{ get{return this.appDelegate.Notifications; }  }
+		public CommandManager Commands		{ get{return this.appDelegate.Commands; } }
+		public ClockKingOptions Options 	{ get{return this.appDelegate.Options; } }
 
 		public CheckPointController (NSObjectFlag t):base(t){}
 
-		private void notify(string title, string message,
-			ToastNotificationType Type = ToastNotificationType.Success,
-			int seconds=2)
-		{
-			iiToastNotifier.Notify (Type, title, message, TimeSpan.FromSeconds (seconds), null, false);
-		}
-
 		public CheckPointController (IntPtr handle) : base (handle)
 		{
-			
 			iiToastNotifier.Init ();
+
 			this.appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
 			this.appDelegate.Controller = this;
-			this.Notifier = appDelegate.Notifications;
-			this.CheckPointData = appDelegate.CheckPointData;
-			this.Commands = appDelegate.Commands;
+
 			this.UtilityButtonHandler = new CheckpointCommandDelegate (this);
 			this.AddCommand = new AddCheckPointMenuCommand (this);
 			this.showNotifications = new ShowSettingsMenuCommand (this);
@@ -54,15 +46,8 @@ namespace ClockKing
 
 			this.ResetNavigation ();
 		}
-
-		public void ResetNavigation(bool refreshData=false){
-			this.NavigationController.PopToRootViewController (true);
-			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.MenuCommand,true);
-			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
-			this.ConditionallyRefreshData (refreshData);
-		}
-
 			
+		#region app lifecycle and maintenance
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -85,46 +70,32 @@ namespace ClockKing
 			base.ViewDidAppear (animated);
 			this.ConditionallyRefreshData ();
 		}
-			
-		public void ShowDetailDialogFor(CheckPoint checkpoint)
-		{
-			this.Detail.ShowDetailDialog (checkpoint);
-		}	
 
 		public void ResetNotifications()
 		{
 			this.Notifier.EnsureNotifications (this.CheckPointData, true);
 		}
+		#endregion
 
-		public void RewriteOccurrences()
+			
+		public void ShowDetailDialogFor(CheckPoint checkpoint)
 		{
-			notify ("success", "occurrences rewritten", ToastNotificationType.Warning);
-			this.CheckPointData.SaveOccurrences ();
-			this.ConditionallyRefreshData ();
-		}
+			this.currentDetailDialog =  this.Detail.ShowDetailDialog (checkpoint);
+		}	
 
+
+		#region model access
 		public bool CheckPointExists(string name)
 		{
 			return this.CheckPointData.checkPoints.ContainsKey (name);
 		}
 
-		public bool ResaveCheckpoints()
-		{
-			var saved = this.CheckPointData.SaveCheckPoints ();
-			if (saved) 
-			{
-				notify("Success", "Goals saved",ToastNotificationType.Warning);
-				this.RespondToModelChanges();
-			}
-			return saved;
-
-		}
 
 		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji)
 		{
 			if (string.IsNullOrEmpty (emoji))
 				emoji = title.Substring (0, 2);
-			
+
 			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji);
 			if (created != null) 
 			{
@@ -132,16 +103,6 @@ namespace ClockKing
 				this.RespondToModelChanges ();
 			}
 			return created;
-		}
-
-		public bool RemoveCheckpoint(CheckPoint toDelete)
-		{
-			var deleted =  this.CheckPointData.RemoveCheckPoint (toDelete);
-			notify("Success", "Goal Removed");
-			if (deleted) 
-				this.RespondToModelChanges ();
-			
-			return deleted;
 		}
 
 		public Occurrence AddOccurrenceToCheckPoint(string checkPointName, int mins)
@@ -164,8 +125,58 @@ namespace ClockKing
 			this.RespondToModelChanges ();
 			return o;
 		}
+			
+		public void RewriteOccurrences()
+		{
+			notify ("success", "occurrences rewritten", ToastNotificationType.Warning);
+			this.CheckPointData.SaveOccurrences ();
+			this.ConditionallyRefreshData ();
+		}
 
+		public bool ResaveCheckpoints()
+		{
+			var saved = this.CheckPointData.SaveCheckPoints ();
+			if (saved) 
+			{
+				notify("Success", "Goals saved",ToastNotificationType.Warning);
+				this.RespondToModelChanges();
+			}
+			return saved;
+		}
+			
+		public bool RemoveCheckpoint(CheckPoint toDelete)
+		{
+			var deleted =  this.CheckPointData.RemoveCheckPoint (toDelete);
 
+			if (deleted) { 
+				notify("Success", "Goal Removed");
+				this.ResetNavigation();
+				this.RespondToModelChanges ();
+			}
+			else
+				notify("failure", "Goal not removed?",ToastNotificationType.Error);
+			
+			return deleted;
+		}
+
+		#endregion
+	
+		#region data management
+		/// <summary>
+		/// resets the view controller to its initial state
+		/// </summary>
+		/// <param name="refreshData">If set to <c>true</c> refresh data.</param>
+		public void ResetNavigation(bool refreshData=false){
+			this.NavigationController.PopToRootViewController (true);
+			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.MenuCommand,true);
+			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
+			this.ConditionallyRefreshData (refreshData);
+		}
+			
+		/// <summary>
+		/// this should be called if there is a chance that the data was updated without
+		/// user interaction.
+		/// </summary>
 		public bool ConditionallyRefreshData()
 		{
 			var updated= this.ConditionallyRefreshData (appDelegate.RequiresDataRefresh);
@@ -173,8 +184,7 @@ namespace ClockKing
 				appDelegate.RequiresDataRefresh = false;
 			return updated;
 		}
-
-
+			
 		/// <summary>
 		/// this should be called if there is a chance that the data was updated without
 		/// user interaction.
@@ -183,14 +193,13 @@ namespace ClockKing
 		/// <param name="condition"></param>
 		public bool ConditionallyRefreshData(bool condition)
 		{
-
 			var dataUpdated = false;
 			if (condition) 
 			{
 				this.appDelegate.CheckPointData.RefreshData ();
 				notify ("done", "data refreshed", ToastNotificationType.Info, 1);
-				this.RespondToModelChanges ();
 				dataUpdated=true;
+				this.RespondToModelChanges ();
 			}
 			if(this.IsViewLoaded)
 				while (appDelegate.LaunchActions.Any ())
@@ -209,15 +218,17 @@ namespace ClockKing
 			notify ("done", "table reloaded", ToastNotificationType.Info, 1);
 			this.Notifier.EnsureNotifications (this.CheckPointData);
 			ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
+			if (currentDetailDialog != null)
+				currentDetailDialog.RespondToChanges ();
 		}
 		private void reloadTableView()
 		{
 			if (this.IsViewLoaded)
 				this.TableView.ReloadData ();
 		}
+		#endregion
 
-
-
+		#region pop/peek
 
 		public override void TraitCollectionDidChange (UITraitCollection previousTraitCollection)
 		{
@@ -234,7 +245,7 @@ namespace ClockKing
 		public  void CommitViewController (IUIViewControllerPreviewing previewingContext, UIViewController viewControllerToCommit)
 		{
 			
-			this.Detail.ShowDetailDialog (viewControllerToCommit);
+			this.Detail.ShowDetailDialog (viewControllerToCommit as CheckPointDetailDialog);
 		}
 
 		public  UIViewController GetViewControllerForPreview (IUIViewControllerPreviewing previewingContext, CoreGraphics.CGPoint location)
@@ -251,5 +262,16 @@ namespace ClockKing
 
 			return previewer;
 		}
+		#endregion
+
+		#region tracing aids
+		public void notify(string title, string message,
+			ToastNotificationType Type = ToastNotificationType.Success,
+			int seconds=1)
+		{
+			if(this.appDelegate.Options.TracingEnabled)
+				iiToastNotifier.Notify (Type, title, message, TimeSpan.FromSeconds (seconds), null, false);
+		}
+		#endregion
 	}
 }

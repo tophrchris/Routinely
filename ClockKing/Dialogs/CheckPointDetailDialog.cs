@@ -17,6 +17,7 @@ namespace ClockKing
 		private List<UIPreviewAction> actions { get; set;}
 		private CheckPointController Controller{ get; set;}
 		private CheckPoint toDetail { get; set;}
+		public DialogViewController moreDialog { get; set;}
 
 		public CheckPointDetailDialog(UIViewController Parent,CheckPoint toDetail,RootElement root):base(root)
 		{
@@ -24,42 +25,6 @@ namespace ClockKing
 			this.Controller = parent;
 			this.toDetail = toDetail;
 			this.Render ();
-
-		}
-
-		public void RespondToChanges(bool condition=false)
-		{
-			this.Render();
-			this.Controller.ConditionallyRefreshData (condition);
-			CreateOptions (this,toDetail);
-		}
-
-		protected void Render()
-		{
-			var sections = GetDetailSections (toDetail, Controller,this);
-
-			if (!Root.Any ())
-				Root.Add (sections);
-			else
-			{
-				var headers = sections.Select (s => s.Header);
-				var toRemove = Root.Where (s => headers.Contains (s.Header));
-				toRemove.ToList ().ForEach (r => Root.Remove (r,UITableViewRowAnimation.Right));
-				Root.Insert (Root.Count (), UITableViewRowAnimation.Left, sections);
-			}
-
-
-			var executor = new Action<Command>((ub)=>
-				{
-					if(ub.ExecuteFor(this.Controller,toDetail))
-					{
-						if(ub.ChangesCheckpoint)
-							Controller.ResaveCheckpoints();
-						RespondToChanges(false);
-					}
-				});
-
-			this.actions = this.Controller.Commands.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
 
 		}
 
@@ -78,10 +43,34 @@ namespace ClockKing
 		}
 
 
+		public void RespondToChanges(bool condition=false)
+		{
+			this.Render();
+			this.Controller.ConditionallyRefreshData (condition);
+			CreateOptions (this,toDetail);
+		}
+
+		public void Render()
+		{
+			var sections = GetDetailSections ();
+
+			if (!Root.Any ())
+				Root.Add (sections);
+			else
+			{
+				var headers = sections.Select (s => s.Header);
+				var toRemove = Root.Where (s => headers.Contains (s.Header));
+				toRemove.ToList ().ForEach (r => Root.Remove (r,UITableViewRowAnimation.Right));
+				Root.Insert (Root.Count (), UITableViewRowAnimation.Left, sections);
+			}
+			AttachPreviewActions ();
+			if (this.moreDialog != null)
+				this.moreDialog.ReloadData ();
+		
+		}
+
 		public void CreateOptions(UIViewController dialog,CheckPoint Data)
 		{
-			var acs = UIAlertController.Create (string.Format("options for {0}",Data.Name), "stuff to do", UIAlertControllerStyle.ActionSheet);
-
 			var handler = new Action<Command> ((c) => 
 				{
 					if(c.ExecuteFor(this.Controller,Data))
@@ -91,21 +80,13 @@ namespace ClockKing
 						RespondToChanges(false);
 					}
 				});
-
-			acs.AddAction (new InPlaceEditCheckPointCommand (this).AsAlertAction (handler));
-
-			this.Controller.Commands.GetAlertActionsForCheckpoint(Data,handler)
-				.Where(a=>a.Title!="Edit Goal")
+			
+			var acs = UIAlertController.Create (string.Format("options for {0}",Data.Name), "stuff to do", UIAlertControllerStyle.ActionSheet);
+					
+			this.Controller.Commands.GetAlertActionsForCheckpoint(Data,handler,this)
+				.Where(a=>a.Title!="Edit Goal")//TODO:i hate this
 				.ToList()
 				.ForEach(cmd=>acs.AddAction (cmd));
-
-			acs.AddAction(UIAlertAction.Create("Add Alternative Target",UIAlertActionStyle.Default,
-				(a)=>
-				{
-					var n = Data.AddScheduledtarget(null,new List<DayOfWeek>(){DateTime.Today.DayOfWeek});
-					var d = new ScheduledTargetDialog(new RootElement("Scheduled Target"),n,Data,this.Controller,this);
-					this.NavigationController.PushViewController(d,true);
-				}));
 
 			acs.AddAction(UIAlertAction.Create("Nevermind!",UIAlertActionStyle.Cancel,null));
 
@@ -116,109 +97,38 @@ namespace ClockKing
 		}
 
 
-		public static Section[] GetDetailSections(CheckPoint checkpoint,CheckPointController Controller,CheckPointDetailDialog dialog=null)
+		public Section[] GetDetailSections()
 		{
-			var distinctTimes = checkpoint.Occurrences.Select (o => o.Time).Distinct();
-
 			var sectionsToReturn = new List<Section> ();
 
-			var tableCell = new CheckPointElement (checkpoint,Controller);
+			sectionsToReturn.Add (new CheckPointCellSection (Controller,toDetail));
+			sectionsToReturn.Add (new CheckPointStatsSection (toDetail,()=>this.ReloadData()));
 
-			var cellHolder = new Section ("Goal:"){ tableCell };
- 		
-			var Stats = new Section ("Stats:");
-			Stats.Add (new StringElement ("Enabled?", checkpoint.Enabled?"Yes":"No"));
-
-			Action reloader = () => UIView.Animate(.01d,()=>dialog.ReloadData());
-
-			var createdElement = new ToggledStringElement ("Created");
-			createdElement.PrimaryGenerator = () => checkpoint.CreatedOn.Humanize ();
-			createdElement.SecondaryGenerator = () => checkpoint.CreatedOn.ToString ("G");
-			createdElement.Tapped += reloader;
-			createdElement.Toggle ();
-			Stats.Add (createdElement);
-
-			var nextElement = new ToggledStringElement ("Next");
-			nextElement.PrimaryGenerator = () => checkpoint.UntilNextTargetTime.Humanize (2);
-			nextElement.SecondaryGenerator = () => checkpoint.UntilNextTargetTime.ToAMPMString();
-			nextElement.Tapped += reloader;
-			nextElement.Toggle ();
-			Stats.Add (nextElement);
-
-			sectionsToReturn.Add (cellHolder);
-			sectionsToReturn.Add (Stats);
-
-			if (checkpoint.ScheduledTargets.Any ()) 
-			{
-				Stats.Add (new StringElement ("Target", (DateTime.Today+ checkpoint.TargetTime).ToString ("t")));
-				var alts = new Section ("Alternative Targets");
-
-				foreach (var at in checkpoint.ScheduledTargets) 
-				{
-					var maxDayLength = (at.ApplicableDays.Count () > 3) ? 3 : 10;	
-					var se = new StringElement( string.Join(", ",
-						at.ApplicableDays.Select(t=>t.ToString().Truncate(maxDayLength,"")).ToArray()),
-						at.TargetTime.HasValue?
-						(DateTime.Today+ at.TargetTime.Value).ToString("t"):"Inactive");
-					se.Tapped += () => 
-					{
-						var root = new RootElement("Scheduled Target");
-						var d = new ScheduledTargetDialog(root,at,checkpoint,Controller,dialog);
-						dialog.NavigationController.PushViewController(d,true);	
-					};
-					alts.Add (se);
-				}
-				sectionsToReturn.Add (alts);
-			}
+			if (toDetail.ScheduledTargets.Any ())
+				sectionsToReturn.Add (new AlternativeTargetsSection (toDetail, Controller, this));
 				
-			if (checkpoint.Occurrences.Any ()) 
-			{
-			
-				var earliest = new ToggledStringElement ("Earliest");
-				earliest.PrimaryGenerator = () => checkpoint.Earliest.Time.ToAMPMString ();
-				earliest.SecondaryGenerator = () => checkpoint.Earliest.TimeStamp.ToString ("G");
-
-				var latest = new ToggledStringElement ("Latest");
-				latest.PrimaryGenerator = () => checkpoint.Latest.Time.ToAMPMString ();
-				latest.SecondaryGenerator = () => checkpoint.Latest.TimeStamp.ToString ("G");
-
-				var mostRecent = new ToggledStringElement ("Since Most Recent");
-				mostRecent.PrimaryGenerator = () => checkpoint.SinceLastOccurrence.Humanize (1)+" ago";
-				mostRecent.SecondaryGenerator = () => checkpoint.MostRecentOccurrenceTimeStamp().ToString("G");
-
-				foreach (var el in new[]{earliest,latest,mostRecent})
-				{
-					el.Tapped += reloader;
-					el.Toggle ();
-					Stats.Add (el);
-				}
-
-				var detailsSection = new Section("Occurrence History:");
-
-				var occurenceElements = 
-					checkpoint
-					.Occurrences
-					.OrderByDescending (o => o.TimeStamp)
-						.Select (o => new StringElement (o.Date.ToString ("d"),
-							()=>{
-								var c = SharedDialogs.ConfirmationDialog(
-									(a)=>
-									{
-										checkpoint.RemoveOccurrence(o);
-										Controller.RewriteOccurrences();
-										dialog.Render();
-									},Message:"Deleting this occurrence will affect averages and streaks.");
-								dialog.PresentModalViewController(c,true);
-							})
-						{
-								Value=	o.TimeStamp.ToString ("t")
-						});
-				detailsSection.AddAll (occurenceElements);
-
-				sectionsToReturn.Add (detailsSection);
-			}
+			if (toDetail.Occurrences.Any ()) 
+				sectionsToReturn.Add (new OccurrencesSection(toDetail,Controller,this));
 
 			return sectionsToReturn.ToArray ();
+		}
+
+
+		#region preview actions
+		protected void AttachPreviewActions()
+		{
+			var executor = new Action<Command>((ub)=>
+				{
+					if(ub.ExecuteFor(this.Controller,toDetail))
+					{
+						if(ub.ChangesCheckpoint)
+							Controller.ResaveCheckpoints();
+						RespondToChanges(false);
+					}
+				});
+
+			this.actions = this.Controller.Commands.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
+
 		}
 
 		public override IUIPreviewActionItem[] PreviewActionItems 
@@ -227,6 +137,7 @@ namespace ClockKing
 				return this.actions.ToArray();
 			}
 		}
+		#endregion
 	}
 }
 

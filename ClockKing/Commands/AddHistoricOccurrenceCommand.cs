@@ -2,6 +2,7 @@
 using ClockKing.Core;
 using UIKit;
 using System.Linq;
+using Humanizer;
 
 namespace ClockKing
 {
@@ -34,7 +35,7 @@ namespace ClockKing
 
 			var choices = new[]{ 15, 30, 60, 90 }.Select (i =>
 				UIAlertAction.Create (
-					string.Format ("{0} mins ago- {1}", i, DateTime.Now.AddMinutes(i*-1).ToString("t") ),
+					string.Format ("{0} ago- {1}", i.Minutes().Humanize(2)  , DateTime.Now.AddMinutes(i*-1).ToString("t") ),
 					UIAlertActionStyle.Default,
 					a=>adder(i*-1)
 				));

@@ -29,8 +29,15 @@ namespace ClockKing
 		public virtual bool ShouldDecorate(CheckPoint toDecorate)
 		{
 			return true;
+		
 		}
-			
+
+		/// <summary>
+		/// Executes for.
+		/// </summary>
+		/// <returns><c>true</c>, if execution requires refresh, <c>false</c> otherwise.</returns>
+		/// <param name="controller">Controller.</param>
+		/// <param name="checkPoint">Check point.</param>
 		public virtual bool ExecuteFor(CheckPointController controller, CheckPoint checkPoint)
 		{
 			Alert (string.Format ("Checkpoint:{0}", checkPoint.Name), this.Name);
@@ -41,6 +48,12 @@ namespace ClockKing
 		{
 			new UIAlertView (title, message,null, "OK", null).Show ();
 		}	
+	}
+
+	public interface IDialogBoundCommand
+	{
+		MonoTouch.Dialog.DialogViewController ExistingDialog{get;set;}
+
 	}
 
 	public abstract class EnabledCheckpointCommand:Command

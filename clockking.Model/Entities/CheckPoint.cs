@@ -71,11 +71,7 @@ namespace ClockKing.Core
         {
             get
             {
-                var today = DateTime.Now.DayOfWeek;
-                var relevantScheduledTarget = this.scheduledTargets
-                    .FirstOrDefault(t => t.ApplicableDays.Contains(today));
-                
-                return relevantScheduledTarget?.TargetTime ?? this.TargetTime;
+                return   TargetTimeForDay(DateTime.Now.DayOfWeek);
             }
         }
 
@@ -83,14 +79,18 @@ namespace ClockKing.Core
         {
             get
             {
-                var today = DateTime.Now.DayOfWeek;
-                var relevantAlternatives = this.scheduledTargets.Where(t => t.ApplicableDays.Contains(today));
-                if (relevantAlternatives.Any(t => !t.TargetTime.HasValue))
-                    return false;
-                
-                return true;    
+                return ActiveForDay(DateTime.Today.DayOfWeek);
             }
 
+        }
+
+        public bool ActiveForDay(DayOfWeek day)
+        {
+            var relevantAlternatives = this.scheduledTargets.Where(t => t.ApplicableDays.Contains(day));
+            if (relevantAlternatives.Any(t => !t.TargetTime.HasValue))
+                return false;
+            
+            return true;
         }
             
         public DateTime CreatedOn 
@@ -120,6 +120,7 @@ namespace ClockKing.Core
 				return TimeSpan.FromMinutes (avgminutes);
 			}
 		}
+            
 
 		public DateTime MostRecentOccurrenceTimeStamp()
         {
@@ -154,6 +155,22 @@ namespace ClockKing.Core
 				return next - now;
 			}
 		}
+
+        public TimeSpan TargetTimeForDay(DayOfWeek day)
+        {
+            if (scheduledTargets.Any())
+            {
+                var f= this.scheduledTargets
+                    .FirstOrDefault(t => t.ApplicableDays.Contains(day));
+
+                return f?.TargetTime ?? this.TargetTime;
+                
+            }
+            else
+                return TargetTime;
+              
+
+        }
 
 		public DateTime TargetTimeToday
 		{

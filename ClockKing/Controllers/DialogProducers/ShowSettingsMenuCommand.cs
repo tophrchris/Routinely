@@ -33,8 +33,21 @@ namespace ClockKing.Commands
 						(app.Options.GroupingChoice==GroupingChoices.ByStatus)?
 								GroupingChoices.ByTimeOfDay:
 								GroupingChoices.ByStatus;
-					app.RequiresDataRefresh=true;
-					app.Controller.ConditionallyRefreshData();
+					
+					app.Controller.ConditionallyRefreshData(true);
+				}
+			));
+
+			acs.AddAction (UIAlertAction.Create ("Toggle Tracing", UIAlertActionStyle.Default,
+				(a) => {
+					var app = UIApplication.SharedApplication.Delegate as AppDelegate;
+					if(app.Options.TracingEnabled)
+						controller.notify("Disabling notifications","re-enable using the toggle",iiToastNotification.Unified.ToastNotificationType.Error);
+					app.Options.TracingEnabled=!app.Options.TracingEnabled;
+					if(app.Options.TracingEnabled)
+						controller.notify("Enabling notifications","disable using the toggle",iiToastNotification.Unified.ToastNotificationType.Error);
+					
+
 				}
 			));
 

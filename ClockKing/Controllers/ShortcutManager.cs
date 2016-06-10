@@ -23,7 +23,6 @@ namespace ClockKing
 				(targetCheckPoint)=>{
 
 					var uinfo = new NSDictionary<NSString, NSObject>(new NSString("cp"),new NSString(targetCheckPoint.Name));
-					//var humanized = targetCheckPoint.TargetTimeToday.ToUniversalTime().Humanize();
 
 					return  new UIMutableApplicationShortcutItem(AddOccurrence,
 						string.Format("{0} {1}",targetCheckPoint.Emoji, targetCheckPoint.Name))
@@ -42,7 +41,6 @@ namespace ClockKing
 				{
 					LocalizedSubtitle="Create a new daily goal",
 					Icon=UIApplicationShortcutIcon.FromType(UIApplicationShortcutIconType.Add)
-					
 				});
 
 			application.ShortcutItems =  items.ToArray() ;
@@ -66,9 +64,11 @@ namespace ClockKing
 				
 			};
 
-			handlers [shortcut.Type]();
-	
-			return true;
+			if (handlers.ContainsKey (shortcut.Type)) {
+				handlers [shortcut.Type] ();
+				return true;
+			}
+			return false;
 		}
 	}
 }

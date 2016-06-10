@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using SWTableViewCells;
 
-
 namespace ClockKing
 {
 	public class GroupedCheckPointDataSource:UITableViewSource
@@ -87,10 +86,8 @@ namespace ClockKing
 		{
 			get
 			{
-				var grouper = this.groupers [this.Controller.Options.GroupingChoice];
-				return grouper.GroupedCheckPoints;
+				return this.groupers [this.Controller.Options.GroupingChoice].GroupedCheckPoints;
 			}
 		}
 	}
 }
-

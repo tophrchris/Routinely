@@ -53,7 +53,6 @@ namespace ClockKing
 					pickerElement,
 					nowSwitch});
 
-
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>this.Save()),true);
 		}
 
@@ -61,9 +60,7 @@ namespace ClockKing
 		{
 			this.Controller.AddOccurrenceToCheckPoint (this.checkPoint,
 				this.picker.Date.ToDateTime ().ToLocalTime ());
-
-			this.Controller.ConditionallyRefreshData ();
-
+			
 			this.Controller.NavigationController.PopViewController (true);
 			return true;
 		}

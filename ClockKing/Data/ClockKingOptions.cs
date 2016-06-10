@@ -12,10 +12,11 @@ namespace ClockKing
 	{
 		public Themes Theme{ get; set; }
 		public GroupingChoices GroupingChoice { get; set; }
+		public bool TracingEnabled { get; set; }=false;
 	
 		public ClockKingOptions()
 		{
-			this.Theme = Themes.Foody;
+			this.Theme = Themes.TrackBeam;
 			this.GroupingChoice = GroupingChoices.ByStatus;
 		}
 

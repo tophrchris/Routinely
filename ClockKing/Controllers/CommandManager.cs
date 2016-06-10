@@ -5,6 +5,7 @@ using SWTableViewCells;
 using System.Collections.Generic;
 using ClockKing.Core;
 using System.Linq;
+using MonoTouch.Dialog;
 
 namespace ClockKing
 {
@@ -21,19 +22,26 @@ namespace ClockKing
 		private List<Command> CreateCommands(){
 			return new List<Command> () {
 				new EditCheckPointCommand(),
+				new InPlaceEditCheckPointCommand(),
 				new EnableCheckPointCommand(),
 				new DisableCheckPointCommand(),
 				new AddOccurrenceCommand(),
 				new AddHistoricOccurrenceCommand(),
-				new DeleteCheckPointCommand()
+				new DeleteCheckPointCommand(),
+				new AddScheduledTargetCommand()
 			};
 		}
 
 
-		public IEnumerable<UIAlertAction> GetAlertActionsForCheckpoint(CheckPoint selected,Action<Command> handler)
+		public IEnumerable<UIAlertAction> GetAlertActionsForCheckpoint(CheckPoint selected,Action<Command> handler,UIViewController dialog=null)
 		{
 			return this.Commands.Values
 				.Where (c => c.ShouldDecorate (selected))
+				.Select(c=>{
+					if(c is IDialogBoundCommand  && dialog!=null)
+						((IDialogBoundCommand)c).ExistingDialog=(DialogViewController)dialog;
+					return c;
+				})
 				.Select (c => c.AsAlertAction (handler));
 		}
 
@@ -42,6 +50,7 @@ namespace ClockKing
 		{
 			return this.Commands.Values
 				.Where (u => u.ShouldDecorate (toView))
+				.Where(u=> (u as IDialogBoundCommand)==null)
 				.Select (u => u.AsPreviewAction (handler));
 		}
 
@@ -50,6 +59,7 @@ namespace ClockKing
 			var cmdsForThisCell = this.CreateCommands ();
 			var grouped = cmdsForThisCell
 				.Where (u => u.ShouldDecorate (cell.CheckPoint))
+				.Where(u=>(u as IDialogBoundCommand)==null)
 				.GroupBy (u => u.Category, c => c.AsButton ());
 	
 			foreach(var g in grouped)

@@ -154,7 +154,6 @@ namespace ClockKing
 				nn.FireDate = DateTime.Now.AddMinutes (mins).ToUniversalTime ().ToNSDate ();
 				nn.RepeatInterval = 0;
 				application.ScheduleLocalNotification (nn);
-
 			} else {
 				var occ = found.CreateOccurrence (DateTime.Now.AddMinutes (mins));
 				data.SaveOccurrence (occ);

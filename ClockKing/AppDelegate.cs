@@ -24,6 +24,7 @@ namespace ClockKing
 		}
 			
 		public bool RequiresDataRefresh { get; set; }
+		private bool JustLaunched { get; set; }=false;
 		public ClockKingOptions Options { get; set; }
 		public DataModel CheckPointData { get; set; }
 		public CheckPointController Controller{ get; set; }
@@ -35,37 +36,33 @@ namespace ClockKing
 		public static ICheckPointDataProvider DefaultDataProvider
 		{
 			get{
-				var com = new CompositeCheckPointDataProvider ();
-				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
+				//var com = new CompositeCheckPointDataProvider ();
+				//com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
 				//com.AddProvider (new CSVDataProvider (new PathProvider(".csv")));
-				return com;
+				return new JSONDataProvider (new PathProvider(".json"));
 			}
-
 		}
 
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			this.Options = new ClockKingOptions ();
-			this.Options.Theme = Themes.Foody;
-			this.Options.ApplyTheme();
-		
 			this.Commands = new CommandManager ();
 			this.Notifications = new NotificationManager ();
-
 			this.CheckPointData = new DataModel (DefaultDataProvider);
-
-
-			//this.CheckPointData.checkPoints ["Testing"].AddAlternativeTarget (null, new List<DayOfWeek> (){ DayOfWeek.Monday });
-
-			this.Notifications.EnsureSettings (application);
 			this.LaunchActions = new Queue<Action<CheckPointController>> ();
 
 
+			this.Options.Theme = Themes.TrackBeam;
+			this.Options.ApplyTheme();
+		
+			this.JustLaunched = true;
+
+			this.Notifications.EnsureSettings (application);
 
 			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
+		
 			application.SetMinimumBackgroundFetchInterval (UIApplication.BackgroundFetchIntervalMinimum);
-	
 
 			var PerformAdditionalHandling = true;
 			if (launchOptions != null) 
@@ -76,20 +73,6 @@ namespace ClockKing
 
 			return PerformAdditionalHandling;
 		}
-			
-
-		public override void PerformFetch (UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
-		{
-			
-			ShortcutManager.CreateShortcutItems (application,new DataModel(DefaultDataProvider));
-			completionHandler (UIBackgroundFetchResult.NewData);
-		}
-
-		public override void PerformActionForShortcutItem (UIApplication application, UIApplicationShortcutItem shortcutItem, UIOperationHandler completionHandler)
-		{
-			completionHandler (ShortcutManager.HandleShortcut (application, shortcutItem));
-		}
-
 
 		public override void OnResignActivation (UIApplication application)
 		{
@@ -111,36 +94,53 @@ namespace ClockKing
 			// Here you can undo many of the changes made on entering the background.
 		}
 
+		public override void WillTerminate (UIApplication application)
+		{
+			//			not sure if i want to do this??
+			//			if (this.Controller != null) {
+			//				Controller.ResaveCheckpoints ();
+			//				Controller.RewriteOccurrences ();
+			//			}
+		}
+
+		public override void PerformFetch (UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+		{
+
+			ShortcutManager.CreateShortcutItems (application,new DataModel(DefaultDataProvider));
+			completionHandler (UIBackgroundFetchResult.NewData);
+		}
+
+		//for when the application becomes active(?)
 		public override void OnActivated (UIApplication application)
 		{
 			//this isn't right- we're constantly loading data twice? at least diskIO is cheap.  
-			//TODO: fix later?
-			if (this.Controller!=null) 
+			//TODO: try to differentiate between launch then activate, vs. standalone activate
+			if (this.Controller!=null & !JustLaunched) 
 				this.Controller.ConditionallyRefreshData (true);
+
+			this.JustLaunched = false;
 
 			if (LastShortcutItem != null) 
 			{
 				ShortcutManager.HandleShortcut (application, LastShortcutItem);
 				LastShortcutItem = null;
 			}
-
-			// Restart any tasks that were paused (or not yet started) while the application was inactive. 
-			// If the application was previously in the background, optionally refresh the user interface.
 		}
 
-		public override void WillTerminate (UIApplication application)
+
+		//for when a user chooses a quick launch shortcut
+		public override void PerformActionForShortcutItem (UIApplication application, UIApplicationShortcutItem shortcutItem, UIOperationHandler completionHandler)
 		{
-			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
+			completionHandler (ShortcutManager.HandleShortcut (application, shortcutItem));
 		}
 
-
-		/// TODO: move this implementation *somewhere*;  either commands or controller?
+		//for when notifications go off while the user is in the app
 		public override void ReceivedLocalNotification (UIApplication application, UILocalNotification notification)
 		{
 			NotificationManager.HandleLocalNotification (application,notification);
 		}
 			
-		/// TODO: move this implementation *somewhere*;  either commands or controller?
+		//for when the user responds to banner notifications by selecting an action, while using a different app
 		public override void HandleAction (UIApplication application, string actionIdentifier, UILocalNotification localNotification, System.Action completionHandler)
 		{
 			var dataChanged = NotificationManager.HandleNotificationAction (application, localNotification, actionIdentifier);
@@ -151,5 +151,3 @@ namespace ClockKing
 		}
 	}
 }
-
-

@@ -177,13 +177,11 @@
     <Compile Include="Data\ClockKingOptions.cs" />
     <Compile Include="Controllers\ShortcutManager.cs" />
     <Compile Include="Data\GroupCheckPointsByTimeOfDay.cs" />
-    <Compile Include="Controllers\ShowSettingsMenuCommand.cs" />
     <Compile Include="Dialogs\CheckPointEditingDialog.cs" />
     <Compile Include="Commands\EditCheckPointCommand.cs" />
     <Compile Include="TableCells\CheckPointTableCell.cs" />
     <Compile Include="TableCells\CompletedTableCell.cs" />
     <Compile Include="Dialogs\CheckPointDetailDialog.cs" />
-    <Compile Include="Controllers\AddCheckPointMenuCommand.cs" />
     <Compile Include="Data\PathProvider.cs" />
     <Compile Include="Controllers\CheckPointCommandDelegate.cs" />
     <Compile Include="Dialogs\CheckPointElement.cs" />
@@ -192,6 +190,13 @@
     <Compile Include="Dialogs\ToggledStringElement.cs" />
     <Compile Include="Commands\DisableCheckPointCommand.cs" />
     <Compile Include="Commands\EnableCheckPointCommand.cs" />
+    <Compile Include="Commands\AddScheduledTargetCommand.cs" />
+    <Compile Include="Dialogs\Sections\AlternativeTargetsSection.cs" />
+    <Compile Include="Dialogs\Sections\CheckPointCellSection.cs" />
+    <Compile Include="Dialogs\Sections\CheckPointStatsSection.cs" />
+    <Compile Include="Dialogs\Sections\OccurrencesSection.cs" />
+    <Compile Include="Controllers\DialogProducers\AddCheckPointMenuCommand.cs" />
+    <Compile Include="Controllers\DialogProducers\ShowSettingsMenuCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -206,6 +211,8 @@
     <Folder Include="Controllers\" />
     <Folder Include="Data\" />
     <Folder Include="TableCells\" />
+    <Folder Include="Dialogs\Sections\" />
+    <Folder Include="Controllers\DialogProducers\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="swtableviewcell">

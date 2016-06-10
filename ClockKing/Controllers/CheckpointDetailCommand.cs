@@ -19,7 +19,7 @@ namespace ClockKing
 			this.Controller = controller;
 		}
 
-		public UIViewController GetDetailDialog(CheckPoint Data)
+		public CheckPointDetailDialog GetDetailDialog(CheckPoint Data)
 		{
 			var checkpoint = Data;
 
@@ -28,17 +28,18 @@ namespace ClockKing
 			return new CheckPointDetailDialog (this.Controller,Data, new RootElement("Goal"));
 		}
 
-		public void ShowDetailDialog(CheckPoint Data)
+		public CheckPointDetailDialog ShowDetailDialog(CheckPoint Data)
 		{
-			ShowDetailDialog (GetDetailDialog (Data), Data);
+			return ShowDetailDialog (GetDetailDialog (Data), Data);
 		}
 
-		public void ShowDetailDialog(UIViewController dialog,CheckPoint Data=null)
+		public CheckPointDetailDialog ShowDetailDialog(CheckPointDetailDialog dialog,CheckPoint Data=null)
 		{
 			if (Data == null)
 				Data = LastCheckpointDetailed;
 			
 			this.Controller.NavigationController.PushViewController (dialog,true);
+			return dialog;
 
 		}
 	}

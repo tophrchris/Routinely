@@ -17,10 +17,8 @@ namespace ClockKing
 
 			var okCancelAlertController = SharedDialogs.ConfirmationDialog(
 				(alert)=>
-				{
-					if(controller.RemoveCheckpoint(checkPoint))
-						controller.ResetNavigation();
-				},
+				controller.RemoveCheckpoint(checkPoint)
+				,
 				"Please confirm:",
 				string.Format("Are you sure you would like to delete the checkpoint, {0}?",checkPoint.Name),
 				"yes, delete!",
@@ -29,7 +27,7 @@ namespace ClockKing
 					
 			controller.PresentModalViewController(okCancelAlertController, true);
 
-			return false;//always return false because the deletion callback will take care of reloading
+			return false;
 		}
 	}
 }

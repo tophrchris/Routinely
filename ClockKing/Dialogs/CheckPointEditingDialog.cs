@@ -26,6 +26,8 @@ namespace ClockKing
 		private BooleanElement nowSwitch{ get; set; }
 		private List<string> emojiNames { get; set; }
 		private BooleanElement SuggestEmoji{ get; set; }
+		private BooleanElement enabledSwitch{ get; set; }
+		private TimeElement targetTimeElement{ get; set; }
 		private bool SuggestAbbreviations = true;
 
 		public CheckPointEditingDialog (CheckPointController controller, RootElement root, bool pushing) : base (root, pushing)
@@ -67,7 +69,8 @@ namespace ClockKing
 
 			this.Root.Add(checkPointForm);
 					
-			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>this.Save()),true);
+			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,
+				(s,e)=>this.Save()),true);
 		}
 
 		public void RenderForCheckPoint(ClockKing.Core.CheckPoint toEdit)
@@ -80,8 +83,8 @@ namespace ClockKing
 			section.Remove (4);
 			section.Remove (this.nowElement.IndexPath.Row);
 			section.Remove (this.nowSwitch.IndexPath.Row);
-			var targetTimeElement = new TimeElement ("Target time", toEdit.TargetTimeToday);
-			var enabledSwitch = new BooleanElement ("Enabled?", toEdit.Enabled);
+			this.targetTimeElement = new TimeElement ("Target time", toEdit.TargetTimeToday);
+			this.enabledSwitch = new BooleanElement ("Enabled?", toEdit.Enabled);
 			section.AddAll(new Element[]{targetTimeElement, enabledSwitch});
 
 			if (knownEmoji.Contains (toEdit.Emoji))
@@ -92,33 +95,16 @@ namespace ClockKing
 
 			Task.Factory.StartNew (() => {	
 				Task.Delay(TimeSpan.FromSeconds(1)).Wait();	
-				var detailSections = CheckPointDetailDialog.GetDetailSections (toEdit,Controller);
+				var detailSections = new Section[]
+				{
+					new CheckPointCellSection(this.Controller,toEdit),
+					new CheckPointStatsSection(toEdit,()=>this.ReloadData())
+				};
 				this.InvokeOnMainThread(()=>UIView.Animate(.25d,()=>this.Root.Add(detailSections)));
 			});
 
-			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>
-				{
-					var nameChanged = toEdit.Name!=this.nameElement.Value;
-
-					if(nameChanged && this.Controller.CheckPointExists(this.nameElement.Value))
-					{
-							ShowError ("A goal already exists with the new name you've chosen.  Please choose a different name!");
-							return;
-					}
-
-					toEdit.Emoji=this.emojiElement.Value;
-					toEdit.TargetTime=targetTimeElement.DateValue.ToLocalTime().TimeOfDay;
-					toEdit.Enabled= enabledSwitch.Value;
-					if(nameChanged)
-						toEdit.Name=this.nameElement.Value;
-
-					this.Controller.ResaveCheckpoints();
-
-					if(nameChanged)
-						this.Controller.RewriteOccurrences();
-					
-					this.Controller.ResetNavigation();
-				}),true);
+			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,
+				(s,e)=>this.Save(toEdit)),true);
 		}
 
 		public bool ShowError(string Message)
@@ -127,6 +113,31 @@ namespace ClockKing
 			acs.AddAction (UIAlertAction.Create ("Ok", UIAlertActionStyle.Default, null));
 			this.Controller.PresentViewController (acs, true, null);
 			return false;
+		}
+
+		public bool Save(CheckPoint toEdit)
+		{
+			var nameChanged = toEdit.Name!=this.nameElement.Value;
+
+			if(nameChanged && this.Controller.CheckPointExists(this.nameElement.Value))
+			{
+				ShowError ("A goal already exists with the new name you've chosen.  Please choose a different name!");
+				return false;
+			}
+
+			toEdit.Emoji=this.emojiElement.Value;
+			toEdit.TargetTime=targetTimeElement.DateValue.ToLocalTime().TimeOfDay;
+			toEdit.Enabled= enabledSwitch.Value;
+			if(nameChanged)
+				toEdit.Name=this.nameElement.Value;
+
+			this.Controller.ResaveCheckpoints();
+
+			if(nameChanged)
+				this.Controller.RewriteOccurrences();
+				
+			CancelDialog ();
+			return true;
 		}
 
 		public bool Save()
@@ -149,7 +160,7 @@ namespace ClockKing
 		}
 		public void CancelDialog(bool animated=true)
 		{
-			this.Controller.NavigationController.PopViewController (animated);
+			this.Controller.ResetNavigation ();
 		}
 
 		public void AutoSetEmoji()

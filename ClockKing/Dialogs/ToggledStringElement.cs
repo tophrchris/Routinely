@@ -13,7 +13,6 @@ namespace ClockKing
 		public ToggledStringElement (string caption):base(caption)
 		{
 			this.generator = GetNextLabel ().GetEnumerator ();
-
 			this.Tapped += () => this.Toggle();
 		}
 
@@ -23,7 +22,6 @@ namespace ClockKing
 			var next = this.generator.Current;
 			this.Value = next;
 		}
-
 
 		public Func<string> PrimaryGenerator { get; set;}
 		public Func<string> SecondaryGenerator {get;set;}
