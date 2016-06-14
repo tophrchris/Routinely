@@ -96,13 +96,12 @@ namespace ClockKing.Core
         public DateTime CreatedOn 
         {
             get{
-                //if (this.createdOn != DateTime.MinValue)
-                //    return this.createdOn;
                 
-                if (this.occurrences.Any())
-                    return this.occurrences.OrderBy(o => o.TimeStamp).First().TimeStamp;
-                else
-                    return DateTime.Now;
+                return this.createdOn;     
+//                if (this.occurrences.Any())
+//                    return this.occurrences.OrderBy(o => o.TimeStamp).First().TimeStamp;
+//                else
+//                    return DateTime.Now;
             }
             set{
                 this.createdOn = value;

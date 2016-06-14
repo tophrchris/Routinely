@@ -14,9 +14,9 @@ using ClockKing.Core;
 
 namespace ClockKing
 {
-	public class CheckPointEditingDialog:DialogViewController
+	public class CheckPointEditingDialog:DialogViewController,iNavigatableDialog
 	{
-		CheckPointController Controller{ get; set; }
+		iCheckpointCommandController CheckPoints{ get; set; }
 
 		private EntryElement nameElement { get; set; }
 		private TimeElement targetElement { get; set; }
@@ -30,9 +30,9 @@ namespace ClockKing
 		private TimeElement targetTimeElement{ get; set; }
 		private bool SuggestAbbreviations = true;
 
-		public CheckPointEditingDialog (CheckPointController controller, RootElement root, bool pushing) : base (root, pushing)
+		public CheckPointEditingDialog (iCheckpointCommandController checkpoints, RootElement root, bool pushing) : base (root, pushing)
 		{
-			this.Controller = controller;
+			this.CheckPoints = checkpoints;
 			this.Style = UITableViewStyle.Grouped;
 
 			this.emojiNames = Emoji.All.Where (kv => kv.Value.AppleHasImage).Select (kv => kv.Key.ToLower ()).ToList ();
@@ -73,6 +73,15 @@ namespace ClockKing
 				(s,e)=>this.Save()),true);
 		}
 
+		#region iNavigatableDialog implementation
+
+		public void ResetNavigation (bool refreshData=false)
+		{
+			((iNavigatableDialog)this.CheckPoints).ResetNavigation ();
+		}
+
+		#endregion
+
 		public void RenderForCheckPoint(ClockKing.Core.CheckPoint toEdit)
 		{
 			var knownEmoji = Emoji.All.Where (e => e.Value.AppleHasImage).Select (e => e.Value.Unified).ToList ();
@@ -97,7 +106,7 @@ namespace ClockKing
 				Task.Delay(TimeSpan.FromSeconds(1)).Wait();	
 				var detailSections = new Section[]
 				{
-					new CheckPointCellSection(this.Controller,toEdit),
+					new CheckPointCellSection(toEdit),
 					new CheckPointStatsSection(toEdit,()=>this.ReloadData())
 				};
 				this.InvokeOnMainThread(()=>UIView.Animate(.25d,()=>this.Root.Add(detailSections)));
@@ -109,9 +118,8 @@ namespace ClockKing
 
 		public bool ShowError(string Message)
 		{
-			var acs = UIAlertController.Create ("Goal",Message, UIAlertControllerStyle.Alert);
-			acs.AddAction (UIAlertAction.Create ("Ok", UIAlertActionStyle.Default, null));
-			this.Controller.PresentViewController (acs, true, null);
+			this.CheckPoints.PresentChoices("Goal",Message,new[]{new ModalChoice(){Label="Ok"}});
+
 			return false;
 		}
 
@@ -119,7 +127,7 @@ namespace ClockKing
 		{
 			var nameChanged = toEdit.Name!=this.nameElement.Value;
 
-			if(nameChanged && this.Controller.CheckPointExists(this.nameElement.Value))
+			if(nameChanged && this.CheckPoints.CheckPointExists(this.nameElement.Value))
 			{
 				ShowError ("A goal already exists with the new name you've chosen.  Please choose a different name!");
 				return false;
@@ -131,37 +139,34 @@ namespace ClockKing
 			if(nameChanged)
 				toEdit.Name=this.nameElement.Value;
 
-			this.Controller.ResaveCheckpoints();
+			this.CheckPoints.ResaveCheckpoints();
 
 			if(nameChanged)
-				this.Controller.RewriteOccurrences();
+				this.CheckPoints.RewriteOccurrences();
 				
-			CancelDialog ();
+			ResetNavigation ();
 			return true;
 		}
 
 		public bool Save()
 		{
-			if (this.Controller.CheckPointExists (nameElement.Value))
+			if (this.CheckPoints.CheckPointExists (nameElement.Value))
 				return ShowError ("A goal already exists with that name.  Please choose a different name!");	
 			
-			var newcp = this.Controller
+			var newcp = this.CheckPoints
 					.AddNewCheckPoint (
 						nameElement.Value,
 					picker.Date.ToDateTime().ToLocalTime().TimeOfDay,
 						emojiElement.Value);
 
 				if (nowElement.Value)
-					this.Controller.AddOccurrenceToCheckPoint(newcp,0);
+					this.CheckPoints.AddOccurrenceToCheckPoint(newcp,0);
 
-				CancelDialog ();
+				ResetNavigation ();
 
 			return true;
 		}
-		public void CancelDialog(bool animated=true)
-		{
-			this.Controller.ResetNavigation ();
-		}
+
 
 		public void AutoSetEmoji()
 		{

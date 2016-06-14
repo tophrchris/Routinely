@@ -6,9 +6,9 @@ namespace ClockKing
 {
 	public class CheckPointCellSection:Section
 	{
-		public CheckPointCellSection (CheckPointController controller, CheckPoint checkpoint)
+		public CheckPointCellSection (CheckPoint checkpoint)
 		{
-			var tableCell = new CheckPointElement (checkpoint,controller);
+			var tableCell = new CheckPointElement (checkpoint);
 			this.Caption = "Goal:";
 			this.Add (tableCell);
 		}

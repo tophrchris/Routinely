@@ -7,18 +7,18 @@ using Humanizer;
 
 namespace ClockKing
 {
-	public class AddHistoricInstanceDialog:DialogViewController
+	public class AddHistoricInstanceDialog:DialogViewController,iNavigatableDialog
 	{
-		public CheckPointController Controller;
+		public iCheckpointCommandController CheckPoints;
 		private CheckPoint checkPoint;
 
 		private UIDatePicker picker { get; set; }
 		private BooleanElement nowSwitch{ get; set; }
 
 
-		public AddHistoricInstanceDialog (CheckPointController controller, RootElement root, CheckPoint checkpoint, bool pushing) : base (root, pushing)
+		public AddHistoricInstanceDialog (iCheckpointCommandController checkPoints, RootElement root, CheckPoint checkpoint, bool pushing) : base (root, pushing)
 		{
-			this.Controller = controller;
+			this.CheckPoints = checkPoints;
 			this.checkPoint = checkpoint;
 
 			this.picker = new UIDatePicker (){ Mode = UIDatePickerMode.DateAndTime };
@@ -58,12 +58,22 @@ namespace ClockKing
 
 		public bool Save()
 		{
-			this.Controller.AddOccurrenceToCheckPoint (this.checkPoint,
+			//TODO: this needs to hook into the already addded logic in the command?
+			this.CheckPoints.AddOccurrenceToCheckPoint (this.checkPoint,
 				this.picker.Date.ToDateTime ().ToLocalTime ());
 			
-			this.Controller.NavigationController.PopViewController (true);
+			this.ResetNavigation ();
 			return true;
 		}
+
+		#region iNavigatableDialog implementation
+
+		public void ResetNavigation (bool refreshData=false)
+		{
+			((iNavigatableDialog)this.CheckPoints).ResetNavigation(refreshData);
+		}
+
+		#endregion
 	}
 }
 

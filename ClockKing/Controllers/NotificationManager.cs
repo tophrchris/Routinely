@@ -124,11 +124,12 @@ namespace ClockKing
 		{
 
 			var app = application.Delegate as AppDelegate;
+			var cpm = app.Controller.CheckPoints;
 
 			var opts = UIAlertController.Create(notification.AlertTitle,notification.AlertBody,UIAlertControllerStyle.ActionSheet);
 
 			opts.AddAction(UIAlertAction.Create("Done!",UIAlertActionStyle.Default,
-				(a)=>app.Controller.AddOccurrenceToCheckPoint(notification.AlertTitle,0)));
+				(a)=>cpm.AddOccurrenceToCheckPoint(notification.AlertTitle,0)));
 
 			opts.AddAction(UIAlertAction.Create("Snooze",UIAlertActionStyle.Default,
 				(a)=>{

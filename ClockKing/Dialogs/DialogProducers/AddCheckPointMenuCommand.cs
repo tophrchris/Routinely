@@ -12,12 +12,12 @@ namespace ClockKing.Commands
 {
 	public class AddCheckPointMenuCommand
 	{
-		protected CheckPointController Controller{ get; set; }
+		protected CheckPointManager CommandController{ get; set; }
 		protected UIBarButtonItem BarButton{ get; set; }
 
-		public AddCheckPointMenuCommand(CheckPointController controller)
+		public AddCheckPointMenuCommand(CheckPointManager controller)
 		{
-			this.Controller = controller;
+			this.CommandController = controller;
 			this.BarButton = new UIBarButtonItem ("+", UIBarButtonItemStyle.Bordered,(sender, args) => this.ShowDialog());
 		}
 
@@ -27,8 +27,8 @@ namespace ClockKing.Commands
 		{
 
 			var root = new RootElement ("Add...");
-			var mtd = new CheckPointEditingDialog (this.Controller, root,true);
-			this.Controller.NavigationController.PushViewController (mtd,true);
+			var mtd = new CheckPointEditingDialog (this.CommandController, root,true);
+			this.CommandController.NavigateToDialog (mtd);
 		}
 	}
 }

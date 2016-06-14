@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing.WatchKitApp", "Cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing.WatchKitExtension", "ClockKing.WatchKitExtension\ClockKing.WatchKitExtension.csproj", "{4D597DC8-C32B-4E4C-A101-F52D6A35EDB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Routinely", "Routinely\Routinely.csproj", "{6DE15B91-26EA-420D-9243-08C34274856B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Routinely.iOS", "iOS\Routinely.iOS.csproj", "{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -33,6 +37,18 @@ Global
 		{4D597DC8-C32B-4E4C-A101-F52D6A35EDB7}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{4D597DC8-C32B-4E4C-A101-F52D6A35EDB7}.Release|x86.ActiveCfg = Release|iPhone
 		{4D597DC8-C32B-4E4C-A101-F52D6A35EDB7}.Release|x86.Build.0 = Release|iPhone
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Debug|x86.Build.0 = Debug|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Release|iPhone.Build.0 = Release|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Release|x86.ActiveCfg = Release|Any CPU
+		{6DE15B91-26EA-420D-9243-08C34274856B}.Release|x86.Build.0 = Release|Any CPU
 		{70609317-4723-42E6-A793-251704C6BD28}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{70609317-4723-42E6-A793-251704C6BD28}.Debug|iPhone.Build.0 = Debug|iPhone
 		{70609317-4723-42E6-A793-251704C6BD28}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
@@ -81,5 +97,17 @@ Global
 		{C061F9E2-0C93-4AA3-9B4A-45DEBD7ED214}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{C061F9E2-0C93-4AA3-9B4A-45DEBD7ED214}.Release|x86.ActiveCfg = Release|iPhone
 		{C061F9E2-0C93-4AA3-9B4A-45DEBD7ED214}.Release|x86.Build.0 = Release|iPhone
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Debug|iPhone.Build.0 = Debug|iPhone
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Debug|x86.ActiveCfg = Debug|iPhoneSimulator
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Debug|x86.Build.0 = Debug|iPhoneSimulator
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Release|iPhone.ActiveCfg = Release|iPhone
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Release|iPhone.Build.0 = Release|iPhone
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Release|x86.ActiveCfg = Release|iPhone
+		{ED1E823C-EDFB-43A9-877E-FE7F9F958A5D}.Release|x86.Build.0 = Release|iPhone
 	EndGlobalSection
 EndGlobal

@@ -9,7 +9,7 @@ namespace ClockKing
 {
 	public class OccurrencesSection:Section
 	{
-		public OccurrencesSection (CheckPoint checkpoint,CheckPointController Controller,CheckPointDetailDialog dialog)
+		public OccurrencesSection (CheckPoint checkpoint,iCheckpointCommandController Controller,CheckPointDetailDialog dialog)
 		{
 
 			this.Caption= "Occurrence History:";

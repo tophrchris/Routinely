@@ -38,10 +38,6 @@ namespace ClockKing.Extensions
 			// We loose granularity below millisecond range but that is probably ok
 			return nsRef.AddSeconds(nsDate.SecondsSinceReferenceDate);
 		}
-
-		public static string ToAMPMString(this TimeSpan ts){
-			return (DateTime.Today.Date + ts).ToString ("t");
-		}
 	}
 }
 

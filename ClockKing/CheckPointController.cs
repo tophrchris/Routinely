@@ -18,16 +18,20 @@ namespace ClockKing
 	{
 		private AppDelegate appDelegate{ get; }
 		private ShowSettingsMenuCommand showNotifications{ get; }
-		private CheckpointDetailCommand Detail{ get;  }
 		private GroupedCheckPointDataSource Data{ get; }
-		public CheckpointCommandDelegate UtilityButtonHandler{ get; }
+		public CheckPointTableCellUtilityDelegate UtilityButtonHandler{ get; }
+		public CheckPointManager CheckPoints { get; }
+
+		public NotificationManager Notifier	{ get{return this.appDelegate.Notifications; }  }
+		public ClockKingOptions Options 	{ get{return this.appDelegate.Options; } }
+
+		//move some of this into checkpointmanager?
+		private DataModel CheckPointData	{ get{return this.appDelegate.CheckPointData; }}
+		public CommandManager Commands		{ get{return this.appDelegate.Commands; } }
 		public AddCheckPointMenuCommand AddCommand{ get; }
 		private CheckPointDetailDialog currentDetailDialog {get;set;}
+		private CheckpointDetailCommand Detail{ get;  }
 
-		private DataModel CheckPointData	{ get{return this.appDelegate.CheckPointData; }}
-		public NotificationManager Notifier	{ get{return this.appDelegate.Notifications; }  }
-		public CommandManager Commands		{ get{return this.appDelegate.Commands; } }
-		public ClockKingOptions Options 	{ get{return this.appDelegate.Options; } }
 
 		public CheckPointController (NSObjectFlag t):base(t){}
 
@@ -38,15 +42,18 @@ namespace ClockKing
 			this.appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
 			this.appDelegate.Controller = this;
 
-			this.UtilityButtonHandler = new CheckpointCommandDelegate (this);
-			this.AddCommand = new AddCheckPointMenuCommand (this);
+			this.UtilityButtonHandler = new CheckPointTableCellUtilityDelegate (this);
+			this.CheckPoints = new CheckPointManager (this);
+			this.CheckPoints.CheckPointDataChanged += this.RespondToChangeEvent;
+
+			this.AddCommand = new AddCheckPointMenuCommand (this.CheckPoints);
 			this.showNotifications = new ShowSettingsMenuCommand (this);
-			this.Detail = new CheckpointDetailCommand (this);
+			this.Detail = new CheckpointDetailCommand (this.CheckPoints);
 			this.Data = new GroupedCheckPointDataSource (this,CheckPointData);
 
 			this.ResetNavigation ();
 		}
-			
+
 		#region app lifecycle and maintenance
 		public override void ViewDidLoad ()
 		{
@@ -85,78 +92,29 @@ namespace ClockKing
 
 
 		#region model access
-		public bool CheckPointExists(string name)
+
+		public void RespondToChangeEvent(object sender, CheckPointDataChangedEventArgs args)
 		{
-			return this.CheckPointData.checkPoints.ContainsKey (name);
-		}
+			ToastNotificationType type;
 
+			switch (args.ActionOccurred) {
+			case ActionType.Deleted:
+				type = ToastNotificationType.Error;
+				break;
+			case ActionType.Written:
+				type = ToastNotificationType.Warning;
+				break;
+			default:
+				type = ToastNotificationType.Info;	
+				break;
+			}
+		
 
-		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji)
-		{
-			if (string.IsNullOrEmpty (emoji))
-				emoji = title.Substring (0, 2);
-
-			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji);
-			if (created != null) 
-			{
-				notify("Success", "New Goal Added");
+			notify (args.Result.ToString(), string.Format ("{0} {1}", args.Entity, args.ActionOccurred.ToString ()), type);
+			if (args.ConditionallyRefreshData)
+				this.ConditionallyRefreshData ();
+			if (args.RespondToModelChanges)
 				this.RespondToModelChanges ();
-			}
-			return created;
-		}
-
-		public Occurrence AddOccurrenceToCheckPoint(string checkPointName, int mins)
-		{
-			var found = this.CheckPointData.checkPoints [checkPointName];
-			return this.AddOccurrenceToCheckPoint (found, mins);
-		}
-
-		public Occurrence AddOccurrenceToCheckPoint(CheckPoint checkPoint,int mins)
-		{
-			return AddOccurrenceToCheckPoint(checkPoint, DateTime.Now.ToLocalTime ().AddMinutes (mins));
-		}
-
-		public Occurrence AddOccurrenceToCheckPoint(CheckPoint checkPoint,DateTime when)
-		{
-			var o = checkPoint.CreateOccurrence(when.ToLocalTime());
-			checkPoint.AddOccurrence (o);
-			this.CheckPointData.SaveOccurrence (o);
-			notify("Success", "Occurrence saved");
-			this.RespondToModelChanges ();
-			return o;
-		}
-			
-		public void RewriteOccurrences()
-		{
-			notify ("success", "occurrences rewritten", ToastNotificationType.Warning);
-			this.CheckPointData.SaveOccurrences ();
-			this.ConditionallyRefreshData ();
-		}
-
-		public bool ResaveCheckpoints()
-		{
-			var saved = this.CheckPointData.SaveCheckPoints ();
-			if (saved) 
-			{
-				notify("Success", "Goals saved",ToastNotificationType.Warning);
-				this.RespondToModelChanges();
-			}
-			return saved;
-		}
-			
-		public bool RemoveCheckpoint(CheckPoint toDelete)
-		{
-			var deleted =  this.CheckPointData.RemoveCheckPoint (toDelete);
-
-			if (deleted) { 
-				notify("Success", "Goal Removed");
-				this.ResetNavigation();
-				this.RespondToModelChanges ();
-			}
-			else
-				notify("failure", "Goal not removed?",ToastNotificationType.Error);
-			
-			return deleted;
 		}
 
 		#endregion

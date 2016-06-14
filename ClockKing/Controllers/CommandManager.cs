@@ -31,15 +31,14 @@ namespace ClockKing
 				new AddScheduledTargetCommand()
 			};
 		}
-
-
-		public IEnumerable<UIAlertAction> GetAlertActionsForCheckpoint(CheckPoint selected,Action<Command> handler,UIViewController dialog=null)
+			
+		public IEnumerable<UIAlertAction> GetAlertActionsForCheckpoint(CheckPoint selected,Action<Command> handler,iNavigatableDialog dialog=null)
 		{
 			return this.Commands.Values
 				.Where (c => c.ShouldDecorate (selected))
 				.Select(c=>{
 					if(c is IDialogBoundCommand  && dialog!=null)
-						((IDialogBoundCommand)c).ExistingDialog=(DialogViewController)dialog;
+						((IDialogBoundCommand)c).ExistingDialog=(iNavigatableDialog)dialog;
 					return c;
 				})
 				.Select (c => c.AsAlertAction (handler));
@@ -70,45 +69,6 @@ namespace ClockKing
 					cell.RightUtilityButtons = g.ToArray ();
 			}
 			return true;
-		}
-	}
-
-	public static class CommandExtensions
-	{
-		public static UIAlertAction AsAlertAction(this Command cmd, Action<Command> handler)
-		{
-
-			var title = string.IsNullOrEmpty(cmd.LongName) ? cmd.Name : cmd.LongName;
-
-			return UIAlertAction.Create(
-				title,
-				cmd.IsDestructive?UIAlertActionStyle.Destructive:UIAlertActionStyle.Default,
-				(a)=>handler(cmd));
-		}
-
-		public static UIPreviewAction AsPreviewAction(this Command cmd, Action<Command> handler,UIPreviewActionStyle style)
-		{
-			var title = string.IsNullOrEmpty(cmd.LongName) ? cmd.Name : cmd.LongName;
-
-			return UIPreviewAction.Create (title,style,(a,c)=>{handler(cmd);});
-		}
-
-		public static UIPreviewAction AsPreviewAction(this Command cmd,Action<Command> handler )
-		{
-			return cmd.AsPreviewAction (handler, 
-				(cmd.IsDestructive)?
-				UIPreviewActionStyle.Destructive:
-				UIPreviewActionStyle.Default);	
-		}
-		public static UIButton AsButton(this Command cmd)
-		{
-			var button = new UIButton (UIButtonType.Custom);
-			button.BackgroundColor = cmd.Color;
-			button.SetTitle (cmd.Name, UIControlState.Normal);
-			button.SetTitleColor (UIColor.White, UIControlState.Normal);
-			button.TitleLabel.AdjustsFontSizeToFitWidth = true;
-			return button;
-
 		}
 	}
 }

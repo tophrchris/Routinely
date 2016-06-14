@@ -162,41 +162,34 @@
     <Compile Include="CheckPointController.designer.cs">
       <DependentUpon>CheckPointController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Commands\CommandFramework.cs" />
     <Compile Include="Dialogs\AddHistoricInstanceDialog.cs" />
     <Compile Include="Dialogs\NotificationReviewDialog.cs" />
-    <Compile Include="Commands\AddOccurrenceCommand.cs" />
-    <Compile Include="Commands\AddHistoricOccurrenceCommand.cs" />
-    <Compile Include="Commands\DeleteCheckpointCommand.cs" />
     <Compile Include="Controllers\NotificationManager.cs" />
     <Compile Include="Controllers\CommandManager.cs" />
-    <Compile Include="Controllers\CheckpointDetailCommand.cs" />
-    <Compile Include="Data\Conversions.cs" />
-    <Compile Include="Data\GroupedCheckPointListDataSource.cs" />
-    <Compile Include="Data\GroupCheckPointsByStatus.cs" />
-    <Compile Include="Data\ClockKingOptions.cs" />
     <Compile Include="Controllers\ShortcutManager.cs" />
-    <Compile Include="Data\GroupCheckPointsByTimeOfDay.cs" />
     <Compile Include="Dialogs\CheckPointEditingDialog.cs" />
-    <Compile Include="Commands\EditCheckPointCommand.cs" />
-    <Compile Include="TableCells\CheckPointTableCell.cs" />
-    <Compile Include="TableCells\CompletedTableCell.cs" />
     <Compile Include="Dialogs\CheckPointDetailDialog.cs" />
-    <Compile Include="Data\PathProvider.cs" />
-    <Compile Include="Controllers\CheckPointCommandDelegate.cs" />
-    <Compile Include="Dialogs\CheckPointElement.cs" />
     <Compile Include="Dialogs\ScheduledTargetDialog.cs" />
-    <Compile Include="Dialogs\SharedDialogs.cs" />
-    <Compile Include="Dialogs\ToggledStringElement.cs" />
-    <Compile Include="Commands\DisableCheckPointCommand.cs" />
-    <Compile Include="Commands\EnableCheckPointCommand.cs" />
-    <Compile Include="Commands\AddScheduledTargetCommand.cs" />
     <Compile Include="Dialogs\Sections\AlternativeTargetsSection.cs" />
     <Compile Include="Dialogs\Sections\CheckPointCellSection.cs" />
     <Compile Include="Dialogs\Sections\CheckPointStatsSection.cs" />
     <Compile Include="Dialogs\Sections\OccurrencesSection.cs" />
-    <Compile Include="Controllers\DialogProducers\AddCheckPointMenuCommand.cs" />
-    <Compile Include="Controllers\DialogProducers\ShowSettingsMenuCommand.cs" />
+    <Compile Include="Controllers\CommandExtensions.cs" />
+    <Compile Include="Dialogs\ModalChoices.cs" />
+    <Compile Include="Controllers\CheckPointTableCellUtilityDelegate.cs" />
+    <Compile Include="Dialogs\Elements\CheckPointElement.cs" />
+    <Compile Include="Dialogs\Elements\ToggledStringElement.cs" />
+    <Compile Include="TableParts\CheckPointTableCell.cs" />
+    <Compile Include="TableParts\GroupCheckPointsByStatus.cs" />
+    <Compile Include="TableParts\GroupCheckPointsByTimeOfDay.cs" />
+    <Compile Include="TableParts\GroupedCheckPointListDataSource.cs" />
+    <Compile Include="Dialogs\DialogProducers\AddCheckPointMenuCommand.cs" />
+    <Compile Include="Dialogs\DialogProducers\CheckpointDetailCommand.cs" />
+    <Compile Include="Dialogs\DialogProducers\ShowSettingsMenuCommand.cs" />
+    <Compile Include="Utilities\Conversions.cs" />
+    <Compile Include="Utilities\ClockKingOptions.cs" />
+    <Compile Include="Utilities\PathProvider.cs" />
+    <Compile Include="Controllers\CheckPointManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -206,13 +199,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Dialogs\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Data\" />
-    <Folder Include="TableCells\" />
     <Folder Include="Dialogs\Sections\" />
-    <Folder Include="Controllers\DialogProducers\" />
+    <Folder Include="Dialogs\Elements\" />
+    <Folder Include="TableParts\" />
+    <Folder Include="Dialogs\DialogProducers\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="swtableviewcell">

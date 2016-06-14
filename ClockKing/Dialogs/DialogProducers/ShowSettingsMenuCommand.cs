@@ -19,6 +19,7 @@ namespace ClockKing.Commands
 		public ShowSettingsMenuCommand (CheckPointController controller)
 		{
 			this.Controller = controller;
+			var checkPoints = this.Controller.CheckPoints;
 
 			var acs = UIAlertController.Create ("Settings", "settings will live here... kinda?", UIAlertControllerStyle.ActionSheet);
 
@@ -55,7 +56,7 @@ namespace ClockKing.Commands
 				(a)=>this.Controller.ResetNotifications()));
 
 			acs.AddAction(UIAlertAction.Create("Trim occurrences",UIAlertActionStyle.Destructive,
-				(a)=>this.Controller.RewriteOccurrences()));
+				(a)=>checkPoints.RewriteOccurrences()));
 
 			acs.AddAction(UIAlertAction.Create("nevermind",UIAlertActionStyle.Cancel,null));
 

@@ -12,7 +12,6 @@ namespace ClockKing.ConsolePlayground
 	{
 		public static void Main (string[] args)
 		{
-			var paths = new PathProvider (".json");
 			var provider = new JSONDataProvider (new PathProvider (".json"));
 
 			var checkpoints = provider.ReadCheckPoints ().ToDictionary (kv => kv.Name, kv => kv);

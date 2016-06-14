@@ -29,7 +29,7 @@ namespace ClockKing
 		public bool ShowBarChartInLandscape{ get; set;}
 
 		public static readonly NSString Key = new NSString("cptc");
-		public static readonly nfloat Height = 80f;
+		public static readonly nfloat Height = 120f;
 
 		protected static float padding = 5f;
 		protected static float EmojiSize = 50f;
@@ -46,14 +46,14 @@ namespace ClockKing
 		public CheckPointTableCell(string key):base(UITableViewCellStyle.Default,key)	
 		{
 			CreateSubViews(this.TextLabel.Superview);
-			this.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+			//this.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 			this.Frame = new CGRect (new CGPoint (0, 0), new CGSize (UIApplication.SharedApplication.KeyWindow.Frame.Width, Height));
 			this.ShowBarChartInLandscape = false;
 		}
 
 		public CheckPointTableCell ():this(Key){ }
 
-		protected void CalculateSizes(float titleHeightAdjustment = 0f)
+		protected void CalculateSizes(float titleHeightAdjustment = 20f)
 		{
 			var windowFrame = UIApplication.SharedApplication.KeyWindow.Frame;
 			var titleWidth = windowFrame.Width - EmojiSize - AccessoryPadding;
@@ -62,7 +62,7 @@ namespace ClockKing
 			this.TitleRect = new CGRect (titleCorner, titleSize);
 
 			var subLayoutCorner = new CGPoint (titleCorner.X, titleSize.Height + padding);
-			var subLayoutSize = new CGSize (titleSize.Width, (Height+titleHeightAdjustment) - subLayoutCorner.Y);
+			var subLayoutSize = new CGSize (titleSize.Width, (Height+titleHeightAdjustment) - (subLayoutCorner.Y+50f));
 			this.DetailRect = new CGRect (subLayoutCorner,subLayoutSize);
 		}
 
@@ -73,7 +73,7 @@ namespace ClockKing
 
 			this.TitleLabel = new UILabel ();
 			this.ProgressLabel=new UILabel();
-			this.EmojiLabel = new UILabel (new CGRect(padding,padding,EmojiSize,EmojiSize));
+			this.EmojiLabel = new UILabel (new CGRect(padding*2f,padding*2f,EmojiSize,EmojiSize));
 
 			this.TitleLabel.BackgroundColor = UIColor.Clear;
 			this.TitleLabel.Font = UIFont.FromName ("AvenirNext-Regular", BaseFontSize);
@@ -119,7 +119,7 @@ namespace ClockKing
 
 			var targetStack = new UIStackView ();
 			targetStack.Axis = UILayoutConstraintAxis.Vertical;
-			targetStack.Alignment = UIStackViewAlignment.Center;
+			targetStack.Alignment = UIStackViewAlignment.Fill;
 			targetStack.Distribution = UIStackViewDistribution.Fill;
 			targetStack.AddArrangedSubview (new UILabel (){ Text = "Target",
 				Font=UIFont.FromName("AvenirNext-Regular",BaseFontSize*.6f) });

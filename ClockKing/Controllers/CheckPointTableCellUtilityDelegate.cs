@@ -9,11 +9,11 @@ using System.Linq;
 namespace ClockKing
 {
 
-	public class CheckpointCommandDelegate : SWTableViewCellDelegate
+	public class CheckPointTableCellUtilityDelegate : SWTableViewCellDelegate
 	{
 		private CheckPointController Controller{ get; set; }
 
-		public CheckpointCommandDelegate(CheckPointController controller)
+		public CheckPointTableCellUtilityDelegate(CheckPointController controller)
 		{
 			this.Controller = controller;
 		}
@@ -44,10 +44,11 @@ namespace ClockKing
 		{
 			var triggeredUtility = buttons.ElementAt (triggeredButtonIndex).CurrentTitle;
 			var foundUtil = this.Controller.Commands.Commands [triggeredUtility];
-			var executed=  foundUtil.ExecuteFor (this.Controller, checkPoint);
+			var checkPoints = this.Controller.CheckPoints;
+			var executed=  foundUtil.ExecuteFor (checkPoints, checkPoint);
 
 			if (executed && foundUtil.ChangesCheckpoint)
-					Controller.ResaveCheckpoints ();
+				checkPoints.ResaveCheckpoints ();
 			
 			return executed ;
 		}

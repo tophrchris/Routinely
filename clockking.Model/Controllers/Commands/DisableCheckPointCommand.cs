@@ -1,17 +1,16 @@
 ﻿using System;
 using ClockKing.Core;
-using UIKit;
 
 namespace ClockKing
 {
 	public class DisableCheckPointCommand:EnabledCheckpointCommand
 	{
-		public DisableCheckPointCommand():base(UIColor.DarkGray,"Disable")
+		public DisableCheckPointCommand():base("DarkGray","Disable")
 		{
 			this.Category = "Left";
 		}
 
-		public override bool ExecuteFor (CheckPointController controller, CheckPoint checkPoint)
+		public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)
 		{
 			checkPoint.Enabled = false;
 			return true;

@@ -24,12 +24,12 @@ namespace ClockKing
 				var notYetCompleted = enabled.Where (c => !c.CompletedToday); 
 
 
-				sections.Add("Completed",
-					enabled.Where (c => c.CompletedToday).OrderBy (c => c.MostRecentOccurrenceTimeStamp ()));
 				sections.Add("Missed",
 					notYetCompleted.Where(c=>c.TargetTime<=DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
 				sections.Add("Upcoming",
 					notYetCompleted.Where(c=>c.TargetTime>DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
+				sections.Add("Completed",
+					enabled.Where (c => c.CompletedToday).OrderByDescending (c => c.MostRecentOccurrenceTimeStamp ()));
 				sections.Add ("Disabled",	
 					cps.Where (cp => !cp.Enabled).OrderBy (cp => cp.TargetTime));
 				sections.Add ("Inactive", 

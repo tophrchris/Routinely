@@ -11,18 +11,19 @@ using ClockKing.Extensions;
 namespace ClockKing
 {
 
-	public class CheckPointDetailDialog:DialogViewController
+	public class CheckPointDetailDialog:DialogViewController,iNavigatableDialog
 	{
 
 		private List<UIPreviewAction> actions { get; set;}
+		private iCheckpointCommandController CheckPoints{ get; set;}
 		private CheckPointController Controller{ get; set;}
 		private CheckPoint toDetail { get; set;}
 		public DialogViewController moreDialog { get; set;}
 
-		public CheckPointDetailDialog(UIViewController Parent,CheckPoint toDetail,RootElement root):base(root)
+		public CheckPointDetailDialog(iCheckpointCommandController checkPoints,CheckPoint toDetail,RootElement root):base(root)
 		{
-			var parent = Parent as CheckPointController;
-			this.Controller = parent;
+			this.CheckPoints = checkPoints;
+			this.Controller = ((AppDelegate)UIApplication.SharedApplication.Delegate).Controller;
 			this.toDetail = toDetail;
 			this.Render ();
 
@@ -30,13 +31,13 @@ namespace ClockKing
 
 		public override void ViewDidLoad ()
 		{
-			ResetNavigation ();
+			this.ResetNavigation ();
 		}
 
-		public void ResetNavigation()
+		public void ResetNavigation(bool refreshData=false)
 		{
 			this.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Done,
-				(s, e) => this.Controller.ResetNavigation(true)
+				(s, e) => ((iNavigatableDialog)this.CheckPoints).ResetNavigation(true)
 			), true);
 
 			CreateOptions (this, toDetail);
@@ -71,44 +72,22 @@ namespace ClockKing
 
 		public void CreateOptions(UIViewController dialog,CheckPoint Data)
 		{
-			var handler = new Action<Command> ((c) => 
-				{
-					if(c.ExecuteFor(this.Controller,Data))
-					{
-						if(c.ChangesCheckpoint)
-							Controller.ResaveCheckpoints();
-						RespondToChanges(false);
-					}
-				});
-			
-			var acs = UIAlertController.Create (string.Format("options for {0}",Data.Name), "stuff to do", UIAlertControllerStyle.ActionSheet);
-					
-			this.Controller.Commands.GetAlertActionsForCheckpoint(Data,handler,this)
-				.Where(a=>a.Title!="Edit Goal")//TODO:i hate this
-				.ToList()
-				.ForEach(cmd=>acs.AddAction (cmd));
-
-			acs.AddAction(UIAlertAction.Create("Nevermind!",UIAlertActionStyle.Cancel,null));
-
-			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem ("Actions",UIBarButtonItemStyle.Plain,
-				(s, e) => 
-				this.Controller.PresentViewController(acs,true,null)
-			), true);
+			this.CheckPoints.PresentCheckPointActionsFor(Data,(iNavigatableDialog)dialog);
 		}
 
 
 		public Section[] GetDetailSections()
 		{
 			var sectionsToReturn = new List<Section> ();
-
-			sectionsToReturn.Add (new CheckPointCellSection (Controller,toDetail));
+		
+			sectionsToReturn.Add (new CheckPointCellSection (toDetail));
 			sectionsToReturn.Add (new CheckPointStatsSection (toDetail,()=>this.ReloadData()));
 
 			if (toDetail.ScheduledTargets.Any ())
-				sectionsToReturn.Add (new AlternativeTargetsSection (toDetail, Controller, this));
+				sectionsToReturn.Add (new AlternativeTargetsSection (toDetail,this.CheckPoints, this));
 				
 			if (toDetail.Occurrences.Any ()) 
-				sectionsToReturn.Add (new OccurrencesSection(toDetail,Controller,this));
+				sectionsToReturn.Add (new OccurrencesSection(toDetail,this.CheckPoints,this));
 
 			return sectionsToReturn.ToArray ();
 		}
@@ -117,16 +96,16 @@ namespace ClockKing
 		#region preview actions
 		protected void AttachPreviewActions()
 		{
-			var executor = new Action<Command>((ub)=>
+				var executor = new Action<Command>((ub)=>
 				{
-					if(ub.ExecuteFor(this.Controller,toDetail))
+					if(ub.ExecuteFor(this.CheckPoints,toDetail))
 					{
 						if(ub.ChangesCheckpoint)
-							Controller.ResaveCheckpoints();
+							CheckPoints.ResaveCheckpoints();
 						RespondToChanges(false);
 					}
 				});
-
+					
 			this.actions = this.Controller.Commands.GetPreviewActionsForCheckpoint (toDetail, executor).ToList();
 
 		}
@@ -140,4 +119,3 @@ namespace ClockKing
 		#endregion
 	}
 }
-

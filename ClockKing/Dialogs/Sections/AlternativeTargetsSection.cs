@@ -8,7 +8,7 @@ namespace ClockKing
 {
 	public class AlternativeTargetsSection:Section
 	{
-		public AlternativeTargetsSection (CheckPoint checkpoint,CheckPointController Controller,CheckPointDetailDialog dialog)
+		public AlternativeTargetsSection (CheckPoint checkpoint,iCheckpointCommandController Controller,CheckPointDetailDialog dialog)
 		{
 
 			this.Caption = "Alternative Targets";

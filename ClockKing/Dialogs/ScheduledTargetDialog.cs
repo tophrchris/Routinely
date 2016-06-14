@@ -9,11 +9,11 @@ using Humanizer;
 
 namespace ClockKing
 {
-	public class ScheduledTargetDialog:DialogViewController
+	public class ScheduledTargetDialog:DialogViewController,iNavigatableDialog
 	{
 		protected ScheduledTargetTime ScheduledTarget { get; set; }
 		protected CheckPoint checkpoint { get; set; }
-		protected CheckPointController Controller { get; set; }
+		protected iCheckpointCommandController Controller { get; set; }
 		protected CheckPointDetailDialog dialog { get; set; }
 
 		protected UIDatePicker picker { get; set; }
@@ -21,7 +21,7 @@ namespace ClockKing
 		protected Section existingTargets { get; set; }
 		protected BooleanElement inactiveSwitch { get; set; }
 
-		public ScheduledTargetDialog (RootElement root, ScheduledTargetTime target,CheckPoint checkpoint, CheckPointController Controller,CheckPointDetailDialog dialog):base(root,true)
+		public ScheduledTargetDialog (RootElement root, ScheduledTargetTime target,CheckPoint checkpoint, iCheckpointCommandController Controller,CheckPointDetailDialog dialog):base(root,true)
 		{
 			this.ScheduledTarget = target;
 			this.checkpoint = checkpoint;
@@ -35,7 +35,7 @@ namespace ClockKing
 			this.days = new Section ("days");
 			this.existingTargets = new Section ("Existing scheduled targets");
 			
-			Root.Add (new Section ("Goal"){ new CheckPointElement (checkpoint, Controller) });
+			Root.Add (new CheckPointCellSection(checkpoint));
 
 			var timeSection = new Section ("Scheduled Target"){inactiveSwitch};
 
@@ -173,8 +173,17 @@ namespace ClockKing
 				Controller.ResaveCheckpoints ();
 				dialog.RespondToChanges ();
 			}
+			ResetNavigation ();
+		}
+
+		#region iNavigatableDialog implementation
+
+		public void ResetNavigation (bool refreshData=false)
+		{
 			this.DeactivateController (true);
 		}
+
+		#endregion
 	}
 }
 

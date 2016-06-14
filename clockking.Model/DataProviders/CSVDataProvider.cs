@@ -28,17 +28,14 @@ namespace ClockKing.Core
 				{
 					CheckPoint created = new CheckPoint();
 					foreach (var line in read) {
-						try{
+						
 						var parts = line.Split ('|');
 						var name = parts [0];
 						var targetTime = TimeSpan.Parse (parts [1]);
 						var enabled = bool.Parse (parts [2]);
 						var emoji = parts [3];
 							created = new CheckPoint (){ Name = name, TargetTime = targetTime, Enabled = enabled,Emoji=emoji };
-						}catch(Exception e)
-						{
-							//Console.WriteLine (e.Message);
-						}
+						
 						yield return created;
 					}
 				} 

@@ -12,20 +12,27 @@ namespace ClockKing
 		public CheckPointStatsSection (CheckPoint checkpoint,Action reloader)
 		{
 			this.Caption="Stats:";
+			var eval = new CheckPointEvaluator (checkpoint);
 
+			this.Add(new MultilineElement(eval.Evaluation));
 
 			this.Add (new StringElement ("Enabled?", checkpoint.Enabled?"Yes":"No"));
 
 			var createdElement = new ToggledStringElement ("Created");
-			createdElement.PrimaryGenerator = () => checkpoint.CreatedOn.Humanize (false);
-			createdElement.SecondaryGenerator = () => checkpoint.CreatedOn.ToString ("G");
+			createdElement.PrimaryValueGenerator = () => checkpoint.CreatedOn.Humanize (false);
+			createdElement.SecondaryValueGenerator = () => checkpoint.CreatedOn.ToString ("G");
+			createdElement.PrimaryCaptionGenerator = () => "Created";
+			createdElement.SecondaryCaptionGenerator = () => "Created on:";
 			createdElement.Tapped += reloader;
 			createdElement.Toggle ();
 			this.Add (createdElement);
 
 			var nextElement = new ToggledStringElement ("Next");
-			nextElement.PrimaryGenerator = () => checkpoint.UntilNextTargetTime.Humanize (2);
-			nextElement.SecondaryGenerator = () => checkpoint.UntilNextTargetTime.ToAMPMString();
+			nextElement.PrimaryValueGenerator = () => checkpoint.UntilNextTargetTime.Humanize (2);
+			nextElement.SecondaryValueGenerator = () => 
+				(DateTime.Today.AddDays(checkpoint.CompletedToday?1:0)+ checkpoint.UntilNextTargetTime).ToString("G");
+			nextElement.PrimaryCaptionGenerator = () => "Next in";
+			nextElement.SecondaryCaptionGenerator = () => "Next at";
 			nextElement.Tapped += reloader;
 			nextElement.Toggle ();
 			this.Add (nextElement);
@@ -34,16 +41,16 @@ namespace ClockKing
 			{
 
 				var earliest = new ToggledStringElement ("Earliest");
-				earliest.PrimaryGenerator = () => checkpoint.Earliest.Time.ToAMPMString ();
-				earliest.SecondaryGenerator = () => checkpoint.Earliest.TimeStamp.ToString ("G");
+				earliest.PrimaryValueGenerator = () => checkpoint.Earliest.Time.ToAMPMString ();
+				earliest.SecondaryValueGenerator = () => checkpoint.Earliest.TimeStamp.ToString ("G");
 
 				var latest = new ToggledStringElement ("Latest");
-				latest.PrimaryGenerator = () => checkpoint.Latest.Time.ToAMPMString ();
-				latest.SecondaryGenerator = () => checkpoint.Latest.TimeStamp.ToString ("G");
+				latest.PrimaryValueGenerator = () => checkpoint.Latest.Time.ToAMPMString ();
+				latest.SecondaryValueGenerator = () => checkpoint.Latest.TimeStamp.ToString ("G");
 
 				var mostRecent = new ToggledStringElement ("Since Most Recent");
-				mostRecent.PrimaryGenerator = () => checkpoint.SinceLastOccurrence.Humanize (1)+" ago";
-				mostRecent.SecondaryGenerator = () => checkpoint.MostRecentOccurrenceTimeStamp().ToString("G");
+				mostRecent.PrimaryValueGenerator = () => checkpoint.SinceLastOccurrence.Humanize (1)+" ago";
+				mostRecent.SecondaryValueGenerator = () => checkpoint.MostRecentOccurrenceTimeStamp().ToString("G");
 
 				foreach (var el in new[]{earliest,latest,mostRecent})
 				{
@@ -53,7 +60,9 @@ namespace ClockKing
 				}
 			}
 			if(checkpoint.ScheduledTargets.Any())
-				this.Add (new StringElement ("Target", (DateTime.Today+ checkpoint.TargetTime).ToString ("t")));
+			{
+				this.Add (new StringElement ("Target", (DateTime.Today + checkpoint.TargetTime).ToString ("t")));
+			}
 			
 		}
 	}
