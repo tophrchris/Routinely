@@ -1,11 +1,10 @@
 ﻿using Foundation;
 using System;
-using System.CodeDom.Compiler;
 using UIKit;
 using ClockKing.Core;
 using System.Collections.Generic;
 using System.Linq;
-using SWTableViewCells;
+using System.Diagnostics;
 
 namespace ClockKing
 {
@@ -34,12 +33,16 @@ namespace ClockKing
 
 		public override nint NumberOfSections (UITableView tableView)
 		{
-			return this.GroupedCheckPoints.Count ();
+			var sections = this.GroupedCheckPoints.Count();
+			Debug.WriteLine(string.Format("found {0} sections",sections));
+			return sections;
 		}
 
 		public override string TitleForHeader (UITableView tableView, nint section)
 		{
-			return this.GroupedCheckPoints.ElementAt((int)section).Key;
+			var found = this.GroupedCheckPoints.ElementAt((int)section);
+			Debug.WriteLine(string.Format("getting title for {0}, which has {1} goals",found.Key,found.Value.Count()));
+			return found.Key;
 		}
 
 		public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)

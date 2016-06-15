@@ -1,10 +1,10 @@
 ﻿using System;
 using ClockKing.Core;
 using UIKit;
-using Foundation;
 using MonoTouch.Dialog;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace ClockKing
 {
@@ -33,6 +33,7 @@ namespace ClockKing
 
 		public void ResetNavigation (bool refreshData=false)
 		{
+			Debug.WriteLine("cpm reset nav");
 			this.Controller.ResetNavigation (refreshData);
 		}
 			
@@ -66,10 +67,13 @@ namespace ClockKing
 		{
 			var o = checkPoint.CreateOccurrence(when.ToLocalTime());
 			checkPoint.AddOccurrence (o);
+			Debug.WriteLine("cpm add occurrence to checkpoint");
 			this.CheckPointData.SaveOccurrence (o);
 			DataChanged (new CheckPointDataChangedEventArgs ()
 				{ Entity = "Occurrence",
-				ActionOccurred = ActionType.Added });
+				ActionOccurred = ActionType.Added,
+				ConditionallyRefreshData=true
+				});
 			return o;
 		}
 
@@ -109,7 +113,7 @@ namespace ClockKing
 
 		public void RewriteOccurrences()
 		{
-			var saved = this.CheckPointData.SaveOccurrences ();
+			this.CheckPointData.SaveOccurrences ();
 			DataChanged (new CheckPointDataChangedEventArgs () 
 				{Entity = "Ouccrrences",
 				ActionOccurred = ActionType.Written,

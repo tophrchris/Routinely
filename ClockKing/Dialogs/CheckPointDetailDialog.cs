@@ -7,6 +7,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Humanizer;
 using ClockKing.Extensions;
+using System.Diagnostics;
+
 
 namespace ClockKing
 {
@@ -36,6 +38,7 @@ namespace ClockKing
 
 		public void ResetNavigation(bool refreshData=false)
 		{
+			Debug.WriteLine("cdd rn");
 			this.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Done,
 				(s, e) => ((iNavigatableDialog)this.CheckPoints).ResetNavigation(true)
 			), true);
@@ -46,6 +49,7 @@ namespace ClockKing
 
 		public void RespondToChanges(bool condition=false)
 		{
+			Debug.WriteLine("cdd rtc");
 			this.Render();
 			this.Controller.ConditionallyRefreshData (condition);
 			CreateOptions (this,toDetail);

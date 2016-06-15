@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using ClockKing.Core;
 using System.Linq;
-using Foundation;
-using System.IO;
+using System.Diagnostics;
+
 
 namespace ClockKing
 {
@@ -25,9 +25,9 @@ namespace ClockKing
 
 
 				sections.Add("Missed",
-					notYetCompleted.Where(c=>c.TargetTime<=DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
+					notYetCompleted.Where(c=>c.TargetTime<DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
 				sections.Add("Upcoming",
-					notYetCompleted.Where(c=>c.TargetTime>DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
+					notYetCompleted.Where(c=>c.TargetTime>=DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
 				sections.Add("Completed",
 					enabled.Where (c => c.CompletedToday).OrderByDescending (c => c.MostRecentOccurrenceTimeStamp ()));
 				sections.Add ("Disabled",	
@@ -36,8 +36,10 @@ namespace ClockKing
 					cps.Where (c => !c.Active).OrderBy (c => c.CreatedOn));
 
 				foreach (var section in sections)
-					if (section.Value.Any ())
+					if (section.Value.Any())
+					{
 						yield return section;
+					}
 
 				yield break;
 			}

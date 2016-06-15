@@ -60,7 +60,7 @@ namespace ClockKing
 						app.LaunchActions.Enqueue(c=>new AddHistoricOccurrenceCommand().ShowCustomDialog(c.CheckPoints,foundCheckPoint));
 					}},
 				{AddCheckpoint,()=>
-					app.LaunchActions.Enqueue(c=>c.AddCommand.ShowDialog())}
+				app.LaunchActions.Enqueue(c=>c.AddCommand.ShowDialog())}
 				
 			};
 

@@ -20,10 +20,14 @@ namespace ClockKing
 			var ac = UIAlertController.Create(Title,Instructions,UIAlertControllerStyle.ActionSheet);
 			foreach(var choice in Choices)
 				ac.AddAction(UIAlertAction.Create(choice.Label,
-					(choice.Destructive)?UIAlertActionStyle.Destructive: 
-					(choice.Cancel)?UIAlertActionStyle.Cancel:
+					(choice.Destructive) ? UIAlertActionStyle.Destructive :
+					(choice.Cancel) ? UIAlertActionStyle.Cancel :
 					UIAlertActionStyle.Default,
-					(a)=>choice.Handler()));
+                  (a) =>
+				  	{
+					  if (choice.Handler!=null)
+							choice.Handler();
+					}));
 					
 			Controller.PresentModalViewController (ac, true);
 		}

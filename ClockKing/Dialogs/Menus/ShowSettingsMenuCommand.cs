@@ -52,6 +52,9 @@ namespace ClockKing.Commands
 				}
 			));
 
+			acs.AddAction(UIAlertAction.Create("Reload Data", UIAlertActionStyle.Default,
+			    (a) => this.Controller.ConditionallyRefreshData(true)));
+
 			acs.AddAction(UIAlertAction.Create("reset notifications",UIAlertActionStyle.Destructive,
 				(a)=>this.Controller.ResetNotifications()));
 

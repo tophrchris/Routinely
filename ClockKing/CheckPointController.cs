@@ -5,11 +5,10 @@ using UIKit;
 using ClockKing.Core;
 using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Dialog;
 using ClockKing.Commands;
-using SWTableViewCells;
 using CoreGraphics;
 using iiToastNotification.Unified;
+using System.Diagnostics;
 
 namespace ClockKing
 {
@@ -112,8 +111,8 @@ namespace ClockKing
 
 			notify (args.Result.ToString(), string.Format ("{0} {1}", args.Entity, args.ActionOccurred.ToString ()), type);
 			if (args.ConditionallyRefreshData)
-				this.ConditionallyRefreshData ();
-			if (args.RespondToModelChanges)
+				this.ConditionallyRefreshData (true);
+			if (args.RespondToModelChanges&!args.ConditionallyRefreshData)
 				this.RespondToModelChanges ();
 		}
 
@@ -125,10 +124,13 @@ namespace ClockKing
 		/// </summary>
 		/// <param name="refreshData">If set to <c>true</c> refresh data.</param>
 		public void ResetNavigation(bool refreshData=false){
+			Debug.WriteLine("cpc reset nav");
 			this.NavigationController.PopToRootViewController (true);
 			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.MenuCommand,true);
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
 			this.ConditionallyRefreshData (refreshData);
+			//if (!refreshData)
+			//	this.RespondToModelChanges();
 		}
 			
 		/// <summary>
@@ -151,6 +153,7 @@ namespace ClockKing
 		/// <param name="condition"></param>
 		public bool ConditionallyRefreshData(bool condition)
 		{
+			Debug.WriteLine("cdr");
 			var dataUpdated = false;
 			if (condition) 
 			{
@@ -172,8 +175,8 @@ namespace ClockKing
 		/// </summary>
 		public void RespondToModelChanges()
 		{
+			Debug.WriteLine("rmc");
 			this.reloadTableView ();
-			notify ("done", "table reloaded", ToastNotificationType.Info, 1);
 			this.Notifier.EnsureNotifications (this.CheckPointData);
 			ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
 			if (currentDetailDialog != null)
@@ -182,7 +185,12 @@ namespace ClockKing
 		private void reloadTableView()
 		{
 			if (this.IsViewLoaded)
-				this.TableView.ReloadData ();
+			{
+				this.TableView.ReloadData();
+				notify("done", "table reloaded", ToastNotificationType.Info, 1);
+			}
+			else
+				notify("oops", "view wasn't loaded", ToastNotificationType.Error);
 		}
 		#endregion
 
@@ -227,6 +235,7 @@ namespace ClockKing
 			ToastNotificationType Type = ToastNotificationType.Success,
 			int seconds=1)
 		{
+			Debug.WriteLine(string.Format("{0}:{1}", title, message));
 			if(this.appDelegate.Options.TracingEnabled)
 				iiToastNotifier.Notify (Type, title, message, TimeSpan.FromSeconds (seconds), null, false);
 		}

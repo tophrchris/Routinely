@@ -4,6 +4,7 @@ using MonoTouch.Dialog;
 using ClockKing.Core;
 using ClockKing.Extensions;
 using Humanizer;
+using System.Diagnostics;
 
 namespace ClockKing
 {
@@ -58,10 +59,14 @@ namespace ClockKing
 
 		public bool Save()
 		{
-			//TODO: this needs to hook into the already addded logic in the command?
+
+			Debug.WriteLine("hid save");
+
+			//TODO: this needs to hook into the "already addded" logic in the command?
+
 			this.CheckPoints.AddOccurrenceToCheckPoint (this.checkPoint,
 				this.picker.Date.ToDateTime ().ToLocalTime ());
-			
+
 			this.ResetNavigation ();
 			return true;
 		}
@@ -70,6 +75,7 @@ namespace ClockKing
 
 		public void ResetNavigation (bool refreshData=false)
 		{
+			Debug.WriteLine("hid reset nav");
 			((iNavigatableDialog)this.CheckPoints).ResetNavigation(refreshData);
 		}
 
