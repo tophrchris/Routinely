@@ -193,6 +193,7 @@
     <Compile Include="Utilities\ClockKingOptions.cs" />
     <Compile Include="Controllers\CheckPointManager.cs" />
     <Compile Include="Utilities\PathProvider.cs" />
+    <Compile Include="Controllers\SpotlightManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

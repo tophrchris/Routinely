@@ -51,6 +51,7 @@ namespace ClockKing.Core
 		public CheckPoint AddNewCheckPoint(string title,TimeSpan TargetTime,string emoji)
 		{
             var newcp = new CheckPoint (){ Name = title, TargetTime = TargetTime, Emoji = emoji,CreatedOn=DateTime.Now };
+            newcp.UniqueIdentifier = Guid.NewGuid ();
 			this.checkPoints.Add (title, newcp);
 			SaveCheckPoints ();
 			return newcp;

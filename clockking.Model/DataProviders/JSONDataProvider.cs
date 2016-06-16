@@ -19,8 +19,13 @@ namespace ClockKing.Core
 
 				var found = JsonConvert.DeserializeObject<List<CheckPoint>> (json);// as IEnumerable<CheckPoint>;
 				var cv = found as IEnumerable<CheckPoint>;
-				foreach (var cp in cv)
-					yield return cp;
+                foreach (var cp in cv) 
+                {
+                    if (cp.UniqueIdentifier == Guid.Empty)
+                        cp.UniqueIdentifier = Guid.NewGuid();
+                    
+                    yield return cp;
+                }
 			}
 			yield break;
 		}

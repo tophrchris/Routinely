@@ -18,6 +18,8 @@ namespace ClockKing.Core
             this.scheduledTargets = new List<ScheduledTargetTime>();
 			this.Enabled = true;
 		}
+
+        public Guid UniqueIdentifier { get; set; }
 		public string Name { get; set; }
 		public string Color { get; set; }
 		public string Emoji { get; set; }

@@ -56,12 +56,6 @@ namespace ClockKing
 			this.Options.Theme = Themes.TrackBeam;
 			this.Options.ApplyTheme();
 		
-			this.JustLaunched = true;
-
-			this.Notifications.EnsureSettings (application);
-
-			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
-		
 			application.SetMinimumBackgroundFetchInterval (UIApplication.BackgroundFetchIntervalMinimum);
 
 			var PerformAdditionalHandling = true;
@@ -72,6 +66,13 @@ namespace ClockKing
 			}
 
 			return PerformAdditionalHandling;
+		}
+		public void EnsureIntegrations()
+		{
+			var application = UIApplication.SharedApplication;
+			this.Notifications.EnsureSettings (application);
+			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
+			SpotlightManager.PresentGoalsForIndexing(this.CheckPointData.checkPoints);
 		}
 
 		public override void OnResignActivation (UIApplication application)
@@ -113,9 +114,8 @@ namespace ClockKing
 		//for when the application becomes active(?)
 		public override void OnActivated (UIApplication application)
 		{
-			//this isn't right- we're constantly loading data twice? at least diskIO is cheap.  
-			//TODO: try to differentiate between launch then activate, vs. standalone activate
-			if (this.Controller!=null & !JustLaunched) 
+			
+			if (this.Controller!=null) 
 				this.Controller.ConditionallyRefreshData (true);
 
 			this.JustLaunched = false;
@@ -127,6 +127,12 @@ namespace ClockKing
 			}
 		}
 
+		//for when a user finds a goal via spotlight
+		public override bool ContinueUserActivity(UIApplication application, NSUserActivity userActivity, UIApplicationRestorationHandler completionHandler)
+		{
+			SpotlightManager.HandleUserActivity(application, userActivity);
+			return true;
+		}
 
 		//for when a user chooses a quick launch shortcut
 		public override void PerformActionForShortcutItem (UIApplication application, UIApplicationShortcutItem shortcutItem, UIOperationHandler completionHandler)

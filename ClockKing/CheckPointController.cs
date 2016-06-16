@@ -177,8 +177,7 @@ namespace ClockKing
 		{
 			Debug.WriteLine("rmc");
 			this.reloadTableView ();
-			this.Notifier.EnsureNotifications (this.CheckPointData);
-			ShortcutManager.CreateShortcutItems (UIApplication.SharedApplication, this.CheckPointData);
+			appDelegate.EnsureIntegrations();
 			if (currentDetailDialog != null)
 				currentDetailDialog.RespondToChanges ();
 		}
