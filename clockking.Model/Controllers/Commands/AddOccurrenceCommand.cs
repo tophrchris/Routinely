@@ -24,31 +24,33 @@ namespace ClockKing
 
 		}
 
-		protected Occurrence AddOccurrenceToCheckpoint(iCheckpointCommandController controller, CheckPoint checkPoint,int mins=0)
+        protected Occurrence AddOccurrenceToCheckpoint(iCheckpointCommandController checkPoints, CheckPoint checkPoint,int mins=0)
 		{
 			Occurrence created=null;
 			if (checkPoint.CompletedToday) {
 
                 var ok = new ModalChoice(){Label="Yes, add another occurrence.",
-                    Handler=()=>controller.AddOccurrenceToCheckPoint(checkPoint,mins) };
+                    Handler=()=>checkPoints.AddOccurrenceToCheckPoint(checkPoint,mins) };
                 var no = new ModalChoice(){Label="No, Replace existing.",
                     Handler=()=>
                         {
                             var remove = checkPoint.Occurrences.Where(o=>o.Date==DateTime.Today).ToList();
                             foreach(var r in remove)
                                 checkPoint.RemoveOccurrence(r);
-                            created = controller.AddOccurrenceToCheckPoint(checkPoint,mins);
+                            if (remove.Any ())
+                                checkPoints.RewriteOccurrences();
+                            created = checkPoints.AddOccurrenceToCheckPoint(checkPoint,mins);
                         }};
                 var cancel = new ModalChoice(){ Label = "Nevermind", Cancel = true };
 
 
-                controller.PresentChoices(
+                checkPoints.PresentChoices(
                     string.Format("You've already completed {0} today.",checkPoint.Name),
                     "Would yould you like to add another occurrence?",
                     new[]{ ok, no, cancel });
 
 			} else {
-			 	created = controller.AddOccurrenceToCheckPoint (checkPoint, mins);
+			 	created = checkPoints.AddOccurrenceToCheckPoint (checkPoint, mins);
 			}
 			return created;
 		}

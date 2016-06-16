@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using ClockKing.Core;
 using System.Linq;
-using System.IO;
+using System.Diagnostics;
 
 namespace ClockKing.Core
 {
@@ -78,12 +77,13 @@ namespace ClockKing.Core
 
 		public bool SaveOccurrences()
 		{
-			var toWrite = this.checkPoints.SelectMany (cp => cp.Value.Occurrences);
+            var toWrite = this.checkPoints.SelectMany (cp => cp.Value.Occurrences).OrderBy(o=>o.TimeStamp);
 			return this.dataProvider.WriteAllOccurrences (toWrite);
 		}
 
 		public void SaveOccurrence(Occurrence toSave)
 		{
+            Debug.WriteLine ("data model save occurrence");
 			this.dataProvider.WriteOccurrence (toSave);
 		}
 

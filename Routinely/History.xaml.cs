@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace Routinely
+namespace Phoneword
 {
 	public partial class History : ContentPage
 	{

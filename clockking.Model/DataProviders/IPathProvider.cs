@@ -5,6 +5,7 @@ namespace ClockKing.Core
 
 	public interface IPathProvider
 	{
+       
 		string GetCheckpointFileName();
 
 		string GetOccurrencesFileName();

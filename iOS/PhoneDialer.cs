@@ -1,11 +1,19 @@
-﻿using System;
-namespace Routinely.iOS
+﻿using Foundation;
+using Phoneword;
+using System;
+using UIKit;
+using Xamarin.Forms;
+using Phoneword.iOS;
+
+[assembly: Dependency(typeof(PhoneDialer))]
+ namespace Phoneword.iOS
 {
-	public class PhoneDialer
+	public class PhoneDialer : IDialer
 	{
-		public PhoneDialer()
+		public bool Dial(string number)
 		{
+			return UIApplication.SharedApplication.OpenUrl(
+				new NSUrl("tel:" + number));
 		}
 	}
 }
-

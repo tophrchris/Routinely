@@ -65,8 +65,7 @@ namespace ClockKing.Core
 				}
 			}
 
-
-            return added;
+           return added;
 		}
 
 		private void createRandomOccurrences(Dictionary<string,CheckPoint> checkPoints)
