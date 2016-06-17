@@ -27,7 +27,9 @@ namespace ClockKing
 			this.CheckPoints = checkPoints;
 			this.Controller = ((AppDelegate)UIApplication.SharedApplication.Delegate).Controller;
 			this.toDetail = toDetail;
+			this.TableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
 			this.Render ();
+
 
 		}
 
