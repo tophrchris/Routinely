@@ -30,7 +30,7 @@ namespace ClockKing
 							dialog.PresentModalViewController(c,true);
 						})
 						{
-							Value= "{0} - {1}".FormatWith(o.TimeStamp.ToString ("t"),o.MinutesFromTarget)
+							Value= o.TimeStamp.ToString ("t")
 						})
 					.ToList();
 			this.AddAll (occurenceElements.Take(5));

@@ -15,14 +15,16 @@ namespace ClockKing
 		static string AddOccurrence = "AddOccurrenceToCheckpoint";
 		static string AddCheckpoint = "AddCheckpoint";
 
+		static NSString cpKey { get;  }=new NSString("CP");
+
 		public static void CreateShortcutItems(UIApplication application,DataModel data)
 		{
 
 
-			var Create = new Func< ClockKing.Core.CheckPoint,UIMutableApplicationShortcutItem>(
+			var Create = new Func<CheckPoint,UIMutableApplicationShortcutItem>(
 				(targetCheckPoint)=>{
 
-					var uinfo = new NSDictionary<NSString, NSObject>(new NSString("cp"),new NSString(targetCheckPoint.Name));
+					var uinfo = new NSDictionary<NSString, NSObject>(cpKey,new NSString(targetCheckPoint.Name));
 
 					return  new UIMutableApplicationShortcutItem(AddOccurrence,
 						string.Format("{0} {1}",targetCheckPoint.Emoji, targetCheckPoint.Name))
@@ -48,7 +50,6 @@ namespace ClockKing
 
 		public static bool HandleShortcut(UIApplication application, UIApplicationShortcutItem shortcut)
 		{
-			var cpKey = new NSString ("cp");
 			var app = application.Delegate as AppDelegate;
 
 			var handlers = new Dictionary<string,Action> 

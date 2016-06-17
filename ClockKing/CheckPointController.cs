@@ -31,6 +31,7 @@ namespace ClockKing
 		private CheckPointDetailDialog currentDetailDialog {get;set;}
 		private CheckpointDetailCommand Detail{ get;  }
 
+		private MonthView month;
 
 		public CheckPointController (NSObjectFlag t):base(t){}
 
@@ -50,6 +51,10 @@ namespace ClockKing
 			this.Detail = new CheckpointDetailCommand (this.CheckPoints);
 			this.Data = new GroupedCheckPointDataSource (this,CheckPointData);
 
+			this.month = new MonthView();
+
+			this.AddChildViewController(month);
+
 			this.ResetNavigation ();
 		}
 
@@ -63,6 +68,9 @@ namespace ClockKing
 				this.RefreshControl.EndRefreshing();
 				this.AddCommand.ShowDialog();
 			};
+
+
+
 		}
 
 		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
@@ -83,7 +91,16 @@ namespace ClockKing
 		}
 		#endregion
 
-			
+
+		public void ShowMonthView()
+		{
+			this.month.NavigationItem.SetHidesBackButton(false,false);
+			this.month.ModalTransitionStyle = UIModalTransitionStyle.FlipHorizontal;
+			this.month.ModalPresentationStyle = UIModalPresentationStyle.PageSheet;
+			this.NavigationController.PushViewController(this.month,true);
+			((NavigationController)this.NavigationController).isAwesome = true;
+		}
+
 		public void ShowDetailDialogFor(CheckPoint checkpoint)
 		{
 			this.currentDetailDialog =  this.Detail.ShowDetailDialog (checkpoint);

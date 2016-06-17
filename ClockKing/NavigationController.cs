@@ -5,10 +5,11 @@ using UIKit;
 
 namespace ClockKing
 {
-	partial class NavigationController : UINavigationController
+	public partial class NavigationController : UINavigationController
 	{
 		public NavigationController(IntPtr id):base(id){}
 
+		public bool isAwesome { get; set; }
 	}
 
 }

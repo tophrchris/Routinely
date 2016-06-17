@@ -1,13 +1,6 @@
-﻿using Foundation;
-using System;
-using System.CodeDom.Compiler;
-using UIKit;
-using ClockKing.Core;
-using System.Collections.Generic;
-using System.Linq;
+﻿using UIKit;
 using MonoTouch.Dialog;
-using ClockKing.Extensions;
-using EmojiSharp;
+
 
 namespace ClockKing.Commands
 {
@@ -20,6 +13,7 @@ namespace ClockKing.Commands
 		{
 			this.Controller = controller;
 			var checkPoints = this.Controller.CheckPoints;
+
 
 			var acs = UIAlertController.Create ("Settings", "settings will live here... kinda?", UIAlertControllerStyle.ActionSheet);
 
@@ -51,6 +45,13 @@ namespace ClockKing.Commands
 
 				}
 			));
+
+			acs.AddAction(UIAlertAction.Create("month", UIAlertActionStyle.Default,
+				(a) => {
+					this.Controller.ShowMonthView();	
+				//var m = new MonthView();
+					//this.Controller.NavigationController.PushViewController(m,true);
+			}));
 
 			acs.AddAction(UIAlertAction.Create("Reload Data", UIAlertActionStyle.Default,
 			    (a) => this.Controller.ConditionallyRefreshData(true)));

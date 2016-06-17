@@ -24,7 +24,6 @@ namespace ClockKing
 		}
 			
 		public bool RequiresDataRefresh { get; set; }
-		private bool JustLaunched { get; set; }=false;
 		public ClockKingOptions Options { get; set; }
 		public DataModel CheckPointData { get; set; }
 		public CheckPointController Controller{ get; set; }
@@ -55,6 +54,8 @@ namespace ClockKing
 
 			this.Options.Theme = Themes.TrackBeam;
 			this.Options.ApplyTheme();
+
+			this.EnsureIntegrations();
 		
 			application.SetMinimumBackgroundFetchInterval (UIApplication.BackgroundFetchIntervalMinimum);
 
@@ -71,6 +72,7 @@ namespace ClockKing
 		{
 			var application = UIApplication.SharedApplication;
 			this.Notifications.EnsureSettings (application);
+			this.Notifications.EnsureNotifications(this.CheckPointData);
 			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
 			SpotlightManager.PresentGoalsForIndexing(this.CheckPointData.checkPoints);
 		}
@@ -117,8 +119,6 @@ namespace ClockKing
 			
 			if (this.Controller!=null) 
 				this.Controller.ConditionallyRefreshData (true);
-
-			this.JustLaunched = false;
 
 			if (LastShortcutItem != null) 
 			{
