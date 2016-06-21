@@ -46,12 +46,6 @@ namespace ClockKing.Commands
 				}
 			));
 
-			acs.AddAction(UIAlertAction.Create("month", UIAlertActionStyle.Default,
-				(a) => {
-					this.Controller.ShowMonthView();	
-				//var m = new MonthView();
-					//this.Controller.NavigationController.PushViewController(m,true);
-			}));
 
 			acs.AddAction(UIAlertAction.Create("Reload Data", UIAlertActionStyle.Default,
 			    (a) => this.Controller.ConditionallyRefreshData(true)));
@@ -64,8 +58,10 @@ namespace ClockKing.Commands
 
 			acs.AddAction(UIAlertAction.Create("nevermind",UIAlertActionStyle.Cancel,null));
 
-			this.BarButton = new UIBarButtonItem ("...", UIBarButtonItemStyle.Bordered,(sender, args) =>
-				controller.PresentViewController(acs,true,null));
+			this.BarButton = new UIBarButtonItem("...", UIBarButtonItemStyle.Bordered, (sender, args) =>
+												  ((AppDelegate)UIApplication.SharedApplication.Delegate).Sidebar.ToggleMenu());
+
+			                                       //controller.PresentViewController(acs,true,null));
 			
 		}
 
@@ -75,7 +71,7 @@ namespace ClockKing.Commands
 		{
 
 			var root = new RootElement ("Notifications");
-			var mtd = new NotificationReviewDialog (this.Controller, root);
+			var mtd = new NotificationReviewDialog ();
 			this.Controller.NavigationController.PushViewController (mtd,true);
 		}
 	}

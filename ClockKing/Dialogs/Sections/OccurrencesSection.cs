@@ -49,9 +49,7 @@ namespace ClockKing
 									return o;
 								}
 							));
-						dialog.moreDialog = new DialogViewController(r);
-						dialog.moreDialog.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Cancel,
-							(so,e)=>dialog.NavigationController.PopViewController(true)),true);
+						dialog.moreDialog = new DialogViewController(r,true);
 						dialog.NavigationController.PushViewController(dialog.moreDialog,true);
 					}
 				){ Alignment = UITextAlignment.Center });

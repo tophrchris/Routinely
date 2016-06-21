@@ -16,7 +16,6 @@ namespace ClockKing
 	public partial class CheckPointController : UITableViewController,IUIViewControllerPreviewingDelegate
 	{
 		private AppDelegate appDelegate{ get; }
-		private ShowSettingsMenuCommand showNotifications{ get; }
 		private GroupedCheckPointDataSource Data{ get; }
 		public CheckPointTableCellUtilityDelegate UtilityButtonHandler{ get; }
 		public CheckPointManager CheckPoints { get; }
@@ -31,8 +30,6 @@ namespace ClockKing
 		private CheckPointDetailDialog currentDetailDialog {get;set;}
 		private CheckpointDetailCommand Detail{ get;  }
 
-		private MonthView month;
-
 		public CheckPointController (NSObjectFlag t):base(t){}
 
 		public CheckPointController (IntPtr handle) : base (handle)
@@ -41,19 +38,14 @@ namespace ClockKing
 
 			this.appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
 			this.appDelegate.Controller = this;
-
 			this.UtilityButtonHandler = new CheckPointTableCellUtilityDelegate (this);
 			this.CheckPoints = new CheckPointManager (this);
 			this.CheckPoints.CheckPointDataChanged += this.RespondToChangeEvent;
 
 			this.AddCommand = new AddCheckPointMenuCommand (this.CheckPoints);
-			this.showNotifications = new ShowSettingsMenuCommand (this);
 			this.Detail = new CheckpointDetailCommand (this.CheckPoints);
 			this.Data = new GroupedCheckPointDataSource (this,CheckPointData);
 
-			this.month = new MonthView();
-
-			this.AddChildViewController(month);
 
 			this.ResetNavigation ();
 		}
@@ -91,15 +83,6 @@ namespace ClockKing
 		}
 		#endregion
 
-
-		public void ShowMonthView()
-		{
-			this.month.NavigationItem.SetHidesBackButton(false,false);
-			this.month.ModalTransitionStyle = UIModalTransitionStyle.FlipHorizontal;
-			this.month.ModalPresentationStyle = UIModalPresentationStyle.PageSheet;
-			this.NavigationController.PushViewController(this.month,true);
-			((NavigationController)this.NavigationController).isAwesome = true;
-		}
 
 		public void ShowDetailDialogFor(CheckPoint checkpoint)
 		{
@@ -143,7 +126,10 @@ namespace ClockKing
 		public void ResetNavigation(bool refreshData=false){
 			Debug.WriteLine("cpc reset nav");
 			this.NavigationController.PopToRootViewController (true);
-			this.NavigationItem.SetLeftBarButtonItem(this.showNotifications.MenuCommand,true);
+			this.NavigationItem.SetLeftBarButtonItem(
+				new UIBarButtonItem(UIBarButtonSystemItem.Organize,(s,e)=>
+				                    appDelegate.Sidebar.ToggleMenu()),true);
+			                                      
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
 			this.ConditionallyRefreshData (refreshData);
 			//if (!refreshData)

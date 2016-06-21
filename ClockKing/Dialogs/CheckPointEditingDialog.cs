@@ -82,7 +82,7 @@ namespace ClockKing
 
 		#endregion
 
-		public void RenderForCheckPoint(ClockKing.Core.CheckPoint toEdit)
+		public void RenderForCheckPoint(CheckPoint toEdit)
 		{
 			var knownEmoji = Emoji.All.Where (e => e.Value.AppleHasImage).Select (e => e.Value.Unified).ToList ();
 

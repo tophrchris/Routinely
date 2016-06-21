@@ -22,14 +22,13 @@ namespace ClockKing
 		private CheckPoint toDetail { get; set;}
 		public DialogViewController moreDialog { get; set;}
 
-		public CheckPointDetailDialog(iCheckpointCommandController checkPoints,CheckPoint toDetail,RootElement root):base(root)
+		public CheckPointDetailDialog(iCheckpointCommandController checkPoints,CheckPoint toDetail,RootElement root):base(UITableViewStyle.Grouped, root,true)
 		{
 			this.CheckPoints = checkPoints;
 			this.Controller = ((AppDelegate)UIApplication.SharedApplication.Delegate).Controller;
 			this.toDetail = toDetail;
-			this.TableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+			//this.TableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
 			this.Render ();
-
 
 		}
 
@@ -41,10 +40,7 @@ namespace ClockKing
 		public void ResetNavigation(bool refreshData=false)
 		{
 			Debug.WriteLine("cdd rn");
-			this.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Done,
-				(s, e) => ((iNavigatableDialog)this.CheckPoints).ResetNavigation(true)
-			), true);
-
+			this.NavigationItem.SetLeftBarButtonItem(null, true);
 			CreateOptions (this, toDetail);
 		}
 

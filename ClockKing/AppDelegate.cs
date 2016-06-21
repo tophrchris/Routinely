@@ -31,6 +31,7 @@ namespace ClockKing
 		public NotificationManager Notifications{ get; set; }	
 		private UIApplicationShortcutItem LastShortcutItem { get; set; }
 		public Queue<Action<CheckPointController>> LaunchActions{ get; set; }
+		public SidebarNavigation.SidebarController Sidebar;
 
 		public static ICheckPointDataProvider DefaultDataProvider
 		{
@@ -65,6 +66,16 @@ namespace ClockKing
 				this.LastShortcutItem = launchOptions [UIApplication.LaunchOptionsShortcutItemKey] as UIApplicationShortcutItem;
 				PerformAdditionalHandling = (LastShortcutItem == null);
 			}
+
+			Window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+			// set our root view controller with the sidebar menu as the apps root view controller
+			var root  = new RootViewController();
+			this.Sidebar = root.SideBar;
+			Window.RootViewController = root;
+
+			Window.MakeKeyAndVisible();
+
 
 			return PerformAdditionalHandling;
 		}

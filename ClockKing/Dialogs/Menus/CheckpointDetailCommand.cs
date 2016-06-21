@@ -28,7 +28,7 @@ namespace ClockKing
 		{
 			this.LastCheckpointDetailed = Data;
 
-			return new CheckPointDetailDialog (this.Controller,Data, new RootElement("Goal"));
+			return new CheckPointDetailDialog (this.Controller,Data, new RootElement(Data.Name));
 		}
 
 		public CheckPointDetailDialog ShowDetailDialog(CheckPointDetailDialog dialog,CheckPoint Data=null)

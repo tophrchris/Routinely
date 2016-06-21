@@ -144,6 +144,9 @@
     <Reference Include="Factorymind.Components-Unified">
       <HintPath>..\Components\fmcalendar-1.5.3\lib\ios-unified\Factorymind.Components-Unified.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin-Sidebar-Unified">
+      <HintPath>..\Components\SidebarNavigation-1.9\lib\ios-unified\Xamarin-Sidebar-Unified.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -191,13 +194,15 @@
     <Compile Include="TableParts\GroupedCheckPointListDataSource.cs" />
     <Compile Include="Dialogs\Menus\AddCheckPointMenuCommand.cs" />
     <Compile Include="Dialogs\Menus\CheckpointDetailCommand.cs" />
-    <Compile Include="Dialogs\Menus\ShowSettingsMenuCommand.cs" />
     <Compile Include="Utilities\Conversions.cs" />
     <Compile Include="Utilities\ClockKingOptions.cs" />
     <Compile Include="Controllers\CheckPointManager.cs" />
     <Compile Include="Utilities\PathProvider.cs" />
     <Compile Include="Controllers\SpotlightManager.cs" />
     <Compile Include="Dialogs\MonthView.cs" />
+    <Compile Include="RootViewController.cs" />
+    <Compile Include="Dialogs\Menus\Menu.cs" />
+    <Compile Include="Dialogs\CheckPointDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -254,6 +259,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="fmcalendar">
       <Version>1.5.3</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="SidebarNavigation">
+      <Version>1.9</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

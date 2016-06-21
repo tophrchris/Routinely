@@ -7,41 +7,40 @@ using System.Collections.Generic;
 using System.Linq;
 using Humanizer;
 using System.Diagnostics;
+using ClockKing.Extensions;
 
 
 namespace ClockKing
 {
-	public class MonthView : DialogViewController
+	public class MonthView : CheckPointDialog
 	{
-		private CheckPointController controller;
-		private DataModel Data;
+		private DataModel Data { get { return this.App.CheckPointData;}}
 		private Dictionary<DateTime, IEnumerable<Occurrence>> occurrencesByDate { get; set; }
-		private Section occurrences;
+		private Section Occurrences;
+		private Section MissedGoals;
 		private FMCalendar calendar;
 
-		public MonthView() : base(UITableViewStyle.Grouped, null)
+		public MonthView() : base()
 		{
 
-			var a = UIApplication.SharedApplication.Delegate as AppDelegate;
-			controller = a.Controller;
-			occurrencesByDate = new Dictionary<DateTime, IEnumerable<Occurrence>>();
+			this.occurrencesByDate = PopulateOccurrences();
 
-			Data = a.CheckPointData;
 
-			PopulateOccurrences();
-
+			this.Root = new RootElement("History");
 			this.calendar = CreateCalendar();
-			this.occurrences = new Section("occurrences");
+			this.Occurrences = new Section("occurrences");
+			this.MissedGoals = new Section("Missed Goals");
 
-			var c = new UIViewElement("",this.calendar,false);
+			var c = new UIViewElement("", this.calendar, false);
 
-			Root = new RootElement("History") {
-				new Section ("") {c},occurrences
-			};
+			Root.Add(new Section("") { c });
+			Root.Add(Occurrences);
+			Root.Add(MissedGoals);
+		}
 
-			this.NavigationItem.SetLeftBarButtonItem(
-				new UIBarButtonItem(UIBarButtonSystemItem.Done,
-				                    (s, e) =>this.NavigationController.PopViewController(true)), true);	
+		public override void ViewDidLoad()
+		{
+			base.ViewDidLoad();
 
 		}
 
@@ -49,9 +48,17 @@ namespace ClockKing
 		{
 			base.ViewDidAppear(animated);
 			System.Diagnostics.Debug.WriteLine("month vdl");
-			PopulateOccurrences();
+
+
+
+			this.occurrencesByDate = PopulateOccurrences();
+
+
+
 			if (this.calendar != null)
 				ShowOccurrencesforDay(this.calendar.CurrentSelectedDate);
+			
+
 			this.ReloadData();
 		}
 
@@ -71,48 +78,84 @@ namespace ClockKing
 			cal.MonthFormatString = "MMMM yyyy";
 			cal.SundayFirst = true;
 
-			cal.IsDayMarkedDelegate = (date) =>occurrencesByDate.ContainsKey(date);
-			cal.IsDateAvailable = (date) =>occurrencesByDate.ContainsKey(date.Date);
-			cal.DateSelected += (date) =>ShowOccurrencesforDay(date);
+
+			cal.IsDayMarkedDelegate = (date) => occurrencesByDate.ContainsKey(date);
+			cal.IsDateAvailable = (date) => occurrencesByDate.ContainsKey(date.Date);
+			cal.DateSelected += (date) => ShowOccurrencesforDay(date);
+
 
 			return cal;
 		}
 
 		//TODO: move this to DataModel?
-		private void PopulateOccurrences()
+		private  Dictionary<DateTime, IEnumerable<Occurrence>> PopulateOccurrences()
 		{
-			occurrencesByDate.Clear();
+			var obd = new Dictionary<DateTime, IEnumerable<Occurrence>>();
+
 			var f = from cp in Data.checkPoints
 					from o in cp.Value.Occurrences
 					group o by o.Date.Date into byDate
 					select byDate;
 
 			foreach (var g in f)
-				occurrencesByDate.Add(g.Key, g.AsEnumerable());
+				obd.Add(g.Key, g.AsEnumerable());
+			return obd;
 		}
 
-		private void ShowOccurrencesforDay(DateTime date)
+		private void ShowOccurrencesforDay(DateTime selectedDate)
 		{
-			occurrences.Clear();
+			Occurrences.Clear();
+			MissedGoals.Clear();
 
-			occurrences.Caption = "Goals Completed on {0}".FormatWith(date.ToString("D"));
 
-			if (occurrencesByDate.ContainsKey(date))
+			if (occurrencesByDate.ContainsKey(selectedDate))
 			{
-				occurrences.AddAll(
-					occurrencesByDate[date]
+				Occurrences.AddAll(
+					occurrencesByDate[selectedDate]
 					.OrderBy(o => o.TimeStamp)
 					.Select((Occurrence arg) =>
 					        new StringElement("{0} {1}".FormatWith(arg.CheckPoint.Emoji,arg.CheckPoint.Name),
-							() => controller.ShowDetailDialogFor(arg.CheckPoint))
+							() => this.Controller.ShowDetailDialogFor(arg.CheckPoint))
 							{
 								Value= arg.TimeStamp.ToString("t")
 							}
 
 					)
 				);
-
 			}
+			var activeGoals = Data.checkPoints
+								  .Select(kv => kv.Value)
+								  .Where(cp => cp.ActiveForDay(selectedDate.DayOfWeek))
+								  .Where(cp => cp.CreatedOn< selectedDate);
+
+			var missed = activeGoals;
+
+			if (occurrencesByDate.ContainsKey(selectedDate))
+			{
+				var completed = occurrencesByDate[selectedDate].Select(o => o.CheckPoint).Distinct();
+				missed = activeGoals.Except(completed);
+			}
+			if (selectedDate.Date == DateTime.Today)
+				missed = missed.Where(cp => cp.TargetTime < DateTime.Now.TimeOfDay);
+
+			MissedGoals.AddAll(
+				missed.Select(cp=> new StringElement("{0} {1}".FormatWith(cp.Emoji, cp.Name),
+							() => this.Controller.ShowDetailDialogFor(cp))
+				{
+					Value = cp.TargetTime.ToAMPMString()
+			})
+			);
+
+			if (occurrencesByDate.ContainsKey(selectedDate))
+				Occurrences.Caption = "Goals Completed on {0}".FormatWith(selectedDate.ToString("D"));
+			else
+				Occurrences.Caption = string.Empty;
+
+			if (missed.Any())
+				MissedGoals.Caption = "Missed Goals on {0}".FormatWith(selectedDate.ToString("D"));
+			else
+				MissedGoals.Caption = string.Empty;
+
 		}
 
 	}
