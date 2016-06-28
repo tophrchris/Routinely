@@ -210,6 +210,11 @@
       <Project>{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}</Project>
       <Name>clockking.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClockKing.Routinely\ClockKing.Routinely.csproj">
+      <IsWatchApp>true</IsWatchApp>
+      <Project>{3BA76DE9-59E3-41FD-98F3-117935EED1C5}</Project>
+      <Name>ClockKing.Routinely</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dialogs\" />

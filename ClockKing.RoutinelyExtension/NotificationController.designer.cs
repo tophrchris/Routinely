@@ -6,12 +6,12 @@
 
 using Foundation;
 
-namespace ClockKing.WatchKitExtension
+namespace ClockKing.RoutinelyExtension
 {
-	[Register ("NotificationController")]
+	[Register("NotificationController")]
 	partial class NotificationController
 	{
-		void ReleaseDesignerOutlets ()
+		void ReleaseDesignerOutlets()
 		{
 		}
 	}

@@ -6,12 +6,12 @@
 
 using Foundation;
 
-namespace ClockKing.WatchKitExtension
+namespace ClockKing.RoutinelyExtension
 {
-	[Register ("GlanceController")]
-	partial class GlanceController
+	[Register("InterfaceController")]
+	partial class InterfaceController
 	{
-		void ReleaseDesignerOutlets ()
+		void ReleaseDesignerOutlets()
 		{
 		}
 	}

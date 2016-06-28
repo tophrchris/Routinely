@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDisplayName</key>
+	<string>ClockKing.Routinely</string>
 	<key>CFBundleName</key>
-	<string>ClockKing.WatchKitApp</string>
+	<string>ClockKing.Routinely</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.hollanders.clockking.watchkitapp</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -13,7 +15,7 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>MinimumOSVersion</key>
-	<string>8.2</string>
+	<string>2.2</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -24,6 +26,6 @@
 	<key>WKWatchKitApp</key>
 	<true/>
 	<key>XSAppIconAssets</key>
-	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>
