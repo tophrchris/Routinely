@@ -8,7 +8,7 @@ namespace ClockKing
 {
 	public class PathProvider:IPathProvider
 	{
-		protected string MyDocumentsPath{ get; private set;}
+		protected string MyDocumentsPath{ get; set;}
 		protected string CheckpointPath{ get; set;}
 		protected string OccurrencesPath{ get; set; }
 		protected virtual string checkpointFileName { get; set; } =  "checkpoints";
@@ -56,6 +56,21 @@ namespace ClockKing
 		public void WriteAllText(string path,string contents)
 		{
 			File.WriteAllText(path,contents);
+		}
+	}
+	public class AppGroupPathProvider : PathProvider
+	{
+		public AppGroupPathProvider(string extension):base(extension)
+		{
+			var fm = new NSFileManager();
+			var agc = fm.GetContainerUrl("group.org.hollanders.routinely");
+			var agcPath = agc.Path;
+
+			this.MyDocumentsPath = agcPath;
+			this.CheckpointPath = Path.Combine(this.MyDocumentsPath, checkpointFileName + extension);
+			this.OccurrencesPath = Path.Combine(this.MyDocumentsPath, occurrencesFileName + extension);
+
+
 		}
 	}
 }

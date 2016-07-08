@@ -2,11 +2,14 @@
 
 using WatchKit;
 using Foundation;
+using ClockKing.Core;
+using System.Linq;
 
 namespace ClockKing.RoutinelyExtension
 {
 	public partial class InterfaceController : WKInterfaceController
 	{
+		
 		protected InterfaceController(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
@@ -24,6 +27,18 @@ namespace ClockKing.RoutinelyExtension
 		{
 			// This method is called when the watch view controller is about to be visible to the user.
 			Console.WriteLine("{0} will activate", this);
+
+			var p = new WatchPathProvider(".json");
+			var j = new JSONDataProvider(p);
+			var d = new DataModel(j, false);
+
+
+			this.GoalTable.SetNumberOfRows(d.checkPoints.Count, "GoalTableRow");
+			for (nint i = 0; i < 5; i++)
+			{
+				((GoalTableRow)this.GoalTable.GetRowController(i)).Label = d.checkPoints.Keys.ElementAt((int)i);
+
+			}
 		}
 
 		public override void DidDeactivate()
@@ -33,4 +48,3 @@ namespace ClockKing.RoutinelyExtension
 		}
 	}
 }
-

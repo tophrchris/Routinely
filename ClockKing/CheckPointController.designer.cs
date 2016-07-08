@@ -11,19 +11,19 @@ using UIKit;
 
 namespace ClockKing
 {
-	[Register ("CheckPointTableViewController")]
-	partial class CheckPointController
-	{
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		UITableView CheckPointTableView { get; set; }
+    [Register ("CheckPointTableViewController")]
+    partial class CheckPointController
+    {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITableView CheckPointTableView { get; set; }
 
-		void ReleaseDesignerOutlets ()
-		{
-			if (CheckPointTableView != null) {
-				CheckPointTableView.Dispose ();
-				CheckPointTableView = null;
-			}
-		}
-	}
+        void ReleaseDesignerOutlets ()
+        {
+            if (CheckPointTableView != null) {
+                CheckPointTableView.Dispose ();
+                CheckPointTableView = null;
+            }
+        }
+    }
 }

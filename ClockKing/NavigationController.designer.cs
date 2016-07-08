@@ -11,11 +11,11 @@ using UIKit;
 
 namespace ClockKing
 {
-	[Register ("NavigationController")]
-	partial class NavigationController
-	{
-		void ReleaseDesignerOutlets ()
-		{
-		}
-	}
+    [Register ("NavigationController")]
+    partial class NavigationController
+    {
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

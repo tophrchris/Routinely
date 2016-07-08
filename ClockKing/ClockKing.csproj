@@ -26,6 +26,8 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchFastDev>true</MtouchFastDev>
+    <CodesignProvision>feee254b-256e-4022-98bf-8fd0f4378c26</CodesignProvision>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -40,7 +42,8 @@
     <MtouchUseSGen>true</MtouchUseSGen>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
-    <MtouchUseLlvm>false</MtouchUseLlvm>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <MtouchLink>Full</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -74,6 +77,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
     <IOSDebugOverWiFi>false</IOSDebugOverWiFi>
+    <MtouchFastDev>true</MtouchFastDev>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -150,6 +154,17 @@
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\watch_icon_40%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\watch_icon_24%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\watch_icon_27_5%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\watch_icon_29%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\watch_icon_29%403x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\watch_icon_44%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\watch_icon_86%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\watch_icon_98%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\IconSmall.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\IconSmall%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\IconSmall%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />

@@ -7,7 +7,7 @@
 	<key>CFBundleName</key>
 	<string>ClockKing.RoutinelyExtension</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.hollanders.clockking.watchkitapp.watchkitextension</string>
+	<string>org.Hollanders.Routinely.watchkitextension</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleShortVersionString</key>
@@ -31,7 +31,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>org.hollanders.clockking.watchkitapp</string>
+			<string>org.Hollanders.Routinely.watchkitapp</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>

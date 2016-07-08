@@ -36,10 +36,11 @@ namespace ClockKing
 		public static ICheckPointDataProvider DefaultDataProvider
 		{
 			get{
-				//var com = new CompositeCheckPointDataProvider ();
-				//com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
-				//com.AddProvider (new CSVDataProvider (new PathProvider(".csv")));
-				return new JSONDataProvider (new PathProvider(".json"));
+				var com = new CompositeCheckPointDataProvider ();
+				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
+				com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
+				//return new JSONDataProvider (new PathProvider(".json"));
+				return com;
 			}
 		}
 
@@ -165,6 +166,11 @@ namespace ClockKing
 				this.RequiresDataRefresh = true;
 			
 			completionHandler ();
+		}
+
+		public override void HandleWatchKitExtensionRequest(UIApplication application, NSDictionary userInfo, Action<NSDictionary> reply)
+		{
+			base.HandleWatchKitExtensionRequest(application, userInfo, reply);
 		}
 	}
 }

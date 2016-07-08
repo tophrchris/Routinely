@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>ClockKing.Routinely</string>
+	<string>Routinely.WatchKitApp</string>
 	<key>CFBundleName</key>
-	<string>ClockKing.Routinely</string>
+	<string>Routinely.WatchKitApp</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.hollanders.clockking.watchkitapp</string>
+	<string>org.Hollanders.Routinely.watchkitapp</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleShortVersionString</key>
@@ -21,11 +21,11 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-	<key>WKCompanionAppBundleIdentifier</key>
-	<string>org.hollanders.clockking</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>WKCompanionAppBundleIdentifier</key>
+	<string>org.Hollanders.Routinely</string>
 </dict>
 </plist>

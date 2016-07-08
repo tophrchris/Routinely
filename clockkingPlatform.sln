@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing", "ClockKing\Cloc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clockking.Core", "clockking.Model\clockking.Core.csproj", "{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WormHoleSharp", "WormHoleSharp-master\WormHoleSharp\WormHoleSharp.csproj", "{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing.Routinely", "ClockKing.Routinely\ClockKing.Routinely.csproj", "{3BA76DE9-59E3-41FD-98F3-117935EED1C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing.RoutinelyExtension", "ClockKing.RoutinelyExtension\ClockKing.RoutinelyExtension.csproj", "{6153C0DD-C103-4151-A25B-CB9346697626}"
@@ -57,6 +59,18 @@ Global
 		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|iPhoneSimulator.Build.0 = Release|x86
 		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|x86.ActiveCfg = Release|x86
 		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|x86.Build.0 = Release|x86
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Debug|x86.Build.0 = Debug|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Release|x86.ActiveCfg = Release|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Release|x86.Build.0 = Release|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Release|iPhone.Build.0 = Release|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{3BA76DE9-59E3-41FD-98F3-117935EED1C5}.Debug|x86.ActiveCfg = Debug|iPhoneSimulator
 		{3BA76DE9-59E3-41FD-98F3-117935EED1C5}.Debug|x86.Build.0 = Debug|iPhoneSimulator
 		{3BA76DE9-59E3-41FD-98F3-117935EED1C5}.Release|x86.ActiveCfg = Release|iPhone
