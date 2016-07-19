@@ -6,7 +6,7 @@ using ClockKing.Core;
 using System.Collections.Generic;
 using System.Linq;
 using SWTableViewCells;
-using BarChart;
+//using BarChart;
 using Humanizer;
 using System.Threading.Tasks;
 
@@ -25,7 +25,7 @@ namespace ClockKing
 		public UILabel MostRecentLabel { get; protected set;}
 		public UILabel EmojiLabel { get; protected set;}
 		public UILabel AdditionalDetail { get; protected set;}
-		public BarChartView Chart{ get; protected set;}
+//		public BarChartView Chart{ get; protected set;}
 		public bool ShowBarChartInLandscape{ get; set;}
 
 		public static readonly NSString Key = new NSString("cptc");
@@ -146,7 +146,7 @@ namespace ClockKing
 			DetailStack.AddArrangedSubview (avgstack);
 			DetailStack.AddArrangedSubview (mrstack);
 
-			this.Chart = new BarChartView ()
+/*			this.Chart = new BarChartView ()
 			{AutoLevelsEnabled=false,
 				Frame=new CGRect(DetailRect.Location,
 					new CGSize(DetailRect.Width*0.3f,DetailRect.Height)),
@@ -160,7 +160,7 @@ namespace ClockKing
 			};
 			for(int m=-60;m<=60;m+=30)
 				this.Chart.AddLevelIndicator(m);
-
+*/
 			container.AddSubview (DetailStack);
 
 			MostRecentDay.Font=UIFont.FromName ("AvenirNext-Regular", BaseFontSize*.6f);
@@ -189,7 +189,7 @@ namespace ClockKing
 			this.ProgressLabel.Text = string.Format ("Completed {0} times", checkpoint.Occurrences.Count ());
 
 			var target = checkpoint.TargetTime.TotalMinutes;
-
+/*
 			var data = checkpoint.Occurrences
 				.OrderByDescending (o => o.TimeStamp)
 				.Select (o => new {delta=o.Time.TotalMinutes-target,occurance=o})
@@ -202,7 +202,7 @@ namespace ClockKing
 				.Reverse();
 
 			this.Chart.ItemsSource = data.ToList ();
-
+*/
 
 
 			if (this.RenderedOrientation != UIDevice.CurrentDevice.Orientation) 
@@ -210,12 +210,12 @@ namespace ClockKing
 				this.RenderedOrientation = UIDevice.CurrentDevice.Orientation;
 
 				if (this.isPortrait) {
-					this.Chart.RemoveFromSuperview ();
+//					this.Chart.RemoveFromSuperview ();
 					this.AdditionalDetail.RemoveFromSuperview ();
 					DetailStack.Distribution = UIStackViewDistribution.FillProportionally;
 				} else if (ShowBarChartInLandscape)
 				{
-					DetailStack.AddArrangedSubview (this.Chart);
+//					DetailStack.AddArrangedSubview (this.Chart);
 					DetailStack.AddArrangedSubview (this.AdditionalDetail);
 					DetailStack.Distribution = UIStackViewDistribution.Fill;
 					this.updateAdditionalDetail ();

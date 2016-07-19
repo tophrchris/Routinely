@@ -23,12 +23,12 @@ namespace ClockKing
 		public void ApplyTheme()
 		{
 			var themer = new Dictionary<Themes,Action> ();
-			themer.Add (Themes.FitPulse,()=> FitpulseTheme.Apply ());
+			//themer.Add (Themes.FitPulse,()=> FitpulseTheme.Apply ());
 			themer.Add (Themes.TrackBeam,()=> ThemeManager.Register<TrackBeamTheme>().Apply());
-			themer.Add (Themes.Foody,()=> FoodyTheme.Apply ());
-			themer.Add (Themes.Prolific, () => ProlificTheme.Apply ());
-			themer.Add (Themes.Gridlocked, () => GridlockTheme.Apply ());
-			themer.Add (Themes.Industrial, () => IndustrialTheme.Apply ());
+			//themer.Add (Themes.Foody,()=> FoodyTheme.Apply ());
+			//themer.Add (Themes.Prolific, () => ProlificTheme.Apply ());
+			//themer.Add (Themes.Gridlocked, () => GridlockTheme.Apply ());
+			//themer.Add (Themes.Industrial, () => IndustrialTheme.Apply ());
 
 			if (themer.ContainsKey (this.Theme))
 				themer [this.Theme].Invoke ();
