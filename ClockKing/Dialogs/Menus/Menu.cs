@@ -3,6 +3,8 @@ using MonoTouch.Dialog;
 using UIKit;
 
 
+
+
 namespace ClockKing
 {
 	public class Menu:CheckPointDialog
@@ -15,7 +17,8 @@ namespace ClockKing
 			var monthView = new MonthView();
 
 			var nav = new Section("Navigation");
-			nav.Add(new StringElement("Month",() => ShowDialog(monthView)));
+			nav.Add(new StringElement("History",() => ShowDialog(monthView)));
+			nav.Add(new StringElement("Add Goal", () =>buildAndShowAddDialog()));
 			nav.Add(new StringElement("Notifications", () => ShowDialog(notifications)));
 
 
@@ -29,14 +32,18 @@ namespace ClockKing
 						GroupingChoices.ByStatus;
 				Controller.RespondToModelChanges();
 			}));
-			switches.Add(new StringElement("Toggle Tracing",
-			() => {
+
+
+			var te = new BooleanElement("Enabled Tracing", false);
+			te.ValueChanged += (s, e) => {
 			if (App.Options.TracingEnabled)
 					Controller.notify("Disabling notifications", "re-enable using the toggle", iiToastNotification.Unified.ToastNotificationType.Error);
 				App.Options.TracingEnabled = !App.Options.TracingEnabled;
 				if (App.Options.TracingEnabled)
 					Controller.notify("Enabling notifications", "disable using the toggle", iiToastNotification.Unified.ToastNotificationType.Error);
-			}));
+			};
+			switches.Add(te);
+
 
 			var debug = new Section("debugging");
 			debug.Add(new StringElement("Reload Data", () =>
@@ -61,21 +68,10 @@ namespace ClockKing
 		{
 			this.Sidebar.ToggleMenu();
 		}
+		public void buildAndShowAddDialog()
+		{
+			var mtd = new CheckPointEditingDialog(this.Controller.CheckPoints, new RootElement("Add..."), true);
+			ShowDialog(mtd);
+		}
 	}
 }
-
-
-/*
-
-
-			acs.AddAction(UIAlertAction.Create("Reload Data", UIAlertActionStyle.Default,
-			    (a) => this.Controller.ConditionallyRefreshData(true)));
-
-			acs.AddAction(UIAlertAction.Create("reset notifications",UIAlertActionStyle.Destructive,
-				(a)=>this.Controller.ResetNotifications()));
-
-			acs.AddAction(UIAlertAction.Create("Trim occurrences",UIAlertActionStyle.Destructive,
-				(a)=>checkPoints.RewriteOccurrences()));
-
-			acs.AddAction(UIAlertAction.Create("nevermind",UIAlertActionStyle.Cancel,null));
-*/
