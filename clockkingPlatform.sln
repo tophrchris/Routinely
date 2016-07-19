@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clockking.Core", "clockking
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WormHoleSharp", "WormHoleSharp-master\WormHoleSharp\WormHoleSharp.csproj", "{B34F9D50-11B7-429E-8AE4-BC2AA61F1519}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing.Routinely", "ClockKing.Routinely\ClockKing.Routinely.csproj", "{3BA76DE9-59E3-41FD-98F3-117935EED1C5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing.RoutinelyExtension", "ClockKing.RoutinelyExtension\ClockKing.RoutinelyExtension.csproj", "{6153C0DD-C103-4151-A25B-CB9346697626}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
