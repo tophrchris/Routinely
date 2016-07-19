@@ -5,7 +5,9 @@ using UIKit;
 namespace ClockKing
 {
 
-
+	/// <summary>
+	/// used to help create consistent dialogs.
+	/// </summary>
 	public class CheckPointDialog : DialogViewController
 	{
 		protected NavigationController ContentNavigation
