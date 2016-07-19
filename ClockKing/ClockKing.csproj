@@ -25,9 +25,10 @@
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFastDev>false</MtouchFastDev>
     <CodesignProvision>feee254b-256e-4022-98bf-8fd0f4378c26</CodesignProvision>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
