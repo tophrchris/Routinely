@@ -5,6 +5,8 @@ using ClockKing.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using EmojiSharp;
+using Humanizer;
 
 namespace ClockKing
 {
@@ -26,11 +28,17 @@ namespace ClockKing
 				{GroupingChoices.ByStatus,new GroupCheckPointsByStatus (this.checkPointData.checkPoints.Values)}
 			};
 
+			var right = Emoji.BLACK_RIGHTWARDS_ARROW.Unified;
+			var left = Emoji.LEFTWARDS_BLACK_ARROW.Unified;
+			var down = Emoji.DOWNWARDS_BLACK_ARROW.Unified;
+			var gear = Emoji.All["gear"].Unified;
+			var cal = Emoji.CALENDAR.Unified;
+
 			this.instructions = new List<string>()
 			{
-				"To edit a goal, swipe it to the right; swipe left to complete it.",
-				"pull down to add a new goal",
-				"press settings to access settings and history"
+				"To edit a goal, swipe it to the right {0}; swipe left {1} to complete it.".FormatWith(right,left),
+				"pull down {0} to add a new goal".FormatWith(down),
+				"press settings {0} to access settings and history {1}".FormatWith(gear,cal)
 			};
 		}
 

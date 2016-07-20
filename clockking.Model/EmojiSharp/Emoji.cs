@@ -59,6 +59,23 @@ namespace EmojiSharp
 
         public static Dictionary<string, Emoji> All = new Dictionary<string, Emoji>()
         {
+             {"gear",
+            new Emoji
+            {
+                Name = "GEAR",
+                Category = EmojiCategory.People,
+                SortOrder = 2699,
+
+                Unified = "\U00002699",
+                
+
+                AppleHasImage = true,
+                GoogleHasImage = true,
+                TwitterHasImage = false,
+                EmojioneHasImage = true,
+
+            }},
+            
             {"copyright", 
             new Emoji 
             {

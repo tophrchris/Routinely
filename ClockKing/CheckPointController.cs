@@ -134,7 +134,7 @@ namespace ClockKing
 			Debug.WriteLine("cpc reset nav");
 			this.NavigationController.PopToRootViewController (true);
 			this.NavigationItem.SetLeftBarButtonItem(
-				new UIBarButtonItem(UIBarButtonSystemItem.Organize,(s,e)=>
+				new UIBarButtonItem(EmojiSharp.Emoji.All["gear"].Unified,UIBarButtonItemStyle.Plain,(s,e)=>
 				                    appDelegate.Sidebar.ToggleMenu()),true);
 			                                      
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
