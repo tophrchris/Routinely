@@ -6,6 +6,8 @@
 [Bb]in/
 packages/
 TestResults/
+[Cc]omponents/
+
 
 # globs
 Makefile.in
