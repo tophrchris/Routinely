@@ -181,7 +181,13 @@ namespace ClockKing.Core
             }
 		
 		}
-            
+
+        public bool IsMissed {
+            get {
+                return TargetTimePassed & !CompletedToday;
+            }
+        }
+
 		public bool CompletedToday 
 		{
 			get

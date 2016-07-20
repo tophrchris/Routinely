@@ -186,7 +186,7 @@ namespace ClockKing
 			this.AverageLabel.Text = (DateTime.Now.Date + checkpoint.averageObservedTime).ToString ("t");
 			this.MostRecentDay.Text = checkpoint.MostRecentOccurrenceTimeStamp ().ToString ("d");
 			this.MostRecentLabel.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("t");
-			this.ProgressLabel.Text = string.Format ("Completed {0} times", checkpoint.Occurrences.Count ());
+			this.ProgressLabel.Text = checkpoint.GetProgress();
 
 			var target = checkpoint.TargetTime.TotalMinutes;
 /*

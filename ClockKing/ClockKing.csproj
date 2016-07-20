@@ -95,9 +95,6 @@
     <Reference Include="UnicodeInformation">
       <HintPath>..\packages\UnicodeInformation.1.0.1.6\lib\portable-net45+win+MonoAndroid10+xamarinios10+MonoTouch10\UnicodeInformation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="iiToastNotification.Unified">
       <HintPath>..\Components\iiToastNotification-1.0\lib\ios-unified\iiToastNotification.Unified.dll</HintPath>
     </Reference>
@@ -112,6 +109,9 @@
     </Reference>
     <Reference Include="SWTableViewCell">
       <HintPath>..\Components\swtableviewcell-0.3.7.0\lib\ios-unified\SWTableViewCell.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +180,7 @@
     <Compile Include="RootViewController.cs" />
     <Compile Include="Dialogs\Menus\Menu.cs" />
     <Compile Include="Dialogs\CheckPointDialog.cs" />
+    <Compile Include="TableParts\BlankCheckPointDataSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

@@ -25,7 +25,7 @@ namespace ClockKing
 
 
 				sections.Add("Missed",
-					notYetCompleted.Where(c=>c.TargetTime<DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
+					notYetCompleted.Where(c=>c.IsMissed).OrderBy (c => c.TargetTime));
 				sections.Add("Upcoming",
 					notYetCompleted.Where(c=>c.TargetTime>=DateTime.Now.TimeOfDay).OrderBy (c => c.TargetTime));
 				sections.Add("Completed",

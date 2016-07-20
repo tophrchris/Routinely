@@ -54,7 +54,14 @@ namespace ClockKing
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			this.TableView.Source = this.Data;
+
+			UITableViewSource ds;
+			if (this.CheckPointData.checkPoints.Any())
+				ds = this.Data;
+			else
+				ds = new BlankCheckPointDataSource();
+
+			this.TableView.Source = ds;
 
 			this.RefreshControl.ValueChanged += (o, e) => {
 				this.RefreshControl.EndRefreshing();
@@ -186,6 +193,13 @@ namespace ClockKing
 		}
 		private void reloadTableView()
 		{
+			if (this.TableView.Source is BlankCheckPointDataSource)
+				if (this.CheckPointData.checkPoints.Any())
+					this.TableView.Source = this.Data;
+			if (!this.CheckPointData.checkPoints.Any())
+				if (!(this.TableView.Source is BlankCheckPointDataSource))
+					this.TableView.Source = new BlankCheckPointDataSource();
+				
 			if (this.IsViewLoaded)
 			{
 				this.TableView.ReloadData();

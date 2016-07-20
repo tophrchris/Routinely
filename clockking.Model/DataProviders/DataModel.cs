@@ -94,9 +94,6 @@ namespace ClockKing.Core
 
 			foreach (var found in dataProvider.ReadCheckPoints())
 				checkpoints.Add (found.Name, found);
-
-			if(!checkpoints.Any())
-				checkpoints = CreateDefaultCheckPoints ();
 			
 			return checkpoints;
 		}
@@ -104,27 +101,6 @@ namespace ClockKing.Core
 		public void LoadOccurrences()
 		{
 			dataProvider.LoadOccurrences (this.checkPoints);
-		}
-			
-		public Dictionary<string,CheckPoint> CreateDefaultCheckPoints()
-		{
-			var defaults= new Dictionary<string,CheckPoint> () {
-				{"wakeup",new CheckPoint(){Name="wakeup",TargetTime=TimeSpan.FromHours(6)}},
-				{"Breakfast",new CheckPoint (){ Name = "Breakfast",TargetTime= TimeSpan.FromHours(9) }},
-				{"Lunch",new CheckPoint () { Name = "Lunch", TargetTime=TimeSpan.FromHours(12)}},
-				{"dinner",new CheckPoint(){Name="dinner",TargetTime=TimeSpan.FromHours(19)}},
-				{"bedtime",new CheckPoint(){Name="bedtime",TargetTime=TimeSpan.FromHours(23)}}
-			};
-			var b = defaults ["Breakfast"];
-			var l = defaults ["Lunch"];
-
-			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/1/16 9:05am")));
-			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/2/16 9:15am")));
-			b.AddOccurrence (b.CreateOccurrence (DateTime.Parse("5/3/16 9:32am")));
-			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 11:32am")));
-			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 12:32pm")));
-			l.AddOccurrence (l.CreateOccurrence (DateTime.Parse("5/3/16 1:32pm")));
-			return defaults;
 		}
 	}
 }
