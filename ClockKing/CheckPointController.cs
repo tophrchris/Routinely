@@ -44,7 +44,7 @@ namespace ClockKing
 
 			this.AddCommand = new AddCheckPointMenuCommand (this.CheckPoints);
 			this.Detail = new CheckpointDetailCommand (this.CheckPoints);
-			this.Data = new GroupedCheckPointDataSource (this,CheckPointData);
+			this.Data = new GroupedCheckPointDataSource (this);
 
 
 			this.ResetNavigation ();

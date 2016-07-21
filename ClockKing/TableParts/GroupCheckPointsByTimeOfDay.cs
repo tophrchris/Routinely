@@ -4,18 +4,22 @@ using ClockKing.Core;
 using System.Linq;
 using Foundation;
 using System.IO;
+using UIKit;
 
 namespace ClockKing
 {
 	public class CheckPointGrouper
 	{
 
-		protected IEnumerable<CheckPoint> checkpoints { get; set; }
-
-		public CheckPointGrouper(IEnumerable<CheckPoint> toGroup)
-		{
-			this.checkpoints = toGroup;
+		protected IEnumerable<CheckPoint> checkpoints { 
+			get
+			{
+				return ((AppDelegate)UIApplication.SharedApplication.Delegate).CheckPointData.checkPoints.Values;
+			}
+		
 		}
+
+
 
 		public virtual IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
 		{
@@ -40,8 +44,7 @@ namespace ClockKing
 	}
 	public class GroupCheckPointsByTimeOfDay:CheckPointGrouper
 	{
-		public GroupCheckPointsByTimeOfDay(IEnumerable<CheckPoint> toGroup):base(toGroup){}
-
+		
 		public override IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
 		{
 			get{

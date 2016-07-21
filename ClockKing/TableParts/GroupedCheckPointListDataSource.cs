@@ -14,18 +14,16 @@ namespace ClockKing
 	{
 
 		private CheckPointController Controller {get;}
-		private DataModel checkPointData { get; }
 		private Dictionary<GroupingChoices,CheckPointGrouper> groupers { get; set; }
 		private List<string> instructions;
 	
-		public GroupedCheckPointDataSource (CheckPointController controller,DataModel data)
+		public GroupedCheckPointDataSource (CheckPointController controller)
 		{ 
 			this.Controller = controller;
-			this.checkPointData = data;
 			this.groupers = new Dictionary<GroupingChoices, CheckPointGrouper> () 
 			{
-				{GroupingChoices.ByTimeOfDay,new GroupCheckPointsByTimeOfDay (this.checkPointData.checkPoints.Values)},
-				{GroupingChoices.ByStatus,new GroupCheckPointsByStatus (this.checkPointData.checkPoints.Values)}
+				{GroupingChoices.ByTimeOfDay,new GroupCheckPointsByTimeOfDay ()},
+				{GroupingChoices.ByStatus,new GroupCheckPointsByStatus ()}
 			};
 
 			var right = Emoji.BLACK_RIGHTWARDS_ARROW.Unified;
@@ -52,8 +50,10 @@ namespace ClockKing
 
 		public override nint NumberOfSections (UITableView tableView)
 		{
+			var goals = this.GroupedCheckPoints.Sum(g => g.Value.Count());
+
 			var sections = this.GroupedCheckPoints.Count()+1;
-			Debug.WriteLine(string.Format("found {0} sections",sections));
+			Debug.WriteLine(string.Format("found {0} sections, {1} goals",sections,goals));
 			return sections;
 		}
 

@@ -188,6 +188,18 @@ namespace ClockKing
 			this.MostRecentLabel.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("t");
 			this.ProgressLabel.Text = checkpoint.GetProgress();
 
+			float red = .3f, green = .3f, blue = .3f;
+
+			if (checkpoint.IsMissed)
+				red = .9f;
+			else
+				if (checkpoint.IsSoon())
+					green = .9f;
+
+			this.ProgressLabel.TextColor = UIColor.FromRGB(red,green,blue);
+
+
+
 			var target = checkpoint.TargetTime.TotalMinutes;
 /*
 			var data = checkpoint.Occurrences

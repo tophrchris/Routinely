@@ -9,8 +9,7 @@ namespace ClockKing
 {
 	public class GroupCheckPointsByStatus:CheckPointGrouper
 	{
-		public GroupCheckPointsByStatus(IEnumerable<CheckPoint> toGroup):base(toGroup){}
-
+		
 		public override IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
 		{
 			get{
