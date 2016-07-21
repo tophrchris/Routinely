@@ -49,7 +49,7 @@ namespace ClockKing
 		{
 
 
-			var okCancelAlertController = UIAlertController.Create(Title,Message, UIAlertControllerStyle.ActionSheet);
+			var okCancelAlertController = UIAlertController.Create(Title,Message, UIAlertControllerStyle.Alert);
 			okCancelAlertController.AddAction(UIAlertAction.Create (yes,(YesIsDestructive)?UIAlertActionStyle.Destructive:UIAlertActionStyle.Default,handler));
 			okCancelAlertController.AddAction(UIAlertAction.Create (no, UIAlertActionStyle.Cancel, null));
 			return okCancelAlertController;
