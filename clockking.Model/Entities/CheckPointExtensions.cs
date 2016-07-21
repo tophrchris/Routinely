@@ -26,7 +26,7 @@ namespace ClockKing.Core
 
         public static bool IsSoon (this CheckPoint cp, int mins = 90)
         {
-            return cp.TargetTimeToday <= DateTime.Now.AddMinutes (mins);
+            return !(cp.CompletedToday|cp.IsMissed) & cp.TargetTimeToday <= DateTime.Now.AddMinutes (mins);
         }
         public static string AsSentence (this string passage)
         {
