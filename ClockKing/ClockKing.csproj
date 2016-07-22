@@ -81,6 +81,7 @@
     <MtouchUseSGen>true</MtouchUseSGen>
     <IOSDebugOverWiFi>false</IOSDebugOverWiFi>
     <MtouchFastDev>false</MtouchFastDev>
+    <CodesignProvision>feee254b-256e-4022-98bf-8fd0f4378c26</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'publishing|iPhone' ">
     <Optimize>true</Optimize>
