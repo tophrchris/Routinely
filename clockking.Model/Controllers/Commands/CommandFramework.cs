@@ -13,6 +13,18 @@ namespace ClockKing.Core
 		public string LongName{ get; set; }
 		public bool ChangesCheckpoint { get; set;}
 		public string ColorName{ get; set; }
+        public virtual string EmojiName { get; set; }
+        public virtual string EmojiUnified {
+            get {
+                if (!string.IsNullOrEmpty (EmojiName))
+                    return EmojiSharp.Emoji.All [EmojiName].Unified;
+                else
+                    throw new ArgumentException ();
+            }
+            set {
+                throw new NotImplementedException ();
+            }
+        }
 
 		public Command(string Color,string Label)
 		{

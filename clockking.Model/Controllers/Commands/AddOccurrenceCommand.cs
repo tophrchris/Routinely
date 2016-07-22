@@ -2,17 +2,19 @@
 using ClockKing.Core;
 using System.Collections.Generic;
 using System.Linq;
+using Humanizer;
 
 namespace ClockKing
 {
 	public class AddOccurrenceCommand:EnabledCheckpointCommand
 	{
 		public AddOccurrenceCommand(string color,string label):base(color,label){}
-		public AddOccurrenceCommand():base("Green","Add")
+		public AddOccurrenceCommand():base("Green","Done!")
 		{
 			this.ChangesCheckpoint = false;
 			this.Category = "Right";
 			this.LongName = "Add an occurrence right now";
+            this.EmojiName = EmojiSharp.Emoji.BALLOT_BOX_WITH_CHECK.Name.Replace(" ","_").ToLower();
 		}
 
 		public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)

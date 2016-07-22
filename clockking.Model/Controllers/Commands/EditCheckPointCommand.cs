@@ -12,6 +12,8 @@ namespace ClockKing
 		{
 			this.Category = "Left";
 			this.LongName = "Edit Goal";
+
+            this.EmojiName = EmojiSharp.Emoji.PENCIL.ShortName;
 		}
 
 		public override bool ExecuteFor (iCheckpointCommandController controller, ClockKing.Core.CheckPoint checkPoint)

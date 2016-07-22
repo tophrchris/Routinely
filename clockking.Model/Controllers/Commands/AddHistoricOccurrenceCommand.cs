@@ -2,16 +2,36 @@
 using ClockKing.Core;
 using System.Linq;
 using Humanizer;
+using EmojiSharp;
 
 namespace ClockKing
 {
 	public class AddHistoricOccurrenceCommand:AddOccurrenceCommand
 	{
-		public AddHistoricOccurrenceCommand():base("Orange","Add...")
+		public AddHistoricOccurrenceCommand():base("Orange","Done...")
 		{
 			this.Category = "Right";
 			this.LongName = "Add an occurrence in the past";
 		}
+
+
+
+        public override string EmojiName { 
+            get 
+            {
+                var now = DateTime.Now.ToLocalTime ();
+                var hour = now.Hour;
+                if (hour > 12)
+                    hour -= 12;
+                var past30 = (now.Minute >= 30)?"30":"";
+                var emojiString = "clock{0}{1}".FormatWith (hour, past30);
+                return emojiString;
+            }
+            set 
+            {
+                throw new NotImplementedException ();
+            } 
+        }
 
 		public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)
 		{
