@@ -32,7 +32,7 @@
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-    <DebugType>full</DebugType>
+    <DebugType></DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -47,6 +47,10 @@
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <MtouchLink>Full</MtouchLink>
     <CodesignProvision>0c826180-ed6d-4ddb-8cf7-9ef129c39d5d</CodesignProvision>
+    <BuildIpa>false</BuildIpa>
+    <IpaMetadata>iTunesMetadata.plist</IpaMetadata>
+    <IpaIncludeArtwork>false</IpaIncludeArtwork>
+    <MtouchSdkVersion>9.3</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -154,7 +158,6 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
-    <None Include="iTunesMetadata.plist" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
