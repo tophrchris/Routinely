@@ -1,7 +1,7 @@
 ﻿using System;
 using MonoTouch.Dialog;
 using UIKit;
-
+using Foundation;
 
 
 
@@ -9,6 +9,8 @@ namespace ClockKing
 {
 	public class Menu:CheckPointDialog
 	{
+		public static string aboutUrl = @"http://bit.ly/aboutRoutinely";
+
 		public Menu() : base()
 		{
 			this.Root = new RootElement("Options");
@@ -69,9 +71,24 @@ namespace ClockKing
 			debug.Add(new StringElement("Reset Notifications", () => this.Controller.ResetNotifications()));
 			debug.Add(new StringElement("Trim Occurrences", () => this.Controller.CheckPoints.RewriteOccurrences()));
 
+
+			var support = new Section("Support");
+			support.Add(new StringElement("About Routinely", () => NavigateToUrl(aboutUrl)));
+
+
 			this.Root.Add(nav);
 			this.Root.Add(switches);
 			this.Root.Add(debug);
+			this.Root.Add(support);
+
+
+		}
+
+		public void NavigateToUrl(string url)
+		{
+			var target = new NSUrl(url);
+
+			UIApplication.SharedApplication.OpenUrl(target);
 		}
 
 		public void ShowDialog(UIViewController dialog)
