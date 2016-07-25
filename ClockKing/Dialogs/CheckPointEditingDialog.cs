@@ -36,14 +36,14 @@ namespace ClockKing
 			this.Style = UITableViewStyle.Grouped;
 
 			this.emojiNames = Emoji.All.Where (kv => kv.Value.AppleHasImage).Select (kv => kv.Key.ToLower ()).ToList ();
-			this.nameElement = new EntryElement ("Name", "Name your checkpoint", "");
+			this.nameElement = new EntryElement ("Name", "Name your goal", "");
 			this.emojiElement = new EntryElement ("Abbreviation", "a short (2-letter) name","");
 			this.nowElement = new BooleanElement ("Add Occurrence now?", false);
 			this.picker = new UIDatePicker (){ Mode = UIDatePickerMode.Time };
 			this.SuggestEmoji = new BooleanElement ("suggest emoji for abbreviation?", true);
 			this.nowSwitch = new BooleanElement ("default to current time:", true);
 
-			var instructions = new MultilineElement ("What time do you expect to complete this checkpoint, each day?");
+			var instructions = new MultilineElement ("What time do you expect to complete this goal, each day?");
 			var pickerWrapper = new UIViewElement (string.Empty, picker, false);
 
 			var checkPointForm = new Section ("Goal:") { 	

@@ -9,7 +9,7 @@ namespace ClockKing
 {
 	public class Menu:CheckPointDialog
 	{
-		public Menu() :base()
+		public Menu() : base()
 		{
 			this.Root = new RootElement("Options");
 
@@ -17,14 +17,15 @@ namespace ClockKing
 			var monthView = new MonthView();
 
 			var nav = new Section("Navigation");
-			nav.Add(new StringElement("History",() => ShowDialog(monthView)));
-			nav.Add(new StringElement("Add Goal", () =>buildAndShowAddDialog()));
-			nav.Add(new StringElement("Notifications", () => ShowDialog(notifications)));
-
+			nav.Add(new StringElement("View History", () => ShowDialog(monthView)));
+			nav.Add(new StringElement("Add New Goal", () => buildAndShowAddDialog()));
+			nav.Add(new StringElement("Show Pending Notifications", () => ShowDialog(notifications)));
 
 			var switches = new Section("Switches");
+
 			switches.Add(new StringElement("Toggle Sort",
-			() => {
+			() =>
+			{
 				Close();
 				App.Options.GroupingChoice =
 					(App.Options.GroupingChoice == GroupingChoices.ByStatus) ?
@@ -33,19 +34,33 @@ namespace ClockKing
 				Controller.RespondToModelChanges();
 			}));
 
+			var inactiveSwitch = new BooleanElement("Show Inactive Goals", true);
 
-			var te = new BooleanElement("Enabled Tracing", false);
-			te.ValueChanged += (s, e) => {
-			if (App.Options.TracingEnabled)
-					Controller.notify("Disabling notifications", "re-enable using the toggle", iiToastNotification.Unified.ToastNotificationType.Error);
-				App.Options.TracingEnabled = !App.Options.TracingEnabled;
-				if (App.Options.TracingEnabled)
-					Controller.notify("Enabling notifications", "disable using the toggle", iiToastNotification.Unified.ToastNotificationType.Error);
+			inactiveSwitch.ValueChanged += (s, e) =>{
+				Close();
+				inactiveSwitch.Value= App.Options.ShowInactiveGoals = !App.Options.ShowInactiveGoals;
+				Controller.RespondToModelChanges();
 			};
-			switches.Add(te);
+
+			switches.Add(inactiveSwitch);
+
 
 
 			var debug = new Section("debugging");
+
+
+			var te = new BooleanElement("Enabled Trace banners", false);
+			te.ValueChanged += (s, e) =>
+			{
+				if (App.Options.TracingEnabled)
+					Controller.notify("Disabling banners", "re-enable using the toggle", iiToastNotification.Unified.ToastNotificationType.Error);
+				App.Options.TracingEnabled = !App.Options.TracingEnabled;
+				if (App.Options.TracingEnabled)
+					Controller.notify("Enabling banners", "disable using the toggle", iiToastNotification.Unified.ToastNotificationType.Error);
+			};
+			debug.Add(te);
+
+
 			debug.Add(new StringElement("Reload Data", () =>
 			{
 				Close();

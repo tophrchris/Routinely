@@ -13,7 +13,8 @@ namespace ClockKing
 		public Themes Theme{ get; set; }
 		public GroupingChoices GroupingChoice { get; set; }
 		public bool TracingEnabled { get; set; }=false;
-	
+		public bool ShowInactiveGoals { get; set; } = true;
+
 		public ClockKingOptions()
 		{
 			this.Theme = Themes.TrackBeam;
