@@ -190,11 +190,14 @@ namespace ClockKing
 
 			float red = .3f, green = .3f, blue = .3f;
 
-			if (checkpoint.IsMissed)
-				red = .9f;
-			else
-				if (checkpoint.IsSoon())
+			if (checkpoint.Active & checkpoint.Enabled)
+			{
+				if (checkpoint.IsMissed)
+					red = .9f;
+				else
+					if (checkpoint.IsSoon())
 					green = .9f;
+			}
 
 			this.ProgressLabel.TextColor = UIColor.FromRGB(red,green,blue);
 
