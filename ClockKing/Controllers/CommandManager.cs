@@ -34,7 +34,13 @@ namespace ClockKing
 			
 		public IEnumerable<UIAlertAction> GetAlertActionsForCheckpoint(CheckPoint selected,Action<Command> handler,iNavigatableDialog dialog=null)
 		{
-			return this.Commands.Values
+			var commands = this.Commands.AsEnumerable();
+
+			if (dialog != null)
+				commands = commands.Where(c=>c.Key!="Edit");
+
+			return commands
+				.Select(c=>c.Value)
 				.Where (c => c.ShouldDecorate (selected))
 				.Select(c=>{
 					if(c is IDialogBoundCommand  && dialog!=null)

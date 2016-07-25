@@ -13,6 +13,7 @@ namespace ClockKing
 		{
 			this.Category = "In Place";
 			this.LongName = "Add Alternative Target";
+            this.EmojiName = EmojiSharp.Emoji.TEAR_OFF_CALENDAR.ShortName;
 		}
 
 		public AddScheduledTargetCommand (iNavigatableDialog existing):this()

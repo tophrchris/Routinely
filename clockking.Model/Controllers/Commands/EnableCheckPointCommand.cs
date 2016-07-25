@@ -8,6 +8,7 @@ namespace ClockKing
 		public EnableCheckPointCommand():base("LightGray","Enable")
 		{
 			this.Category = "Right";
+            this.EmojiName = EmojiSharp.Emoji.RADIO_BUTTON.ShortName;
 		}
 
 		public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)

@@ -9,6 +9,7 @@ namespace ClockKing
 		{
 			this.IsDestructive = true;
 			this.Category = "Left";
+            this.EmojiName = EmojiSharp.Emoji.NO_ENTRY.ShortName;
 		}
 
 		public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)

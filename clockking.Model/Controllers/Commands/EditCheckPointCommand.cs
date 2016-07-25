@@ -40,6 +40,7 @@ namespace ClockKing
 		{
 			this.Category = "In Place";
 			this.LongName = "Edit Goal...";
+            this.EmojiName = EmojiSharp.Emoji.PENCIL.ShortName;
 		}
 
 

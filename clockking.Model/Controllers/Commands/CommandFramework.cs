@@ -40,6 +40,28 @@ namespace ClockKing.Core
 			return true;
 		
 		}
+        public string NameWithEmoji 
+        {
+            get {
+                if (!string.IsNullOrEmpty (this.EmojiName))
+                    return this.EmojiUnified + " " + this.Name;
+                else
+                    return this.Name;
+            }
+        }
+
+        public string LongNameWithEmoji 
+        {
+            get {
+
+                var name = string.IsNullOrEmpty (this.LongName) ? this.Name : this.LongName;
+
+                if (!string.IsNullOrEmpty (this.EmojiName))
+                    return this.EmojiUnified + " " + name;
+                else
+                    return name;
+            }
+        }
 			
 		public virtual bool ExecuteFor(iCheckpointCommandController controller, CheckPoint checkPoint)
 		{

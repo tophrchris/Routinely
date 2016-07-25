@@ -9,7 +9,7 @@ namespace ClockKing
 	public class AddOccurrenceCommand:EnabledCheckpointCommand
 	{
 		public AddOccurrenceCommand(string color,string label):base(color,label){}
-		public AddOccurrenceCommand():base("Green","Done!")
+		public AddOccurrenceCommand():base("Blue","Done!")
 		{
 			this.ChangesCheckpoint = false;
 			this.Category = "Right";

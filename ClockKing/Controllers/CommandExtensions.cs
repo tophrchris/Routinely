@@ -14,19 +14,15 @@ namespace ClockKing
 		public static UIAlertAction AsAlertAction(this Command cmd, Action<Command> handler)
 		{
 
-			var title = string.IsNullOrEmpty(cmd.LongName) ? cmd.Name : cmd.LongName;
-
 			return UIAlertAction.Create(
-				title,
+				cmd.LongNameWithEmoji,
 				cmd.IsDestructive?UIAlertActionStyle.Destructive:UIAlertActionStyle.Default,
 				(a)=>handler(cmd));
 		}
 
 		public static UIPreviewAction AsPreviewAction(this Command cmd, Action<Command> handler,UIPreviewActionStyle style)
 		{
-			var title = string.IsNullOrEmpty(cmd.LongName) ? cmd.Name : cmd.LongName;
-
-			return UIPreviewAction.Create (title,style,(a,c)=>{handler(cmd);});
+			return UIPreviewAction.Create (cmd.LongNameWithEmoji,style,(a,c)=>{handler(cmd);});
 		}
 
 		public static UIPreviewAction AsPreviewAction(this Command cmd,Action<Command> handler )
@@ -41,12 +37,8 @@ namespace ClockKing
 
 			var button = new UIButton (UIButtonType.Custom);
 			button.BackgroundColor =  ColorLookup[cmd.ColorName];
-
-			var name = cmd.Name;
-			if (!string.IsNullOrEmpty(cmd.EmojiName))
-				name = cmd.EmojiUnified + " " + cmd.Name;
-			button.SetTitle(cmd.Name, UIControlState.Application);
-			button.SetTitle (name, UIControlState.Normal);
+			button.SetTitle (cmd.NameWithEmoji, UIControlState.Normal);
+			button.SetTitle (cmd.Name, UIControlState.Application);
 			button.SetTitleColor (UIColor.White, UIControlState.Normal);
 			button.TitleLabel.AdjustsFontSizeToFitWidth = true;
 			return button;
@@ -56,20 +48,21 @@ namespace ClockKing
 		{
 
 			get{
-				return new Dictionary<string,UIColor> () 
+				return new Dictionary<string,UIColor> ()
 				{
 					{"Black",UIColor.Black},
-					{"Blue",UIColor.Blue},
+					{"LightBlue",UIColor.FromRGB(102,205,170)},
+					{"Blue",UIColor.FromRGB(95,158,160)},
 					{"Brown",UIColor.Brown},
 					{"Cyan",UIColor.Cyan},
 					{"DarkGray",UIColor.DarkGray},
 					{"Gray",UIColor.Gray},
 					{"Green",UIColor.Green},
 					{"LightGray",UIColor.LightGray},
-					{"Magenta",UIColor.Magenta},
+					{"Magenta",UIColor.FromRGB(221,160,221)},
 					{"Orange",UIColor.Orange},
 					{"Purple",UIColor.Purple},
-					{"Red",UIColor.Red},
+					{"Red",UIColor.FromRGB(205,92,92)},
 					{"White",UIColor.White},
 					{"Yellow",UIColor.Yellow}
 				};

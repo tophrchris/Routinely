@@ -208,7 +208,7 @@ namespace ClockKing
 			var acs = UIAlertController.Create (string.Format("options for {0}",checkpoint.Name), "stuff to do", UIAlertControllerStyle.ActionSheet);
 
 			this.Controller.Commands.GetAlertActionsForCheckpoint(checkpoint,handler,dialog)
-				.Where(a=>a.Title!="Edit Goal")//TODO:i hate this
+			    //.Where(a=>!a.Title.Contains("Edit Goal"))//TODO:i hate this
 				.ToList()
 				.ForEach(cmd=>acs.AddAction (cmd));
 

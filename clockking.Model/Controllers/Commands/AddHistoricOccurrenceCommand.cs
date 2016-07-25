@@ -8,7 +8,7 @@ namespace ClockKing
 {
 	public class AddHistoricOccurrenceCommand:AddOccurrenceCommand
 	{
-		public AddHistoricOccurrenceCommand():base("Orange","Earlier...")
+		public AddHistoricOccurrenceCommand():base("LightBlue","Earlier...")
 		{
 			this.Category = "Right";
 			this.LongName = "Add an occurrence in the past";

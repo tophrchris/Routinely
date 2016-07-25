@@ -8,6 +8,7 @@ namespace ClockKing
 		public DisableCheckPointCommand():base("DarkGray","Disable")
 		{
 			this.Category = "Left";
+            this.EmojiName = EmojiSharp.Emoji.MEDIUM_WHITE_CIRCLE.ShortName;
 		}
 
 		public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)
