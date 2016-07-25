@@ -8,7 +8,7 @@ namespace ClockKing
 {
 	public class AddHistoricOccurrenceCommand:AddOccurrenceCommand
 	{
-		public AddHistoricOccurrenceCommand():base("Orange","Done...")
+		public AddHistoricOccurrenceCommand():base("Orange","Earlier...")
 		{
 			this.Category = "Right";
 			this.LongName = "Add an occurrence in the past";
@@ -39,17 +39,17 @@ namespace ClockKing
 				AddOccurrenceToCheckpoint (controller, checkPoint, n);
 			};
 
-			var choices = new[]{ 15, 30, 60, 90 }.Select (i =>
+			var choices = new[]{ 15, 30, 45, 60,120 }.Select (i =>
 				new ModalChoice () {
 				Label = string.Format ("{0} ago- {1}", i.Minutes ().Humanize (2), DateTime.Now.AddMinutes (i * -1).ToString ("t")),
 				Handler = () => adder (i * -1)
 			}).ToList ();
 
 
-			choices.Add(new ModalChoice(){Label="Custom...",Handler=()=>this.ShowCustomDialog(controller,checkPoint)});
+			choices.Add(new ModalChoice(){Label="Specify a time...",Handler=()=>this.ShowCustomDialog(controller,checkPoint)});
 			choices.Add(new ModalChoice(){Label="Nevermind",Cancel=true});
 
-			controller.PresentChoices ("Add", this.LongName, choices);
+            controller.PresentChoices ("Earlier completion of " + checkPoint.Name, this.LongName, choices);
 
 			return false;
 		}

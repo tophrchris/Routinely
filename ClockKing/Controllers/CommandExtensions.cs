@@ -45,6 +45,7 @@ namespace ClockKing
 			var name = cmd.Name;
 			if (!string.IsNullOrEmpty(cmd.EmojiName))
 				name = cmd.EmojiUnified + " " + cmd.Name;
+			button.SetTitle(cmd.Name, UIControlState.Application);
 			button.SetTitle (name, UIControlState.Normal);
 			button.SetTitleColor (UIColor.White, UIControlState.Normal);
 			button.TitleLabel.AdjustsFontSizeToFitWidth = true;

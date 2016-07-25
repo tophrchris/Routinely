@@ -42,7 +42,7 @@ namespace ClockKing
 
 		private bool ExecuteCommandForCheckpoint(CheckPoint checkPoint, IEnumerable<UIButton> buttons, int triggeredButtonIndex)
 		{
-			var triggeredUtility = buttons.ElementAt (triggeredButtonIndex).CurrentTitle;
+			var triggeredUtility = buttons.ElementAt (triggeredButtonIndex).Title(UIControlState.Application);
 			var foundUtil = this.Controller.Commands.Commands [triggeredUtility];
 			var checkPoints = this.Controller.CheckPoints;
 			var executed=  foundUtil.ExecuteFor (checkPoints, checkPoint);
