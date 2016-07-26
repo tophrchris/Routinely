@@ -19,13 +19,7 @@ namespace ClockKing
         public override string EmojiName { 
             get 
             {
-                var now = DateTime.Now.ToLocalTime ();
-                var hour = now.Hour;
-                if (hour > 12)
-                    hour -= 12;
-                var past30 = (now.Minute >= 30)?"30":"";
-                var emojiString = "clock{0}{1}".FormatWith (hour, past30);
-                return emojiString;
+                return Emoji.NowClock.ShortName;
             }
             set 
             {
@@ -41,7 +35,11 @@ namespace ClockKing
 
 			var choices = new[]{ 15, 30, 45, 60,120 }.Select (i =>
 				new ModalChoice () {
-				Label = string.Format ("{0} ago- {1}", i.Minutes ().Humanize (2), DateTime.Now.AddMinutes (i * -1).ToString ("t")),
+                Label = string.Format ("{2} {0} ago- {1}", 
+                                       i.Minutes ().Humanize (2),
+                                       DateTime.Now.AddMinutes (i * -1).ToString ("t"),
+                                       Emoji.ClockFor(DateTime.Now.AddMinutes (i * -1)).Unified
+                                      ),
 				Handler = () => adder (i * -1)
 			}).ToList ();
 

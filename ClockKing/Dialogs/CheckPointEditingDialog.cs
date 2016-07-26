@@ -1,12 +1,9 @@
 ﻿using System;
 using MonoTouch.Dialog;
-using Foundation;
 using UIKit;
 using ClockKing.Extensions;
 using System.Linq;
 using EmojiSharp;
-using System.Text;
-using System.Unicode;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ClockKing.Core;
@@ -167,7 +164,7 @@ namespace ClockKing
 			return true;
 		}
 
-
+		//TODO: move this to EmojiExtensions
 		public void AutoSetEmoji()
 		{
 			if (!SuggestAbbreviations)

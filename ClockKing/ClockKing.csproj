@@ -114,9 +114,6 @@
     <Reference Include="Humanizer">
       <HintPath>..\packages\Humanizer.Core.2.0.1\lib\portable-win+net45+wp8+wpa81\Humanizer.dll</HintPath>
     </Reference>
-    <Reference Include="UnicodeInformation">
-      <HintPath>..\packages\UnicodeInformation.1.0.1.6\lib\portable-net45+win+MonoAndroid10+xamarinios10+MonoTouch10\UnicodeInformation.dll</HintPath>
-    </Reference>
     <Reference Include="iiToastNotification.Unified">
       <HintPath>..\Components\iiToastNotification-1.0\lib\ios-unified\iiToastNotification.Unified.dll</HintPath>
     </Reference>
