@@ -200,6 +200,7 @@
     <Compile Include="Dialogs\Menus\Menu.cs" />
     <Compile Include="Dialogs\CheckPointDialog.cs" />
     <Compile Include="TableParts\BlankCheckPointDataSource.cs" />
+    <Compile Include="TableParts\GroupCheckPointsByCategory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

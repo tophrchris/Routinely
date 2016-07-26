@@ -23,7 +23,8 @@ namespace ClockKing
 			this.groupers = new Dictionary<GroupingChoices, CheckPointGrouper> () 
 			{
 				{GroupingChoices.ByTimeOfDay,new GroupCheckPointsByTimeOfDay ()},
-				{GroupingChoices.ByStatus,new GroupCheckPointsByStatus ()}
+				{GroupingChoices.ByStatus,new GroupCheckPointsByStatus ()},
+				{GroupingChoices.ByCategory,new GroupCheckPointsByCategory ()}
 			};
 
 			var right = Emoji.BLACK_RIGHTWARDS_ARROW.Unified;

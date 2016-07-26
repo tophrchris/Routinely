@@ -9,7 +9,7 @@ namespace ClockKing
 {
 	public class GroupCheckPointsByStatus:CheckPointGrouper
 	{
-		
+
 		public override IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
 		{
 			get{
@@ -48,5 +48,7 @@ namespace ClockKing
 			}
 		}
 	}
+
+
 }
 

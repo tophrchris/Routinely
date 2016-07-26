@@ -50,7 +50,8 @@ namespace ClockKing
 	public enum GroupingChoices
 	{
 		ByStatus,
-		ByTimeOfDay
+		ByTimeOfDay,
+		ByCategory
 	}
 }
 

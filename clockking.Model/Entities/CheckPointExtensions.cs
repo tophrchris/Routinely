@@ -13,7 +13,7 @@ namespace ClockKing.Core
              Configurator.DateTimeHumanizeStrategy = new PrecisionDateTimeHumanizeStrategy (.9D);
 
             if (!cp.Occurrences.Any ())
-                return "created {0}".FormatWith (cp.CreatedOn.Humanize ()).AsSentence ();
+                return "created {0}".FormatWith (cp.CreatedOn.ToLocalTime().Humanize (false)).AsSentence ();
 
             if (!cp.Active | !cp.Enabled) 
                 return "last completed {0}".FormatWith(cp.MostRecentOccurrenceTimeStamp ().Humanize ()).AsSentence();

@@ -21,6 +21,7 @@ namespace ClockKing
 		private EntryElement categoryElement { get; set; }
 		private BooleanElement nowElement { get; set; }
 		private UIDatePicker picker { get; set; }
+		private UIViewElement pickerWrapper { get; set; }
 		private BooleanElement nowSwitch{ get; set; }
 		private List<string> emojiNames { get; set; }
 		private BooleanElement SuggestEmoji{ get; set; }
@@ -43,7 +44,7 @@ namespace ClockKing
 			this.nowSwitch = new BooleanElement ("default to current time:", true);
 
 			var instructions = new MultilineElement ("What time do you expect to complete this goal, each day?");
-			var pickerWrapper = new UIViewElement (string.Empty, picker, false);
+			this.pickerWrapper = new UIViewElement (string.Empty, picker, false);
 
 			var checkPointForm = new Section ("Goal:") { 	
 				nameElement,
@@ -55,6 +56,8 @@ namespace ClockKing
 				nowSwitch,
 				nowElement 
 			};
+
+			this.SuggestEmoji.ValueChanged += (s, e) => this.SuggestAbbreviations = SuggestEmoji.Value;
 
 			this.nameElement.NotifyChangedOnKeyStroke = true;
 
@@ -90,7 +93,7 @@ namespace ClockKing
 			this.categoryElement.Value = toEdit.Category;
 			this.emojiElement.Value = toEdit.Emoji;
 			var section = this.Root.First();
-			section.Remove (4);
+			section.Remove (this.pickerWrapper.IndexPath.Row);
 			section.Remove (this.nowElement.IndexPath.Row);
 			section.Remove (this.nowSwitch.IndexPath.Row);
 			this.targetTimeElement = new TimeElement ("Target time", toEdit.TargetTimeToday);
