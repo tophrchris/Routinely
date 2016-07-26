@@ -16,12 +16,15 @@ namespace ClockKing
 
 				var found = from cp in this.checkpoints
 					        group cp by cp.Category.Trim() into byCat
+				            orderby byCat.Key 
 							select byCat;
 
 				foreach (var g in found)
 				{
 					var key = string.IsNullOrEmpty(g.Key) ? "(no category)" : g.Key;
-					var emit = new KeyValuePair<string, IEnumerable<CheckPoint>>(key, g.AsEnumerable());
+					var emit = new KeyValuePair<string,
+					IEnumerable<CheckPoint>>(key,
+					                         g.OrderBy(cp=>cp.TargetTime).ThenBy(cp=>cp.Name));
 					yield return emit;
 				}
 				yield break;

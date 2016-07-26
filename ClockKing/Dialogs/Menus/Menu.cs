@@ -22,7 +22,7 @@ namespace ClockKing
 			var monthView = new MonthView();
 
 			var nav = new Section("Navigation");
-			nav.Add(new StringElement("View History", () => ShowDialog(monthView)));
+			nav.Add(new StringElement(EmojiSharp.Emoji.CALENDAR.Unified+  " View History", () => ShowDialog(monthView)));
 			nav.Add(new StringElement("Add New Goal", () => buildAndShowAddDialog()));
 			nav.Add(new StringElement("Show Pending Notifications", () => ShowDialog(notifications)));
 
@@ -34,7 +34,7 @@ namespace ClockKing
 				Controller.RespondToModelChanges();
 			};
 
-			var seg = new UISegmentedControl(new CoreGraphics.CGRect(30,5,200,40));
+			var seg = new UISegmentedControl(new CoreGraphics.CGRect(30,0,190,40));
 
 			seg.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
 			seg.TintColor = UIColor.FromRGB(.6f,.3f,.6f);
