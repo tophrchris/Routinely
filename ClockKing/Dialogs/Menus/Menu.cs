@@ -13,7 +13,10 @@ namespace ClockKing
 
 		public Menu() : base()
 		{
+			this.Pushing = true;
+
 			this.Root = new RootElement("Options");
+			this.Root.UnevenRows = true;
 
 			var notifications = new NotificationReviewDialog();
 			var monthView = new MonthView();
@@ -23,18 +26,7 @@ namespace ClockKing
 			nav.Add(new StringElement("Add New Goal", () => buildAndShowAddDialog()));
 			nav.Add(new StringElement("Show Pending Notifications", () => ShowDialog(notifications)));
 
-			var switches = new Section("Switches");
 
-			switches.Add(new StringElement("Toggle Sort",
-			() =>
-			{
-				Close();
-				App.Options.GroupingChoice =
-					(App.Options.GroupingChoice == GroupingChoices.ByStatus) ?
-						GroupingChoices.ByTimeOfDay :
-						GroupingChoices.ByStatus;
-				Controller.RespondToModelChanges();
-			}));
 
 			var inactiveSwitch = new BooleanElement("Show Inactive Goals", true);
 
@@ -44,9 +36,27 @@ namespace ClockKing
 				Controller.RespondToModelChanges();
 			};
 
-			switches.Add(inactiveSwitch);
+			var seg = new UISegmentedControl(new CoreGraphics.CGRect(30,5,200,40));
+
+			seg.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+			seg.TintColor = UIColor.FromRGB(.6f,.3f,.6f);
+			seg.BackgroundColor = UIColor.FromRGB(.6f,.6f,.6f);
+			seg.InsertSegment("Status", 0, false);
+			seg.InsertSegment("Time", 1, false);
+			seg.InsertSegment("Category", 2, false);
+			seg.SelectedSegment = (int)App.Options.GroupingChoice;
+			seg.ValueChanged += (sender, e) =>
+			{
+				App.Options.GroupingChoice = (GroupingChoices)((int)seg.SelectedSegment);
+				App.Controller.RespondToModelChanges();
+			};
+			var segHolder = new UIViewElement("Sort:", seg, false);
+			segHolder.Flags = UIViewElement.CellFlags.DisableSelection;
 
 
+
+
+			var switches = new Section("Goal listing"){ inactiveSwitch,segHolder };
 
 			var debug = new Section("debugging");
 
@@ -77,6 +87,7 @@ namespace ClockKing
 
 
 			this.Root.Add(nav);
+
 			this.Root.Add(switches);
 			this.Root.Add(debug);
 			this.Root.Add(support);
