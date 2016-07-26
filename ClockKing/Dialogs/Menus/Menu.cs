@@ -26,8 +26,6 @@ namespace ClockKing
 			nav.Add(new StringElement("Add New Goal", () => buildAndShowAddDialog()));
 			nav.Add(new StringElement("Show Pending Notifications", () => ShowDialog(notifications)));
 
-
-
 			var inactiveSwitch = new BooleanElement("Show Inactive Goals", true);
 
 			inactiveSwitch.ValueChanged += (s, e) =>{
