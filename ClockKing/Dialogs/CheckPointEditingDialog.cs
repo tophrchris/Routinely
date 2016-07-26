@@ -27,6 +27,7 @@ namespace ClockKing
 		private BooleanElement SuggestEmoji{ get; set; }
 		private BooleanElement enabledSwitch{ get; set; }
 		private TimeElement targetTimeElement{ get; set; }
+		private BooleanElement categorySwitch { get; set; }
 		private bool SuggestAbbreviations = true;
 
 		public CheckPointEditingDialog (iCheckpointCommandController checkpoints, RootElement root, bool pushing) : base (root, pushing)
@@ -37,6 +38,7 @@ namespace ClockKing
 			this.emojiNames = Emoji.All.Where (kv => kv.Value.AppleHasImage).Select (kv => kv.Key.ToLower ()).ToList ();
 			this.nameElement = new EntryElement ("Name", "Name your goal", "");
 			this.emojiElement = new EntryElement ("Abbreviation", "a short (2-letter) name","");
+			this.categorySwitch = new BooleanElement("Specify category?", false);
 			this.categoryElement = new EntryElement("Category", "You can specify a category for your goal", "");
 			this.nowElement = new BooleanElement ("Add Occurrence now?", false);
 			this.picker = new UIDatePicker (){ Mode = UIDatePickerMode.Time };
@@ -48,16 +50,25 @@ namespace ClockKing
 
 			var checkPointForm = new Section ("Goal:") { 	
 				nameElement,
-				categoryElement,
+
 				SuggestEmoji,
 				emojiElement,
 				instructions,
 				pickerWrapper,
 				nowSwitch,
-				nowElement 
+				nowElement,
+				categorySwitch
 			};
 
 			this.SuggestEmoji.ValueChanged += (s, e) => this.SuggestAbbreviations = SuggestEmoji.Value;
+
+			this.categorySwitch.ValueChanged += (sender, e) => 
+			{
+				if (this.categorySwitch.Value)
+					checkPointForm.Insert(this.categorySwitch.IndexPath.Row + 1, UITableViewRowAnimation.Top, this.categoryElement);
+				else
+					checkPointForm.Remove(this.categoryElement);
+			};
 
 			this.nameElement.NotifyChangedOnKeyStroke = true;
 
@@ -102,6 +113,9 @@ namespace ClockKing
 
 			if (knownEmoji.Contains (toEdit.Emoji))
 				SuggestAbbreviations = false;
+
+			if (!string.IsNullOrEmpty(toEdit.Category))
+				this.categorySwitch.Value = true;
 
 			SuggestEmoji.Value = SuggestAbbreviations;
 
