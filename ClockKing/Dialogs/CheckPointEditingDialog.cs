@@ -18,6 +18,7 @@ namespace ClockKing
 		private EntryElement nameElement { get; set; }
 		private TimeElement targetElement { get; set; }
 		private EntryElement emojiElement { get; set; }
+		private EntryElement categoryElement { get; set; }
 		private BooleanElement nowElement { get; set; }
 		private UIDatePicker picker { get; set; }
 		private BooleanElement nowSwitch{ get; set; }
@@ -35,6 +36,7 @@ namespace ClockKing
 			this.emojiNames = Emoji.All.Where (kv => kv.Value.AppleHasImage).Select (kv => kv.Key.ToLower ()).ToList ();
 			this.nameElement = new EntryElement ("Name", "Name your goal", "");
 			this.emojiElement = new EntryElement ("Abbreviation", "a short (2-letter) name","");
+			this.categoryElement = new EntryElement("Category", "You can specify a category for your goal", "");
 			this.nowElement = new BooleanElement ("Add Occurrence now?", false);
 			this.picker = new UIDatePicker (){ Mode = UIDatePickerMode.Time };
 			this.SuggestEmoji = new BooleanElement ("suggest emoji for abbreviation?", true);
@@ -45,6 +47,7 @@ namespace ClockKing
 
 			var checkPointForm = new Section ("Goal:") { 	
 				nameElement,
+				categoryElement,
 				SuggestEmoji,
 				emojiElement,
 				instructions,
@@ -84,6 +87,7 @@ namespace ClockKing
 			var knownEmoji = Emoji.All.Where (e => e.Value.AppleHasImage).Select (e => e.Value.Unified).ToList ();
 
 			this.nameElement.Value = toEdit.Name;
+			this.categoryElement.Value = toEdit.Category;
 			this.emojiElement.Value = toEdit.Emoji;
 			var section = this.Root.First();
 			section.Remove (4);
@@ -130,6 +134,7 @@ namespace ClockKing
 				return false;
 			}
 
+			toEdit.Category = this.categoryElement.Value;
 			toEdit.Emoji=this.emojiElement.Value;
 			toEdit.TargetTime=targetTimeElement.DateValue.ToLocalTime().TimeOfDay;
 			toEdit.Enabled= enabledSwitch.Value;
@@ -154,7 +159,7 @@ namespace ClockKing
 					.AddNewCheckPoint (
 						nameElement.Value,
 					picker.Date.ToDateTime().ToLocalTime().TimeOfDay,
-						emojiElement.Value);
+						emojiElement.Value,categoryElement.Value);
 
 				if (nowElement.Value)
 					this.CheckPoints.AddOccurrenceToCheckPoint(newcp,0);

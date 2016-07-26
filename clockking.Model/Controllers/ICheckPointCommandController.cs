@@ -9,7 +9,7 @@ namespace ClockKing.Core
         event EventHandler<CheckPointDataChangedEventArgs> CheckPointDataChanged;
 
         bool CheckPointExists(string checkPointName);
-        CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji);
+        CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji,string category="");
         bool RemoveCheckpoint(CheckPoint checkPoint);
         Occurrence AddOccurrenceToCheckPoint(string checkPointName,int mins);
         Occurrence AddOccurrenceToCheckPoint(CheckPoint checkPoint,int mins);

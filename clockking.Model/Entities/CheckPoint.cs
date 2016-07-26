@@ -24,6 +24,7 @@ namespace ClockKing.Core
 		public string Color { get; set; }
 		public string Emoji { get; set; }
 		public bool Enabled { get; set; }
+        public string Category { get; set; }
         public TimeSpan TargetTime
         { 
             get;

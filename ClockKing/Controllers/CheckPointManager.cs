@@ -37,12 +37,12 @@ namespace ClockKing
 			this.Controller.ResetNavigation (refreshData);
 		}
 			
-		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji)
+		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji,string category="")
 		{
 			if (string.IsNullOrEmpty (emoji))
 				emoji = title.Substring (0, 2);
 
-			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji);
+			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji,category);
 			if (created != null)
 				DataChanged (new CheckPointDataChangedEventArgs ()
 					{Entity="Goal",
