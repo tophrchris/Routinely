@@ -1,6 +1,5 @@
 using Foundation;
 using System;
-using System.CodeDom.Compiler;
 using UIKit;
 using ClockKing.Core;
 using System.Collections.Generic;
@@ -10,9 +9,11 @@ using CoreGraphics;
 using iiToastNotification.Unified;
 using System.Diagnostics;
 
+
+
 namespace ClockKing
 {
-	
+
 	public partial class CheckPointController : UITableViewController,IUIViewControllerPreviewingDelegate
 	{
 		private AppDelegate appDelegate{ get; }
@@ -29,6 +30,7 @@ namespace ClockKing
 		public AddCheckPointMenuCommand AddCommand{ get; }
 		private CheckPointDetailDialog currentDetailDialog {get;set;}
 		private CheckpointDetailCommand Detail{ get;  }
+		private TableCellRefresher refresher { get; set; }
 
 		public CheckPointController (NSObjectFlag t):base(t){}
 
@@ -46,6 +48,7 @@ namespace ClockKing
 			this.Detail = new CheckpointDetailCommand (this.CheckPoints);
 			this.Data = new GroupedCheckPointDataSource (this);
 
+			this.refresher = new TableCellRefresher((a) => this.InvokeOnMainThread(a));
 
 			this.ResetNavigation ();
 		}
@@ -55,20 +58,12 @@ namespace ClockKing
 		{
 			base.ViewDidLoad ();
 
-			UITableViewSource ds;
-			if (this.CheckPointData.checkPoints.Any())
-				ds = this.Data;
-			else
-				ds = new BlankCheckPointDataSource();
-
-			this.TableView.Source = ds;
+			this.reloadTableView();
 
 			this.RefreshControl.ValueChanged += (o, e) => {
 				this.RefreshControl.EndRefreshing();
 				this.AddCommand.ShowDialog();
 			};
-
-
 
 		}
 
@@ -193,22 +188,57 @@ namespace ClockKing
 		}
 		private void reloadTableView()
 		{
-			if (this.TableView.Source is BlankCheckPointDataSource)
-				if (this.CheckPointData.checkPoints.Any())
-					this.TableView.Source = this.Data;
-			if (!this.CheckPointData.checkPoints.Any())
-				if (!(this.TableView.Source is BlankCheckPointDataSource))
-					this.TableView.Source = new BlankCheckPointDataSource();
-				
+			EnsureDataSource();
+
 			if (this.IsViewLoaded)
 			{
 				this.TableView.ReloadData();
+				EnlistRefreshableCells();
+
 				notify("done", "table reloaded", ToastNotificationType.Info, 1);
 			}
 			else
 				notify("oops", "view wasn't loaded", ToastNotificationType.Error);
 		}
-		#endregion
+
+		private void EnsureDataSource()
+		{
+			if (this.TableView.Source == null)
+			{
+				if (this.CheckPointData.checkPoints.Any())
+					this.TableView.Source = this.Data;
+				else
+					this.TableView.Source = new BlankCheckPointDataSource();
+			}
+			else
+			{
+				if (this.TableView.Source is BlankCheckPointDataSource)
+					if (this.CheckPointData.checkPoints.Any())
+						this.TableView.Source = this.Data;
+				if (!this.CheckPointData.checkPoints.Any())
+					if (!(this.TableView.Source is BlankCheckPointDataSource))
+						this.TableView.Source = new BlankCheckPointDataSource();
+			}
+		}
+
+		private void EnlistRefreshableCells()
+		{
+			refresher.Restart();
+			var sections = this.TableView.NumberOfSections();
+			for (nint i = 0; i < sections; i++)
+			{
+				var rows = this.TableView.NumberOfRowsInSection(i);
+				for (nint j = 0; j < rows; j++)
+				{
+					var path = NSIndexPath.Create(new nint[] { i, j });
+					var cell = this.TableView.CellAt(path);
+					if (cell is CheckPointTableCell)
+						this.refresher.EnqueueCell(cell as CheckPointTableCell);
+				}
+			}
+		}
+
+	#endregion
 
 		#region pop/peek
 

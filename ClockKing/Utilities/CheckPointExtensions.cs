@@ -3,15 +3,40 @@ using Humanizer;
 using Humanizer.Configuration;
 using Humanizer.DateTimeHumanizeStrategy;
 using System.Linq;
+using ClockKing.Core;
 
-namespace ClockKing.Core
+namespace ClockKing
 {
     public static class CheckPointExtensions
     {
+		public static TableCellRefresher.RefreshRate GetDesiredRefreshRate(this CheckPoint cp)
+		{
+
+			var since = DateTime.Now - cp.MostRecentOccurrenceTimeStamp(cp.CreatedOn);
+			var soon = cp.IsSoon(5);
+
+			if (since.TotalSeconds < 30)
+				return TableCellRefresher.RefreshRate.Instant;
+			else
+			{
+				if (since.TotalMinutes < 2 | soon)
+					return TableCellRefresher.RefreshRate.Fast;
+				else
+					if (since.TotalMinutes < 15)
+					return TableCellRefresher.RefreshRate.Standard;
+				else
+					return TableCellRefresher.RefreshRate.Slow;
+			}
+
+		}
         public static string GetProgress (this CheckPoint cp)
         {
              Configurator.DateTimeHumanizeStrategy = new PrecisionDateTimeHumanizeStrategy (.9D);
 
+
+            if (cp.IsMissed | cp.IsSoon ())
+                return cp.TargetTimeToday.ToUniversalTime ().Humanize ().AsSentence ();
+            
             if (!cp.Occurrences.Any ())
                 return "created {0}".FormatWith (cp.CreatedOn.ToLocalTime().Humanize (false)).AsSentence ();
 
@@ -25,8 +50,6 @@ namespace ClockKing.Core
                 return "{0} ago".FormatWith (cp.SinceLastOccurrence.Humanize(precision)).AsSentence();
             }
 
-            if (cp.IsMissed | cp.IsSoon())
-                return cp.TargetTimeToday.ToUniversalTime ().Humanize().AsSentence();
 
             return "completed {0} times".FormatWith (cp.Occurrences.Count ()).AsSentence();
 

@@ -58,7 +58,6 @@
     <Compile Include="Controllers\Commands\EditCheckPointCommand.cs" />
     <Compile Include="Controllers\Commands\AddScheduledTargetCommand.cs" />
     <Compile Include="DataProviders\Extensions.cs" />
-    <Compile Include="Entities\CheckPointExtensions.cs" />
     <Compile Include="EmojiSharp\EmojiExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
