@@ -12,7 +12,8 @@ namespace ClockKing
 		public OccurrencesSection (CheckPoint checkpoint,iCheckpointCommandController Controller,CheckPointDetailDialog dialog)
 		{
 
-			this.Caption= "Occurrence History:";
+			this.Caption= "Occurrences:";
+			this.Footer = "Tap to remove.";
 
 			var occurenceElements = 
 				checkpoint
@@ -36,7 +37,7 @@ namespace ClockKing
 			this.AddAll (occurenceElements.Take(5));
 
 			if (occurenceElements.Count > 5)
-				this.Add (new StringElement ("More",
+				this.Add (new StringElement ("All Occurrences",
 					()=>{
 						var r = new RootElement(checkpoint.Name);
 						var s = new Section("All Occurrences");

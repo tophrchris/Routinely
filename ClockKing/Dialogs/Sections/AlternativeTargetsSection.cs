@@ -11,7 +11,8 @@ namespace ClockKing
 		public AlternativeTargetsSection (CheckPoint checkpoint,iCheckpointCommandController Controller,CheckPointDetailDialog dialog)
 		{
 
-			this.Caption = "Alternative Targets";
+			this.Caption = "Alternative Targets:";
+			this.Footer = "Tap to edit.";
 
 			foreach (var at in checkpoint.ScheduledTargets) 
 			{

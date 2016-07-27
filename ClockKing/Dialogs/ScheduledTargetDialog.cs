@@ -17,8 +17,8 @@ namespace ClockKing
 		protected CheckPointDetailDialog dialog { get; set; }
 
 		protected UIDatePicker picker { get; set; }
-		protected Section days { get; set; }
-		protected Section existingTargets { get; set; }
+		protected Section daySelectionSection { get; set; }
+		protected Section existingTargetsSection { get; set; }
 		protected BooleanElement inactiveSwitch { get; set; }
 
 		public ScheduledTargetDialog (RootElement root, ScheduledTargetTime target,CheckPoint checkpoint, iCheckpointCommandController Controller,CheckPointDetailDialog dialog):base(root,true)
@@ -29,32 +29,40 @@ namespace ClockKing
 			this.dialog = dialog;
 
 			this.picker = new UIDatePicker (){ Mode = UIDatePickerMode.Time };
+			this.inactiveSwitch = new BooleanElement("Goal is inactive on these days?", !target.TargetTime.HasValue);
+
 			var pickerElement = new UIViewElement (string.Empty, this.picker, false);
 
-			this.inactiveSwitch = new BooleanElement ("Goal is inactive on these days?",!target.TargetTime.HasValue);
-			this.days = new Section ("days");
-			this.existingTargets = new Section ("Existing scheduled targets");
-			
-			Root.Add (new CheckPointCellSection(checkpoint));
+			this.daySelectionSection = new Section ("Effective Days");
+			this.existingTargetsSection = new Section ("Existing Alternative Targets","Tap to remove alternative target from specified days.");
+			var timeSpecificationSection = new Section("Alternative Target:",
+			    @"Specify a different target time for the goal, which will be effective on the days selected below.");
 
-			var timeSection = new Section ("Scheduled Target"){inactiveSwitch};
 
-			Root.Add (new Section[]{ timeSection, days });
 
 			inactiveSwitch.ValueChanged += (so, ev) => {
 				if (inactiveSwitch.Value) 
-					timeSection.Remove (pickerElement);
+					timeSpecificationSection.Remove (pickerElement);
 				 else 
-					timeSection.Insert (1, pickerElement);
+					timeSpecificationSection.Insert (1, pickerElement);
 			};
 
-			if (ScheduledTarget.TargetTime.HasValue)
-				timeSection.Add (pickerElement);
 
-			Root.Add (new Section ("Delete") {new StringElement ("delete",
+			timeSpecificationSection.Add(inactiveSwitch);
+			if (ScheduledTarget.TargetTime.HasValue)
+				timeSpecificationSection.Add (pickerElement);
+
+
+			Root.Add(new CheckPointCellSection(checkpoint));
+
+			Root.Add(new Section[] { timeSpecificationSection, daySelectionSection });
+
+			Root.Add (new Section ("","Tap to delete this Alternative Target.") {new StringElement ("Remove",
 				() => this.RemoveScheduledTarget())
 				{Alignment=UITextAlignment.Center
 				 }});
+
+
 
 			this.NavigationItem.SetRightBarButtonItem (
 				new UIBarButtonItem (UIBarButtonSystemItem.Save,
@@ -72,9 +80,9 @@ namespace ClockKing
 		{
 			this.picker.Date = (DateTime.Today + (ScheduledTarget.TargetTime ?? DateTime.Now.TimeOfDay)).ToUniversalTime().ToNSDate ();
 			this.inactiveSwitch.Value = !ScheduledTarget.TargetTime.HasValue;
-			days.Clear ();
-			existingTargets.Clear ();
-			Root.Remove (existingTargets);
+			daySelectionSection.Clear ();
+			existingTargetsSection.Clear ();
+			Root.Remove (existingTargetsSection);
 
 			var daysAlreadyScheduled = new Dictionary<DayOfWeek,TimeSpan?> ();
 
@@ -85,13 +93,13 @@ namespace ClockKing
 
 			for (var i = 0; i <= 6; i++)
 				if(!daysAlreadyScheduled.ContainsKey((DayOfWeek)i))
-					days.Add (new CheckboxElement (((DayOfWeek)i).ToString (),
+					daySelectionSection.Add (new CheckboxElement (((DayOfWeek)i).ToString (),
 						ScheduledTarget.ApplicableDays.Contains (((DayOfWeek)i))));
 
 			if (daysAlreadyScheduled.Any ()) 
 			{
-				Root.Insert (3, existingTargets);
-				existingTargets.AddAll (
+				Root.Insert (3, existingTargetsSection);
+				existingTargetsSection.AddAll (
 					daysAlreadyScheduled
 					.OrderBy(kv=>kv.Key)
 					.Select (kv => new StringElement (kv.Key.ToString (),
@@ -102,7 +110,7 @@ namespace ClockKing
 			}
 			else 
 			{
-				Root.Remove (existingTargets);
+				Root.Remove (existingTargetsSection);
 			}
 				
 		}
@@ -117,7 +125,7 @@ namespace ClockKing
 			});
 
 			var controller = SharedDialogs.ConfirmationDialog (handler,
-				Message:"Would you like to remove the existing scheduled target for {0}?".FormatWith(toClear));
+				Message:"Would you like to remove the existing Scheduled Target for {0}?".FormatWith(toClear));
 			this.PresentModalViewController (controller, true);
 		}
 
@@ -128,7 +136,7 @@ namespace ClockKing
 				this.Close (true);
 			});
 			var controller = SharedDialogs.ConfirmationDialog (handler,
-				Message:"This will delete the scheduled target",
+				Message:"This will delete this Alternative Target.",
 				yes:"OK");
 			this.PresentModalViewController(controller,true);
 
@@ -142,7 +150,7 @@ namespace ClockKing
 				ScheduledTarget.TargetTime = picker.Date.ToDateTime().ToLocalTime().TimeOfDay;
 
 			ScheduledTarget.ApplicableDays =
-				days.Elements
+				daySelectionSection.Elements
 					.Where (i => ((CheckboxElement)i).Value)
 					.Select (i => (DayOfWeek)Enum.Parse(typeof(DayOfWeek),i.Caption))
 					.ToArray ();
