@@ -29,8 +29,11 @@ namespace ClockKing
 
 			var nextElement = new ToggledStringElement ("Next");
 			nextElement.PrimaryValueGenerator = () => checkpoint.UntilNextTargetTime.Humanize (2);
+
+			var nextCompletionDay = DateTime.Today.AddDays(checkpoint.CompletedToday ? 0 : 1); 
+
 			nextElement.SecondaryValueGenerator = () => 
-				(DateTime.Today.AddDays(checkpoint.CompletedToday?1:0)+ checkpoint.UntilNextTargetTime).ToString("G");
+				(nextCompletionDay + checkpoint.TargetTimeForDay(nextCompletionDay.DayOfWeek)).ToString("G");
 			nextElement.PrimaryCaptionGenerator = () => "Next in";
 			nextElement.SecondaryCaptionGenerator = () => "Next at";
 			nextElement.Tapped += reloader;
