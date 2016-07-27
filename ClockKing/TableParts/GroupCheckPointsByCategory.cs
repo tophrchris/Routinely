@@ -15,7 +15,7 @@ namespace ClockKing
 			{
 
 				var found = from cp in this.checkpoints
-					        group cp by cp.Category.Trim() into byCat
+				            group cp by (cp.Category==null)?string.Empty:cp.Category.Trim() into byCat
 				            orderby byCat.Key 
 							select byCat;
 
