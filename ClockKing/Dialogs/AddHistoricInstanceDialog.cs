@@ -40,14 +40,8 @@ namespace ClockKing
 			};
 
 
-			this.Root.Add (new Section ("checkpoint info")
-				{
-					new StringElement("Name",checkpoint.Name),
-					new StringElement("Target Time",
-						(DateTime.Today.Date+checkpoint.TargetTime).ToString("t")),
-					new StringElement("Last Occurrence",checkpoint.SinceLastOccurrence.Humanize(1) +" ago.")
-				}
-			);
+			this.Root.Add(new CheckPointCellSection(this.checkPoint));
+
 			this.Root.Add (new Section ("Occurrence")
 				{
 					new MultilineElement("Specify the time of the occurrence:"),
