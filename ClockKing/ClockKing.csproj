@@ -203,6 +203,8 @@
     <Compile Include="TableParts\GroupCheckPointsByCategory.cs" />
     <Compile Include="TableParts\TableCellRefresher.cs" />
     <Compile Include="Utilities\CheckPointExtensions.cs" />
+    <Compile Include="Utilities\BundlePathProvider.cs" />
+    <Compile Include="Dialogs\SampleGoalBrowsingDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -241,5 +243,8 @@
       <Version>0.3.7.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\examples.json" />
   </ItemGroup>
 </Project>

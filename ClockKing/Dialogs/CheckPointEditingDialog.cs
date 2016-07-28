@@ -143,9 +143,10 @@ namespace ClockKing
 
 		public bool Save(CheckPoint toEdit)
 		{
+			var isNew = !CheckPoints.CheckPointExists(toEdit.UniqueIdentifier);
 			var nameChanged = toEdit.Name!=this.nameElement.Value;
 
-			if(nameChanged && this.CheckPoints.CheckPointExists(this.nameElement.Value))
+			if((nameChanged|isNew) && this.CheckPoints.CheckPointExists(this.nameElement.Value))
 			{
 				ShowError ("A goal already exists with the new name you've chosen.  Please choose a different name!");
 				return false;
@@ -158,9 +159,12 @@ namespace ClockKing
 			if(nameChanged)
 				toEdit.Name=this.nameElement.Value;
 
-			this.CheckPoints.ResaveCheckpoints();
+			if (isNew)
+				this.CheckPoints.AddNewCheckPoint(toEdit);
+			else
+				this.CheckPoints.ResaveCheckpoints();
 
-			if(nameChanged)
+			if(nameChanged & !isNew)
 				this.CheckPoints.RewriteOccurrences();
 				
 			ResetNavigation ();

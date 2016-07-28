@@ -43,6 +43,7 @@ namespace ClockKing
 				emoji = title.Substring (0, 2);
 
 			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji,category);
+
 			if (created != null)
 				DataChanged (new CheckPointDataChangedEventArgs ()
 					{Entity="Goal",
@@ -50,6 +51,22 @@ namespace ClockKing
 						ConditionallyRefreshData=true});
 
 			return created;
+		}
+		public CheckPoint AddNewCheckPoint(CheckPoint toAdd)
+		{
+			if (string.IsNullOrEmpty(toAdd.Emoji))
+				toAdd.Emoji = toAdd.Name.Substring(0, 2);
+			
+			var added = this.CheckPointData.AddNewCheckPoint(toAdd);
+			if (added != null)
+				DataChanged(new CheckPointDataChangedEventArgs()
+				{
+					Entity = "Goal",
+					ActionOccurred = ActionType.Added,
+					ConditionallyRefreshData = true
+				});
+
+			return added;
 		}
 
 		public Occurrence AddOccurrenceToCheckPoint(string checkPointName, int mins)
@@ -80,6 +97,10 @@ namespace ClockKing
 		public bool CheckPointExists(string checkPointName)
 		{
 			return this.CheckPointData.checkPoints.ContainsKey (checkPointName);
+		}
+		public bool CheckPointExists(Guid checkPointGuid)
+		{
+			return this.CheckPointData.checkPoints.Any(cp => cp.Value.UniqueIdentifier == checkPointGuid);
 		}
 
 		public bool RemoveCheckpoint(CheckPoint toDelete)

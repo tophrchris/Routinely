@@ -59,10 +59,22 @@ namespace ClockKing.Core
                 Category=category
             };
             newcp.UniqueIdentifier = Guid.NewGuid ();
-			this.checkPoints.Add (title, newcp);
-			SaveCheckPoints ();
-			return newcp;
+			
+            return this.AddNewCheckPoint(newcp);
 		}
+        /// <summary>
+        /// TODO: add more guard clauses here.
+        /// </summary>
+        /// <returns>The new check point.</returns>
+        /// <param name="toAdd">To add.</param>
+        public CheckPoint AddNewCheckPoint (CheckPoint toAdd)
+        {
+            if(toAdd.UniqueIdentifier==Guid.Empty)
+                throw new ArgumentException ("unique identifier required!");
+            this.checkPoints.Add (toAdd.Name, toAdd);
+            SaveCheckPoints ();
+            return toAdd;
+        }
 			
 		public bool RemoveCheckPoint(CheckPoint toDelete)
 		{

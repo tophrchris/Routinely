@@ -1,0 +1,112 @@
+[
+  {
+    "UniqueIdentifier": "220a69e0-00ff-475b-ae5f-131e694f5ef5",
+    "Name": "Breakfast",
+    "Color": null,
+    "Emoji": "🍳",
+    "Enabled": true,
+    "Category": "Nutrition",
+    "TargetTime": "07:00:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "1272f1aa-735a-4abe-bace-363211317867",
+    "Name": "Lunch",
+    "Color": null,
+    "Emoji": "🌯",
+    "Enabled": true,
+    "Category": "Nutrition",
+    "TargetTime": "12:00:00",
+    "Active": false
+  },
+  {
+    "UniqueIdentifier": "bc85993d-2b87-4514-87ef-86873305293d",
+    "Name": "Dinner",
+    "Color": null,
+    "Emoji": "🍴",
+    "Enabled": true,
+    "Category": "Nutrition",
+    "TargetTime": "18:30:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "5f984d4e-4693-4d07-89d3-65619e9718f4",
+    "Name": "Wake up",
+    "Color": null,
+    "Emoji": "⏰",
+    "Enabled": true,
+    "Category": "Wellness",
+    "TargetTime": "06:00:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "fcf31039-1ebc-4006-9bb1-e480cef5fff3",
+    "Name": "Bedtime ",
+    "Color": null,
+    "Emoji": "💤",
+    "Enabled": true,
+    "Category": "Wellness",
+    "TargetTime": "23:00:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "ffde949c-ecb6-43ff-92b6-7b716d2ca497",
+    "Name": "Morning Run",
+    "Color": null,
+    "Emoji": "🏃",
+    "Enabled": true,
+    "Category": "Wellness",
+    "TargetTime": "08:00:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "3cbc1982-c754-4405-8e7c-71b6fac3ca53",
+    "Name": "Pray",
+    "Color": null,
+    "Emoji": "🙏",
+    "Enabled": true,
+    "Category": "Wellness",
+    "TargetTime": "22:45:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "fe4a339c-7710-479a-83c2-7813d63a1a8b",
+    "Name": "Take out recycling",
+    "Color": null,
+    "Emoji": "♻",
+    "Enabled": true,
+    "Category": "Chores",
+    "TargetTime": "20:30:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "062133a5-9a1b-4f35-938a-39175a73c2ad",
+    "Name": "Walk the Dog",
+    "Color": null,
+    "Emoji": "🐶",
+    "Enabled": true,
+    "Category": "Chores",
+    "TargetTime": "08:15:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "7b57da35-194c-4064-b29e-462a315516b4",
+    "Name": "Shower",
+    "Color": null,
+    "Emoji": "🚿",
+    "Enabled": true,
+    "Category": "Wellness",
+    "TargetTime": "06:15:00",
+    "Active": true
+  },
+  {
+    "UniqueIdentifier": "c7315929-f17d-4e1d-9962-4aaba8192ace",
+    "Name": "Coffee",
+    "Color": null,
+    "Emoji": "☕",
+    "Enabled": true,
+    "Category": "Nutrition",
+    "TargetTime": "07:00:00",
+    "Active": true
+  }
+]

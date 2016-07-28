@@ -1,14 +1,14 @@
 ﻿using System;
 using MonoTouch.Dialog;
 using UIKit;
-
+using ClockKing.Core;
 namespace ClockKing
 {
 
 	/// <summary>
 	/// used to help create consistent dialogs.
 	/// </summary>
-	public class CheckPointDialog : DialogViewController
+	public class CheckPointDialog : DialogViewController,iNavigatableDialog
 	{
 		protected NavigationController ContentNavigation
 		{
@@ -39,9 +39,22 @@ namespace ClockKing
 				return App.Sidebar;
 			}
 		}
-		public CheckPointDialog() : base(UIKit.UITableViewStyle.Grouped, null, true)
-	{
-	}
 
-}
+		protected CheckPointManager Manager
+		{
+			get
+			{
+				return Controller.CheckPoints;
+			}
+		}
+
+		public CheckPointDialog() : base(UIKit.UITableViewStyle.Grouped, null, true)
+		{
+		}
+
+		public void ResetNavigation(bool refreshData = false)
+		{
+			Controller.ResetNavigation(refreshData);
+		}
+	}
 }

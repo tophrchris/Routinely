@@ -14,14 +14,14 @@ namespace ClockKing
 			instructions = new List<string>
 				{
 				"Welcome to Routinely!",
-				"Routinely helps you establish and track the habits that make up your daily routine.",
-				"get started by adding a daily goal:",
-				"you can press the + button, or pull down" };
+				"Routinely helps you establish and track your daily routine.",
+				"Create a 'Goal' for each part of your day that you want to track.",
+				"Get started by adding a daily goal! tap the + button, or pull down on this screen" };
 		}
 
 		public override nfloat GetHeightForRow(UITableView tableView, Foundation.NSIndexPath indexPath)
 		{
-			return 100;
+			return 60;
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section)
