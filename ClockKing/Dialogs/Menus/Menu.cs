@@ -10,6 +10,7 @@ namespace ClockKing
 	public class Menu:CheckPointDialog
 	{
 		public static string aboutUrl = @"http://bit.ly/aboutRoutinely";
+		public static string feedbackUrl = @"http://bit.ly/RoutinelyFeedback";
 
 		public Menu() : base()
 		{
@@ -82,7 +83,7 @@ namespace ClockKing
 
 			var support = new Section("Support");
 			support.Add(new StringElement("About Routinely", () => NavigateToUrl(aboutUrl)));
-
+			support.Add(new StringElement("Feedback", () => NavigateToUrl(feedbackUrl)));
 
 			this.Root.Add(nav);
 
