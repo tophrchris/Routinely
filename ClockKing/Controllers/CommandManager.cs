@@ -28,7 +28,8 @@ namespace ClockKing
 				new AddOccurrenceCommand(),
 				new AddHistoricOccurrenceCommand(),
 				new DeleteCheckPointCommand(),
-				new AddScheduledTargetCommand()
+				new AddScheduledTargetCommand(),
+				new SkipCheckPointCommand()
 			};
 		}
 			

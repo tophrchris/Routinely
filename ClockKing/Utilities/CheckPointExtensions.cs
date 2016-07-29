@@ -44,10 +44,11 @@ namespace ClockKing
 				return "last completed {0}".FormatWith(cp.MostRecentOccurrenceTimeStamp ().ToUniversalTime().Humanize ()).AsSentence();
 
 
-            if (cp.CompletedToday) 
+            if (cp.CompletedToday | cp.IsSkipped) 
             {
                 var precision = cp.SinceLastOccurrence.TotalMinutes > 1 ? 2 : 1;
-                return "{0} ago".FormatWith (cp.SinceLastOccurrence.Humanize(precision)).AsSentence();
+				var action = cp.IsSkipped ? "Skipped " : "";
+				return "{1}{0} ago".FormatWith (cp.SinceLastOccurrence.Humanize(precision),action).AsSentence();
             }
 
 

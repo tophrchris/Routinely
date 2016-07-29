@@ -13,6 +13,7 @@ namespace ClockKing.Core
         CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji,string category="");
         CheckPoint AddNewCheckPoint (CheckPoint toAdd);
         bool RemoveCheckpoint(CheckPoint checkPoint);
+        Occurrence SkipCheckpoint (CheckPoint checkPoint);
         Occurrence AddOccurrenceToCheckPoint(string checkPointName,int mins);
         Occurrence AddOccurrenceToCheckPoint(CheckPoint checkPoint,int mins);
         Occurrence AddOccurrenceToCheckPoint(CheckPoint checkPoint,DateTime when);

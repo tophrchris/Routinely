@@ -52,13 +52,17 @@ namespace ClockKing.Core
 				{
 					foreach (var line in read) {
 
+                        bool Skipped = false;
 						var parts = line.Split ('|');
 						var name = parts [0];
 						var timeStamp = DateTime.Parse (parts [1]);
+                        if (parts.Length == 3)
+                            bool.TryParse (parts [2], out Skipped);
                         if (checkPoints.ContainsKey(name))
                         {
-                            checkPoints[name].AddOccurrence(
-                                checkPoints[name].CreateOccurrence(timeStamp));
+                            var newOccurrence = checkPoints [name].CreateOccurrence (timeStamp);
+                            newOccurrence.IsSkipped = Skipped;
+                            checkPoints[name].AddOccurrence(newOccurrence);
                             added++;
                         }
 					}
@@ -86,7 +90,7 @@ namespace ClockKing.Core
 				}
 			}
 
-			WriteAllOccurrences (checkPoints.SelectMany (cp => cp.Value.Occurrences));
+			WriteAllOccurrences (checkPoints.SelectMany (cp => cp.Value.AllOccurrences));
 		}
 
 
@@ -109,18 +113,22 @@ namespace ClockKing.Core
 			if(Paths.Exists(this.OccurrencesPath))
 				Paths.Delete(this.OccurrencesPath);
 			
-			var toWrite = occurrences.Select(o=> new {o.checkpointLabel,  o.TimeStamp});
-			var lines = toWrite.Select (tw => string.Format ("{0}|{1}", tw.checkpointLabel, tw.TimeStamp)).ToArray ();
-			Paths.WriteAllLines (this.OccurrencesPath, lines);
+            var lines = occurrences.Select(o=> AsWriteable(o));
+            Paths.WriteAllLines (this.OccurrencesPath, lines.ToArray());
 			return true;
 		}
 
 		public virtual void WriteOccurrence(Occurrence toSave)
 		{
-			var lines = new[]{string.Format("{0}|{1}",toSave.checkpointLabel,toSave.TimeStamp) };
+            var lines = new[]{AsWriteable(toSave) };
 
 			Paths.AppendAllLines(this.OccurrencesPath,lines);
 		}
+
+        private string AsWriteable (Occurrence toSave)
+        {
+            return string.Format ("{0}|{1}|{2}", toSave.checkpointLabel, toSave.TimeStamp, toSave.IsSkipped);
+        }
 	}
 }
 

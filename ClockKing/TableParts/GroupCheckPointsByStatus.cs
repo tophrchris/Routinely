@@ -20,7 +20,7 @@ namespace ClockKing
 				var active = cps.Where (c => c.Active);
 
 				var enabled = active.Where (cp => cp.Enabled);
-				var notYetCompleted = enabled.Where (c => !c.CompletedToday); 
+				var notYetCompleted = enabled.Where (c => !c.CompletedToday & !c.IsSkipped); 
 
 
 				sections.Add("Missed",
@@ -36,6 +36,8 @@ namespace ClockKing
 						cps.Where(cp => !cp.Enabled).OrderBy(cp => cp.TargetTime));
 					sections.Add("Inactive",
 						cps.Where(c => !c.Active).OrderBy(c => c.CreatedOn));
+					sections.Add("Skipped",
+						cps.Where(c => c.IsSkipped).OrderBy(c => c.TargetTime));
 				}
 
 				foreach (var section in sections)

@@ -88,7 +88,7 @@ namespace ClockKing
 			if (toDetail.ScheduledTargets.Any ())
 				sectionsToReturn.Add (new AlternativeTargetsSection (toDetail,this.CheckPoints, this));
 				
-			if (toDetail.Occurrences.Any ()) 
+			if (toDetail.AllOccurrences.Any ()) 
 				sectionsToReturn.Add (new OccurrencesSection(toDetail,this.CheckPoints,this));
 
 			return sectionsToReturn.ToArray ();
