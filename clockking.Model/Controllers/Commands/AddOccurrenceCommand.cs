@@ -29,27 +29,58 @@ namespace ClockKing
         protected Occurrence AddOccurrenceToCheckpoint(iCheckpointCommandController checkPoints, CheckPoint checkPoint,int mins=0)
 		{
 			Occurrence created=null;
-			if (checkPoint.CompletedToday) {
+			if (checkPoint.CompletedToday | checkPoint.IsSkipped) {
 
-                var ok = new ModalChoice(){Label="Yes, add another occurrence.",
-                    Handler=()=>checkPoints.AddOccurrenceToCheckPoint(checkPoint,mins) };
-                var no = new ModalChoice(){Label="No, Replace existing.",
-                    Handler=()=>
-                        {
-                            var remove = checkPoint.Occurrences.Where(o=>o.Date==DateTime.Today).ToList();
-                            foreach(var r in remove)
-                                checkPoint.RemoveOccurrence(r);
-                            if (remove.Any ())
-                                checkPoints.RewriteOccurrences();
-                            created = checkPoints.AddOccurrenceToCheckPoint(checkPoint,mins);
-                        }};
-                var cancel = new ModalChoice(){ Label = "Nevermind", Cancel = true };
+                string instructions;
+                string okPrompt;
+                string noPrompt;
 
+                var titleTemplate = "You've {0} {1} today.";
+                var actionword = checkPoint.IsSkipped ? "previously skipped" : "already completed";
+                var title = string.Format (titleTemplate, actionword, checkPoint.Name);
 
-                checkPoints.PresentChoices(
-                    string.Format("You've already completed {0} today.",checkPoint.Name),
-                    "Would yould you like to add another occurrence?",
-                    new[]{ ok, no, cancel });
+                var cancel = new ModalChoice () { Label = "Nevermind", Cancel = true };
+
+                ModalChoice [] choices;
+
+                if (checkPoint.IsSkipped)
+                {
+                    instructions = "Would yould you like to add an occurrence, and remove the skip?";
+                    okPrompt = "Yes, add occurrence.";
+                    var ok = new ModalChoice () {
+                        Label = okPrompt,
+                        Handler = () => {
+                            if (checkPoint.RemoveOccurrences (DateTime.Now))
+                                checkPoints.RewriteOccurrences ();
+                            created = checkPoints.AddOccurrenceToCheckPoint (checkPoint, mins);
+                        }
+                    };
+                    choices = new ModalChoice [] { ok, cancel };
+                }
+                else 
+                {
+                    instructions = "Would yould you like to add another occurrence?";
+                    okPrompt = "Yes, add another occurrence.";
+                    noPrompt = "No, Replace existing.";
+
+                    var ok = new ModalChoice () {
+                        Label = okPrompt,
+                        Handler = () => checkPoints.AddOccurrenceToCheckPoint (checkPoint, mins)
+                    };
+                    var no = new ModalChoice () {
+                        Label = noPrompt,
+                        Handler = () => {
+                            if (checkPoint.RemoveOccurrences (DateTime.Now))
+                                checkPoints.RewriteOccurrences ();
+                            created = checkPoints.AddOccurrenceToCheckPoint (checkPoint, mins);
+                        }
+                    };
+                    choices = new ModalChoice [] { ok, no, cancel };
+                }
+               
+               
+              
+                checkPoints.PresentChoices(title,instructions,choices);
 
 			} else {
 			 	created = checkPoints.AddOccurrenceToCheckPoint (checkPoint, mins);

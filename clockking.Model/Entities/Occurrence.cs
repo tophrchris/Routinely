@@ -20,7 +20,9 @@ namespace ClockKing.Core
 
 		public string checkpointLabel { get { return this.CheckPoint.Name; } }
 
-		[JsonIgnore]
+        public bool IsSkipped { get; set; } = false;
+
+        [JsonIgnore]
 		public CheckPoint CheckPoint { get { return this.checkPoint; } }
 
 		[JsonIgnore]

@@ -17,9 +17,9 @@ namespace ClockKing
 
 			var occurenceElements = 
 				checkpoint
-					.Occurrences
+					.AllOccurrences
 					.OrderByDescending (o => o.TimeStamp)
-					.Select (o => new StringElement (o.Date.ToString ("d"),
+					.Select (o => new StringElement (o.Date.ToString ("d")  + (o.IsSkipped?" (Skipped)":""),
 						()=>{
 							var c = SharedDialogs.ConfirmationDialog(
 								(a)=>

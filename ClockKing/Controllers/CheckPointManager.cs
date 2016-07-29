@@ -69,6 +69,21 @@ namespace ClockKing
 			return added;
 		}
 
+		public Occurrence SkipCheckpoint(CheckPoint checkpoint)
+		{
+			var o = checkpoint.CreateOccurrence();
+			o.IsSkipped = true;
+			checkpoint.AddOccurrence(o);
+			this.CheckPointData.SaveOccurrence(o);
+			DataChanged(new CheckPointDataChangedEventArgs()
+			{
+				Entity = "Skip Occurrence",
+				ActionOccurred = ActionType.Added,
+				ConditionallyRefreshData = true
+			});
+			return o;
+		}
+
 		public Occurrence AddOccurrenceToCheckPoint(string checkPointName, int mins)
 		{
 			var found = this.CheckPointData.checkPoints [checkPointName];
