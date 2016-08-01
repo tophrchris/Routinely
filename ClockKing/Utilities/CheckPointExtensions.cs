@@ -66,13 +66,7 @@ namespace ClockKing
             return !(cp.CompletedToday|cp.IsMissed) & cp.TargetTimeToday <= DateTime.Now.AddMinutes (mins);
         }
 
-        public static string AsSentence (this string passage)
-        {
-            var endings = new [] { ".", "!", "?", ":" };
-            if (!endings.Any(e=>passage.EndsWith (e,StringComparison.CurrentCulture)))
-                passage += ".";
-            return passage.ApplyCase (LetterCasing.Sentence);
-        }
+       
 
 		public static IEnumerable<UILocalNotification> RequiredNotifications(this CheckPoint toCreate)
 		{
@@ -145,7 +139,7 @@ namespace ClockKing
 			if (DaysFromNow < 0)
 				DaysFromNow += 7;
 
-						if (DaysFromNow == 0 && ((target < DateTime.Now.TimeOfDay)|completed))
+			if (DaysFromNow == 0 && ((target < DateTime.Now.TimeOfDay)|completed))
 				DaysFromNow += 7;
 
 			var alertDate = DateTime.Today.AddDays(DaysFromNow).Add(target);
