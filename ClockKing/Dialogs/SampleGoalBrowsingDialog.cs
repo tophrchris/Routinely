@@ -30,7 +30,6 @@ namespace ClockKing
 				{"chores",EmojiSharp.Emoji.TOILET.Unified}
 			};
 
-			var categories = samples.Where(s => !string.IsNullOrEmpty(s.Category)).Select(s => s.Category).Distinct();
 			var byCategory = from goal in samples
 							 where !string.IsNullOrEmpty(goal.Category)
 			                 orderby goal.TargetTime

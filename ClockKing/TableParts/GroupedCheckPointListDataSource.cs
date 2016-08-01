@@ -7,6 +7,7 @@ using System.Linq;
 using System.Diagnostics;
 using EmojiSharp;
 using Humanizer;
+using ClockKing.Extensions;
 
 namespace ClockKing
 {

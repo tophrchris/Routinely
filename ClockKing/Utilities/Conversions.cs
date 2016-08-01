@@ -1,5 +1,8 @@
 ﻿using System;
 using Foundation;
+using System.Collections.Generic;
+using System.Linq;
+using Humanizer;
 
 namespace ClockKing.Extensions
 {
@@ -37,6 +40,14 @@ namespace ClockKing.Extensions
 		public static DateTime ToDateTime(this NSDate nsDate) {
 			// We loose granularity below millisecond range but that is probably ok
 			return nsRef.AddSeconds(nsDate.SecondsSinceReferenceDate);
+		}
+
+		public static string AsSentence(this string passage)
+		{
+			var endings = new[] { ".", "!", "?", ":" };
+			if (!endings.Any(e => passage.EndsWith(e, StringComparison.CurrentCulture)))
+				passage += ".";
+			return passage.ApplyCase(LetterCasing.Sentence);
 		}
 	}
 }

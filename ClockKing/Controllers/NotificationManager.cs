@@ -5,16 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using ClockKing.Extensions;
 using ClockKing.Core;
+using System.Diagnostics;
 
 namespace ClockKing
 {
 	public class NotificationManager
 	{
-		public UIApplication app{ get; set;}
-		public NotificationManager()
-		{
-			this.app = UIApplication.SharedApplication;
-		}
+		public UIApplication app{ get; set;} = UIApplication.SharedApplication;
 
 
 		public IEnumerable<UILocalNotification> ScheduledNotifications 
@@ -25,100 +22,26 @@ namespace ClockKing
 			}
 		}
 			
-		public void EnsureNotifications(DataModel data,bool resetExisting=false)
+		public void EnsureNotifications(DataModel data,bool resetExisting=true)
 		{
-			
-			if(resetExisting)
-				app.CancelAllLocalNotifications ();
-
-			var scheduledNotifications = this.ScheduledNotifications;
-
 			var checkPoints = data.checkPoints.Values;
 
-			var existingNotificationTitles = scheduledNotifications.Select (n => n.AlertTitle);
-			var notificationsNeeded = checkPoints.Select (cp => cp.Name);
+			var required = checkPoints
+								.Where(cp=>cp.Enabled)
+								.SelectMany(cp => cp.RequiredNotifications())
+			                    .OrderBy(n => n.FireDate.ToDateTime());
 
-			var orphanedNotifications = existingNotificationTitles.Except (notificationsNeeded);
+			if (resetExisting)
+				app.CancelAllLocalNotifications();
 
-			var notificationTitlesToSkip = 
-				checkPoints
-					.Join(scheduledNotifications,
-						cp=>cp.Name,
-						n=>n.AlertTitle,
-						(i,o)=>new{Checkpoint=i,Notification=o})
-					.Where(j => j.Checkpoint.CompletedToday)
-					.Where(j=>j.Checkpoint.TargetTimeUpcoming)
-					.Where(j=>j.Notification.FireDate.ToDateTime().ToLocalTime().Date==DateTime.Today)
-					.Select(j=>j.Checkpoint.Name);
-
-			var TitlesToDelete = orphanedNotifications.Concat (notificationTitlesToSkip);
-
-			var notificationsToDelete = 
-				scheduledNotifications.Where(n=>TitlesToDelete.Contains(n.AlertTitle));
-
-			try
+			foreach (var ln in required)
 			{
-				foreach (var d in notificationsToDelete)
-					app.CancelLocalNotification (d);
-
-				var notificationsToCreate = 
-					from checkpoint in checkPoints
-						where !existingNotificationTitles.Contains(checkpoint.Name)
-					select CreateNotificationForCheckpoint(checkpoint);
-						
-				foreach (var c in notificationsToCreate)
-					app.ScheduleLocalNotification (c);
+				Debug.WriteLine(string.Format("scheduling {0} at {1}", ln.AlertTitle, ln.FireDate.ToDateTime().ToLocalTime()));
+				app.ScheduleLocalNotification(ln);
 			}
-			catch
-			{
-			
-			}
-
 		}
 
-		public bool UpdateNotificationForCheckpoint(CheckPoint ToUpdate)
-		{
-			CancelNotificationforCheckpoint (ToUpdate);
 
-			var created = CreateNotificationForCheckpoint (ToUpdate);
-			app.ScheduleLocalNotification (created);
-
-			return true;
-		}
-		public bool CancelNotificationforCheckpoint(CheckPoint ToCancel)
-		{
-			var NameToCancel = ToCancel.Name;
-
-			if (this.ScheduledNotifications.Any(n=>n.AlertTitle==NameToCancel)) 
-			{
-				var found = this.ScheduledNotifications.Where(n=>n.AlertTitle==NameToCancel).Select(n=>n);
-				foreach(var n in found)
-					app.CancelLocalNotification (n);
-				return true;
-			}
-			return false;
-		}
-
-		private UILocalNotification CreateNotificationForCheckpoint(CheckPoint toCreate)
-		{
-			var formatString = "It's time for {0}! on average, you complete this at {1}. Have you completed it yet?";
-
-			var alarmTime = DateTime.Today.Add (toCreate.TargetTime);
-
-			if (toCreate.TargetTime < DateTime.Now.TimeOfDay | toCreate.CompletedToday)
-				alarmTime.AddDays (1);
-
-			return new UILocalNotification () {
-				FireDate = alarmTime.ToUniversalTime().ToNSDate(),
-				SoundName = UILocalNotification.DefaultSoundName,
-				AlertTitle = toCreate.Name,
-				Category = "AddObservation",
-				AlertBody = string.Format (formatString,
-					toCreate.Name,
-					(DateTime.Now.Date + toCreate.averageObservedTime).ToString ("t")),
-				RepeatInterval = NSCalendarUnit.Day
-			};
-		}
 
 		public static void HandleLocalNotification(UIApplication application, UILocalNotification notification)
 		{

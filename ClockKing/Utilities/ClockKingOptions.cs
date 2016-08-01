@@ -17,14 +17,14 @@ namespace ClockKing
 
 		public ClockKingOptions()
 		{
-			this.Theme = Themes.TrackBeam;
+			this.Theme = Themes.FitPulse;
 			this.GroupingChoice = GroupingChoices.ByStatus;
 		}
 
 		public void ApplyTheme()
 		{
 			var themer = new Dictionary<Themes,Action> ();
-			//themer.Add (Themes.FitPulse,()=> FitpulseTheme.Apply ());
+			themer.Add (Themes.FitPulse,()=> FitpulseTheme.Apply ());
 			themer.Add (Themes.TrackBeam,()=> ThemeManager.Register<TrackBeamTheme>().Apply());
 			//themer.Add (Themes.Foody,()=> FoodyTheme.Apply ());
 			//themer.Add (Themes.Prolific, () => ProlificTheme.Apply ());
