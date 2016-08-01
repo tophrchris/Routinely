@@ -25,6 +25,7 @@ namespace ClockKing
 
 		public RootViewController() : base(null, null)
 		{
+			
 
 			var menu = new Menu();
 			var content = Storyboard.InstantiateInitialViewController();

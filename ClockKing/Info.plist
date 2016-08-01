@@ -50,6 +50,6 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>CFBundleVersion</key>
-	<string>1.1.42</string>
+	<string>1.1.43</string>
 </dict>
 </plist>

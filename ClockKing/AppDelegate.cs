@@ -54,7 +54,7 @@ namespace ClockKing
 			this.LaunchActions = new Queue<Action<CheckPointController>> ();
 
 
-			this.Options.Theme = Themes.TrackBeam;
+			//this.Options.Theme = Themes.TrackBeam;
 			this.Options.ApplyTheme();
 
 			this.EnsureIntegrations();
