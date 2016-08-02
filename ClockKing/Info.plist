@@ -50,10 +50,8 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
+
 	<string>1.1.50</string>
-=======
-	<string>1.1.40</string>
->>>>>>> eab94c0... version bump
+
 </dict>
 </plist>
