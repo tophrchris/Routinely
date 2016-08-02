@@ -25,18 +25,22 @@ namespace ClockKing
 
 			var categoryEmoji = new Dictionary<string, string>()
 			{
-				{"nutrition",EmojiSharp.Emoji.FORK_AND_KNIFE.Unified},
+				{"nutrition","\U0001F37D"},//U0001F37D
 				{"wellness",EmojiSharp.Emoji.PERSON_WITH_FOLDED_HANDS.Unified},
-				{"chores",EmojiSharp.Emoji.TOILET.Unified}
+				{"chores",EmojiSharp.Emoji.TOILET.Unified},
+				{"health",EmojiSharp.Emoji.HEAVY_BLACK_HEART.Unified},//U+1F6E1
+				{"work",EmojiSharp.Emoji.BRIEFCASE.Unified}
 			};
 
 			var byCategory = from goal in samples
 							 where !string.IsNullOrEmpty(goal.Category)
 			                 orderby goal.TargetTime
 							 group goal by goal.Category into bycat
+			                 orderby bycat.Key
 							 select bycat;
 
-			var categorySection = new Section("Browse Examples:");
+			var categorySection = new Section("Browse Examples:",
+			 "After choosing an example, you can customize your goal by editing the name, abbreviation, and target time.  After you save your goal, you can specify alternative targets for different days of the week.");
 
 			Func<CheckPoint,StringElement> goalToElement = (g) => 
 			{
