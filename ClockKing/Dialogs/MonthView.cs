@@ -107,6 +107,17 @@ namespace ClockKing
 			Occurrences.Clear();
 			MissedGoals.Clear();
 
+			string newCaption;
+			var dateString = selectedDate.ToString("D");
+
+			if (occurrencesByDate.ContainsKey(selectedDate))
+				newCaption = "Goals Completed on {0}".FormatWith(dateString);
+			else
+				newCaption = string.Empty;
+
+			Occurrences.Caption = newCaption;
+
+
 
 			if (occurrencesByDate.ContainsKey(selectedDate))
 			{
@@ -136,25 +147,21 @@ namespace ClockKing
 				missed = activeGoals.Except(completed);
 			}
 			if (selectedDate.Date == DateTime.Today)
-				missed = missed.Where(cp => cp.TargetTime < DateTime.Now.TimeOfDay);
+				missed = missed.Where(cp => cp.IsMissed);
 
 			MissedGoals.AddAll(
 				missed.Select(cp=> new StringElement("{0} {1}".FormatWith(cp.Emoji, cp.Name),
 							() => this.Controller.ShowDetailDialogFor(cp))
 				{
 					Value = cp.TargetTime.ToAMPMString()
-			})
+				})
 			);
 
-			if (occurrencesByDate.ContainsKey(selectedDate))
-				Occurrences.Caption = "Goals Completed on {0}".FormatWith(selectedDate.ToString("D"));
-			else
-				Occurrences.Caption = string.Empty;
-
 			if (missed.Any())
-				MissedGoals.Caption = "Missed Goals on {0}".FormatWith(selectedDate.ToString("D"));
+				MissedGoals.Caption = "Missed Goals on {0}".FormatWith(dateString);
 			else
 				MissedGoals.Caption = string.Empty;
+
 
 		}
 

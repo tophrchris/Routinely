@@ -55,7 +55,7 @@
     "Color": null,
     "Emoji": "🏃",
     "Enabled": true,
-    "Category": "Wellness",
+    "Category": "Health",
     "TargetTime": "08:00:00",
     "Active": true
   },
@@ -108,5 +108,140 @@
     "Category": "Nutrition",
     "TargetTime": "07:00:00",
     "Active": true
+  },
+  {
+    "UniqueIdentifier": "4e7e025e-14dd-4c88-bbf1-d49931922623",
+    "Name": "Drink enough water",
+    "Color": null,
+    "Emoji": "💧",
+    "Enabled": true,
+    "Category": "Nutrition",
+    "TargetTime": "21:00:22"
+  },
+  {
+    "UniqueIdentifier": "ae8bf332-d501-4090-8f5e-ce4cbf5f59a2",
+    "Name": "Take Medication",
+    "Color": null,
+    "Emoji": "💊",
+    "Enabled": true,
+    "Category": "Health",
+    "TargetTime": "08:00:04"
+  },
+  {
+    "UniqueIdentifier": "efd28069-e0fb-446c-b938-ce78d9388e76",
+    "Name": "Exercise",
+    "Color": null,
+    "Emoji": "💪",
+    "Enabled": true,
+    "Category": "Health",
+    "TargetTime": "11:00:15.2940000"
+  },
+  {
+    "UniqueIdentifier": "64d17247-1bc4-48e3-b2bd-9e327346fea1",
+    "Name": "Show Appreciation ",
+    "Color": null,
+    "Emoji": "🙌🏼",
+    "Enabled": true,
+    "Category": "Wellness",
+    "TargetTime": "23:00:14"
+  },
+  {
+    "UniqueIdentifier": "633dd332-602b-4e2b-94ce-143df9a05ff6",
+    "Name": "Go for a walk",
+    "Color": null,
+    "Emoji": "👟",
+    "Enabled": true,
+    "Category": "Health",
+    "TargetTime": "18:00:24"
+  },
+  {
+    "UniqueIdentifier": "bc81ae2a-4ef3-483d-ad88-41ad37220e3f",
+    "Name": "Speak your mind",
+    "Color": null,
+    "Emoji": "🗣",
+    "Enabled": true,
+    "Category": "Wellness",
+    "TargetTime": "12:00:25"
+  },
+  {
+    "UniqueIdentifier": "c800796e-9262-4f1b-826b-682afee9d18a",
+    "Name": "Commute to work",
+    "Color": null,
+    "Emoji": "🚌",
+    "Enabled": true,
+    "Category": "Work",
+    "TargetTime": "08:00:15"
+  },
+  {
+    "UniqueIdentifier": "f6bbbf70-2f09-4484-a2a2-94a027ce50c4",
+    "Name": "Home from work",
+    "Color": null,
+    "Emoji": "🏠",
+    "Enabled": true,
+    "Category": "Work",
+    "TargetTime": "18:00:28"
+  },
+  {
+    "UniqueIdentifier": "f1f56a84-daa7-43e0-ba81-60a528a7eb80",
+    "Name": "Backup important files ",
+    "Color": null,
+    "Emoji": "💾",
+    "Enabled": true,
+    "Category": "Work",
+    "TargetTime": "16:30:40"
+  },
+  {
+    "UniqueIdentifier": "d106caa1-03c8-4b7d-a5d2-835fc379c3c0",
+    "Name": "Unlock your creativity",
+    "Color": null,
+    "Emoji": "🔑",
+    "Enabled": true,
+    "Category": "Work",
+    "TargetTime": "11:15:12"
+  },
+  {
+    "UniqueIdentifier": "15f7d2a6-11bc-4705-a106-6902f3bdb12f",
+    "Name": "Empty your inbox",
+    "Color": null,
+    "Emoji": "📥",
+    "Enabled": true,
+    "Category": "Work",
+    "TargetTime": "15:15:27"
+  },
+  {
+    "UniqueIdentifier": "a6e173a1-483b-4642-9203-c494b4f30101",
+    "Name": "Learn something new",
+    "Color": null,
+    "Emoji": "📓",
+    "Enabled": true,
+    "Category": "Wellness",
+    "TargetTime": "14:00:14"
+  },
+  {
+    "UniqueIdentifier": "ec803083-2f07-4ace-8d6e-98d74e01e1e7",
+    "Name": "Gardening ",
+    "Color": null,
+    "Emoji": "🌷",
+    "Enabled": true,
+    "Category": "Chores",
+    "TargetTime": "09:00:05"
+  },
+  {
+    "UniqueIdentifier": "4aa1b325-d583-456c-a497-9573b682dde5",
+    "Name": "Laundry",
+    "Color": null,
+    "Emoji": "👕",
+    "Enabled": true,
+    "Category": "Chores",
+    "TargetTime": "10:10:07"
+  },
+  {
+    "UniqueIdentifier": "a194b7a0-5356-49f7-832c-e3102fa08212",
+    "Name": "Water House Plants",
+    "Color": null,
+    "Emoji": "🎍",
+    "Enabled": true,
+    "Category": "Chores",
+    "TargetTime": "11:00:04"
   }
 ]
