@@ -5,10 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing", "ClockKing\Cloc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clockking.Core", "clockking.Model\clockking.Core.csproj", "{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clockkingConsolePlayground", "clockkingConsolePlayground\clockkingConsolePlayground.csproj", "{A39C5D5D-F630-42AE-8304-6833C4937D53}"
-EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "clockkingConsolePlayground", "clockkingConsolePlayground\clockkingConsolePlayground.csproj", "{5C5E0D8A-DF21-4101-9674-BD1902D8D588}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -72,30 +68,6 @@ Global
 		{6153C0DD-C103-4151-A25B-CB9346697626}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{6153C0DD-C103-4151-A25B-CB9346697626}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{6153C0DD-C103-4151-A25B-CB9346697626}.Debug|iPhone.Build.0 = Debug|iPhone
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Debug|x86.ActiveCfg = Debug|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Debug|x86.Build.0 = Debug|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|x86.ActiveCfg = Release|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|x86.Build.0 = Release|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Debug|iPhoneSimulator.Build.0 = Debug|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|iPhone.ActiveCfg = Release|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|iPhone.Build.0 = Release|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|iPhoneSimulator.ActiveCfg = Release|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Release|iPhoneSimulator.Build.0 = Release|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Debug|iPhone.ActiveCfg = Debug|x86
-		{A39C5D5D-F630-42AE-8304-6833C4937D53}.Debug|iPhone.Build.0 = Debug|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Debug|x86.ActiveCfg = Debug|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Debug|x86.Build.0 = Debug|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Release|x86.ActiveCfg = Release|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Release|x86.Build.0 = Release|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Debug|iPhoneSimulator.Build.0 = Debug|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Release|iPhone.ActiveCfg = Release|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Release|iPhone.Build.0 = Release|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Release|iPhoneSimulator.ActiveCfg = Release|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Release|iPhoneSimulator.Build.0 = Release|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Debug|iPhone.ActiveCfg = Debug|x86
-		{5C5E0D8A-DF21-4101-9674-BD1902D8D588}.Debug|iPhone.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 1.2
