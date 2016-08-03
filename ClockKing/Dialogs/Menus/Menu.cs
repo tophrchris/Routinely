@@ -17,6 +17,7 @@ namespace ClockKing
 		private UISegmentedControl groupingChoiceSegments;
 		private Section debugSection;
 
+
 		public Menu() : base()
 		{
 			this.Pushing = true;
@@ -25,10 +26,10 @@ namespace ClockKing
 			this.Root.UnevenRows = true;
 
 			var notifications = new NotificationReviewDialog();
-			var monthView = new MonthView();
+			//var monthView = new MonthView();
 
 			var nav = new Section("Navigation");
-			nav.Add(new StringElement(EmojiSharp.Emoji.CALENDAR.Unified+  " View History", () => ShowDialog(monthView)));
+			nav.Add(new StringElement(EmojiSharp.Emoji.CALENDAR.Unified+  " View History", () =>ShowDialog(new MonthView())));
 			nav.Add(new StringElement("Add New Goal", () => buildAndShowAddDialog()));
 
 
@@ -157,10 +158,21 @@ namespace ClockKing
 			UIApplication.SharedApplication.OpenUrl(target);
 		}
 
-		public void ShowDialog(UIViewController dialog)
+		public void ShowDialog(UIViewController dialog,bool autoClose=true)
 		{
-			this.ContentNavigation.PushViewController(dialog, true);
-			Close();
+			try
+			{
+				this.ContentNavigation.PushViewController(dialog, true);
+			}
+			catch(Exception e)
+			{
+				System.Diagnostics.Debug.WriteLine(e.Message);
+			}
+			finally
+			{
+				if (autoClose)
+					this.Close();
+			}
 		}
 		public void Close()
 		{

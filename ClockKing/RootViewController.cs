@@ -27,13 +27,15 @@ namespace ClockKing
 		public RootViewController() : base(null, null)
 		{
 			
-
 			this.OptionsMenu = new Menu();
+			var navMenu = new UINavigationController(this.OptionsMenu);
+			navMenu.Title = "Options";
+
 			var content = Storyboard.InstantiateInitialViewController();
 
 			this.Navigation = content as NavigationController;
 		
-			this.SideBar = new SidebarController(this, content, this.OptionsMenu);
+			this.SideBar = new SidebarController(this, content, navMenu);
 
 			this.SideBar.MenuLocation = SidebarController.MenuLocations.Left;
 			this.SideBar.StatusBarMoves = false;
