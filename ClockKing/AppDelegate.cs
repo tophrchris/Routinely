@@ -24,7 +24,6 @@ namespace ClockKing
 		}
 			
 		public bool RequiresDataRefresh { get; set; }
-		public ClockKingOptions Options { get; set; }
 		public DataModel CheckPointData { get; set; }
 		public CheckPointController Controller{ get; set; }
 		public CommandManager Commands{ get; set; }
@@ -32,6 +31,7 @@ namespace ClockKing
 		private UIApplicationShortcutItem LastShortcutItem { get; set; }
 		public Queue<Action<CheckPointController>> LaunchActions{ get; set; }
 		public SidebarNavigation.SidebarController Sidebar;
+		private NSObject observer;
 
 		public static ICheckPointDataProvider DefaultDataProvider
 		{
@@ -47,31 +47,29 @@ namespace ClockKing
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
-			this.Options = new ClockKingOptions ();
-			this.Commands = new CommandManager ();
-			this.Notifications = new NotificationManager ();
-			this.CheckPointData = new DataModel (DefaultDataProvider);
-			this.LaunchActions = new Queue<Action<CheckPointController>> ();
+			LoadOptions();
 
+			this.Commands = new CommandManager();
+			this.Notifications = new NotificationManager();
+			this.CheckPointData = new DataModel(DefaultDataProvider);
+			this.LaunchActions = new Queue<Action<CheckPointController>>();
 
-			//this.Options.Theme = Themes.TrackBeam;
-			this.Options.ApplyTheme();
 
 			this.EnsureIntegrations();
-		
-			application.SetMinimumBackgroundFetchInterval (UIApplication.BackgroundFetchIntervalMinimum);
+
+			application.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
 
 			var PerformAdditionalHandling = true;
-			if (launchOptions != null) 
+			if (launchOptions != null)
 			{
-				this.LastShortcutItem = launchOptions [UIApplication.LaunchOptionsShortcutItemKey] as UIApplicationShortcutItem;
+				this.LastShortcutItem = launchOptions[UIApplication.LaunchOptionsShortcutItemKey] as UIApplicationShortcutItem;
 				PerformAdditionalHandling = (LastShortcutItem == null);
 			}
 
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			// set our root view controller with the sidebar menu as the apps root view controller
-			var root  = new RootViewController();
+			var root = new RootViewController();
 			this.Sidebar = root.SideBar;
 			Window.RootViewController = root;
 
@@ -80,6 +78,27 @@ namespace ClockKing
 
 			return PerformAdditionalHandling;
 		}
+
+		void LoadOptions()
+		{
+			ClockKingOptions.LoadDefaultValues();
+
+			this.observer = NSNotificationCenter.DefaultCenter.AddObserver((NSString)"NSUserDefaultsDidChangeNotification", (NSNotification obj) =>
+			{
+				if (this.Controller != null)
+				{
+					this.Controller.ConditionallyRefreshData(true);
+					if (this.Window != null)
+					{
+						var menu = ((RootViewController)this.Window.RootViewController).OptionsMenu;
+						menu.resetToOptions();
+					}
+				}
+			});
+
+			ClockKingOptions.ApplyTheme();
+		}
+
 		public void EnsureIntegrations()
 		{
 			var application = UIApplication.SharedApplication;
@@ -111,11 +130,11 @@ namespace ClockKing
 
 		public override void WillTerminate (UIApplication application)
 		{
-			//			not sure if i want to do this??
-			//			if (this.Controller != null) {
-			//				Controller.ResaveCheckpoints ();
-			//				Controller.RewriteOccurrences ();
-			//			}
+			if (observer != null)
+			{
+				NSNotificationCenter.DefaultCenter.RemoveObserver(observer);
+				observer = null;
+			}
 		}
 
 		public override void PerformFetch (UIApplication application, Action<UIBackgroundFetchResult> completionHandler)

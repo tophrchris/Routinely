@@ -263,6 +263,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\examples.json" />
     <BundleResource Include="Resources\Material Icons_e877%280%29_1024.png" />
+    <BundleResource Include="Settings.bundle\Root.plist" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork%402x" />

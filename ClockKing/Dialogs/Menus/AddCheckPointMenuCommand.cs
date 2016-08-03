@@ -26,9 +26,13 @@ namespace ClockKing.Commands
 		public void ShowDialog()
 		{
 
-			//var root = new RootElement ("Add...");
-			//var mtd = new CheckPointEditingDialog (this.CommandController, root,true);
-			var mtd = new SampleGoalBrowsingDialog();
+			iNavigatableDialog mtd;
+
+			if (ClockKingOptions.ShowExampleBrowser)
+				mtd = new SampleGoalBrowsingDialog();
+			else
+				mtd = new CheckPointEditingDialog(this.CommandController, new RootElement("Add..."), true);
+			
 			this.CommandController.NavigateToDialog (mtd);
 		}
 	}

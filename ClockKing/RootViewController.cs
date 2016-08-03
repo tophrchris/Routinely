@@ -11,6 +11,7 @@ namespace ClockKing
 
 		public SidebarController SideBar { get; set; }
 		public NavigationController Navigation { get; set; }
+		public Menu OptionsMenu { get; set; }
 		private UIStoryboard _storyboard;
 
 		public override UIStoryboard Storyboard
@@ -27,12 +28,12 @@ namespace ClockKing
 		{
 			
 
-			var menu = new Menu();
+			this.OptionsMenu = new Menu();
 			var content = Storyboard.InstantiateInitialViewController();
 
 			this.Navigation = content as NavigationController;
 		
-			this.SideBar = new SidebarController(this, content, menu);
+			this.SideBar = new SidebarController(this, content, this.OptionsMenu);
 
 			this.SideBar.MenuLocation = SidebarController.MenuLocations.Left;
 			this.SideBar.StatusBarMoves = false;

@@ -22,7 +22,6 @@ namespace ClockKing
 		public CheckPointManager CheckPoints { get; }
 
 		public NotificationManager Notifier	{ get{return this.appDelegate.Notifications; }  }
-		public ClockKingOptions Options 	{ get{return this.appDelegate.Options; } }
 
 		//move some of this into checkpointmanager?
 		private DataModel CheckPointData	{ get{return this.appDelegate.CheckPointData; }}
@@ -282,7 +281,7 @@ namespace ClockKing
 			int seconds=1)
 		{
 			Debug.WriteLine(string.Format("{0}:{1}", title, message));
-			if(this.appDelegate.Options.TracingEnabled)
+			if(ClockKingOptions.TracingEnabled)
 				iiToastNotifier.Notify (Type, title, message, TimeSpan.FromSeconds (seconds), null, false);
 		}
 		#endregion

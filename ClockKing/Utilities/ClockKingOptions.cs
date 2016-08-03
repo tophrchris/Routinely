@@ -10,18 +10,46 @@ namespace ClockKing
 {
 	public class ClockKingOptions
 	{
-		public Themes Theme{ get; set; }
-		public GroupingChoices GroupingChoice { get; set; }
-		public bool TracingEnabled { get; set; }=false;
-		public bool ShowInactiveGoals { get; set; } = true;
+		public static Themes Theme 
+		{ get { return (Themes)GetIntPreference(themeKey); } set { SetIntPreference(themeKey, (int)value); } } 
+		public static GroupingChoices GroupingChoice 
+		{ get { return (GroupingChoices)GetIntPreference(groupingChoiceKey); } set { SetIntPreference(groupingChoiceKey, (int)value); } } 
+		public static bool TracingEnabled
+		{ get { return GetBoolPreference(tracingKey);} set { SetBoolPreference(tracingKey, value); } }
+		public static bool ShowInactiveGoals 
+		{ get { return GetBoolPreference(inactiveKey); } set { SetBoolPreference(inactiveKey, value); } }
+		public static bool ShowExampleBrowser
+		{ get { return GetBoolPreference(exampleBrowserKey); } set { SetBoolPreference(exampleBrowserKey, value); } }
 
-		public ClockKingOptions()
+		private static int GetIntPreference(string key)
 		{
-			this.Theme = Themes.FitPulse;
-			this.GroupingChoice = GroupingChoices.ByStatus;
+			var f = (int)NSUserDefaults.StandardUserDefaults.IntForKey(key);
+			return f;
+		}
+		private static bool GetBoolPreference(string key)
+		{
+			var f = NSUserDefaults.StandardUserDefaults.BoolForKey(key);
+			return f;
+		}
+		private static void SetIntPreference(string key, int val)
+		{
+			NSUserDefaults.StandardUserDefaults.SetInt(val, key);
+			NSUserDefaults.StandardUserDefaults.Synchronize();
+		}
+		private static void SetBoolPreference(string key, bool val)
+		{
+			NSUserDefaults.StandardUserDefaults.SetBool(val, key);
+			NSUserDefaults.StandardUserDefaults.Synchronize();
 		}
 
-		public void ApplyTheme()
+		const string themeKey = "themeKey";
+		const string groupingChoiceKey = "groupingKey";
+		const string tracingKey = "tracingKey";
+		const string inactiveKey = "inactiveKey";
+		const string exampleBrowserKey = "exampleKey";
+
+
+		public static void ApplyTheme()
 		{
 			var themer = new Dictionary<Themes,Action> ();
 			themer.Add (Themes.FitPulse,()=> FitpulseTheme.Apply ());
@@ -31,8 +59,19 @@ namespace ClockKing
 			//themer.Add (Themes.Gridlocked, () => GridlockTheme.Apply ());
 			//themer.Add (Themes.Industrial, () => IndustrialTheme.Apply ());
 
-			if (themer.ContainsKey (this.Theme))
-				themer [this.Theme].Invoke ();
+			if (themer.ContainsKey (ClockKingOptions.Theme))
+				themer [ClockKingOptions.Theme].Invoke ();
+		}
+
+		public static void LoadDefaultValues()
+		{
+			var defs = new NSDictionary(themeKey, 0,
+									groupingChoiceKey, 0,
+									tracingKey, false,
+									inactiveKey, true,
+									exampleBrowserKey, true);
+
+			NSUserDefaults.StandardUserDefaults.RegisterDefaults(defs);
 		}
 	}
 
@@ -40,7 +79,7 @@ namespace ClockKing
 
 	public enum Themes
 	{
-		FitPulse,
+		FitPulse=0,
 		TrackBeam,
 		Gridlocked,
 		Prolific,

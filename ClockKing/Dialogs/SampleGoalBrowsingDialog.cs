@@ -66,8 +66,18 @@ namespace ClockKing
 			this.Root.Add(categorySection);
 
 			var optionsSection = new Section("Option:","Go straight to the custom goal page, instead of showing examples.");
-			optionsSection.Add(
-				new BooleanElement("Next time, Skip this screen.", false) );
+
+			var opt = new BooleanElement("Next time, Skip this screen.", ClockKingOptions.ShowExampleBrowser);
+			opt.ValueChanged += (s,e) => 
+			{
+				if (ClockKingOptions.ShowExampleBrowser != opt.Value)
+				{
+					ClockKingOptions.ShowExampleBrowser = opt.Value;
+				}
+			};
+
+
+			optionsSection.Add(opt);
 
 			this.Root.Add(optionsSection);
 		}

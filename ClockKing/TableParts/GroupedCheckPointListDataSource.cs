@@ -130,7 +130,7 @@ namespace ClockKing
 		{
 			get
 			{
-				return this.groupers [this.Controller.Options.GroupingChoice].GroupedCheckPoints;
+				return this.groupers [ClockKingOptions.GroupingChoice].GroupedCheckPoints;
 			}
 		}
 	}

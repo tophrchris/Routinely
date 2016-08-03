@@ -30,7 +30,7 @@ namespace ClockKing
 				sections.Add("Completed",
 					enabled.Where (c => c.CompletedToday).OrderByDescending (c => c.MostRecentOccurrenceTimeStamp ()));
 
-				if (options.ShowInactiveGoals)
+				if (ClockKingOptions.ShowInactiveGoals)
 				{
 					sections.Add("Disabled",
 						cps.Where(cp => !cp.Enabled).OrderBy(cp => cp.TargetTime));
