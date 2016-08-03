@@ -7,15 +7,15 @@ using Foundation;
 
 namespace ClockKing
 {
-	public class Menu:CheckPointDialog
+	public class Menu : CheckPointDialog
 	{
 		public static string aboutUrl = @"http://bit.ly/aboutRoutinely";
 		public static string feedbackUrl = @"http://bit.ly/RoutinelyFeedback";
 
 		private BooleanElement inactiveSwitch;
 		private BooleanElement tracingEnabled;
-		private UISegmentedControl groupingChoiceSegments;
 		private Section debugSection;
+		private RadioGroup GroupingOptions {get;set;}= new RadioGroup(0);
 
 		public Menu() : base()
 		{
@@ -25,31 +25,27 @@ namespace ClockKing
 			this.Root.UnevenRows = true;
 
 			var notifications = new NotificationReviewDialog();
-			var monthView = new MonthView();
 
 			var nav = new Section("Navigation");
-			nav.Add(new StringElement(EmojiSharp.Emoji.CALENDAR.Unified+  " View History", () => ShowDialog(monthView)));
+			nav.Add(new StringElement(EmojiSharp.Emoji.CALENDAR.Unified+  " View History", () =>ShowDialog(new MonthView())));
 			nav.Add(new StringElement("Add New Goal", () => buildAndShowAddDialog()));
 
 
 			this.inactiveSwitch = new BooleanElement("Show Inactive Goals", ClockKingOptions.ShowInactiveGoals);
+			this.GroupingOptions.Selected = (int)ClockKingOptions.GroupingChoice;
 
-			this.groupingChoiceSegments = new UISegmentedControl(new CoreGraphics.CGRect(30,0,190,40));
-
-			groupingChoiceSegments.HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-			groupingChoiceSegments.TintColor = UIColor.FromRGB(.6f,.3f,.6f);
-			groupingChoiceSegments.BackgroundColor = UIColor.FromRGB(.6f,.6f,.6f);
-			groupingChoiceSegments.InsertSegment("Status", 0, false);
-			groupingChoiceSegments.InsertSegment("Time", 1, false);
-			groupingChoiceSegments.InsertSegment("Category", 2, false);
-			groupingChoiceSegments.SelectedSegment = (int)ClockKingOptions.GroupingChoice;
-
-
-			var segHolder = new UIViewElement("Sort:", groupingChoiceSegments, false);
-			segHolder.Flags = UIViewElement.CellFlags.DisableSelection;
+			var groupingRoot = new RootElement("Goals grouped by:", GroupingOptions);
+			var groupingSection = new Section("Grouping Options");
+			groupingRoot.Add(groupingSection);
+			foreach (var s in new[] { "Status", "Time of Day", "Category" })
+			{
+				var groupOption = new RadioElement(s);
+				groupOption.Tapped += () => OnGroupingChoiceChanged();
+				groupingSection.Add(groupOption);
+			}
 
 
-			var switches = new Section("Goal listing"){ inactiveSwitch,segHolder };
+			var switches = new Section("Goal listing"){ inactiveSwitch,groupingRoot };
 
 			this.debugSection = new Section("debugging");
 
@@ -98,16 +94,6 @@ namespace ClockKing
 				}
 			};
 
-			groupingChoiceSegments.ValueChanged += (sender, e) =>
-			{
-				if (ClockKingOptions.GroupingChoice != (GroupingChoices)((int)groupingChoiceSegments.SelectedSegment))
-				{
-					ClockKingOptions.GroupingChoice = (GroupingChoices)((int)groupingChoiceSegments.SelectedSegment);
-
-					Controller.RespondToModelChanges();
-				}
-			};
-
 			tracingEnabled.ValueChanged += (s, e) =>
 			{
 				if (ClockKingOptions.TracingEnabled != tracingEnabled.Value)
@@ -128,26 +114,45 @@ namespace ClockKing
 
 		public void resetToOptions()
 		{
+			bool redrawRequired = false;
 			this.tracingEnabled.Value = ClockKingOptions.TracingEnabled;
 			this.inactiveSwitch.Value = ClockKingOptions.ShowInactiveGoals;
-			this.groupingChoiceSegments.SelectedSegment = (int)ClockKingOptions.GroupingChoice;
+			this.GroupingOptions.Selected = (int) ClockKingOptions.GroupingChoice;
+			if (OnGroupingChoiceChanged())
+				redrawRequired = true;
 			if (ClockKingOptions.EnableDebugOptions)
 			{
 				if (debugSection.Parent == null)
 				{
 					this.Root.Add(debugSection);
 					System.Diagnostics.Debug.WriteLine("section added");
-					this.ReloadData();
+					redrawRequired = true;
+
 				}
 			}
 			else {
 				if (debugSection.Parent != null)
 				{
 					this.Root.Remove(debugSection);
-					System.Diagnostics.Debug.WriteLine("section removed");		                                   
-					this.ReloadData();
+					System.Diagnostics.Debug.WriteLine("section removed");
+					redrawRequired = true;
 				}
 			}
+			if (redrawRequired)
+				this.ReloadData();
+		}
+
+		private bool OnGroupingChoiceChanged()
+		{
+			var didChange = false;
+			GroupingChoices selected = (GroupingChoices)GroupingOptions.Selected;
+			if (selected != ClockKingOptions.GroupingChoice)
+			{
+				didChange = true;
+				ClockKingOptions.GroupingChoice = selected;
+				this.Controller.RespondToModelChanges();
+			}
+			return didChange;
 		}
 
 		public void NavigateToUrl(string url)
@@ -157,10 +162,21 @@ namespace ClockKing
 			UIApplication.SharedApplication.OpenUrl(target);
 		}
 
-		public void ShowDialog(UIViewController dialog)
+		public void ShowDialog(UIViewController dialog,bool autoClose=true)
 		{
-			this.ContentNavigation.PushViewController(dialog, true);
-			Close();
+			try
+			{
+				this.ContentNavigation.PushViewController(dialog, true);
+			}
+			catch(Exception e)
+			{
+				System.Diagnostics.Debug.WriteLine(e.Message);
+			}
+			finally
+			{
+				if (autoClose)
+					this.Close();
+			}
 		}
 		public void Close()
 		{
