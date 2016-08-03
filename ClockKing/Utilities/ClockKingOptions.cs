@@ -20,6 +20,8 @@ namespace ClockKing
 		{ get { return GetBoolPreference(inactiveKey); } set { SetBoolPreference(inactiveKey, value); } }
 		public static bool ShowExampleBrowser
 		{ get { return GetBoolPreference(exampleBrowserKey); } set { SetBoolPreference(exampleBrowserKey, value); } }
+		public static bool EnableDebugOptions
+		{ get { return GetBoolPreference(debugKey); } set { SetBoolPreference(debugKey, value); } }
 
 		private static int GetIntPreference(string key)
 		{
@@ -47,6 +49,7 @@ namespace ClockKing
 		const string tracingKey = "tracingKey";
 		const string inactiveKey = "inactiveKey";
 		const string exampleBrowserKey = "exampleKey";
+		const string debugKey = "debugKey";
 
 
 		public static void ApplyTheme()
@@ -69,7 +72,8 @@ namespace ClockKing
 									groupingChoiceKey, 0,
 									tracingKey, false,
 									inactiveKey, true,
-									exampleBrowserKey, true);
+									exampleBrowserKey, true,
+			                        debugKey,false);
 
 			NSUserDefaults.StandardUserDefaults.RegisterDefaults(defs);
 		}

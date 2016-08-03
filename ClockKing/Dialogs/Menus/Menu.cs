@@ -15,6 +15,7 @@ namespace ClockKing
 		private BooleanElement inactiveSwitch;
 		private BooleanElement tracingEnabled;
 		private UISegmentedControl groupingChoiceSegments;
+		private Section debugSection;
 
 		public Menu() : base()
 		{
@@ -29,7 +30,7 @@ namespace ClockKing
 			var nav = new Section("Navigation");
 			nav.Add(new StringElement(EmojiSharp.Emoji.CALENDAR.Unified+  " View History", () => ShowDialog(monthView)));
 			nav.Add(new StringElement("Add New Goal", () => buildAndShowAddDialog()));
-			nav.Add(new StringElement("Show Pending Notifications", () => ShowDialog(notifications)));
+
 
 			this.inactiveSwitch = new BooleanElement("Show Inactive Goals", ClockKingOptions.ShowInactiveGoals);
 
@@ -50,32 +51,41 @@ namespace ClockKing
 
 			var switches = new Section("Goal listing"){ inactiveSwitch,segHolder };
 
-			var debug = new Section("debugging");
+			this.debugSection = new Section("debugging");
 
 
 			this.tracingEnabled = new BooleanElement("Enabled Trace banners", ClockKingOptions.TracingEnabled);
 
-			debug.Add(tracingEnabled);
+			debugSection.Add(tracingEnabled);
 
 
-			debug.Add(new StringElement("Reload Data", () =>
+			debugSection.Add(new StringElement("Reload Data", () =>
 			{
 				Close();
 				this.Controller.ConditionallyRefreshData(true);
 			}));
-			debug.Add(new StringElement("Reset Notifications", () => this.Controller.ResetNotifications()));
-			debug.Add(new StringElement("Trim Occurrences", () => this.Controller.CheckPoints.RewriteOccurrences()));
+			debugSection.Add(new StringElement("Show Pending Notifications", () => ShowDialog(notifications)));
+			debugSection.Add(new StringElement("Reset Notifications", () => this.Controller.ResetNotifications()));
+			debugSection.Add(new StringElement("Trim Occurrences", () => this.Controller.CheckPoints.RewriteOccurrences()));
 
 
 			var support = new Section("Support");
 			support.Add(new StringElement("About Routinely", () => NavigateToUrl(aboutUrl)));
 			support.Add(new StringElement("Feedback", () => NavigateToUrl(feedbackUrl)));
 
-			this.Root.Add(nav);
 
+			var filePath = NSBundle.MainBundle.PathForResource("Info", "plist");
+			var dict = NSDictionary.FromFile(filePath);
+			var ver = dict["CFBundleVersion"].ToString();
+			support.Add(new StringElement("Version", ver));
+
+
+			this.Root.Add(nav);
 			this.Root.Add(switches);
-			this.Root.Add(debug);
 			this.Root.Add(support);
+			if(ClockKingOptions.EnableDebugOptions)
+				this.Root.Add(debugSection);
+
 
 			inactiveSwitch.ValueChanged += (s, e) =>
 			{
@@ -121,6 +131,23 @@ namespace ClockKing
 			this.tracingEnabled.Value = ClockKingOptions.TracingEnabled;
 			this.inactiveSwitch.Value = ClockKingOptions.ShowInactiveGoals;
 			this.groupingChoiceSegments.SelectedSegment = (int)ClockKingOptions.GroupingChoice;
+			if (ClockKingOptions.EnableDebugOptions)
+			{
+				if (debugSection.Parent == null)
+				{
+					this.Root.Add(debugSection);
+					System.Diagnostics.Debug.WriteLine("section added");
+					this.ReloadData();
+				}
+			}
+			else {
+				if (debugSection.Parent != null)
+				{
+					this.Root.Remove(debugSection);
+					System.Diagnostics.Debug.WriteLine("section removed");		                                   
+					this.ReloadData();
+				}
+			}
 		}
 
 		public void NavigateToUrl(string url)
