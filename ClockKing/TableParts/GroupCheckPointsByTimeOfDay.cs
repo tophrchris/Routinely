@@ -10,24 +10,14 @@ namespace ClockKing
 {
 	public class CheckPointGrouper
 	{
-
-		protected ClockKingOptions options
-		{
-			get
-			{
-				return ((AppDelegate)UIApplication.SharedApplication.Delegate).Options;
-			}
-		}
-
-		protected IEnumerable<CheckPoint> checkpoints { 
+		
+		protected IEnumerable<CheckPoint> checkpoints 
+		{ 
 			get
 			{
 				return ((AppDelegate)UIApplication.SharedApplication.Delegate).CheckPointData.checkPoints.Values;
 			}
-		
 		}
-
-
 
 		public virtual IEnumerable<KeyValuePair<string,IEnumerable<CheckPoint>>> GroupedCheckPoints
 		{
@@ -40,16 +30,15 @@ namespace ClockKing
 					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
 						(disabled.Any () ? "Enabled" : "", enabled);
 
-				if(disabled.Any() & options.ShowInactiveGoals)
+				if(disabled.Any() & ClockKingOptions.ShowInactiveGoals)
 					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
 						("Disabled", disabled);
 				
 				yield break;
 			}
 		}
-
-
 	}
+
 	public class GroupCheckPointsByTimeOfDay:CheckPointGrouper
 	{
 		
@@ -82,10 +71,10 @@ namespace ClockKing
 							new KeyValuePair<string,IEnumerable<CheckPoint>>
 							(section.Key.Key,section.Select(q=>q.CheckPoint).AsEnumerable());
 
-				if(checkpoints.Any(cp=>!cp.Enabled) & options.ShowInactiveGoals)
+				if(checkpoints.Any(cp=>!cp.Enabled) & ClockKingOptions.ShowInactiveGoals)
 					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
 						("Disabled", checkpoints.Where (cp => !cp.Enabled).OrderBy(cp=>cp.TargetTime));
-				if(checkpoints.Any(cp=>!cp.Active) & options.ShowInactiveGoals)
+				if(checkpoints.Any(cp=>!cp.Active) & ClockKingOptions.ShowInactiveGoals)
 					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
 						("Inactive", checkpoints.Where (cp => !cp.Active).OrderBy(cp=>cp.CreatedOn));
 
