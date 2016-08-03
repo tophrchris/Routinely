@@ -13,7 +13,7 @@ namespace ClockKing
 		{
 			this.ChangesCheckpoint = false;
 			this.Category = "Right";
-			this.LongName = "Add an occurrence right now";
+			this.LongName = "Complete right now";
             this.EmojiName = EmojiSharp.Emoji.BALLOT_BOX_WITH_CHECK.Name.Replace(" ","_").ToLower();
 		}
 
@@ -45,8 +45,8 @@ namespace ClockKing
 
                 if (checkPoint.IsSkipped)
                 {
-                    instructions = "Would yould you like to add an occurrence, and remove the skip?";
-                    okPrompt = "Yes, add occurrence.";
+                    instructions = "Would yould you like to complete, and remove the skip?";
+                    okPrompt = "Yes, complete.";
                     var ok = new ModalChoice () {
                         Label = okPrompt,
                         Handler = () => {
@@ -59,8 +59,8 @@ namespace ClockKing
                 }
                 else 
                 {
-                    instructions = "Would yould you like to add another occurrence?";
-                    okPrompt = "Yes, add another occurrence.";
+                    instructions = "Would yould you like to add another completion?";
+                    okPrompt = "Yes, add another.";
                     noPrompt = "No, Replace existing.";
 
                     var ok = new ModalChoice () {

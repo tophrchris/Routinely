@@ -28,7 +28,7 @@ namespace ClockKing
 
 			this.Root = new RootElement("History");
 			this.calendar = CreateCalendar();
-			this.Occurrences = new Section("occurrences");
+			this.Occurrences = new Section("Completions");
 			this.MissedGoals = new Section("Missed Goals");
 
 			var c = new UIViewElement("", this.calendar, false);
