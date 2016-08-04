@@ -37,6 +37,6 @@ This work is licensed under a
 * FMCalendar, from [FactoryMind](https://www.factorymind.com/en-ww/default.aspx), used for history view.
 * iiToastNotification, by [invertedi](http://www.invertedi.com/). provides toast notifications for debugging purposes.
 * github
-* [Bitrise](https://www.bitrise.io/), for continuous integration.
+* [Bitrise](https://www.bitrise.io/), for continuous integration: [![Bitrise CI Status](https://www.bitrise.io/app/06f80d942efd4c4d.svg?token=ve3WrMSPJhjfn5Ezdn2phQ)](https://www.bitrise.io/app/06f80d942efd4c4d)
 * [Fastlane](https://fastlane.tools/), for deploying to iTunes Music Store.
 * [User Report](http://www.userreport.com) for bugs and feature requests.
