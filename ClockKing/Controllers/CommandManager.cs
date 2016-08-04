@@ -20,7 +20,7 @@ namespace ClockKing
 		}
 
 		private List<Command> CreateCommands(){
-			return new List<Command> () {
+			return new List<Command>() {
 				new EditCheckPointCommand(),
 				new InPlaceEditCheckPointCommand(),
 				new EnableCheckPointCommand(),
@@ -29,7 +29,8 @@ namespace ClockKing
 				new AddHistoricOccurrenceCommand(),
 				new DeleteCheckPointCommand(),
 				new AddScheduledTargetCommand(),
-				new SkipCheckPointCommand()
+				new SkipCheckPointCommand(),
+				new UndoOccurrenceCommand()
 			};
 		}
 			
