@@ -77,7 +77,7 @@ namespace ClockKing
 			this.CheckPointData.SaveOccurrence(o);
 			DataChanged(new CheckPointDataChangedEventArgs()
 			{
-				Entity = "Skip Occurrence",
+				Entity = "Skip",
 				ActionOccurred = ActionType.Added,
 				ConditionallyRefreshData = true
 			});
@@ -102,7 +102,7 @@ namespace ClockKing
 			Debug.WriteLine("cpm add occurrence to checkpoint");
 			this.CheckPointData.SaveOccurrence (o);
 			DataChanged (new CheckPointDataChangedEventArgs ()
-				{ Entity = "Occurrence",
+				{ Entity = "Completion",
 				ActionOccurred = ActionType.Added,
 				ConditionallyRefreshData=true
 				});
@@ -151,7 +151,7 @@ namespace ClockKing
 		{
 			this.CheckPointData.SaveOccurrences ();
 			DataChanged (new CheckPointDataChangedEventArgs () 
-				{Entity = "Ouccrrences",
+				{Entity = "Completions",
 				ActionOccurred = ActionType.Written,
 				ConditionallyRefreshData=true,
 				RespondToModelChanges=false});

@@ -12,7 +12,7 @@ namespace ClockKing
 		public OccurrencesSection (CheckPoint checkpoint,iCheckpointCommandController Controller,CheckPointDetailDialog dialog)
 		{
 
-			this.Caption= "Occurrences:";
+			this.Caption= "Completions:";
 			this.Footer = "Tap to remove.";
 
 			var occurenceElements = 
@@ -27,7 +27,7 @@ namespace ClockKing
 									checkpoint.RemoveOccurrence(o);
 									Controller.RewriteOccurrences();
 									dialog.Render();
-								},Message:"Deleting this occurrence will affect averages and streaks.");
+								},Message:"Deleting this completion will affect averages and streaks.");
 							dialog.PresentModalViewController(c,true);
 						})
 						{
@@ -37,10 +37,10 @@ namespace ClockKing
 			this.AddAll (occurenceElements.Take(5));
 
 			if (occurenceElements.Count > 5)
-				this.Add (new StringElement ("All Occurrences",
+				this.Add (new StringElement ("All Completions",
 					()=>{
 						var r = new RootElement(checkpoint.Name);
-						var s = new Section("All Occurrences");
+						var s = new Section("All Completions");
 						r.Add(s);
 						s.AddAll(
 							occurenceElements.Select(o=>

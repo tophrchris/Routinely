@@ -11,7 +11,7 @@ namespace ClockKing
 		public AddHistoricOccurrenceCommand():base("LightBlue","Earlier...")
 		{
 			this.Category = "Right";
-			this.LongName = "Add an occurrence in the past";
+			this.LongName = "Add an earlier completion";
 		}
 
 
@@ -47,7 +47,7 @@ namespace ClockKing
 			choices.Add(new ModalChoice(){Label="Specify a time...",Handler=()=>this.ShowCustomDialog(controller,checkPoint)});
 			choices.Add(new ModalChoice(){Label="Nevermind",Cancel=true});
 
-            controller.PresentChoices ("Earlier completion of " + checkPoint.Name, this.LongName, choices);
+            controller.PresentChoices ("Earlier completion of " + checkPoint.Name, "When did you complete this goal?", choices);
 
 			return false;
 		}
