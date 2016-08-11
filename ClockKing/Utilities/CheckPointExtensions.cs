@@ -143,7 +143,7 @@ namespace ClockKing
 					SoundName = UILocalNotification.DefaultSoundName,
 					AlertTitle = toCreate.Name,
 					Category = "Motivation",
-					AlertBody = "\U0001F396" + " On time completion! " + eval.Evaluation
+					AlertBody = eval.Motivation + eval.Evaluation
 				};
 				return alert;
 			}

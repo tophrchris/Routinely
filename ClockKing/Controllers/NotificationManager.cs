@@ -82,7 +82,7 @@ namespace ClockKing
 
 		public static bool HandleNotificationAction(UIApplication application,UILocalNotification localNotification, string actionIdentifier)
 		{
-			var data = new DataModel (AppDelegate.DefaultDataProvider,false);
+			var data = new DataModel (AppDelegate.DefaultDataProvider,true);
 
 			var found = data.checkPoints [localNotification.AlertTitle]; 
 			var actionBits = actionIdentifier.Split(':');
@@ -104,6 +104,7 @@ namespace ClockKing
 
 				var occ = found.CreateOccurrence(DateTime.Now.AddMinutes(mins));
 				data.SaveOccurrence(occ);
+				found.AddOccurrence(occ);
 				PresentMotivationalNotification(found);
 
 				return true;
