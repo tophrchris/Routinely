@@ -46,6 +46,9 @@ namespace ClockKing
 		public static void HandleLocalNotification(UIApplication application, UILocalNotification notification)
 		{
 
+			if (notification.Category == "Motivation")
+				return;
+			
 			var app = application.Delegate as AppDelegate;
 			var cpm = app.Controller.CheckPoints;
 
@@ -70,14 +73,17 @@ namespace ClockKing
 
 		}
 
-		public static void ScheduleMotivationalNotification(CheckPoint source)
+		public static void PresentMotivationalNotification(CheckPoint source)
 		{
-
+			var alert = source.GetMotivationalNotification();
+			if(alert!=null)
+				UIApplication.SharedApplication.PresentLocalNotificationNow(alert);
 		}
 
 		public static bool HandleNotificationAction(UIApplication application,UILocalNotification localNotification, string actionIdentifier)
 		{
 			var data = new DataModel (AppDelegate.DefaultDataProvider,false);
+
 			var found = data.checkPoints [localNotification.AlertTitle]; 
 			var actionBits = actionIdentifier.Split(':');
 			var mins = int.Parse (actionBits [1]);	
@@ -98,7 +104,7 @@ namespace ClockKing
 
 				var occ = found.CreateOccurrence(DateTime.Now.AddMinutes(mins));
 				data.SaveOccurrence(occ);
-				ScheduleMotivationalNotification(found);
+				PresentMotivationalNotification(found);
 
 				return true;
 			}

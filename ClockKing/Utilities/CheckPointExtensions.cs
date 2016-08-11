@@ -66,8 +66,6 @@ namespace ClockKing
             return !(cp.CompletedToday|cp.IsMissed) & cp.TargetTimeToday <= DateTime.Now.AddMinutes (mins);
         }
 
-       
-
 		public static IEnumerable<UILocalNotification> RequiredNotifications(this CheckPoint toCreate)
 		{
 			var alerts = new List<UILocalNotification>();
@@ -120,17 +118,39 @@ namespace ClockKing
 
 		private static UILocalNotification alertFromCheckPoint(CheckPoint toCreate, string alertBody, DateTime alarmTime)
 		{
-			var alert = new UILocalNotification()
-			{
-				FireDate = alarmTime.ToUniversalTime().ToNSDate(),
-				SoundName = UILocalNotification.DefaultSoundName,
-				AlertTitle = toCreate.Name,
-				Category = "AddObservation",
-				AlertBody = alertBody,
-				RepeatInterval = NSCalendarUnit.Day
-			};
-			return alert;
+			
+				var alert = new UILocalNotification()
+				{
+					FireDate = alarmTime.ToUniversalTime().ToNSDate(),
+					SoundName = UILocalNotification.DefaultSoundName,
+					AlertTitle = toCreate.Name,
+					Category = "AddObservation",
+					AlertBody = alertBody,
+					RepeatInterval = NSCalendarUnit.Day
+				};
+				return alert;
+
 		}
+
+		public static UILocalNotification GetMotivationalNotification(this CheckPoint toCreate)
+		{
+			var accuracy = toCreate.TargetTimeToday - DateTime.Now;
+			if (Math.Abs(accuracy.TotalMinutes) < 15)
+			{
+				var eval = new CheckPointEvaluator(toCreate);
+				var alert = new UILocalNotification()
+				{
+					SoundName = UILocalNotification.DefaultSoundName,
+					AlertTitle = toCreate.Name,
+					Category = "Motivation",
+					AlertBody = "\U0001F396" + " On time completion! " + eval.Evaluation
+				};
+				return alert;
+			}
+			return null;
+		}
+
+
 
 		static DateTime DetermineNextAlertTimeStamp(DayOfWeek d, TimeSpan target, bool completed=false)
 		{
