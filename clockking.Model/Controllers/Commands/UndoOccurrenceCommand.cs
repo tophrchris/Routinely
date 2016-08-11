@@ -28,7 +28,7 @@ namespace ClockKing
         }
         public override bool ShouldDecorate (CheckPoint toDecorate)
         {
-            return toDecorate.CompletedToday && toDecorate.SinceLastOccurrence.TotalMinutes < 6;
+            return (toDecorate.CompletedToday || toDecorate.IsSkipped) && toDecorate.SinceLastOccurrence.TotalMinutes < 6;
         }
     }
 }
