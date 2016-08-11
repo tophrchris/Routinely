@@ -64,7 +64,15 @@ namespace ClockKing
 
 			opts.AddAction(UIAlertAction.Create("Cancel",UIAlertActionStyle.Cancel,null));
 
+		
 			app.Window.RootViewController.PresentViewController (opts, true, null);
+			app.Controller.RespondToModelChanges();
+
+		}
+
+		public static void ScheduleMotivationalNotification(CheckPoint source)
+		{
+
 		}
 
 		public static bool HandleNotificationAction(UIApplication application,UILocalNotification localNotification, string actionIdentifier)
@@ -73,51 +81,95 @@ namespace ClockKing
 			var found = data.checkPoints [localNotification.AlertTitle]; 
 			var actionBits = actionIdentifier.Split(':');
 			var mins = int.Parse (actionBits [1]);	
-			if (mins > 0) {
+			if (mins >0) {
+				if (mins == 2)
+				{
+					var skip = found.CreateOccurrence();
+					skip.IsSkipped = true;
+					data.SaveOccurrence(skip);
+					return true;
+				}
 				var nn = localNotification;
 				nn.FireDate = DateTime.Now.AddMinutes (mins).ToUniversalTime ().ToNSDate ();
+				nn.Category = "AfterSnooze";
 				nn.RepeatInterval = 0;
 				application.ScheduleLocalNotification (nn);
 			} else {
-				var occ = found.CreateOccurrence (DateTime.Now.AddMinutes (mins));
-				data.SaveOccurrence (occ);
+
+				var occ = found.CreateOccurrence(DateTime.Now.AddMinutes(mins));
+				data.SaveOccurrence(occ);
+				ScheduleMotivationalNotification(found);
+
 				return true;
 			}
 			return false;
 		}
 
 
-
 		public UIUserNotificationCategory[] NotificationCategories
 		{
-			get{
+			get
+			{
+				return new[]{ this.AddOccurrenceCategory,this.AfterSnoozeCategory };
+			}
+		}
 
-				var offsets = from i in new Dictionary<int,string> ()
-								{ 
-									{ 1,"Snooze" },
+		private UIMutableUserNotificationCategory AddOccurrenceCategory
+		{
+			get
+			{
+				var offsets = from i in new Dictionary<int, string>()
+								{
+									{ 10,"Snooze" },
 									{0,"Just now!"},
-									{ -15,"about {0} mins ago" }, 
+									{ -15,"about {0} mins ago" },
 									{ -30,"about {0} mins ago" }
 								}
-				               select new UIMutableUserNotificationAction ()
+							  select new UIMutableUserNotificationAction()
+							  {
+								  Identifier = string.Format("Add:{0}", i.Key),
+								  Title = string.Format(i.Value, Math.Abs((double)i.Key)),
+								  ActivationMode = UIUserNotificationActivationMode.Background,
+								  AuthenticationRequired = false,
+								  Destructive = i.Value == "Snooze",
+								  Behavior = UIUserNotificationActionBehavior.Default
+							  };
+
+				var actions = offsets.ToArray();
+				var minimalActions = actions.Where(a => !a.Title.Contains("about")).ToArray();
+
+				var addOccurrenceCategory = new UIMutableUserNotificationCategory();
+				addOccurrenceCategory.Identifier = "AddObservation";
+				addOccurrenceCategory.SetActions(minimalActions, UIUserNotificationActionContext.Minimal);
+				addOccurrenceCategory.SetActions(actions, UIUserNotificationActionContext.Default);
+				return addOccurrenceCategory;
+			}
+		}
+
+		private UIMutableUserNotificationCategory AfterSnoozeCategory
+		{
+			get
+			{
+				var offsets = from i in new Dictionary<int, string>()
 								{
-									Identifier=string.Format("Add:{0}",i.Key),
-									Title=string.Format(i.Value,Math.Abs((double)i.Key)),
-									ActivationMode=UIUserNotificationActivationMode.Background,
-									AuthenticationRequired=false,
-									Destructive=i.Value=="Snooze",
-									Behavior=UIUserNotificationActionBehavior.Default
-								};
+									{0,"Just now!"},
+									{2,"Skip"},
+									{10,"Snooze again" }
+								}
+							  select new UIMutableUserNotificationAction()
+							  {
+								  Identifier = string.Format("Add:{0}", i.Key),
+								  Title = i.Value,
+								  ActivationMode = UIUserNotificationActivationMode.Background,
+								  AuthenticationRequired = false,
+								  Destructive = i.Key >0,
+								  Behavior = UIUserNotificationActionBehavior.Default
+							  };
 
-				var actions = offsets.ToArray ();
-				var minimalActions = actions.Where (a => !a.Title.Contains ("about")).ToArray ();
-
-				var addObservationCategory = new UIMutableUserNotificationCategory();
-				addObservationCategory.Identifier="AddObservation";
-				addObservationCategory.SetActions(minimalActions,UIUserNotificationActionContext.Minimal);
-				addObservationCategory.SetActions(actions,UIUserNotificationActionContext.Default);
-
-				return new[]{ addObservationCategory };
+				var afterSnoozeCategory = new UIMutableUserNotificationCategory();
+				afterSnoozeCategory.Identifier = "AfterSnooze";
+				afterSnoozeCategory.SetActions(offsets.ToArray(), UIUserNotificationActionContext.Default);
+				return afterSnoozeCategory;
 			}
 		}
 

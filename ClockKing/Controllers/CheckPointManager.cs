@@ -75,6 +75,7 @@ namespace ClockKing
 			o.IsSkipped = true;
 			checkpoint.AddOccurrence(o);
 			this.CheckPointData.SaveOccurrence(o);
+			NotificationManager.ScheduleMotivationalNotification(checkpoint);
 			DataChanged(new CheckPointDataChangedEventArgs()
 			{
 				Entity = "Skip",
@@ -101,6 +102,7 @@ namespace ClockKing
 			checkPoint.AddOccurrence (o);
 			Debug.WriteLine("cpm add occurrence to checkpoint");
 			this.CheckPointData.SaveOccurrence (o);
+			NotificationManager.ScheduleMotivationalNotification(checkPoint);
 			DataChanged (new CheckPointDataChangedEventArgs ()
 				{ Entity = "Completion",
 				ActionOccurred = ActionType.Added,
