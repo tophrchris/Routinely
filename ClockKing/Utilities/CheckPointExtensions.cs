@@ -135,9 +135,10 @@ namespace ClockKing
 		public static UILocalNotification GetMotivationalNotification(this CheckPoint toCreate)
 		{
 			var accuracy = toCreate.TargetTimeToday - DateTime.Now;
-			if (Math.Abs(accuracy.TotalMinutes) < 15)
+			var eval = new CheckPointEvaluator(toCreate);
+			if (eval.Motivation !=string.Empty)
 			{
-				var eval = new CheckPointEvaluator(toCreate);
+				
 				var alert = new UILocalNotification()
 				{
 					SoundName = UILocalNotification.DefaultSoundName,

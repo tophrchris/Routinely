@@ -125,12 +125,13 @@ namespace ClockKing
 		{
 			get
 			{
+				var nowEmoji = EmojiSharp.Emoji.BALLOT_BOX_WITH_CHECK.Unified;
 				var offsets = from i in new Dictionary<int, string>()
 								{
-									{ 10,"Snooze" },
-									{0,"Just now!"},
-									{ -15,"about {0} mins ago" },
-									{ -30,"about {0} mins ago" }
+									{ 10,EmojiSharp.Emoji.ALARM_CLOCK.Unified+ "Snooze" },
+									{0,nowEmoji+"Just now!"},
+									{ -15, EmojiSharp.Emoji.HOURGLASS.Unified + "about {0} mins ago" },
+									{ -30, EmojiSharp.Emoji.HOURGLASS_WITH_FLOWING_SAND.Unified + "about {0} mins ago" }
 								}
 							  select new UIMutableUserNotificationAction()
 							  {
@@ -157,11 +158,12 @@ namespace ClockKing
 		{
 			get
 			{
+				var nowEmoji = EmojiSharp.Emoji.BALLOT_BOX_WITH_CHECK.Name.Replace(" ", "_").ToLower();
 				var offsets = from i in new Dictionary<int, string>()
 								{
-									{0,"Just now!"},
+									{0,nowEmoji+"Just now!"},
 									{2,"Skip"},
-									{10,"Snooze again" }
+									{10,EmojiSharp.Emoji.ALARM_CLOCK.Unified+"Snooze again" }
 								}
 							  select new UIMutableUserNotificationAction()
 							  {

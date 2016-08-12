@@ -44,7 +44,7 @@ namespace ClockKing.Core
             if (checkpoint.Occurrences.Any()) 
             {
                 var mostRecent = checkpoint.MostRecentOccurrenceTimeStamp ();
-                var accuracy = mostRecent - checkpoint.TargetTimeForDay (mostRecent.DayOfWeek);
+                this.AccuracyOfMostRecentOccurrence = mostRecent.TimeOfDay - checkpoint.TargetTimeForDay (mostRecent.DayOfWeek);
             }
 
 
@@ -54,10 +54,14 @@ namespace ClockKing.Core
         {
             get 
             {
-                if(checkpoint.CompletedToday)
-                if (Math.Abs(AccuracyOfMostRecentOccurrence.TotalMinutes) <= 5)
+                if (checkpoint.CompletedToday) 
+                {
+                    if (Math.Abs (AccuracyOfMostRecentOccurrence.TotalMinutes) <= 5)
                         return "\U0001F396 On Time Completion! ";
 
+                    if (AccuracyOfMostRecentOccurrence.TotalMinutes < 0)
+                        return EmojiSharp.Emoji.FIREWORK_SPARKLER.Unified + "Early Completion! ";
+                }
                 return string.Empty;
             }
         }
