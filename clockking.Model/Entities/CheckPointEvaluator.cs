@@ -15,6 +15,7 @@ namespace ClockKing.Core
         public int OnTimeCompletions { get; private set; }
         public int ActiveDaysSinceMostRecentCompletion { get; private set; }
         public int CalendarDaysSinceCreation{ get; private set; }
+        public TimeSpan AccuracyOfMostRecentOccurrence { get; set;}
 
         private CheckPoint checkpoint{ get; set;}
 
@@ -39,7 +40,32 @@ namespace ClockKing.Core
 
             this.CompletionStreak = this.StreakDetector(checkpoint);
             this.OnTimeStreak = this.PerfectStreakDector(checkpoint);
+
+            if (checkpoint.Occurrences.Any()) 
+            {
+                var mostRecent = checkpoint.MostRecentOccurrenceTimeStamp ();
+                this.AccuracyOfMostRecentOccurrence = mostRecent.TimeOfDay - checkpoint.TargetTimeForDay (mostRecent.DayOfWeek);
+            }
+
+
         }
+
+        public string Motivation 
+        {
+            get 
+            {
+                if (checkpoint.CompletedToday) 
+                {
+                    if (Math.Abs (AccuracyOfMostRecentOccurrence.TotalMinutes) <= 5)
+                        return "\U0001F396 On Time Completion! ";
+
+                    if (AccuracyOfMostRecentOccurrence.TotalMinutes < 0)
+                        return EmojiSharp.Emoji.FIREWORK_SPARKLER.Unified + "Early Completion! ";
+                }
+                return string.Empty;
+            }
+        }
+
 
         public string Evaluation
         {

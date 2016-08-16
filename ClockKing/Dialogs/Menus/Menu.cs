@@ -72,8 +72,9 @@ namespace ClockKing
 
 			var filePath = NSBundle.MainBundle.PathForResource("Info", "plist");
 			var dict = NSDictionary.FromFile(filePath);
-			var ver = dict["CFBundleVersion"].ToString();
-			support.Add(new StringElement("Version", ver));
+			var BuildVer = dict["CFBundleVersion"].ToString();
+			var appVer = dict["CFBundleShortVersionString"].ToString();
+			support.Add(new StringElement("Version", string.Format("{0} ({1})",appVer,BuildVer)));
 
 
 			this.Root.Add(nav);
