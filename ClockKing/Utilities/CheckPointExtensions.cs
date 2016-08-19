@@ -108,7 +108,7 @@ namespace ClockKing
 				var alarmTime = DateTime.Today.Add(toCreate.TargetTime);
 
 				if (toCreate.TargetTime < DateTime.Now.TimeOfDay | toCreate.CompletedToday)
-					alarmTime.AddDays(1);
+					alarmTime = alarmTime.AddDays(1);
 
 				alerts.Add(alertFromCheckPoint(toCreate, alertBody, alarmTime));
 			}
@@ -134,7 +134,6 @@ namespace ClockKing
 
 		public static UILocalNotification GetMotivationalNotification(this CheckPoint toCreate)
 		{
-			var accuracy = toCreate.TargetTimeToday - DateTime.Now;
 			var eval = new CheckPointEvaluator(toCreate);
 			if (eval.Motivation !=string.Empty)
 			{
