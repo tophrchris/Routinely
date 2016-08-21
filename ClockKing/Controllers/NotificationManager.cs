@@ -103,8 +103,9 @@ namespace ClockKing
 			} else {
 
 				var occ = found.CreateOccurrence(DateTime.Now.AddMinutes(mins));
-				data.SaveOccurrence(occ);
 				found.AddOccurrence(occ);
+				data.SaveOccurrence(occ);
+				new NotificationManager().EnsureNotifications(data, true);
 				PresentMotivationalNotification(found);
 
 				return true;

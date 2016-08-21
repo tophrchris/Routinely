@@ -15,11 +15,18 @@ namespace ClockKing
 
 		public CommandManager()
 		{
-			var cmds = CreateCommands ();
-			Commands = cmds.ToDictionary (u => u.Name);
+			this.ConstructCommands();
 		}
 
-		private List<Command> CreateCommands(){
+		public void ConstructCommands()
+		{
+			var cmds = CreateCommands();
+			Commands = cmds.ToDictionary(u => u.Name);
+		}
+
+		private List<Command> CreateCommands()
+		{
+			
 			return new List<Command>() {
 				new EditCheckPointCommand(),
 				new InPlaceEditCheckPointCommand(),
@@ -29,7 +36,7 @@ namespace ClockKing
 				new AddHistoricOccurrenceCommand(),
 				new DeleteCheckPointCommand(),
 				new AddScheduledTargetCommand(),
-				new SkipCheckPointCommand(),
+				new SkipCheckPointCommand(){AllowForAllIncompleteGoals=!ClockKingOptions.OnlySkipMissed},
 				new UndoOccurrenceCommand()
 			};
 		}
