@@ -11,6 +11,7 @@ namespace ClockKing
             this.LongName = "Skip this goal for today";
 
         }
+        public bool AllowForAllIncompleteGoals { get; set; } = false;
 
         public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)
         {
@@ -20,9 +21,11 @@ namespace ClockKing
 
         public override bool ShouldDecorate (CheckPoint toDecorate)
         {
+            if (AllowForAllIncompleteGoals)
+                return toDecorate.Active && !(toDecorate.IsSkipped | toDecorate.CompletedToday);
 
             return toDecorate.Active &&  toDecorate.IsMissed && !toDecorate.IsSkipped;
-            //return base.ShouldDecorate (toDecorate);
+
         }
     }
 }

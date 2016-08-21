@@ -93,6 +93,7 @@ namespace ClockKing
 						var menu = ((RootViewController)this.Window.RootViewController).OptionsMenu;
 						menu.resetToOptions();
 					}
+					this.Commands.ConstructCommands();
 				}
 			});
 
