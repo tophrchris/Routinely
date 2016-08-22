@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.props" Condition="Exists('..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -144,6 +145,9 @@
     <Reference Include="FitpulseTheme.iOS">
       <HintPath>..\Components\fitpulsetheme-1.2.4\lib\ios-unified\FitpulseTheme.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Analytics">
+      <HintPath>..\packages\Xamarin.Google.iOS.Analytics.3.14.0.8\lib\Xamarin.iOS10\Google.Analytics.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -167,6 +171,7 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="GoogleService-Info.plist" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -219,6 +224,8 @@
     <Compile Include="Dialogs\SampleGoalBrowsingDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Import Project="..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.targets')" />
+  <Import Project="..\packages\Xamarin.Google.iOS.Analytics.3.14.0.8\build\Xamarin.Google.iOS.Analytics.targets" Condition="Exists('..\packages\Xamarin.Google.iOS.Analytics.3.14.0.8\build\Xamarin.Google.iOS.Analytics.targets')" />
   <ItemGroup>
     <ProjectReference Include="..\clockking.Model\clockking.Core.csproj">
       <Project>{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}</Project>
@@ -257,6 +264,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="fitpulsetheme">
       <Version>1.2.4</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="googleiosanalytics">
+      <Version>3.14.0.8</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
