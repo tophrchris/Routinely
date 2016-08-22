@@ -9,7 +9,7 @@ namespace ClockKing
 {
 	public class Menu : CheckPointDialog
 	{
-		public static string aboutUrl = @"http://bit.ly/aboutRoutinely";
+		public static string aboutUrl = @"http://bit.ly/RoutinelyDevBlog";
 		public static string feedbackUrl = @"http://bit.ly/RoutinelyFeedback";
 
 		private BooleanElement inactiveSwitch;
