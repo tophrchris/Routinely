@@ -187,10 +187,5 @@ namespace ClockKing
 			
 			completionHandler ();
 		}
-
-		public override void HandleWatchKitExtensionRequest(UIApplication application, NSDictionary userInfo, Action<NSDictionary> reply)
-		{
-			base.HandleWatchKitExtensionRequest(application, userInfo, reply);
-		}
 	}
 }
