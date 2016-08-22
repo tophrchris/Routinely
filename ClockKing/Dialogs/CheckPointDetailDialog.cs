@@ -21,6 +21,8 @@ namespace ClockKing
 		private CheckPointController Controller{ get; set;}
 		private CheckPoint toDetail { get; set;}
 		public DialogViewController moreDialog { get; set;}
+		private AppDelegate App { get {var app = UIApplication.SharedApplication;
+				return app.Delegate as AppDelegate; }}
 
 		public CheckPointDetailDialog(iCheckpointCommandController checkPoints,CheckPoint toDetail,RootElement root):base(UITableViewStyle.Grouped, root,true)
 		{
@@ -30,6 +32,12 @@ namespace ClockKing
 			//this.TableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
 			this.Render ();
 
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			this.App.LogActivity("Goal Detail");
+			base.ViewDidAppear(animated);
 		}
 
 		public override void ViewDidLoad ()

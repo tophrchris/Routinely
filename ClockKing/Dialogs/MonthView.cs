@@ -46,7 +46,9 @@ namespace ClockKing
 
 		public override void ViewDidAppear(bool animated)
 		{
+			this.App.LogActivity("History");
 			base.ViewDidAppear(animated);
+		
 			System.Diagnostics.Debug.WriteLine("month vdl");
 
 

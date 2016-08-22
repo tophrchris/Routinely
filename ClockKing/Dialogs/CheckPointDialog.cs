@@ -52,7 +52,7 @@ namespace ClockKing
 		{
 		}
 
-		public void ResetNavigation(bool refreshData = false)
+		public virtual void ResetNavigation(bool refreshData = false)
 		{
 			Controller.ResetNavigation(refreshData);
 		}

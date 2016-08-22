@@ -9,7 +9,10 @@ namespace ClockKing
 {
 	public class SampleGoalBrowsingDialog:CheckPointDialog
 	{
-		private List<CheckPoint> samples { get; set; }		
+		private List<CheckPoint> samples { get; set; }	
+
+
+
 		public SampleGoalBrowsingDialog()
 		{
 			this.Style = UIKit.UITableViewStyle.Grouped;
@@ -81,6 +84,13 @@ namespace ClockKing
 
 			this.Root.Add(optionsSection);
 		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			this.App.LogActivity("Sample Goal Browser");
+			base.ViewDidAppear(animated);
+		}
+
 		private void ShowCustomAddDialog(CheckPoint existing = null)
 		{
 			var d = new CheckPointEditingDialog(this.Manager, new RootElement("Add..."), true);

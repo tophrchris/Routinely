@@ -11,7 +11,7 @@ using ClockKing.Core;
 
 namespace ClockKing
 {
-	public class CheckPointEditingDialog:DialogViewController,iNavigatableDialog
+	public class CheckPointEditingDialog:CheckPointDialog
 	{
 		iCheckpointCommandController CheckPoints{ get; set; }
 
@@ -30,8 +30,9 @@ namespace ClockKing
 		private BooleanElement categorySwitch { get; set; }
 		private bool SuggestAbbreviations = true;
 
-		public CheckPointEditingDialog (iCheckpointCommandController checkpoints, RootElement root, bool pushing) : base (root, pushing)
+		public CheckPointEditingDialog (iCheckpointCommandController checkpoints, RootElement root, bool pushing) :base()
 		{
+			this.Root = root;
 			this.CheckPoints = checkpoints;
 			this.Style = UITableViewStyle.Grouped;
 
@@ -87,9 +88,15 @@ namespace ClockKing
 				(s,e)=>this.Save()),true);
 		}
 
+		public override void ViewDidAppear(bool animated)
+		{
+			this.App.LogActivity("Edit Goal");
+			base.ViewDidAppear(animated);
+		}
+
 		#region iNavigatableDialog implementation
 
-		public void ResetNavigation (bool refreshData=false)
+		public override void ResetNavigation (bool refreshData=false)
 		{
 			((iNavigatableDialog)this.CheckPoints).ResetNavigation ();
 		}
