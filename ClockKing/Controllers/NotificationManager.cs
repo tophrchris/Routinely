@@ -106,7 +106,12 @@ namespace ClockKing
 				found.AddOccurrence(occ);
 				data.SaveOccurrence(occ);
 				new NotificationManager().EnsureNotifications(data, true);
+
 				PresentMotivationalNotification(found);
+
+				(UIApplication.SharedApplication.Delegate as AppDelegate).LogEvent("notification", "Done!", found.Name);
+
+
 
 				return true;
 			}

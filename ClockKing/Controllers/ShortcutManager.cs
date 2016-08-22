@@ -67,6 +67,11 @@ namespace ClockKing
 
 			if (handlers.ContainsKey (shortcut.Type)) {
 				handlers [shortcut.Type] ();
+				app.LogEvent("3DtouchShortcut", shortcut.Type,
+				             shortcut.UserInfo.ContainsKey(cpKey)?
+				             shortcut.UserInfo[cpKey].ToString():"(none)"
+				            
+				            );
 				return true;
 			}
 			return false;

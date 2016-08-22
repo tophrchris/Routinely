@@ -12,9 +12,11 @@ namespace ClockKing
 	public class CommandManager
 	{
 		public Dictionary<string,Command> Commands { get; set; }
+		private AppDelegate App { get; set; }
 
-		public CommandManager()
+		public CommandManager(AppDelegate app)
 		{
+			this.App = app;
 			this.ConstructCommands();
 		}
 
@@ -40,6 +42,18 @@ namespace ClockKing
 				new UndoOccurrenceCommand()
 			};
 		}
+
+		private Action<Command> InstrumentationDecorator(string category, Command cmd, CheckPoint cp, Action<Command> existing)
+		{
+			var instrumented = new Action<Command>((c)=>
+			{
+				App.LogEvent(category, cmd.Name,cp.Name);
+				existing(cmd);
+			});
+
+			return instrumented;
+		}
+
 			
 		public IEnumerable<UIAlertAction> GetAlertActionsForCheckpoint(CheckPoint selected,Action<Command> handler,iNavigatableDialog dialog=null)
 		{
@@ -56,7 +70,7 @@ namespace ClockKing
 						((IDialogBoundCommand)c).ExistingDialog=(iNavigatableDialog)dialog;
 					return c;
 				})
-				.Select (c => c.AsAlertAction (handler));
+				.Select (c => c.AsAlertAction (InstrumentationDecorator("Alert",c,selected,tc=>handler(tc))));
 		}
 
 
@@ -65,7 +79,7 @@ namespace ClockKing
 			return this.Commands.Values
 				.Where (u => u.ShouldDecorate (toView))
 				.Where(u=> (u as IDialogBoundCommand)==null)
-				.Select (u => u.AsPreviewAction (handler));
+				       .Select (u => u.AsPreviewAction (InstrumentationDecorator("peek",u,toView,c=>handler(c))));
 		}
 
 		public bool AttachUtilityButtonsToCell(CheckPointTableCell cell)
