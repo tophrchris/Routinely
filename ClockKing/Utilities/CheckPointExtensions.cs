@@ -80,7 +80,6 @@ namespace ClockKing
 				{
 					foreach (var d in st.ApplicableDays)
 					{
-						var target = toCreate.TargetTimeForDay(d);
 						DateTime alertDate = DetermineNextAlertTimeStamp(d, toCreate);
 
 						alerts.Add(alertFromCheckPoint(toCreate, alertBody, alertDate));
@@ -98,7 +97,6 @@ namespace ClockKing
 				var remainingDays = allDays.Except(altDays);
 				foreach (var d in remainingDays)
 				{
-					var completed = DateTime.Today.DayOfWeek == d ? toCreate.CompletedToday : false;
 					var alertDate = DetermineNextAlertTimeStamp(d,toCreate);
 					alerts.Add(alertFromCheckPoint(toCreate, alertBody, alertDate));
 				}
@@ -164,7 +162,7 @@ namespace ClockKing
 
 			var alertDate = DateTime.Today.Date.AddDays(DaysFromNow);
 			var alertTime = alertDate.Add(toAlert.ScheduledTargetTimeFor(alertDate));
-			return alertDate;
+			return alertTime;
 		}
 }
 }
