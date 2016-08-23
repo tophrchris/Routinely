@@ -20,6 +20,7 @@ namespace ClockKing.Core
 
         public bool RefreshData(bool loadOccurrences=true)
         {
+            Debug.WriteLine ("refreshing****************");
             this.checkPoints = LoadCheckPoints();
 
             if(loadOccurrences)
@@ -33,8 +34,8 @@ namespace ClockKing.Core
 			get{
 				var o= this.checkPoints.Values
 					.Where(cp=>cp.IsActive && cp.IsEnabled &&  !cp.CompletedToday)
-					.OrderBy (cp => cp.TargetTime);
-				return o.FirstOrDefault(cp => cp.TargetTime > DateTime.Now.ToLocalTime ().TimeOfDay);
+					.OrderBy (cp => cp.TargetTimeToday);
+				return o.FirstOrDefault(cp => cp.TargetTimeToday.TimeOfDay > DateTime.Now.ToLocalTime ().TimeOfDay);
 			}
 		}
 
@@ -43,8 +44,8 @@ namespace ClockKing.Core
 			get{
 				var o= this.checkPoints.Values
 					.Where(cp=>cp.IsEnabled && cp.IsActive && !cp.CompletedToday && !cp.IsSkipped)
-					.OrderByDescending (cp => cp.TargetTime);
-				return o.FirstOrDefault(cp => cp.TargetTime < DateTime.Now.ToLocalTime ().TimeOfDay);
+					.OrderByDescending (cp => cp.TargetTimeToday);
+				return o.FirstOrDefault(cp => cp.TargetTimeToday.TimeOfDay < DateTime.Now.ToLocalTime ().TimeOfDay);
 			}
 		}
 
@@ -110,9 +111,15 @@ namespace ClockKing.Core
 		public Dictionary<string,CheckPoint>  LoadCheckPoints()
 		{
 			var checkpoints = new Dictionary<string,CheckPoint> ();
+            var byGuid = new Dictionary<Guid, CheckPoint> ();
 
 			foreach (var found in dataProvider.ReadCheckPoints())
 				checkpoints.Add (found.Name, found);
+
+            byGuid= checkpoints.Values.ToDictionary (k => k.UniqueIdentifier, v => v);
+
+            foreach (var withRelated in checkpoints.Values.Where (c => c.RelativeTarget != null))
+                withRelated.RelativeTarget.RelatedCheckPoint = byGuid [withRelated.RelativeTarget.RelatedCheckPointGuid];
 			
 			return checkpoints;
 		}

@@ -11,25 +11,24 @@ namespace ClockKing.Core
         private List<Occurrence> allOccurrences { get; set; } = new List<Occurrence> ();
         private List<ScheduledTargetTime> scheduledTargets { get; set; } = new List<ScheduledTargetTime> ();
 
-       
-		public Guid UniqueIdentifier { get; set; }
-		public string Name { get; set; }
-		public string Color { get; set; }
-		public string Emoji { get; set; }
+
+        public Guid UniqueIdentifier { get; set; }
+        public string Name { get; set; }
+        public string Color { get; set; }
+        public string Emoji { get; set; }
         public bool IsEnabled { get; set; } = true;
         public string Category { get; set; }
-        public TimeSpan TargetTime{ get; set; }
+        public TimeSpan TargetTime {get; set; }
         public DateTime CreatedOn { get; set; }
- 
+        public RelativeTargetTime RelativeTarget { get; set; }
+
         #region occurrence management
         [JsonIgnore]
         public IEnumerable<Occurrence> AllOccurrences { get { return this.allOccurrences; } }
 
-        private IEnumerable<Occurrence> occurrences 
-        {
-            get 
-            { 
-                return allOccurrences.Where (o => !o.IsSkipped); 
+        private IEnumerable<Occurrence> occurrences {
+            get {
+                return allOccurrences.Where (o => !o.IsSkipped);
             }
         }
         [JsonIgnore]
@@ -37,18 +36,18 @@ namespace ClockKing.Core
 
 
 
-        public void AddOccurrence(Occurrence newOccurance)
+        public void AddOccurrence (Occurrence newOccurance)
         {
-            this.allOccurrences.Add(newOccurance);
+            this.allOccurrences.Add (newOccurance);
         }
-        public Occurrence CreateOccurrence()
+        public Occurrence CreateOccurrence ()
         {
-        	return this.CreateOccurrence (DateTime.Now.ToLocalTime());	
+            return this.CreateOccurrence (DateTime.Now.ToLocalTime ());
         }
 
-        public Occurrence CreateOccurrence(DateTime observationTimeStamp)
+        public Occurrence CreateOccurrence (DateTime observationTimeStamp)
         {
-        	return new Occurrence(this,observationTimeStamp);
+            return new Occurrence (this, observationTimeStamp);
         }
 
         public bool RemoveOccurrences (DateTime date)
@@ -59,52 +58,76 @@ namespace ClockKing.Core
 
         public bool RemoveOccurrence (Occurrence toRemove)
         {
-           return this.allOccurrences.Remove(toRemove);
+            return this.allOccurrences.Remove (toRemove);
         }
+        #endregion
+
+        #region TargetTime Resolution
+
+        public TimeSpan TargetTimeForDay (DayOfWeek day) => ScheduledTargetTimeFor(day);
+
+        [JsonIgnore]
+        protected TimeSpan ScheduledTargetTime {
+            get 
+            {
+                return ScheduledTargetTimeFor(DateTime.Now);
+                //return TargetTimeForDay (DateTime.Now.DayOfWeek);
+            }
+        }
+
+        public TimeSpan ScheduledTargetTimeFor(DateTime d) 
+        {
+            if (RelativeTarget != null)
+                return RelativeTarget.OffsetScheduledTimeForDate(d);
+            else
+                return ScheduledTargetTimeFor(d.DayOfWeek);
+        }
+        public TimeSpan ScheduledTargetTimeFor(DayOfWeek day) 
+        {
+            if (scheduledTargets.Any ()) {
+                var f = this.scheduledTargets
+                    .FirstOrDefault (t => t.ApplicableDays.Contains (day));
+
+                return f?.TargetTime ?? this.TargetTime;
+
+            } else
+                return TargetTime;
+            
+        }
+
         #endregion
 
         #region scheduledTarget management
         public IEnumerable<ScheduledTargetTime> ScheduledTargets { get { return this.scheduledTargets; } }
 
-        public ScheduledTargetTime AddScheduledtarget(TimeSpan? scheduledTargetTime, List<DayOfWeek> days)
+        public ScheduledTargetTime AddScheduledtarget (TimeSpan? scheduledTargetTime, List<DayOfWeek> days)
         {
-            var alt = new ScheduledTargetTime()
-                {TargetTime=scheduledTargetTime,
-                    ApplicableDays=days.ToArray()};
-            
-            this.scheduledTargets.Add(alt);
+            var alt = new ScheduledTargetTime () {
+                TargetTime = scheduledTargetTime,
+                ApplicableDays = days.ToArray ()
+            };
+
+            this.scheduledTargets.Add (alt);
             return alt;
         }
 
-        public bool RemoveScheduledTarget(ScheduledTargetTime toRemove)
+        public bool RemoveScheduledTarget (ScheduledTargetTime toRemove)
         {
-            return this.scheduledTargets.Remove(toRemove);
-        }    
-
-        [JsonIgnore]
-        protected TimeSpan ScheduledTargetTime
-        {
-            get
-            {
-                return TargetTimeForDay(DateTime.Now.DayOfWeek);
-            }
+            return this.scheduledTargets.Remove (toRemove);
         }
 
+
         [JsonIgnore]
-        public bool IsActive
-        {
-            get 
-            {
+        public bool IsActive {
+            get {
                 return IsActiveForDay (DateTime.Today.DayOfWeek);
             }
 
         }
 
         [JsonIgnore]
-        public DateTime TargetTimeToday 
-        {
-            get 
-            {
+        public DateTime TargetTimeToday {
+            get {
                 return (DateTime.Today + this.ScheduledTargetTime);
             }
 
@@ -118,19 +141,8 @@ namespace ClockKing.Core
 
             return true;
         }
-        public TimeSpan TargetTimeForDay (DayOfWeek day)
-        {
-            if (scheduledTargets.Any ()) {
-                var f = this.scheduledTargets
-                    .FirstOrDefault (t => t.ApplicableDays.Contains (day));
+       
 
-                return f?.TargetTime ?? this.TargetTime;
-
-            } else
-                return TargetTime;
-
-
-        }
         #endregion
 
         #region basic metrics and calculated members
@@ -266,10 +278,51 @@ namespace ClockKing.Core
 				this.Emoji);
 		}
 	}
+
     public class ScheduledTargetTime
     {
         public TimeSpan? TargetTime{ get; set; }
         public DayOfWeek[] ApplicableDays{ get; set; }
+    }
+
+    public class RelativeTargetTime
+    {
+        private Guid relatedGuid;
+        public Guid RelatedCheckPointGuid {
+            get 
+            {
+                if (RelatedCheckPoint == null)
+                    return relatedGuid;
+                else
+                    return RelatedCheckPoint.UniqueIdentifier;
+            }
+            set 
+            { 
+                relatedGuid = value;
+            } 
+        }
+
+        [JsonIgnore]
+        public CheckPoint RelatedCheckPoint { get; set; }
+
+        public TimeSpan Offset { get; set;}
+
+        public TimeSpan OffsetScheduledTimeForDate(DateTime d)
+        {
+            var q = from oc in RelatedCheckPoint.Occurrences
+                    where oc.Date == d.Date
+                    orderby oc.TimeStamp descending
+                    select oc.Time;
+            var f = q.DefaultIfEmpty (RelatedCheckPoint.TargetTimeForDay (d.DayOfWeek))
+                     .FirstOrDefault ();
+            return f.Add (Offset);
+        }
+        public bool IsActiveOnDate (DateTime d)
+        {
+            return this.RelatedCheckPoint.Occurrences.Any (o => o.Date == d.Date);
+        }
+        public bool isActive { get { return IsActiveOnDate (DateTime.Now);}}
+
     }
 }
 
