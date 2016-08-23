@@ -81,7 +81,7 @@ namespace ClockKing
 					foreach (var d in st.ApplicableDays)
 					{
 						var target = toCreate.TargetTimeForDay(d);
-						DateTime alertDate = DetermineNextAlertTimeStamp(d, target);
+						DateTime alertDate = DetermineNextAlertTimeStamp(d, toCreate);
 
 						alerts.Add(alertFromCheckPoint(toCreate, alertBody, alertDate));
 					}
@@ -99,15 +99,15 @@ namespace ClockKing
 				foreach (var d in remainingDays)
 				{
 					var completed = DateTime.Today.DayOfWeek == d ? toCreate.CompletedToday : false;
-					var alertDate = DetermineNextAlertTimeStamp(d, toCreate.TargetTime,completed);
+					var alertDate = DetermineNextAlertTimeStamp(d,toCreate);
 					alerts.Add(alertFromCheckPoint(toCreate, alertBody, alertDate));
 				}
 			}
 			else {
 
-				var alarmTime = DateTime.Today.Add(toCreate.TargetTime);
+				var alarmTime = DateTime.Today.Add(toCreate.TargetTimeToday.TimeOfDay);
 
-				if (toCreate.TargetTime < DateTime.Now.TimeOfDay | toCreate.CompletedToday)
+				if (toCreate.TargetTimeToday < DateTime.Now | toCreate.CompletedToday)
 					alarmTime = alarmTime.AddDays(1);
 
 				alerts.Add(alertFromCheckPoint(toCreate, alertBody, alarmTime));
@@ -152,17 +152,18 @@ namespace ClockKing
 
 
 
-		static DateTime DetermineNextAlertTimeStamp(DayOfWeek d, TimeSpan target, bool completed=false)
+		static DateTime DetermineNextAlertTimeStamp(DayOfWeek d, CheckPoint toAlert)
 		{
 			var DaysFromNow = d - DateTime.Today.DayOfWeek;
 
 			if (DaysFromNow < 0)
 				DaysFromNow += 7;
 
-			if (DaysFromNow == 0 && ((target < DateTime.Now.TimeOfDay)|completed))
+			if (DaysFromNow == 0 && ((toAlert.IsMissed)|toAlert.CompletedToday))
 				DaysFromNow += 7;
 
-			var alertDate = DateTime.Today.AddDays(DaysFromNow).Add(target);
+			var alertDate = DateTime.Today.Date.AddDays(DaysFromNow);
+			var alertTime = alertDate.Add(toAlert.ScheduledTargetTimeFor(alertDate));
 			return alertDate;
 		}
 }

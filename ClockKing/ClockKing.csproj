@@ -222,6 +222,7 @@
     <Compile Include="Utilities\CheckPointExtensions.cs" />
     <Compile Include="Utilities\BundlePathProvider.cs" />
     <Compile Include="Dialogs\SampleGoalBrowsingDialog.cs" />
+    <Compile Include="Dialogs\RelativeTargetDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.targets')" />

@@ -313,7 +313,7 @@ namespace ClockKing.Core
                     where oc.Date == d.Date
                     orderby oc.TimeStamp descending
                     select oc.Time;
-            var f = q.DefaultIfEmpty (RelatedCheckPoint.TargetTimeForDay (d.DayOfWeek))
+            var f = q.DefaultIfEmpty (RelatedCheckPoint.ScheduledTargetTimeFor(d))
                      .FirstOrDefault ();
             return f.Add (Offset);
         }
