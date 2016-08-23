@@ -27,7 +27,7 @@ namespace ClockKing
 			var checkPoints = data.checkPoints.Values;
 
 			var required = checkPoints
-								.Where(cp=>cp.Enabled)
+								.Where(cp=>cp.IsEnabled)
 								.SelectMany(cp => cp.RequiredNotifications())
 			                    .OrderBy(n => n.FireDate.ToDateTime());
 

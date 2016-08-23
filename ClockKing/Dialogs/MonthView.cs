@@ -138,7 +138,7 @@ namespace ClockKing
 			}
 			var activeGoals = Data.checkPoints
 								  .Select(kv => kv.Value)
-								  .Where(cp => cp.ActiveForDay(selectedDate.DayOfWeek))
+								  .Where(cp => cp.IsActiveForDay(selectedDate.DayOfWeek))
 								  .Where(cp => cp.CreatedOn< selectedDate);
 
 			var missed = activeGoals;

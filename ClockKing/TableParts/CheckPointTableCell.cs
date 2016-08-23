@@ -190,7 +190,7 @@ namespace ClockKing
 
 			float red = .3f, green = .3f, blue = .3f;
 
-			if (checkpoint.Active & checkpoint.Enabled)
+			if (checkpoint.IsActive & checkpoint.IsEnabled)
 			{
 				if (checkpoint.IsMissed)
 					red = .9f;

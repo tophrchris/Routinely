@@ -23,8 +23,8 @@ namespace ClockKing
 		{
 			get{
 
-				var enabled = this.checkpoints.Where (cp => cp.Enabled);
-				var disabled = this.checkpoints.Where (cp => !cp.Enabled);
+				var enabled = this.checkpoints.Where (cp => cp.IsEnabled);
+				var disabled = this.checkpoints.Where (cp => !cp.IsEnabled);
 
 				if(enabled.Any())
 					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
@@ -57,8 +57,8 @@ namespace ClockKing
 				};
 
 				var sections = checkpoints
-						.Where(cp=>cp.Active)
-						.Where(cp=>cp.Enabled)
+						.Where(cp=>cp.IsActive)
+						.Where(cp=>cp.IsEnabled)
 						.OrderBy(cp=>cp.TargetTime)
 						.Select (cp => new{CheckPoint = cp,
 											Section = boundaries.First (b => cp.TargetTime >= b.Value.Item1 && cp.TargetTime < b.Value.Item2)})
@@ -71,12 +71,12 @@ namespace ClockKing
 							new KeyValuePair<string,IEnumerable<CheckPoint>>
 							(section.Key.Key,section.Select(q=>q.CheckPoint).AsEnumerable());
 
-				if(checkpoints.Any(cp=>!cp.Enabled) & ClockKingOptions.ShowInactiveGoals)
+				if(checkpoints.Any(cp=>!cp.IsEnabled) & ClockKingOptions.ShowInactiveGoals)
 					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
-						("Disabled", checkpoints.Where (cp => !cp.Enabled).OrderBy(cp=>cp.TargetTime));
-				if(checkpoints.Any(cp=>!cp.Active) & ClockKingOptions.ShowInactiveGoals)
+						("Disabled", checkpoints.Where (cp => !cp.IsEnabled).OrderBy(cp=>cp.TargetTime));
+				if(checkpoints.Any(cp=>!cp.IsActive) & ClockKingOptions.ShowInactiveGoals)
 					yield return new KeyValuePair<string,IEnumerable<CheckPoint>> 
-						("Inactive", checkpoints.Where (cp => !cp.Active).OrderBy(cp=>cp.CreatedOn));
+						("Inactive", checkpoints.Where (cp => !cp.IsActive).OrderBy(cp=>cp.CreatedOn));
 
 				yield break;
 			}

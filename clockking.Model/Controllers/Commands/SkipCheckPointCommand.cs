@@ -22,9 +22,9 @@ namespace ClockKing
         public override bool ShouldDecorate (CheckPoint toDecorate)
         {
             if (AllowForAllIncompleteGoals)
-                return toDecorate.Active && !(toDecorate.IsSkipped | toDecorate.CompletedToday);
+                return toDecorate.IsActive && !(toDecorate.IsSkipped | toDecorate.CompletedToday);
 
-            return toDecorate.Active &&  toDecorate.IsMissed && !toDecorate.IsSkipped;
+            return toDecorate.IsActive &&  toDecorate.IsMissed && !toDecorate.IsSkipped;
 
         }
     }

@@ -115,7 +115,7 @@ namespace ClockKing
 			section.Remove (this.nowElement.IndexPath.Row);
 			section.Remove (this.nowSwitch.IndexPath.Row);
 			this.targetTimeElement = new TimeElement ("Target time", toEdit.TargetTimeToday);
-			this.enabledSwitch = new BooleanElement ("Enabled?", toEdit.Enabled);
+			this.enabledSwitch = new BooleanElement ("Enabled?", toEdit.IsEnabled);
 			section.AddAll(new Element[]{targetTimeElement, enabledSwitch});
 
 			if (knownEmoji.Contains (toEdit.Emoji))
@@ -162,7 +162,7 @@ namespace ClockKing
 			toEdit.Category = this.categoryElement.Value;
 			toEdit.Emoji=this.emojiElement.Value;
 			toEdit.TargetTime=targetTimeElement.DateValue.ToLocalTime().TimeOfDay;
-			toEdit.Enabled= enabledSwitch.Value;
+			toEdit.IsEnabled= enabledSwitch.Value;
 			if(nameChanged)
 				toEdit.Name=this.nameElement.Value;
 

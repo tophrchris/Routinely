@@ -16,7 +16,7 @@ namespace ClockKing
 
 			this.Add(new MultilineElement(eval.Evaluation));
 
-			this.Add (new StringElement ("Enabled?", checkpoint.Enabled?"Yes":"No"));
+			this.Add (new StringElement ("Enabled?", checkpoint.IsEnabled?"Yes":"No"));
 
 			var createdElement = new ToggledStringElement ("Created");
 			createdElement.PrimaryValueGenerator = () => checkpoint.CreatedOn.Humanize (false);

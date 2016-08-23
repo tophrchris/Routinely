@@ -45,7 +45,7 @@ namespace ClockKing
             if (!cp.Occurrences.Any ())
                 return "created {0}".FormatWith (cp.CreatedOn.ToLocalTime().Humanize (false)).AsSentence ();
 
-            if (!cp.Active | !cp.Enabled) 
+            if (!cp.IsActive | !cp.IsEnabled) 
 				return "last completed {0}".FormatWith(cp.MostRecentOccurrenceTimeStamp ().ToUniversalTime().Humanize ()).AsSentence();
 
 

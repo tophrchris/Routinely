@@ -32,7 +32,7 @@ namespace ClockKing.Core
 		{
 			get{
 				var o= this.checkPoints.Values
-					.Where(cp=>cp.Active && cp.Enabled &&  !cp.CompletedToday)
+					.Where(cp=>cp.IsActive && cp.IsEnabled &&  !cp.CompletedToday)
 					.OrderBy (cp => cp.TargetTime);
 				return o.FirstOrDefault(cp => cp.TargetTime > DateTime.Now.ToLocalTime ().TimeOfDay);
 			}
@@ -42,7 +42,7 @@ namespace ClockKing.Core
 		{
 			get{
 				var o= this.checkPoints.Values
-					.Where(cp=>cp.Enabled && cp.Active && !cp.CompletedToday && !cp.IsSkipped)
+					.Where(cp=>cp.IsEnabled && cp.IsActive && !cp.CompletedToday && !cp.IsSkipped)
 					.OrderByDescending (cp => cp.TargetTime);
 				return o.FirstOrDefault(cp => cp.TargetTime < DateTime.Now.ToLocalTime ().TimeOfDay);
 			}

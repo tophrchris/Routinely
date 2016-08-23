@@ -6,67 +6,49 @@ using Newtonsoft.Json;
 
 namespace ClockKing.Core
 {
-	public class CheckPoint
-	{
-        private List<Occurrence> allOccurrences;
-        private IEnumerable<Occurrence> occurrences
-        {
-            get { return allOccurrences.Where (o => !o.IsSkipped); }
-        }
-        private List<ScheduledTargetTime> scheduledTargets;
+    public class CheckPoint
+    {
+        private List<Occurrence> allOccurrences { get; set; } = new List<Occurrence> ();
+        private List<ScheduledTargetTime> scheduledTargets { get; set; } = new List<ScheduledTargetTime> ();
 
-        private DateTime createdOn;
-
-		public CheckPoint()
-		{
-			this.allOccurrences = new List<Occurrence> ();
-            this.scheduledTargets = new List<ScheduledTargetTime>();
-			this.Enabled = true;
-		}
-
-        public Guid UniqueIdentifier { get; set; }
+       
+		public Guid UniqueIdentifier { get; set; }
 		public string Name { get; set; }
 		public string Color { get; set; }
 		public string Emoji { get; set; }
-		public bool Enabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
         public string Category { get; set; }
-        public TimeSpan TargetTime
-        { 
-            get;
-            set;
-        }
-
-        public DateTime CreatedOn {
-            get {
-
-                return this.createdOn;
-            }
-            set {
-                this.createdOn = value;
-            }
-        }
-
+        public TimeSpan TargetTime{ get; set; }
+        public DateTime CreatedOn { get; set; }
+ 
+        #region occurrence management
         [JsonIgnore]
-        public IEnumerable<Occurrence> AllOccurrences {get {return this.allOccurrences;}}
+        public IEnumerable<Occurrence> AllOccurrences { get { return this.allOccurrences; } }
 
-		[JsonIgnore]
-		public IEnumerable<Occurrence> Occurrences { get{return this.occurrences; }}
+        private IEnumerable<Occurrence> occurrences 
+        {
+            get 
+            { 
+                return allOccurrences.Where (o => !o.IsSkipped); 
+            }
+        }
+        [JsonIgnore]
+        public IEnumerable<Occurrence> Occurrences { get { return this.occurrences; } }
 
-        public IEnumerable<ScheduledTargetTime> ScheduledTargets{ get { return this.scheduledTargets; } }
 
 
-		public void AddOccurrence(Occurrence newOccurance)
-		{
+        public void AddOccurrence(Occurrence newOccurance)
+        {
             this.allOccurrences.Add(newOccurance);
-		}
-		public Occurrence CreateOccurrence()
-		{
-			return this.CreateOccurrence (DateTime.Now.ToLocalTime());	
-		}
+        }
+        public Occurrence CreateOccurrence()
+        {
+        	return this.CreateOccurrence (DateTime.Now.ToLocalTime());	
+        }
 
-		public Occurrence CreateOccurrence(DateTime observationTimeStamp)
-		{
-			return new Occurrence(this,observationTimeStamp);
+        public Occurrence CreateOccurrence(DateTime observationTimeStamp)
+        {
+        	return new Occurrence(this,observationTimeStamp);
         }
 
         public bool RemoveOccurrences (DateTime date)
@@ -79,6 +61,10 @@ namespace ClockKing.Core
         {
            return this.allOccurrences.Remove(toRemove);
         }
+        #endregion
+
+        #region scheduledTarget management
+        public IEnumerable<ScheduledTargetTime> ScheduledTargets { get { return this.scheduledTargets; } }
 
         public ScheduledTargetTime AddScheduledtarget(TimeSpan? scheduledTargetTime, List<DayOfWeek> days)
         {
@@ -100,29 +86,54 @@ namespace ClockKing.Core
         {
             get
             {
-                return   TargetTimeForDay(DateTime.Now.DayOfWeek);
+                return TargetTimeForDay(DateTime.Now.DayOfWeek);
             }
         }
 
         [JsonIgnore]
-        public bool Active
+        public bool IsActive
         {
-            get
+            get 
             {
-                return ActiveForDay(DateTime.Today.DayOfWeek);
+                return IsActiveForDay (DateTime.Today.DayOfWeek);
             }
 
         }
 
-        public bool ActiveForDay(DayOfWeek day)
+        [JsonIgnore]
+        public DateTime TargetTimeToday 
         {
-            var relevantAlternatives = this.scheduledTargets.Where(t => t.ApplicableDays.Contains(day));
-            if (relevantAlternatives.Any(t => !t.TargetTime.HasValue))
-                return false;
-            
-            return true;
+            get 
+            {
+                return (DateTime.Today + this.ScheduledTargetTime);
+            }
+
         }
 
+        public bool IsActiveForDay (DayOfWeek day)
+        {
+            var relevantAlternatives = this.scheduledTargets.Where (t => t.ApplicableDays.Contains (day));
+            if (relevantAlternatives.Any (t => !t.TargetTime.HasValue))
+                return false;
+
+            return true;
+        }
+        public TimeSpan TargetTimeForDay (DayOfWeek day)
+        {
+            if (scheduledTargets.Any ()) {
+                var f = this.scheduledTargets
+                    .FirstOrDefault (t => t.ApplicableDays.Contains (day));
+
+                return f?.TargetTime ?? this.TargetTime;
+
+            } else
+                return TargetTime;
+
+
+        }
+        #endregion
+
+        #region basic metrics and calculated members
 		public TimeSpan averageObservedTime
 		{
 			get{
@@ -159,6 +170,7 @@ namespace ClockKing.Core
 			}
 		}
 
+        //TODO: re-write this to be schedule target time aware
         [JsonIgnore]
 		public TimeSpan UntilNextTargetTime
 		{
@@ -169,32 +181,6 @@ namespace ClockKing.Core
 				var next = DateTime.Today.AddDays (adjustment) + TargetTime;
 				return next - now;
 			}
-		}
-
-        public TimeSpan TargetTimeForDay(DayOfWeek day)
-        {
-            if (scheduledTargets.Any())
-            {
-                var f= this.scheduledTargets
-                    .FirstOrDefault(t => t.ApplicableDays.Contains(day));
-
-                return f?.TargetTime ?? this.TargetTime;
-                
-            }
-            else
-                return TargetTime;
-              
-
-        }
-
-        [JsonIgnore]
-		public DateTime TargetTimeToday
-		{
-			get
-            {
-                return (DateTime.Today + this.ScheduledTargetTime);
-            }
-		
 		}
 
         [JsonIgnore]
@@ -218,12 +204,8 @@ namespace ClockKing.Core
 			{
                 if (!this.occurrences.Any())
                     return false;
-                
-                var mostRecent = this.occurrences
-                    .OrderByDescending(o => o.TimeStamp) 
-                    .FirstOrDefault();
 
-                return mostRecent.Date == DateTime.Today;
+                return this.occurrences.Any (o => o.Date.Date == DateTime.Today);
 			}
 		}
 
@@ -273,6 +255,7 @@ namespace ClockKing.Core
                 return this.occurrences.OrderByDescending(o => o.TimeStamp).FirstOrDefault(o => o.Time.TotalMinutes == em);
             }
         }
+        #endregion
 
 		public override string ToString ()
 		{

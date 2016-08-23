@@ -80,7 +80,7 @@ namespace ClockKing.Core
 		public EnabledCheckpointCommand(string color,string title):base(color,title){}
 		public override bool ShouldDecorate (CheckPoint toDecorate)
 		{
-			return toDecorate.Enabled;
+			return toDecorate.IsEnabled;
 		}
 	}
 	public abstract class DisabledCheckpointCommand:EnabledCheckpointCommand

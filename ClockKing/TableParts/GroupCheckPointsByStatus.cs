@@ -17,9 +17,9 @@ namespace ClockKing
 
 				var sections = new  Dictionary<string, IEnumerable<CheckPoint>>();
 
-				var active = cps.Where (c => c.Active);
+				var active = cps.Where (c => c.IsActive);
 
-				var enabled = active.Where (cp => cp.Enabled);
+				var enabled = active.Where (cp => cp.IsEnabled);
 				var notYetCompleted = enabled.Where (c => !c.CompletedToday & !c.IsSkipped); 
 
 
@@ -33,9 +33,9 @@ namespace ClockKing
 				if (ClockKingOptions.ShowInactiveGoals)
 				{
 					sections.Add("Disabled",
-						cps.Where(cp => !cp.Enabled).OrderBy(cp => cp.TargetTime));
+						cps.Where(cp => !cp.IsEnabled).OrderBy(cp => cp.TargetTime));
 					sections.Add("Inactive",
-						cps.Where(c => !c.Active).OrderBy(c => c.CreatedOn));
+						cps.Where(c => !c.IsActive).OrderBy(c => c.CreatedOn));
 					sections.Add("Skipped",
 						cps.Where(c => c.IsSkipped).OrderBy(c => c.TargetTime));
 				}

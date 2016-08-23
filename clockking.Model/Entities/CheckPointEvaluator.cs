@@ -27,7 +27,7 @@ namespace ClockKing.Core
             this.ActiveDaysSinceMostRecentCompletion = To(checkpoint.MostRecentOccurrenceTimeStamp(), checkpoint, DateTime.Now).Count();
 
             this.DaysCompleted = checkpoint.Occurrences
-                .Where(o=>checkpoint.ActiveForDay(o.Date.DayOfWeek))
+                .Where(o=>checkpoint.IsActiveForDay(o.Date.DayOfWeek))
                 .Select(o => o.Date)
                 .Distinct()
                 .Count();
@@ -105,7 +105,7 @@ namespace ClockKing.Core
 
             while (current < end.Date)
             {
-                if (checkpoint.ActiveForDay(current.Date.DayOfWeek))
+                if (checkpoint.IsActiveForDay(current.Date.DayOfWeek))
                     yield return current;
                 current = current.AddDays(1);
             }
@@ -130,7 +130,7 @@ namespace ClockKing.Core
             var effectiveDates= occurrenceDates.Distinct().ToList();
             while (current >= checkpoint.CreatedOn)
             {
-                if (checkpoint.ActiveForDay(current.DayOfWeek))
+                if (checkpoint.IsActiveForDay(current.DayOfWeek))
                 {
                     if (!effectiveDates.Contains(current))
                         break;

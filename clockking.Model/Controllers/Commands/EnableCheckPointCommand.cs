@@ -13,7 +13,7 @@ namespace ClockKing
 
 		public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)
 		{
-			checkPoint.Enabled = true;
+			checkPoint.IsEnabled = true;
 			return true;
 		}
 	}
