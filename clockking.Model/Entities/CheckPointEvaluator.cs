@@ -82,7 +82,7 @@ namespace ClockKing.Core
                     if (com > .7f)
                         return "You've completed this goal {0:P0} of the last {1} days!".FormatWith(com, CalendarDaysSinceCreation);
                 }
-                if (checkpoint.TargetTime < DateTime.Now.TimeOfDay)
+                if (checkpoint.TargetTimeToday.TimeOfDay < DateTime.Now.TimeOfDay)
                 {
                     if (this.OnTimeStreak > 0)
                         return "You've been on time for the last {0} days.  Complete on time today to keep your streak going!".FormatWith(OnTimeStreak);
@@ -90,7 +90,7 @@ namespace ClockKing.Core
                     if (this.CompletionStreak > 0)
                         return "You're on a {0} day streak- complete today to keep the streak alive!".FormatWith(CompletionStreak);
 
-                    return "Start an on-time streak: complete today between {0} and {1}!".FormatWith(checkpoint.TargetTime.Subtract(15.Minutes()).ToAMPMString(), checkpoint.TargetTime.Add(15.Minutes()).ToAMPMString());
+                    return "Start an on-time streak: complete today between {0} and {1}!".FormatWith(checkpoint.TargetTimeToday.TimeOfDay.Subtract(15.Minutes()).ToAMPMString(), checkpoint.TargetTimeToday.TimeOfDay.Add(15.Minutes()).ToAMPMString());
                 }
                 else
                 {

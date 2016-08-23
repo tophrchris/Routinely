@@ -114,7 +114,7 @@ namespace ClockKing
 			section.Remove (this.pickerWrapper.IndexPath.Row);
 			section.Remove (this.nowElement.IndexPath.Row);
 			section.Remove (this.nowSwitch.IndexPath.Row);
-			this.targetTimeElement = new TimeElement ("Target time", toEdit.TargetTimeToday);
+			this.targetTimeElement = new TimeElement ("Target time", DateTime.Today+ toEdit.TargetTime);
 			this.enabledSwitch = new BooleanElement ("Enabled?", toEdit.IsEnabled);
 			section.AddAll(new Element[]{targetTimeElement, enabledSwitch});
 
