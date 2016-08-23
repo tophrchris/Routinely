@@ -76,6 +76,7 @@ namespace ClockKing
 		{			
 			base.ViewDidAppear (animated);
 			this.ConditionallyRefreshData ();
+			this.appDelegate.LogActivity("Goal Listing");
 		}
 
 		public void ResetNotifications()

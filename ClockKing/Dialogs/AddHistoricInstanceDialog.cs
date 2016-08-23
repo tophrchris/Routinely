@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace ClockKing
 {
-	public class AddHistoricInstanceDialog:DialogViewController,iNavigatableDialog
+	public class AddHistoricInstanceDialog:CheckPointDialog
 	{
 		public iCheckpointCommandController CheckPoints;
 		private CheckPoint checkPoint;
@@ -17,8 +17,9 @@ namespace ClockKing
 		private BooleanElement nowSwitch{ get; set; }
 
 
-		public AddHistoricInstanceDialog (iCheckpointCommandController checkPoints, RootElement root, CheckPoint checkpoint, bool pushing) : base (root, pushing)
+		public AddHistoricInstanceDialog (iCheckpointCommandController checkPoints, RootElement root, CheckPoint checkpoint, bool pushing) : base ()
 		{
+			this.Root = root;
 			this.CheckPoints = checkPoints;
 			this.checkPoint = checkpoint;
 
@@ -51,6 +52,12 @@ namespace ClockKing
 			this.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Save,(s,e)=>this.Save()),true);
 		}
 
+		public override void ViewDidAppear(bool animated)
+		{
+			this.App.LogActivity("Add Historic");
+			base.ViewDidAppear(animated);
+		}
+
 		public bool Save()
 		{
 
@@ -67,7 +74,7 @@ namespace ClockKing
 
 		#region iNavigatableDialog implementation
 
-		public void ResetNavigation (bool refreshData=false)
+		public override void ResetNavigation (bool refreshData=false)
 		{
 			Debug.WriteLine("hid reset nav");
 			((iNavigatableDialog)this.CheckPoints).ResetNavigation(refreshData);

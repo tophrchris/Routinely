@@ -8,6 +8,8 @@ using ClockKing.Extensions;
 using System.Collections.Generic;
 using Xamarin.Themes.TrackBeam;
 using ClockKing.Core;
+using Google.Analytics;
+using System.Diagnostics;
 
 namespace ClockKing
 {
@@ -32,6 +34,7 @@ namespace ClockKing
 		public Queue<Action<CheckPointController>> LaunchActions{ get; set; }
 		public SidebarNavigation.SidebarController Sidebar;
 		private NSObject observer;
+		private Google.Analytics.ITracker tracking { get; set; }
 
 		public static ICheckPointDataProvider DefaultDataProvider
 		{
@@ -44,18 +47,44 @@ namespace ClockKing
 			}
 		}
 
+		public void LogActivity(string screenName)
+		{
+			EnsureTracking();
+			this.tracking.Set(GaiConstants.ScreenName, screenName);
+			Debug.WriteLine("on screen:" + screenName);
+			this.tracking.Send(DictionaryBuilder.CreateScreenView().Build());
+		}
+
+		public void LogEvent(string category, string action, string label, int value=0)
+		{
+			EnsureTracking();
+			Debug.WriteLine(string.Format("{0}:{1}:{2}", category, action, label));
+			this.tracking.Send(DictionaryBuilder.CreateEvent(category, action, label, value).Build());
+		}
+
+		private void EnsureTracking()
+		{
+			if (this.tracking == null)
+			{
+				Gai.SharedInstance.DispatchInterval = 20;
+				Gai.SharedInstance.TrackUncaughtExceptions = true;
+				this.tracking = Gai.SharedInstance.GetTracker("UA-82950326-1");
+			}
+		}
+
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			LoadOptions();
 
-			this.Commands = new CommandManager();
+			this.Commands = new CommandManager(this);
 			this.Notifications = new NotificationManager();
 			this.CheckPointData = new DataModel(DefaultDataProvider);
 			this.LaunchActions = new Queue<Action<CheckPointController>>();
 
 
 			this.EnsureIntegrations();
+			this.EnsureTracking();
 
 			application.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
 
@@ -74,6 +103,7 @@ namespace ClockKing
 			Window.RootViewController = root;
 
 			Window.MakeKeyAndVisible();
+
 
 
 			return PerformAdditionalHandling;
@@ -186,11 +216,6 @@ namespace ClockKing
 				this.RequiresDataRefresh = true;
 			
 			completionHandler ();
-		}
-
-		public override void HandleWatchKitExtensionRequest(UIApplication application, NSDictionary userInfo, Action<NSDictionary> reply)
-		{
-			base.HandleWatchKitExtensionRequest(application, userInfo, reply);
 		}
 	}
 }
