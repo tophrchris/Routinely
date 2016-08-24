@@ -17,7 +17,6 @@ namespace ClockKing
 		iCheckpointCommandController CheckPoints{ get; set; }
 
 		private EntryElement nameElement { get; set; }
-		private TimeElement targetElement { get; set; }
 		private EntryElement emojiElement { get; set; }
 		private EntryElement categoryElement { get; set; }
 		private BooleanElement nowElement { get; set; }
@@ -77,6 +76,7 @@ namespace ClockKing
 
 			this.nameElement.Changed += (s, ev) => AutoSetEmoji();
 
+			picker.MinuteInterval = ClockKingOptions.MinimumInterval;
 			picker.ValueChanged += (s, e) => nowSwitch.Value=false;
 
 			nowSwitch.ValueChanged += (s, e) => {
@@ -118,6 +118,7 @@ namespace ClockKing
 			section.Remove (this.nowSwitch.IndexPath.Row);
 			this.targetTimeElement = new TimeElement("Target time", DateTime.Today + toEdit.TargetTime);
 
+
 			if (toEdit.RelativeTarget != null)
 			{
 				var msg = string.Format("The target time for this goal is dynamically set to {0} after the completion of {1}{2}.",
@@ -142,7 +143,8 @@ namespace ClockKing
 				};
 				
 			}
-			else {
+			else 
+			{
 				section.Insert(instructionsElement.IndexPath.Row + 1, new Element[] { targetTimeElement });
 			}
 			this.enabledSwitch = new BooleanElement("Enabled?", toEdit.IsEnabled);

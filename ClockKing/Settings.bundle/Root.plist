@@ -12,6 +12,32 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Key</key>
+			<string>MinInterval</string>
+			<key>Title</key>
+			<string>Minute Interval:</string>
+			<key>Titles</key>
+			<array>
+				<string>one min</string>
+				<string>5 mins</string>
+				<string>10 mins</string>
+				<string>15 mins</string>
+				<string>30 mins</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>5</integer>
+				<integer>10</integer>
+				<integer>15</integer>
+				<integer>30</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
 			<integer>0</integer>
 			<key>Key</key>
 			<string>themeKey</string>
