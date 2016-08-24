@@ -90,6 +90,7 @@ namespace ClockKing
 			n.Offset = offsetPicker.Date.ToDateTime().ToLocalTime().TimeOfDay;
 
 			this.editing.RelativeTarget = n;
+			//TODO:lets get a reference to a manager here...
 			this.App.CheckPointData.SaveCheckPoints();
 			this.Close();
 		}
