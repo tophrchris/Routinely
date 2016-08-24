@@ -20,7 +20,7 @@ namespace ClockKing.Core
 
         public bool RefreshData(bool loadOccurrences=true)
         {
-            Debug.WriteLine ("refreshing****************");
+            Debug.WriteLine ("reading data from disk");
             this.checkPoints = LoadCheckPoints();
 
             if(loadOccurrences)
