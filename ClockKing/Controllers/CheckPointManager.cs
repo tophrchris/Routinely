@@ -79,8 +79,7 @@ namespace ClockKing
 			DataChanged(new CheckPointDataChangedEventArgs()
 			{
 				Entity = "Skip",
-				ActionOccurred = ActionType.Added,
-				ConditionallyRefreshData = true
+				ActionOccurred = ActionType.Added
 			});
 			return o;
 		}
@@ -100,13 +99,11 @@ namespace ClockKing
 		{
 			var o = checkPoint.CreateOccurrence(when.ToLocalTime());
 			checkPoint.AddOccurrence (o);
-			Debug.WriteLine("cpm add occurrence to checkpoint");
 			this.CheckPointData.SaveOccurrence (o);
 			NotificationManager.PresentMotivationalNotification(checkPoint);
 			DataChanged (new CheckPointDataChangedEventArgs ()
 				{ Entity = "Completion",
-				ActionOccurred = ActionType.Added,
-				ConditionallyRefreshData=true
+				ActionOccurred = ActionType.Added
 				});
 			return o;
 		}
@@ -154,15 +151,8 @@ namespace ClockKing
 			this.CheckPointData.SaveOccurrences ();
 			DataChanged (new CheckPointDataChangedEventArgs () 
 				{Entity = "Completions",
-				ActionOccurred = ActionType.Written,
-				ConditionallyRefreshData=true,
-				RespondToModelChanges=false});
+				ActionOccurred = ActionType.Written});
 		}
-
-
-
-
-
 
 
 
