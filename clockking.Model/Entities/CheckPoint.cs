@@ -11,6 +11,9 @@ namespace ClockKing.Core
         private List<Occurrence> allOccurrences { get; set; } = new List<Occurrence> ();
         private List<ScheduledTargetTime> scheduledTargets { get; set; } = new List<ScheduledTargetTime> ();
 
+        private Lazy<TimeSpan> EffectiveTargetTimeCalculator;
+        private Lazy<TimeSpan> AverageCompletionTimeCalculator;
+        private Lazy<DateTime> MostRecentOccurrenceCalculator;
 
         public Guid UniqueIdentifier { get; set; }
         public string Name { get; set; }
@@ -21,6 +24,18 @@ namespace ClockKing.Core
         public TimeSpan TargetTime {get; set; }
         public DateTime CreatedOn { get; set; }
         public RelativeTargetTime RelativeTarget { get; set; }
+
+        public CheckPoint ()
+        {
+            ResetCalculators ();
+        }
+
+        private void ResetCalculators ()
+        {
+            this.EffectiveTargetTimeCalculator = new Lazy<TimeSpan> (() => EffectiveTargetTimeFor (DateTime.Now));
+            this.AverageCompletionTimeCalculator = new Lazy<TimeSpan> (() => CalculateAverageCompletionTime ());
+            this.MostRecentOccurrenceCalculator = new Lazy<DateTime> (() =>MostRecentOccurrenceTimeStamp(DateTime.Now));
+        }
 
         #region occurrence management
         [JsonIgnore]
@@ -39,6 +54,7 @@ namespace ClockKing.Core
         public void AddOccurrence (Occurrence newOccurance)
         {
             this.allOccurrences.Add (newOccurance);
+            this.ResetCalculators ();
         }
         public Occurrence CreateOccurrence ()
         {
@@ -53,36 +69,40 @@ namespace ClockKing.Core
         public bool RemoveOccurrences (DateTime date)
         {
             var removed = this.allOccurrences.RemoveAll (o => o.Date.Date == date.Date);
+            this.ResetCalculators ();
             return removed > 0;
         }
 
         public bool RemoveOccurrence (Occurrence toRemove)
         {
+            this.ResetCalculators ();
             return this.allOccurrences.Remove (toRemove);
         }
         #endregion
 
         #region TargetTime Resolution
 
-        public TimeSpan TargetTimeForDay (DayOfWeek day) => ScheduledTargetTimeFor(day);
+        public TimeSpan TargetTimeForDay (DayOfWeek day) => EffectiveTargetTimeFor(day);
 
         [JsonIgnore]
-        protected TimeSpan ScheduledTargetTime {
+        protected TimeSpan EffectiveTargetTime {
             get 
             {
-                return ScheduledTargetTimeFor(DateTime.Now);
-                //return TargetTimeForDay (DateTime.Now.DayOfWeek);
+                if (this.RelativeTarget == null)
+                    return EffectiveTargetTimeCalculator.Value;
+                else
+                    return EffectiveTargetTimeFor (DateTime.Now);
             }
         }
 
-        public TimeSpan ScheduledTargetTimeFor(DateTime d) 
+        public TimeSpan EffectiveTargetTimeFor(DateTime d) 
         {
             if (RelativeTarget != null)
                 return RelativeTarget.OffsetScheduledTimeForDate(d);
             else
-                return ScheduledTargetTimeFor(d.DayOfWeek);
+                return EffectiveTargetTimeFor(d.DayOfWeek);
         }
-        public TimeSpan ScheduledTargetTimeFor(DayOfWeek day) 
+        public TimeSpan EffectiveTargetTimeFor(DayOfWeek day) 
         {
             if (scheduledTargets.Any ()) {
                 var f = this.scheduledTargets
@@ -128,7 +148,7 @@ namespace ClockKing.Core
         [JsonIgnore]
         public DateTime TargetTimeToday {
             get {
-                return (DateTime.Today + this.ScheduledTargetTime);
+                return (DateTime.Today + this.EffectiveTargetTime);
             }
 
         }
@@ -146,21 +166,27 @@ namespace ClockKing.Core
         #endregion
 
         #region basic metrics and calculated members
-		public TimeSpan averageObservedTime
+		public TimeSpan AverageCompletionTime
 		{
-			get{
-				if (!occurrences.Any ())
-					return this.TargetTime;
-
-				var avgminutes = this.occurrences.Average (o => o.Time.TotalMinutes);
-				return TimeSpan.FromMinutes (avgminutes);
+			get
+            {
+                return AverageCompletionTimeCalculator.Value;
 			}
 		}
+
+        private TimeSpan CalculateAverageCompletionTime ()
+        {
+            if (!occurrences.Any ())
+                return this.EffectiveTargetTime;
+
+            var avgminutes = this.occurrences.Average (o => o.Time.TotalMinutes);
+            return TimeSpan.FromMinutes (avgminutes);
+        }
             
 
 		public DateTime MostRecentOccurrenceTimeStamp()
         {
-			return MostRecentOccurrenceTimeStamp (DateTime.Now);
+            return MostRecentOccurrenceCalculator.Value;
 		}
 
 		public DateTime MostRecentOccurrenceTimeStamp(DateTime ifNone)
@@ -226,7 +252,7 @@ namespace ClockKing.Core
 		{
 			get 
 			{
-				return this.ScheduledTargetTime < DateTime.Now.TimeOfDay;
+				return this.EffectiveTargetTime < DateTime.Now.TimeOfDay;
 			}
 		}
 
@@ -274,7 +300,7 @@ namespace ClockKing.Core
 			return string.Format ("{3}{0}: target={1}, avg={2}", 
 				this.Name,
 				this.TargetTime,
-				this.averageObservedTime,
+				this.AverageCompletionTime,
 				this.Emoji);
 		}
 	}
@@ -313,7 +339,7 @@ namespace ClockKing.Core
                     where oc.Date == d.Date
                     orderby oc.TimeStamp descending
                     select oc.Time;
-            var f = q.DefaultIfEmpty (RelatedCheckPoint.ScheduledTargetTimeFor(d))
+            var f = q.DefaultIfEmpty (RelatedCheckPoint.EffectiveTargetTimeFor(d))
                      .FirstOrDefault ();
             return f.Add (Offset);
         }

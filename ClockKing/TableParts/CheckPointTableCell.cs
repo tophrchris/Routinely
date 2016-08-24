@@ -9,6 +9,7 @@ using SWTableViewCells;
 //using BarChart;
 using Humanizer;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 
 namespace ClockKing
@@ -160,13 +161,12 @@ namespace ClockKing
 			
 		public virtual void RenderCheckpoint(CheckPoint checkpoint)
 		{
-
 			this.CheckPoint = checkpoint;
 			this.EmojiLabel.Text = string.IsNullOrEmpty(this.CheckPoint.Emoji)?"☀":this.CheckPoint.Emoji;
 			this.TitleLabel.Text = checkpoint.Name;
 
 			this.TargetLabel.Text = checkpoint.TargetTimeToday.ToString ("t");
-			this.AverageLabel.Text = (DateTime.Now.Date + checkpoint.averageObservedTime).ToString ("t");
+			this.AverageLabel.Text = (DateTime.Now.Date + checkpoint.AverageCompletionTime).ToString ("t");
 			this.MostRecentDay.Text = checkpoint.MostRecentOccurrenceTimeStamp ().ToString ("d");
 			this.MostRecentLabel.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("t");
 			this.ProgressLabel.Text = checkpoint.GetProgress();

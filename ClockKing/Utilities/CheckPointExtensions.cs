@@ -34,6 +34,8 @@ namespace ClockKing
 			}
 
 		}
+
+
         public static string GetProgress (this CheckPoint cp)
         {
              Configurator.DateTimeHumanizeStrategy = new PrecisionDateTimeHumanizeStrategy (.9D);
@@ -72,7 +74,7 @@ namespace ClockKing
 
 			var formatString = "It's time for {0}! on average, you complete this at {1}. Have you completed it yet?";
 			var alertBody = string.Format(formatString,
-										  toCreate.Name, (DateTime.Now.Date + toCreate.averageObservedTime).ToString("t"));
+										  toCreate.Name, (DateTime.Now.Date + toCreate.AverageCompletionTime).ToString("t"));
 
 			if (toCreate.ScheduledTargets.Any())
 			{
@@ -161,7 +163,7 @@ namespace ClockKing
 				DaysFromNow += 7;
 
 			var alertDate = DateTime.Today.Date.AddDays(DaysFromNow);
-			var alertTime = alertDate.Add(toAlert.ScheduledTargetTimeFor(alertDate));
+			var alertTime = alertDate.Add(toAlert.EffectiveTargetTimeFor(alertDate));
 			return alertTime;
 		}
 }
