@@ -29,16 +29,14 @@ namespace ClockKing
 			var required = checkPoints
 								.Where(cp=>cp.IsEnabled)
 								.SelectMany(cp => cp.RequiredNotifications())
-			                    .OrderBy(n => n.FireDate.ToDateTime());
+			                    .OrderBy(n => n.FireDate.ToDateTime())
+								.ToList();
 
 			if (resetExisting)
 				app.CancelAllLocalNotifications();
 
-			foreach (var ln in required)
-			{
-				Debug.WriteLine(string.Format("scheduling {0} at {1}", ln.AlertTitle, ln.FireDate.ToDateTime().ToLocalTime()));
-				app.ScheduleLocalNotification(ln);
-			}
+			required.ForEach(ln => app.ScheduleLocalNotification(ln));
+
 		}
 
 
@@ -67,7 +65,6 @@ namespace ClockKing
 
 			opts.AddAction(UIAlertAction.Create("Cancel",UIAlertActionStyle.Cancel,null));
 
-		
 			app.Window.RootViewController.PresentViewController (opts, true, null);
 			app.Controller.RespondToModelChanges();
 
@@ -100,6 +97,8 @@ namespace ClockKing
 				nn.Category = "AfterSnooze";
 				nn.RepeatInterval = 0;
 				application.ScheduleLocalNotification (nn);
+				(UIApplication.SharedApplication.Delegate as AppDelegate).LogEvent("notification", "Snoozed!", found.Name);
+
 			} else {
 
 				var occ = found.CreateOccurrence(DateTime.Now.AddMinutes(mins));
