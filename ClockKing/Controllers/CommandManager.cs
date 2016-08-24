@@ -39,7 +39,8 @@ namespace ClockKing
 				new DeleteCheckPointCommand(),
 				new AddScheduledTargetCommand(),
 				new SkipCheckPointCommand(){AllowForAllIncompleteGoals=!ClockKingOptions.OnlySkipMissed},
-				new UndoOccurrenceCommand()
+				new UndoOccurrenceCommand(),
+				new AddRelativeTargetCommand()
 			};
 		}
 

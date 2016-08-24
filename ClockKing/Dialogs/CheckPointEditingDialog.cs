@@ -7,6 +7,7 @@ using EmojiSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ClockKing.Core;
+using Humanizer;
 
 
 namespace ClockKing
@@ -28,6 +29,7 @@ namespace ClockKing
 		private BooleanElement enabledSwitch{ get; set; }
 		private TimeElement targetTimeElement{ get; set; }
 		private BooleanElement categorySwitch { get; set; }
+		private MultilineElement instructionsElement { get; set; }
 		private bool SuggestAbbreviations = true;
 
 		public CheckPointEditingDialog (iCheckpointCommandController checkpoints, RootElement root, bool pushing) :base()
@@ -46,7 +48,7 @@ namespace ClockKing
 			this.SuggestEmoji = new BooleanElement ("suggest emoji for abbreviation?", true);
 			this.nowSwitch = new BooleanElement ("default to current time:", true);
 
-			var instructions = new MultilineElement ("What time do you expect to complete this goal, each day?");
+			this.instructionsElement = new MultilineElement ("What time do you expect to complete this goal, each day?");
 			this.pickerWrapper = new UIViewElement (string.Empty, picker, false);
 
 			var checkPointForm = new Section ("Goal:") { 	
@@ -54,7 +56,7 @@ namespace ClockKing
 
 				SuggestEmoji,
 				emojiElement,
-				instructions,
+				instructionsElement,
 				pickerWrapper,
 				nowSwitch,
 				nowElement,
@@ -114,9 +116,37 @@ namespace ClockKing
 			section.Remove (this.pickerWrapper.IndexPath.Row);
 			section.Remove (this.nowElement.IndexPath.Row);
 			section.Remove (this.nowSwitch.IndexPath.Row);
-			this.targetTimeElement = new TimeElement ("Target time", toEdit.TargetTimeToday);
-			this.enabledSwitch = new BooleanElement ("Enabled?", toEdit.Enabled);
-			section.AddAll(new Element[]{targetTimeElement, enabledSwitch});
+			this.targetTimeElement = new TimeElement("Target time", DateTime.Today + toEdit.TargetTime);
+
+			if (toEdit.RelativeTarget != null)
+			{
+				var msg = string.Format("The target time for this goal is dynamically set to {0} after the completion of {1}{2}.",
+				                        toEdit.RelativeTarget.Offset.Humanize(),
+			                toEdit.RelativeTarget.RelatedCheckPoint.Emoji, 
+			                toEdit.RelativeTarget.RelatedCheckPoint.Name);
+				var originalIInstructions = instructionsElement.Caption;
+				this.instructionsElement.Caption = msg;
+				this.instructionsElement.Tapped += () => 
+				{
+
+					this.CheckPoints.PresentConfirmationDialog(() =>
+					{
+						toEdit.RelativeTarget = null;
+						this.CheckPoints.ResaveCheckpoints();
+
+						section.Insert(instructionsElement.IndexPath.Row + 1, new Element[] { targetTimeElement });
+						this.instructionsElement.Caption = originalIInstructions;
+					},
+					Message: "Would you like to remove the relative target from this goal?"
+					);	
+				};
+				
+			}
+			else {
+				section.Insert(instructionsElement.IndexPath.Row + 1, new Element[] { targetTimeElement });
+			}
+			this.enabledSwitch = new BooleanElement("Enabled?", toEdit.IsEnabled);
+			section.Add(enabledSwitch);
 
 			if (knownEmoji.Contains (toEdit.Emoji))
 				SuggestAbbreviations = false;
@@ -162,7 +192,7 @@ namespace ClockKing
 			toEdit.Category = this.categoryElement.Value;
 			toEdit.Emoji=this.emojiElement.Value;
 			toEdit.TargetTime=targetTimeElement.DateValue.ToLocalTime().TimeOfDay;
-			toEdit.Enabled= enabledSwitch.Value;
+			toEdit.IsEnabled= enabledSwitch.Value;
 			if(nameChanged)
 				toEdit.Name=this.nameElement.Value;
 

@@ -9,6 +9,7 @@ namespace ClockKing
         {
             this.Category = "Right";
             this.LongName = "Skip this goal for today";
+            this.EmojiName = EmojiSharp.Emoji.BLACK_RIGHT_POINTING_DOUBLE_TRIANGLE.ShortName;
 
         }
         public bool AllowForAllIncompleteGoals { get; set; } = false;
@@ -22,9 +23,9 @@ namespace ClockKing
         public override bool ShouldDecorate (CheckPoint toDecorate)
         {
             if (AllowForAllIncompleteGoals)
-                return toDecorate.Active && !(toDecorate.IsSkipped | toDecorate.CompletedToday);
+                return toDecorate.IsActive && !(toDecorate.IsSkipped | toDecorate.CompletedToday);
 
-            return toDecorate.Active &&  toDecorate.IsMissed && !toDecorate.IsSkipped;
+            return toDecorate.IsActive &&  toDecorate.IsMissed && !toDecorate.IsSkipped;
 
         }
     }

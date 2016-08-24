@@ -40,6 +40,13 @@ namespace ClockKing
 		{
 		}
 
+		public static UIAlertController ErrorDialog(string Title, string Message)
+		{
+			var d = UIAlertController.Create(Title, Message, UIAlertControllerStyle.Alert);
+			d.AddAction(UIAlertAction.Create("ok", UIAlertActionStyle.Cancel, null));
+			return d;
+		}
+
 		public static UIAlertController ConfirmationDialog(Action<UIAlertAction> handler,
 			string Title="Are you sure?",
 			string Message="Confirm Delete:",

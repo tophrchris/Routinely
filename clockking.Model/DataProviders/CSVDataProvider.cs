@@ -34,7 +34,7 @@ namespace ClockKing.Core
 						var targetTime = TimeSpan.Parse (parts [1]);
 						var enabled = bool.Parse (parts [2]);
 						var emoji = parts [3];
-							created = new CheckPoint (){ Name = name, TargetTime = targetTime, Enabled = enabled,Emoji=emoji };
+							created = new CheckPoint (){ Name = name, TargetTime = targetTime, IsEnabled = enabled,Emoji=emoji };
 						
 						yield return created;
 					}
@@ -43,26 +43,24 @@ namespace ClockKing.Core
 			yield break;
 		}
 
-		public virtual int LoadOccurrences(Dictionary<string,CheckPoint> checkPoints)
-		{
+        public virtual int LoadOccurrences (Dictionary<string, CheckPoint> checkPoints)
+        {
             var added = 0;
-			if (Paths.Exists (this.OccurrencesPath)) {
-				var read = Paths.ReadAllLines (this.OccurrencesPath);
-				if (read.Any ()) 
-				{
-					foreach (var line in read) {
+            if (Paths.Exists (this.OccurrencesPath)) {
+                var read = Paths.ReadAllLines (this.OccurrencesPath);
+                if (read.Any ()) {
+                    foreach (var line in read) {
 
                         bool Skipped = false;
-						var parts = line.Split ('|');
-						var name = parts [0];
-						var timeStamp = DateTime.Parse (parts [1]);
+                        var parts = line.Split ('|');
+                        var name = parts [0];
+                        var timeStamp = DateTime.Parse (parts [1]);
                         if (parts.Length == 3)
                             bool.TryParse (parts [2], out Skipped);
-                        if (checkPoints.ContainsKey(name))
-                        {
+                        if (checkPoints.ContainsKey (name)) {
                             var newOccurrence = checkPoints [name].CreateOccurrence (timeStamp);
                             newOccurrence.IsSkipped = Skipped;
-                            checkPoints[name].AddOccurrence(newOccurrence);
+                            checkPoints [name].AddOccurrence (newOccurrence);
                             added++;
                         }
 					}
@@ -70,39 +68,17 @@ namespace ClockKing.Core
 			}
 
            return added;
-		}
-
-		private void createRandomOccurrences(Dictionary<string,CheckPoint> checkPoints)
-		{
-			var r = new Random ();
-
-			foreach (var cp in checkPoints.Values)
-			{
-				var maxDays = 2 + r.Next (8);
-				foreach (int i in Enumerable.Range(2,maxDays))
-				{
-					var mins = r.Next (90);
-					var direction = r.NextDouble () > .5d;
-					cp.AddOccurrence(
-						cp.CreateOccurrence(cp.TargetTimeToday
-							.AddDays(i*-1)
-							.AddMinutes(mins*((direction)?1:-1))));
-				}
-			}
-
-			WriteAllOccurrences (checkPoints.SelectMany (cp => cp.Value.AllOccurrences));
-		}
-
+        }
 
 		public virtual bool WriteCheckPoints(IEnumerable<CheckPoint> CheckPoints)
 		{
 			var toWrite = CheckPoints.Select (cp=>new{
 				cp.Name,
 				cp.TargetTime,
-				cp.Enabled,
+				cp.IsEnabled,
 				Emoji=(string.IsNullOrEmpty(cp.Emoji))?"☀":cp.Emoji    });
 
-			var lines = toWrite.Select (tw => string.Format ("{0}|{1}|{2}|{3}", tw.Name, tw.TargetTime, tw.Enabled,tw.Emoji)).ToArray();
+			var lines = toWrite.Select (tw => string.Format ("{0}|{1}|{2}|{3}", tw.Name, tw.TargetTime, tw.IsEnabled,tw.Emoji)).ToArray();
 
 			Paths.WriteAllLines (this.CheckpointPath, lines);
 			return true;

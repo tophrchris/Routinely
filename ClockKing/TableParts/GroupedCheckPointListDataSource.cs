@@ -52,10 +52,7 @@ namespace ClockKing
 
 		public override nint NumberOfSections (UITableView tableView)
 		{
-			var goals = this.GroupedCheckPoints.Sum(g => g.Value.Count());
-
 			var sections = this.GroupedCheckPoints.Count()+1;
-			Debug.WriteLine(string.Format("found {0} sections, {1} goals",sections,goals));
 			return sections;
 		}
 
@@ -66,7 +63,6 @@ namespace ClockKing
 			
  
 			var found = this.GroupedCheckPoints.ElementAt((int)section);
-			Debug.WriteLine(string.Format("getting title for {0}, which has {1} goals",found.Key,found.Value.Count()));
 			return found.Key;
 		}
 

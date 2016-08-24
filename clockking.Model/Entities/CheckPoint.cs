@@ -6,138 +6,187 @@ using Newtonsoft.Json;
 
 namespace ClockKing.Core
 {
-	public class CheckPoint
-	{
-        private List<Occurrence> allOccurrences;
-        private IEnumerable<Occurrence> occurrences
-        {
-            get { return allOccurrences.Where (o => !o.IsSkipped); }
-        }
-        private List<ScheduledTargetTime> scheduledTargets;
+    public class CheckPoint
+    {
+        private List<Occurrence> allOccurrences { get; set; } = new List<Occurrence> ();
+        private List<ScheduledTargetTime> scheduledTargets { get; set; } = new List<ScheduledTargetTime> ();
 
-        private DateTime createdOn;
-
-		public CheckPoint()
-		{
-			this.allOccurrences = new List<Occurrence> ();
-            this.scheduledTargets = new List<ScheduledTargetTime>();
-			this.Enabled = true;
-		}
+        private Lazy<TimeSpan> EffectiveTargetTimeCalculator;
+        private Lazy<TimeSpan> AverageCompletionTimeCalculator;
+        private Lazy<DateTime> MostRecentOccurrenceCalculator;
 
         public Guid UniqueIdentifier { get; set; }
-		public string Name { get; set; }
-		public string Color { get; set; }
-		public string Emoji { get; set; }
-		public bool Enabled { get; set; }
+        public string Name { get; set; }
+        public string Color { get; set; }
+        public string Emoji { get; set; }
+        public bool IsEnabled { get; set; } = true;
         public string Category { get; set; }
-        public TimeSpan TargetTime
-        { 
-            get;
-            set;
+        public TimeSpan TargetTime {get; set; }
+        public DateTime CreatedOn { get; set; }
+        public RelativeTargetTime RelativeTarget { get; set; }
+
+        public CheckPoint ()
+        {
+            ResetCalculators ();
         }
 
-        public DateTime CreatedOn {
-            get {
-
-                return this.createdOn;
-            }
-            set {
-                this.createdOn = value;
-            }
+        private void ResetCalculators ()
+        {
+            this.EffectiveTargetTimeCalculator = new Lazy<TimeSpan> (() => EffectiveTargetTimeFor (DateTime.Now));
+            this.AverageCompletionTimeCalculator = new Lazy<TimeSpan> (() => CalculateAverageCompletionTime ());
+            this.MostRecentOccurrenceCalculator = new Lazy<DateTime> (() =>MostRecentOccurrenceTimeStamp(DateTime.Now));
         }
 
+        #region occurrence management
         [JsonIgnore]
-        public IEnumerable<Occurrence> AllOccurrences {get {return this.allOccurrences;}}
+        public IEnumerable<Occurrence> AllOccurrences { get { return this.allOccurrences; } }
 
-		[JsonIgnore]
-		public IEnumerable<Occurrence> Occurrences { get{return this.occurrences; }}
+        private IEnumerable<Occurrence> occurrences {
+            get {
+                return allOccurrences.Where (o => !o.IsSkipped);
+            }
+        }
+        [JsonIgnore]
+        public IEnumerable<Occurrence> Occurrences { get { return this.occurrences; } }
 
-        public IEnumerable<ScheduledTargetTime> ScheduledTargets{ get { return this.scheduledTargets; } }
 
 
-		public void AddOccurrence(Occurrence newOccurance)
-		{
-            this.allOccurrences.Add(newOccurance);
-		}
-		public Occurrence CreateOccurrence()
-		{
-			return this.CreateOccurrence (DateTime.Now.ToLocalTime());	
-		}
+        public void AddOccurrence (Occurrence newOccurance)
+        {
+            this.allOccurrences.Add (newOccurance);
+            this.ResetCalculators ();
+        }
+        public Occurrence CreateOccurrence ()
+        {
+            return this.CreateOccurrence (DateTime.Now.ToLocalTime ());
+        }
 
-		public Occurrence CreateOccurrence(DateTime observationTimeStamp)
-		{
-			return new Occurrence(this,observationTimeStamp);
+        public Occurrence CreateOccurrence (DateTime observationTimeStamp)
+        {
+            return new Occurrence (this, observationTimeStamp);
         }
 
         public bool RemoveOccurrences (DateTime date)
         {
             var removed = this.allOccurrences.RemoveAll (o => o.Date.Date == date.Date);
+            this.ResetCalculators ();
             return removed > 0;
         }
 
         public bool RemoveOccurrence (Occurrence toRemove)
         {
-           return this.allOccurrences.Remove(toRemove);
+            this.ResetCalculators ();
+            return this.allOccurrences.Remove (toRemove);
+        }
+        #endregion
+
+        #region TargetTime Resolution
+
+        public TimeSpan TargetTimeForDay (DayOfWeek day) => EffectiveTargetTimeFor(day);
+
+        [JsonIgnore]
+        protected TimeSpan EffectiveTargetTime {
+            get 
+            {
+                if (this.RelativeTarget == null)
+                    return EffectiveTargetTimeCalculator.Value;
+                else
+                    return EffectiveTargetTimeFor (DateTime.Now);
+            }
         }
 
-        public ScheduledTargetTime AddScheduledtarget(TimeSpan? scheduledTargetTime, List<DayOfWeek> days)
+        public TimeSpan EffectiveTargetTimeFor(DateTime d) 
         {
-            var alt = new ScheduledTargetTime()
-                {TargetTime=scheduledTargetTime,
-                    ApplicableDays=days.ToArray()};
+            if (RelativeTarget != null)
+                return RelativeTarget.OffsetScheduledTimeForDate(d);
+            else
+                return EffectiveTargetTimeFor(d.DayOfWeek);
+        }
+        public TimeSpan EffectiveTargetTimeFor(DayOfWeek day) 
+        {
+            if (scheduledTargets.Any ()) {
+                var f = this.scheduledTargets
+                    .FirstOrDefault (t => t.ApplicableDays.Contains (day));
+
+                return f?.TargetTime ?? this.TargetTime;
+
+            } else
+                return TargetTime;
             
-            this.scheduledTargets.Add(alt);
+        }
+
+        #endregion
+
+        #region scheduledTarget management
+        public IEnumerable<ScheduledTargetTime> ScheduledTargets { get { return this.scheduledTargets; } }
+
+        public ScheduledTargetTime AddScheduledtarget (TimeSpan? scheduledTargetTime, List<DayOfWeek> days)
+        {
+            var alt = new ScheduledTargetTime () {
+                TargetTime = scheduledTargetTime,
+                ApplicableDays = days.ToArray ()
+            };
+
+            this.scheduledTargets.Add (alt);
             return alt;
         }
 
-        public bool RemoveScheduledTarget(ScheduledTargetTime toRemove)
+        public bool RemoveScheduledTarget (ScheduledTargetTime toRemove)
         {
-            return this.scheduledTargets.Remove(toRemove);
-        }    
-
-        [JsonIgnore]
-        protected TimeSpan ScheduledTargetTime
-        {
-            get
-            {
-                return   TargetTimeForDay(DateTime.Now.DayOfWeek);
-            }
+            return this.scheduledTargets.Remove (toRemove);
         }
 
+
         [JsonIgnore]
-        public bool Active
-        {
-            get
-            {
-                return ActiveForDay(DateTime.Today.DayOfWeek);
+        public bool IsActive {
+            get {
+                return IsActiveForDay (DateTime.Today.DayOfWeek);
             }
 
         }
 
-        public bool ActiveForDay(DayOfWeek day)
+        [JsonIgnore]
+        public DateTime TargetTimeToday {
+            get {
+                return (DateTime.Today + this.EffectiveTargetTime);
+            }
+
+        }
+
+        public bool IsActiveForDay (DayOfWeek day)
         {
-            var relevantAlternatives = this.scheduledTargets.Where(t => t.ApplicableDays.Contains(day));
-            if (relevantAlternatives.Any(t => !t.TargetTime.HasValue))
+            var relevantAlternatives = this.scheduledTargets.Where (t => t.ApplicableDays.Contains (day));
+            if (relevantAlternatives.Any (t => !t.TargetTime.HasValue))
                 return false;
-            
+
             return true;
         }
+       
 
-		public TimeSpan averageObservedTime
+        #endregion
+
+        #region basic metrics and calculated members
+		public TimeSpan AverageCompletionTime
 		{
-			get{
-				if (!occurrences.Any ())
-					return this.TargetTime;
-
-				var avgminutes = this.occurrences.Average (o => o.Time.TotalMinutes);
-				return TimeSpan.FromMinutes (avgminutes);
+			get
+            {
+                return AverageCompletionTimeCalculator.Value;
 			}
 		}
+
+        private TimeSpan CalculateAverageCompletionTime ()
+        {
+            if (!occurrences.Any ())
+                return this.EffectiveTargetTime;
+
+            var avgminutes = this.occurrences.Average (o => o.Time.TotalMinutes);
+            return TimeSpan.FromMinutes (avgminutes);
+        }
             
 
 		public DateTime MostRecentOccurrenceTimeStamp()
         {
-			return MostRecentOccurrenceTimeStamp (DateTime.Now);
+            return MostRecentOccurrenceCalculator.Value;
 		}
 
 		public DateTime MostRecentOccurrenceTimeStamp(DateTime ifNone)
@@ -159,6 +208,7 @@ namespace ClockKing.Core
 			}
 		}
 
+        //TODO: re-write this to be schedule target time aware
         [JsonIgnore]
 		public TimeSpan UntilNextTargetTime
 		{
@@ -169,32 +219,6 @@ namespace ClockKing.Core
 				var next = DateTime.Today.AddDays (adjustment) + TargetTime;
 				return next - now;
 			}
-		}
-
-        public TimeSpan TargetTimeForDay(DayOfWeek day)
-        {
-            if (scheduledTargets.Any())
-            {
-                var f= this.scheduledTargets
-                    .FirstOrDefault(t => t.ApplicableDays.Contains(day));
-
-                return f?.TargetTime ?? this.TargetTime;
-                
-            }
-            else
-                return TargetTime;
-              
-
-        }
-
-        [JsonIgnore]
-		public DateTime TargetTimeToday
-		{
-			get
-            {
-                return (DateTime.Today + this.ScheduledTargetTime);
-            }
-		
 		}
 
         [JsonIgnore]
@@ -218,12 +242,8 @@ namespace ClockKing.Core
 			{
                 if (!this.occurrences.Any())
                     return false;
-                
-                var mostRecent = this.occurrences
-                    .OrderByDescending(o => o.TimeStamp) 
-                    .FirstOrDefault();
 
-                return mostRecent.Date == DateTime.Today;
+                return this.occurrences.Any (o => o.Date.Date == DateTime.Today);
 			}
 		}
 
@@ -232,7 +252,7 @@ namespace ClockKing.Core
 		{
 			get 
 			{
-				return this.ScheduledTargetTime < DateTime.Now.TimeOfDay;
+				return this.EffectiveTargetTime < DateTime.Now.TimeOfDay;
 			}
 		}
 
@@ -273,20 +293,62 @@ namespace ClockKing.Core
                 return this.occurrences.OrderByDescending(o => o.TimeStamp).FirstOrDefault(o => o.Time.TotalMinutes == em);
             }
         }
+        #endregion
 
 		public override string ToString ()
 		{
 			return string.Format ("{3}{0}: target={1}, avg={2}", 
 				this.Name,
 				this.TargetTime,
-				this.averageObservedTime,
+				this.AverageCompletionTime,
 				this.Emoji);
 		}
 	}
+
     public class ScheduledTargetTime
     {
         public TimeSpan? TargetTime{ get; set; }
         public DayOfWeek[] ApplicableDays{ get; set; }
+    }
+
+    public class RelativeTargetTime
+    {
+        private Guid relatedGuid;
+        public Guid RelatedCheckPointGuid {
+            get 
+            {
+                if (RelatedCheckPoint == null)
+                    return relatedGuid;
+                else
+                    return RelatedCheckPoint.UniqueIdentifier;
+            }
+            set 
+            { 
+                relatedGuid = value;
+            } 
+        }
+
+        [JsonIgnore]
+        public CheckPoint RelatedCheckPoint { get; set; }
+
+        public TimeSpan Offset { get; set;}
+
+        public TimeSpan OffsetScheduledTimeForDate(DateTime d)
+        {
+            var q = from oc in RelatedCheckPoint.Occurrences
+                    where oc.Date == d.Date
+                    orderby oc.TimeStamp descending
+                    select oc.Time;
+            var f = q.DefaultIfEmpty (RelatedCheckPoint.EffectiveTargetTimeFor(d))
+                     .FirstOrDefault ();
+            return f.Add (Offset);
+        }
+        public bool IsActiveOnDate (DateTime d)
+        {
+            return this.RelatedCheckPoint.Occurrences.Any (o => o.Date == d.Date);
+        }
+        public bool isActive { get { return IsActiveOnDate (DateTime.Now);}}
+
     }
 }
 

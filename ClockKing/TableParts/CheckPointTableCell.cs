@@ -9,6 +9,7 @@ using SWTableViewCells;
 //using BarChart;
 using Humanizer;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 
 namespace ClockKing
@@ -25,7 +26,6 @@ namespace ClockKing
 		public UILabel MostRecentLabel { get; protected set;}
 		public UILabel EmojiLabel { get; protected set;}
 		public UILabel AdditionalDetail { get; protected set;}
-//		public BarChartView Chart{ get; protected set;}
 		public bool ShowBarChartInLandscape{ get; set;}
 
 		public static readonly NSString Key = new NSString("cptc");
@@ -46,7 +46,6 @@ namespace ClockKing
 		public CheckPointTableCell(string key):base(UITableViewCellStyle.Default,key)	
 		{
 			CreateSubViews(this.TextLabel.Superview);
-			//this.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 			this.Frame = new CGRect (new CGPoint (0, 0), new CGSize (UIApplication.SharedApplication.KeyWindow.Frame.Width, Height));
 			this.ShowBarChartInLandscape = false;
 		}
@@ -146,21 +145,6 @@ namespace ClockKing
 			DetailStack.AddArrangedSubview (avgstack);
 			DetailStack.AddArrangedSubview (mrstack);
 
-/*			this.Chart = new BarChartView ()
-			{AutoLevelsEnabled=false,
-				Frame=new CGRect(DetailRect.Location,
-					new CGSize(DetailRect.Width*0.3f,DetailRect.Height)),
-				BarWidth=15f,
-				BarOffset=5f,
-				MaximumValue=60f,
-				MinimumValue=-60f,
-				GridHidden=false,
-				LegendHidden=false,
-				LevelsHidden=true,
-			};
-			for(int m=-60;m<=60;m+=30)
-				this.Chart.AddLevelIndicator(m);
-*/
 			container.AddSubview (DetailStack);
 
 			MostRecentDay.Font=UIFont.FromName ("AvenirNext-Regular", BaseFontSize*.6f);
@@ -177,20 +161,19 @@ namespace ClockKing
 			
 		public virtual void RenderCheckpoint(CheckPoint checkpoint)
 		{
-
 			this.CheckPoint = checkpoint;
 			this.EmojiLabel.Text = string.IsNullOrEmpty(this.CheckPoint.Emoji)?"☀":this.CheckPoint.Emoji;
 			this.TitleLabel.Text = checkpoint.Name;
 
 			this.TargetLabel.Text = checkpoint.TargetTimeToday.ToString ("t");
-			this.AverageLabel.Text = (DateTime.Now.Date + checkpoint.averageObservedTime).ToString ("t");
+			this.AverageLabel.Text = (DateTime.Now.Date + checkpoint.AverageCompletionTime).ToString ("t");
 			this.MostRecentDay.Text = checkpoint.MostRecentOccurrenceTimeStamp ().ToString ("d");
 			this.MostRecentLabel.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("t");
 			this.ProgressLabel.Text = checkpoint.GetProgress();
 
 			float red = .3f, green = .3f, blue = .3f;
 
-			if (checkpoint.Active & checkpoint.Enabled)
+			if (checkpoint.IsActive & checkpoint.IsEnabled)
 			{
 				if (checkpoint.IsMissed)
 					red = .9f;
@@ -203,38 +186,20 @@ namespace ClockKing
 
 
 
-			var target = checkpoint.TargetTime.TotalMinutes;
-/*
-			var data = checkpoint.Occurrences
-				.OrderByDescending (o => o.TimeStamp)
-				.Select (o => new {delta=o.Time.TotalMinutes-target,occurance=o})
-				.Select (o => new BarModel () {Value = (float)o.delta,
-				ValueCaptionHidden = true,
-					Legend=o.occurance.TimeStamp.Date.Day.ToString(),
-				Color = (o.delta > 0) ? UIColor.Red : UIColor.Green
-				})
-				.Take(5)
-				.Reverse();
-
-			this.Chart.ItemsSource = data.ToList ();
-*/
-
 
 			if (this.RenderedOrientation != UIDevice.CurrentDevice.Orientation) 
 			{
 				this.RenderedOrientation = UIDevice.CurrentDevice.Orientation;
 
-				if (this.isPortrait) {
-//					this.Chart.RemoveFromSuperview ();
-					this.AdditionalDetail.RemoveFromSuperview ();
-					DetailStack.Distribution = UIStackViewDistribution.FillProportionally;
-				} else if (ShowBarChartInLandscape)
-				{
-//					DetailStack.AddArrangedSubview (this.Chart);
-					DetailStack.AddArrangedSubview (this.AdditionalDetail);
-					DetailStack.Distribution = UIStackViewDistribution.Fill;
-					this.updateAdditionalDetail ();
-				}
+				//if (this.isPortrait) {
+				//	this.AdditionalDetail.RemoveFromSuperview ();
+				//	DetailStack.Distribution = UIStackViewDistribution.FillProportionally;
+				//} else if (ShowBarChartInLandscape)
+				//{
+				//	DetailStack.AddArrangedSubview (this.AdditionalDetail);
+				//	DetailStack.Distribution = UIStackViewDistribution.Fill;
+				//	this.updateAdditionalDetail ();
+				//}
 
 				CalculateSizes ();
 
@@ -245,20 +210,21 @@ namespace ClockKing
 			}
 		}
 
-		public void updateAdditionalDetail()
-		{
-			var checkpoint = this.CheckPoint;
-			this.AdditionalDetail.Text = checkpoint.UntilNextTargetTime.Humanize ();
-		}
+		//public void updateAdditionalDetail()
+		//{
+		//	var checkpoint = this.CheckPoint;
+		//	this.AdditionalDetail.Text = checkpoint.UntilNextTargetTime.Humanize ();
+		//}
 
-		protected bool isPortrait
-		{
-			get 
-			{
-				return 	this.RenderedOrientation == UIDeviceOrientation.Portrait ||
-				this.RenderedOrientation == UIDeviceOrientation.PortraitUpsideDown;
-			}	
-		}
+		//protected bool isPortrait
+		//{
+		//	get 
+		//	{
+		//		return 	this.RenderedOrientation == UIDeviceOrientation.Portrait ||
+		//		this.RenderedOrientation == UIDeviceOrientation.PortraitUpsideDown;
+		//	}	
+		//}
+
 		public void RenderCheckpointForDetail(CheckPoint checkpoint)
 		{
 			CalculateSizes (10f);

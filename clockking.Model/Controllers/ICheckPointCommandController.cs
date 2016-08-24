@@ -36,6 +36,7 @@ namespace ClockKing.Core
         void PresentHistoricOccurrenceDialogFor(CheckPoint checkpoint);
         void PresentEditDialogFor(CheckPoint checkpoint);
         void InjectEditDialogIntoExistingDialogFor(CheckPoint checkpoint,iNavigatableDialog existing);
+        void PresentRelativeTargetDialogForCheckpoint (CheckPoint checkpoint, iNavigatableDialog existing);
         void PresentScheduledTargetDialogForCheckpoint(CheckPoint checkpoint,iNavigatableDialog dialog);
         void PresentCheckPointActionsFor(CheckPoint checkpoint, iNavigatableDialog existing);
 

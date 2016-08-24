@@ -29,8 +29,6 @@ namespace ClockKing
 			{
 				if (error != null)
 					Debug.WriteLine(error);
-				else
-					Debug.WriteLine(success);
 			});
 
 			try
