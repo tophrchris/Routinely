@@ -221,7 +221,6 @@ namespace ClockKing
 
 		public void PresentRelativeTargetDialogForCheckpoint(CheckPoint checkpoint, iNavigatableDialog dialog)
 		{
-			var e = dialog as CheckPointDetailDialog;
 			var d = new RelativeTargetDialog(checkpoint);
 			this.NavigateToDialog(d);
 		}
