@@ -19,12 +19,13 @@ namespace ClockKing
 
 			var since = DateTime.Now - cp.MostRecentOccurrenceTimeStamp(cp.CreatedOn);
 			var soon = cp.IsSoon(5);
+			var reallySoon = cp.IsSoon (1);
 
-			if (since.TotalSeconds < 30)
+			if (Math.Abs(since.TotalSeconds) < 30 | reallySoon)
 				return TableCellRefresher.RefreshRate.Instant;
 			else
 			{
-				if (since.TotalMinutes < 2 | soon)
+				if (Math.Abs(since.TotalMinutes) < 2 | soon)
 					return TableCellRefresher.RefreshRate.Fast;
 				else
 					if (since.TotalMinutes < 15)

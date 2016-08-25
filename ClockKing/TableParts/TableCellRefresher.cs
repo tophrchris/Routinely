@@ -72,10 +72,16 @@ namespace ClockKing
 			log("triggering cancellation");	
 			Cancel.Cancel();
 
-			if (Refresher != null && !Refresher.IsCompleted)
+			try 
 			{
-				log("awaiting existing task completion");
-				Refresher.Wait();
+				if (Refresher != null && !Refresher.IsCompleted) 
+				{
+					log ("awaiting existing task completion");
+					Refresher.Wait (TimeSpan.FromSeconds (2));
+				}
+			} catch (Exception e) 
+			{
+				Debug.WriteLine ("graceful closure, not so much");
 			}
 
 			log("starting task");
@@ -99,30 +105,34 @@ namespace ClockKing
 					//log("sampling");
 					foreach (var kv in this.RefreshQueues)
 					{
-						var q = kv.Value;
-						var reque = new Queue<CheckPointTableCell>();
-						var since = DateTime.Now - q.LastProcessed;
-						//log(string.Format("{0} since {1} was proccessed", since, kv.Key));
-						if (since > q.interval)
+						try 
 						{
-							q.LastProcessed = DateTime.Now;
-							if (q.Any())
-							{
-								log(string.Format("proccessing {0} items on {1} queue", q.Count, kv.Key));
-								while (q.Any())
-								{
-									var toRefresh = q.Dequeue();
-									if (toRefresh != null)
-									{
-										log(string.Format("refreshing {0}", toRefresh.CheckPoint.Name));
-										this.executor(() => toRefresh.RenderCheckpoint(toRefresh.CheckPoint));
-										reque.Enqueue(toRefresh);
+							var q = kv.Value;
+							var reque = new Queue<CheckPointTableCell> ();
+							var since = DateTime.Now - q.LastProcessed;
+							//log(string.Format("{0} since {1} was proccessed", since, kv.Key));
+							if (since > q.interval) {
+								q.LastProcessed = DateTime.Now;
+								if (q.Any ()) {
+									log (string.Format ("proccessing {0} items on {1} queue", q.Count, kv.Key));
+									while (q.Any ()) {
+										var toRefresh = q.Dequeue ();
+										if (toRefresh != null) {
+											log (string.Format ("refreshing {0}", toRefresh.CheckPoint.Name));
+											this.executor (() => toRefresh.RenderCheckpoint (toRefresh.CheckPoint));
+											reque.Enqueue (toRefresh);
+										}
 									}
+									while (reque.Any ())
+										EnqueueCell (reque.Dequeue ());
 								}
-								while (reque.Any())
-									EnqueueCell(reque.Dequeue());
 							}
 						}
+						catch (Exception e) 
+						{
+							Debug.WriteLine ("exception while processing");
+						}
+
 					}
 				}
 				log("queue proccessing cancelled");
