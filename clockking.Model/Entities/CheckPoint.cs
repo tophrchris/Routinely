@@ -11,9 +11,7 @@ namespace ClockKing.Core
         private List<Occurrence> allOccurrences { get; set; } = new List<Occurrence> ();
         private List<ScheduledTargetTime> scheduledTargets { get; set; } = new List<ScheduledTargetTime> ();
 
-        private Lazy<TimeSpan> EffectiveTargetTimeCalculator;
-        private Lazy<TimeSpan> AverageCompletionTimeCalculator;
-        private Lazy<DateTime> MostRecentOccurrenceCalculator;
+     
 
         public Guid UniqueIdentifier { get; set; }
         public string Name { get; set; }
@@ -21,21 +19,12 @@ namespace ClockKing.Core
         public string Emoji { get; set; }
         public bool IsEnabled { get; set; } = true;
         public string Category { get; set; }
-        public TimeSpan TargetTime {get; set; }
+
+
+        public TimeSpan TargetTime { get; set;}
+
         public DateTime CreatedOn { get; set; }
         public RelativeTargetTime RelativeTarget { get; set; }
-
-        public CheckPoint ()
-        {
-            ResetCalculators ();
-        }
-
-        private void ResetCalculators ()
-        {
-            this.EffectiveTargetTimeCalculator = new Lazy<TimeSpan> (() => EffectiveTargetTimeFor (DateTime.Now));
-            this.AverageCompletionTimeCalculator = new Lazy<TimeSpan> (() => CalculateAverageCompletionTime ());
-            this.MostRecentOccurrenceCalculator = new Lazy<DateTime> (() =>MostRecentOccurrenceTimeStamp(DateTime.Now));
-        }
 
         #region occurrence management
         [JsonIgnore]
@@ -50,34 +39,24 @@ namespace ClockKing.Core
         public IEnumerable<Occurrence> Occurrences { get { return this.occurrences; } }
 
 
-
-        public void AddOccurrence (Occurrence newOccurance)
-        {
+        public void AddOccurrence (Occurrence newOccurance) => 
             this.allOccurrences.Add (newOccurance);
-            this.ResetCalculators ();
-        }
-        public Occurrence CreateOccurrence ()
-        {
-            return this.CreateOccurrence (DateTime.Now.ToLocalTime ());
-        }
 
-        public Occurrence CreateOccurrence (DateTime observationTimeStamp)
-        {
-            return new Occurrence (this, observationTimeStamp);
-        }
+        public Occurrence CreateOccurrence () => 
+            this.CreateOccurrence (DateTime.Now.ToLocalTime ());
 
-        public bool RemoveOccurrences (DateTime date)
-        {
-            var removed = this.allOccurrences.RemoveAll (o => o.Date.Date == date.Date);
-            this.ResetCalculators ();
-            return removed > 0;
-        }
 
-        public bool RemoveOccurrence (Occurrence toRemove)
-        {
-            this.ResetCalculators ();
-            return this.allOccurrences.Remove (toRemove);
-        }
+        public Occurrence CreateOccurrence (DateTime observationTimeStamp )=> 
+            new Occurrence (this, observationTimeStamp);
+
+
+        public bool RemoveOccurrences (DateTime date)=>
+            (this.allOccurrences.RemoveAll (o => o.Date.Date == date.Date))>0;
+           
+
+        public bool RemoveOccurrence (Occurrence toRemove) =>
+            this.allOccurrences.Remove (toRemove);
+
         #endregion
 
         #region TargetTime Resolution
@@ -88,10 +67,14 @@ namespace ClockKing.Core
         protected TimeSpan EffectiveTargetTime {
             get 
             {
+                TimeSpan ett;
                 if (this.RelativeTarget == null)
-                    return EffectiveTargetTimeCalculator.Value;
+                     ett= EffectiveTargetTimeFor (DateTime.Today.DayOfWeek);
                 else
-                    return EffectiveTargetTimeFor (DateTime.Now);
+                     ett = EffectiveTargetTimeFor (DateTime.Now);
+
+                var adjusted = ett.Subtract (TimeSpan.FromSeconds (ett.Seconds));
+                return adjusted;
             }
         }
 
@@ -166,35 +149,26 @@ namespace ClockKing.Core
         #endregion
 
         #region basic metrics and calculated members
-		public TimeSpan AverageCompletionTime
-		{
-			get
-            {
-                return AverageCompletionTimeCalculator.Value;
-			}
-		}
-
-        private TimeSpan CalculateAverageCompletionTime ()
+		public TimeSpan AverageCompletionTime 
         {
-            if (!occurrences.Any ())
-                return this.EffectiveTargetTime;
+            get {
+                if (!occurrences.Any ())
+                    return this.EffectiveTargetTime;
 
-            var avgminutes = this.occurrences.Average (o => o.Time.TotalMinutes);
-            return TimeSpan.FromMinutes (avgminutes);
+                var avgminutes = this.occurrences.Average (o => o.Time.TotalMinutes);
+                return TimeSpan.FromMinutes (avgminutes);
+            }
         }
-            
 
-		public DateTime MostRecentOccurrenceTimeStamp()
-        {
-            return MostRecentOccurrenceCalculator.Value;
-		}
-
-		public DateTime MostRecentOccurrenceTimeStamp(DateTime ifNone)
+		public DateTime MostRecentOccurrenceTimeStamp(DateTime? ifNone=null)
 		{
+            if (!ifNone.HasValue)
+                ifNone = DateTime.Now;
+            
 			return this.allOccurrences
 				.OrderByDescending (o => o.TimeStamp)
 				.Select (o => o.TimeStamp)
-				.DefaultIfEmpty (ifNone)
+				.DefaultIfEmpty (ifNone.Value)
 				.FirstOrDefault ();
 		}
 

@@ -29,7 +29,7 @@ namespace ClockKing
 		public AddCheckPointMenuCommand AddCommand{ get; }
 		private CheckPointDetailDialog currentDetailDialog {get;set;}
 		private CheckpointDetailCommand Detail{ get;  }
-		private TableCellRefresher refresher { get; set; }
+		public TableCellRefresher Refresher { get; set; }
 
 		public CheckPointController (NSObjectFlag t):base(t){}
 
@@ -47,7 +47,7 @@ namespace ClockKing
 			this.Detail = new CheckpointDetailCommand (this.CheckPoints);
 			this.Data = new GroupedCheckPointDataSource (this);
 
-			this.refresher = new TableCellRefresher((a) => this.InvokeOnMainThread(a));
+			this.Refresher = new TableCellRefresher((a) => this.InvokeOnMainThread(a));
 
 			this.ResetNavigation ();
 		}
@@ -192,8 +192,9 @@ namespace ClockKing
 
 			if (this.IsViewLoaded)
 			{
+				Refresher.Restart ();
 				this.TableView.ReloadData();
-				EnlistRefreshableCells();
+
 
 				notify("done", "table reloaded", ToastNotificationType.Info, 1);
 			}
@@ -218,23 +219,6 @@ namespace ClockKing
 				if (!this.CheckPointData.checkPoints.Any())
 					if (!(this.TableView.Source is BlankCheckPointDataSource))
 						this.TableView.Source = new BlankCheckPointDataSource();
-			}
-		}
-
-		private void EnlistRefreshableCells()
-		{
-			refresher.Restart();
-			var sections = this.TableView.NumberOfSections();
-			for (nint i = 0; i < sections; i++)
-			{
-				var rows = this.TableView.NumberOfRowsInSection(i);
-				for (nint j = 0; j < rows; j++)
-				{
-					var path = NSIndexPath.Create(new nint[] { i, j });
-					var cell = this.TableView.CellAt(path);
-					if (cell is CheckPointTableCell)
-						this.refresher.EnqueueCell(cell as CheckPointTableCell);
-				}
 			}
 		}
 

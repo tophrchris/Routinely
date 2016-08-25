@@ -45,11 +45,27 @@ namespace ClockKing
 		}
 
 		public void EnqueueCell(CheckPointTableCell watch)
-		{ 
+		{
+			if (watch.EnqueuedForRefresh) 
+			{
+				foreach (var q in RefreshQueues) 
+				{
+					if (q.Value.Contains (watch)) 
+					{
+						var items = q.Value.ToArray ();
+						q.Value.Clear ();
+						foreach (var i in items.Except (new [] { watch }))
+							q.Value.Enqueue (i);
+					}
+				}
+			}
+
 			var desired = watch.CheckPoint.GetDesiredRefreshRate();
 
 			if (RefreshQueues.ContainsKey(desired))
 				RefreshQueues[desired].Enqueue(watch);
+			
+			watch.EnqueuedForRefresh = true;
 		}
 
 		void ConstructQueues()
@@ -69,30 +85,33 @@ namespace ClockKing
 
 		public void Restart()
 		{
-			log("triggering cancellation");	
-			Cancel.Cancel();
+			log("triggering cancellation");
+			StopRefresher ();
+			log("starting task");
+			StartRefresherTask();
 
-			try 
-			{
-				if (Refresher != null && !Refresher.IsCompleted) 
-				{
+		}
+
+		public void StopRefresher ()
+		{
+			Cancel.Cancel ();
+
+			try {
+				if (Refresher != null && !Refresher.IsCompleted) {
 					log ("awaiting existing task completion");
 					Refresher.Wait (TimeSpan.FromSeconds (2));
 				}
-			} catch (Exception e) 
-			{
+			} catch {
 				Debug.WriteLine ("graceful closure, not so much");
 			}
 
-			log("starting task");
-			StartRefresherTask();
-			Cancel = new CancellationTokenSource();
 		}
 	
 		private void StartRefresherTask()
 		{
 			this.ConstructQueues();
 			this.Refresher = Task.Factory.StartNew(()=>ProcessRefreshQueues());
+			this.Cancel = new CancellationTokenSource ();
 		}
 
 		void ProcessRefreshQueues()

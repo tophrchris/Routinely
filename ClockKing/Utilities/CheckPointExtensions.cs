@@ -17,23 +17,35 @@ namespace ClockKing
 		public static TableCellRefresher.RefreshRate GetDesiredRefreshRate(this CheckPoint cp)
 		{
 
-			var since = DateTime.Now - cp.MostRecentOccurrenceTimeStamp(cp.CreatedOn);
-			var soon = cp.IsSoon(5);
+			//if new or recently created, since will be relative small.
+			var since = DateTime.Now - cp.MostRecentOccurrenceTimeStamp (cp.CreatedOn);
+
+			//until will be positive if upcoming, negative if missed;
+			var until = cp.TargetTimeToday - DateTime.Now;
+			var missed = cp.IsMissed;
+
+			var justCompleted = since.TotalSeconds <= 30;
+			var RecentlyCompleted = since.TotalMinutes <= 2;
+
+
+			var justMissed = missed &&
+			                   (until.TotalSeconds < 0) && (until.TotalSeconds >= -30);
+			var recentlyMissed = missed &&
+		                       (until.TotalSeconds < 0) && (until.TotalMinutes >= -2);
+
+			var soon = cp.IsSoon (5);
 			var reallySoon = cp.IsSoon (1);
 
-			if (Math.Abs(since.TotalSeconds) < 30 | reallySoon)
+			if (reallySoon|justCompleted|justMissed)
 				return TableCellRefresher.RefreshRate.Instant;
-			else
-			{
-				if (Math.Abs(since.TotalMinutes) < 2 | soon)
-					return TableCellRefresher.RefreshRate.Fast;
-				else
-					if (since.TotalMinutes < 15)
-					return TableCellRefresher.RefreshRate.Standard;
-				else
-					return TableCellRefresher.RefreshRate.Slow;
-			}
+			
+			if (soon|RecentlyCompleted|recentlyMissed)
+				return TableCellRefresher.RefreshRate.Fast;
 
+			if (!(cp.IsEnabled && cp.IsActive))
+				return TableCellRefresher.RefreshRate.Slow;
+
+			return TableCellRefresher.RefreshRate.Standard;
 		}
 
 

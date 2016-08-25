@@ -187,7 +187,7 @@ namespace ClockKing
 			}
 		}
 
-		public bool EnsureSettings(UIApplication app)
+		public bool EnsureSettings()
 		{
 			var categories = this.NotificationCategories;
 
@@ -197,7 +197,7 @@ namespace ClockKing
 				UIUserNotificationType.Sound
 				,new NSSet(categories));
 
-			app.RegisterUserNotificationSettings (settings);
+			UIApplication.SharedApplication.RegisterUserNotificationSettings (settings);
 
 			return true;
 		}

@@ -27,6 +27,7 @@ namespace ClockKing
 		public UILabel EmojiLabel { get; protected set;}
 		public UILabel AdditionalDetail { get; protected set;}
 		public bool ShowBarChartInLandscape{ get; set;}
+		public bool EnqueuedForRefresh { get; set; } = false;
 
 		public static readonly NSString Key = new NSString("cptc");
 		public static readonly nfloat Height = 120f;

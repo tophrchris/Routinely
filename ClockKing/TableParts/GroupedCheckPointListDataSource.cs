@@ -109,6 +109,9 @@ namespace ClockKing
 			}
 
 			cell.RenderCheckpoint (checkpoint);
+
+			Controller.Refresher.EnqueueCell (cell);
+
 			Controller.Commands.AttachUtilityButtonsToCell (cell);
 			return cell;
 		}
