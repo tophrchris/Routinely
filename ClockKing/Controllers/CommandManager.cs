@@ -12,11 +12,10 @@ namespace ClockKing
 	public class CommandManager
 	{
 		public Dictionary<string,Command> Commands { get; set; }
-		private AppDelegate App { get; set; }
+		private AppDelegate App { get { return UIApplication.SharedApplication.Delegate as AppDelegate; } }
 
-		public CommandManager(AppDelegate app)
+		public CommandManager()
 		{
-			this.App = app;
 			this.ConstructCommands();
 		}
 

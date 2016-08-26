@@ -77,7 +77,7 @@ namespace ClockKing
 		{
 			LoadOptions();
 
-			this.Commands = new CommandManager(this);
+			this.Commands = new CommandManager();
 			this.Notifications = new NotificationManager();
 			this.CheckPointData = new DataModel(DefaultDataProvider);
 			this.LaunchActions = new Queue<Action<CheckPointController>>();
@@ -109,21 +109,29 @@ namespace ClockKing
 			return PerformAdditionalHandling;
 		}
 
+		private DateTime lastReload { get; set; }
 		void LoadOptions()
 		{
 			ClockKingOptions.LoadDefaultValues();
 
 			this.observer = NSNotificationCenter.DefaultCenter.AddObserver((NSString)"NSUserDefaultsDidChangeNotification", (NSNotification obj) =>
 			{
-				if (this.Controller != null)
+				if ((DateTime.Now - lastReload).TotalSeconds > 1) 
 				{
-					this.Controller.ConditionallyRefreshData(true);
-					if (this.Window != null)
-					{
-						var menu = ((RootViewController)this.Window.RootViewController).OptionsMenu;
-						menu.resetToOptions();
+					if (obj.UserInfo != null)
+						Debug.WriteLine ("notification:" + obj.UserInfo.ToString ());
+					else
+						Debug.WriteLine ("notification: no user info");
+
+					if (this.Controller != null) {
+						if (this.Window != null) {
+							this.Controller.RespondToModelChanges ();
+							var menu = ((RootViewController)this.Window.RootViewController).OptionsMenu;
+							menu.resetToOptions ();
+						}
+						this.Commands.ConstructCommands ();
 					}
-					this.Commands.ConstructCommands();
+					lastReload = DateTime.Now;
 				}
 			});
 
@@ -133,7 +141,7 @@ namespace ClockKing
 		public void EnsureIntegrations()
 		{
 			var application = UIApplication.SharedApplication;
-			this.Notifications.EnsureSettings (application);
+			this.Notifications.EnsureSettings ();
 			this.Notifications.EnsureNotifications(this.CheckPointData);
 			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
 			SpotlightManager.PresentGoalsForIndexing(this.CheckPointData.checkPoints);
@@ -151,16 +159,21 @@ namespace ClockKing
 		{
 			// Use this method to release shared resources, save user data, invalidate timers and store the application state.
 			// If your application supports background exection this method is called instead of WillTerminate when the user quits.
+			Debug.WriteLine ("did enter background");
+			this.Controller.Refresher.StopRefresher ();
 		}
 
 		public override void WillEnterForeground (UIApplication application)
 		{
 			// Called as part of the transiton from background to active state.
 			// Here you can undo many of the changes made on entering the background.
+			Debug.WriteLine ("will enter foreground");
+			this.Controller.Refresher.Restart ();
 		}
 
 		public override void WillTerminate (UIApplication application)
 		{
+			this.Controller.Refresher.StopRefresher ();
 			if (observer != null)
 			{
 				NSNotificationCenter.DefaultCenter.RemoveObserver(observer);
