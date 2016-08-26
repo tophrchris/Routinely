@@ -157,7 +157,9 @@ namespace ClockKing
 				l.TextColor=UIColor.FromRGB (.5f, .5f, .5f);
 			}
 
-			UIView.Animate (.25d, () => DetailStack.LayoutIfNeeded ());
+			//UIView.Animate (.25d, () => 
+			DetailStack.LayoutIfNeeded();
+			               //);
 		}
 			
 		public virtual void RenderCheckpoint(CheckPoint checkpoint)
@@ -207,7 +209,9 @@ namespace ClockKing
 				this.TitleStack.Frame = this.TitleRect;
 				this.DetailStack.Frame = this.DetailRect;
 
-				UIView.Animate (.25d, () => this.LayoutIfNeeded ());
+				//UIView.Animate (.25d, () => 
+				this.LayoutIfNeeded();
+				               //);
 			}
 		}
 

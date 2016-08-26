@@ -43,13 +43,15 @@
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>location</string>
 		<string>fetch</string>
+		<string>remote-notification</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>Routinely</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>CFBundleVersion</key>
-	<string>1.02</string>
+	<string>1.03</string>
 </dict>
 </plist>
