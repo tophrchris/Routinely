@@ -92,7 +92,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Enable banner notifications?</string>
+			<string>Enable debugging notifications?</string>
 			<key>Key</key>
 			<string>tracingKey</string>
 			<key>DefaultValue</key>
