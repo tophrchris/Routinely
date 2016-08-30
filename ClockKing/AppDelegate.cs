@@ -10,6 +10,7 @@ using Xamarin.Themes.TrackBeam;
 using ClockKing.Core;
 using Google.Analytics;
 using System.Diagnostics;
+using MTiRate;
 
 namespace ClockKing
 {
@@ -23,6 +24,11 @@ namespace ClockKing
 		public override UIWindow Window {
 			get;
 			set;
+		}
+
+		static AppDelegate()
+		{
+			RatingsManager.ConfigureRatingsPrompt();
 		}
 			
 		public bool RequiresDataRefresh { get; set; }
