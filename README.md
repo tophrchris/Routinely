@@ -30,13 +30,14 @@ This work is licensed under a
 
 * Xamarin studio
 * [Json.Net](http://www.newtonsoft.com/json), by NewtonSoft, provides serialization services.
-* [Humanizer](http://humanizr.net/) provides human readable interpretations of datetimes and timespans
-* [EmojiSharp](https://github.com/jmazouri/EmojiSharp), by [John Mazouri](https://github.com/jmazouri) provides easy access to emoji
-* [SWTableViewCell](https://github.com/CEWendel/SWTableViewCell), by [Christopher Wendell](https://github.com/CEWendel) used for utility actions attached to goals
-* [Sidebar Navigation](https://github.com/jdehlin/Xamarin-Sidebar) by [Jack Dehlin](https://github.com/jdehlin) used to create left menu
+* [Humanizer](http://humanizr.net/) provides human readable interpretations of datetimes and timespans.
+* [EmojiSharp](https://github.com/jmazouri/EmojiSharp), by [John Mazouri](https://github.com/jmazouri) provides easy access to emoji.
+* [SWTableViewCell](https://github.com/CEWendel/SWTableViewCell), by [Christopher Wendell](https://github.com/CEWendel). Used for sliding utility actions attached to goals
+* [Sidebar Navigation](https://github.com/jdehlin/Xamarin-Sidebar) by [Jack Dehlin](https://github.com/jdehlin). Used to create left menu/drawer.
 * FMCalendar, from [FactoryMind](https://www.factorymind.com/en-ww/default.aspx), used for history view.
-* iiToastNotification, by [invertedi](http://www.invertedi.com/). provides toast notifications for debugging purposes.
-* github
+* iiToastNotification, by [invertedi](http://www.invertedi.com/). Provides toast notifications for debugging purposes.
+* [iRate Rating Prompt](https://components.xamarin.com/view/irate), a [Xamarin Component](https://github.com/xamarin/XamarinComponents/tree/master/iOS/iRate).  Automatically prompts users to rate Routlinely at pre-determined usage intervals.
+* [Github](https://github.com), for source code hosting, issues, and much more.
 * [Bitrise](https://www.bitrise.io/), for continuous integration: dev branch status [![Bitrise CI Status](https://www.bitrise.io/app/b4f3376780ee1cc4.svg?token=dfzFsSGf2IwN4X_SXwecOA)](https://www.bitrise.io/app/b4f3376780ee1cc4)
 * [Fastlane](https://fastlane.tools/), for deploying to iTunes Music Store.
 * [User Report](http://www.userreport.com) for bugs and feature requests.
