@@ -16,16 +16,16 @@ namespace ClockKing
 
 	public partial class CheckPointController : UITableViewController,IUIViewControllerPreviewingDelegate
 	{
-		private AppDelegate appDelegate{ get; }
+		private AppDelegate App{ get { return UIApplication.SharedApplication.Delegate as AppDelegate; } }
 		private GroupedCheckPointDataSource Data{ get; }
 		public CheckPointTableCellUtilityDelegate UtilityButtonHandler{ get; }
 		public CheckPointManager CheckPoints { get; }
 
-		public NotificationManager Notifier	{ get{return this.appDelegate.Notifications; }  }
+		public NotificationManager Notifier	{ get{return this.App.Notifications; }  }
 
 		//move some of this into checkpointmanager?
-		private DataModel CheckPointData	{ get{return this.appDelegate.CheckPointData; }}
-		public CommandManager Commands		{ get{return this.appDelegate.Commands; } }
+		private DataModel CheckPointData	{ get{return this.App.CheckPointData; }}
+		public CommandManager Commands		{ get{return this.App.Commands; } }
 		public AddCheckPointMenuCommand AddCommand{ get; }
 		private CheckPointDetailDialog currentDetailDialog {get;set;}
 		private CheckpointDetailCommand Detail{ get;  }
@@ -37,8 +37,7 @@ namespace ClockKing
 		{
 			iiToastNotifier.Init ();
 
-			this.appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
-			this.appDelegate.Controller = this;
+			this.App.Controller = this;
 			this.UtilityButtonHandler = new CheckPointTableCellUtilityDelegate (this);
 			this.CheckPoints = new CheckPointManager (this);
 			this.CheckPoints.CheckPointDataChanged += this.RespondToChangeEvent;
@@ -76,7 +75,7 @@ namespace ClockKing
 		{			
 			base.ViewDidAppear (animated);
 			this.ConditionallyRefreshData ();
-			this.appDelegate.LogActivity("Goal Listing");
+			this.App.LogActivity("Goal Listing");
 		}
 
 		public void ResetNotifications()
@@ -126,11 +125,11 @@ namespace ClockKing
 		/// </summary>
 		/// <param name="refreshData">If set to <c>true</c> refresh data.</param>
 		public void ResetNavigation(bool refreshData=false){
-			Debug.WriteLine("cpc reset nav");
+			Debug.WriteLine("checkpoint controller: reset nav");
 			this.NavigationController.PopToRootViewController (true);
 			this.NavigationItem.SetLeftBarButtonItem(
 				new UIBarButtonItem(EmojiSharp.Emoji.All["gear"].Unified,UIBarButtonItemStyle.Plain,(s,e)=>
-				                    appDelegate.Sidebar.ToggleMenu()),true);
+				                    App.Sidebar.ToggleMenu()),true);
 			                                      
 			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
 			this.ConditionallyRefreshData (refreshData);
@@ -144,9 +143,9 @@ namespace ClockKing
 		/// </summary>
 		public bool ConditionallyRefreshData()
 		{
-			var updated= this.ConditionallyRefreshData (appDelegate.RequiresDataRefresh);
+			var updated= this.ConditionallyRefreshData (App.RequiresDataRefresh);
 			if (updated)
-				appDelegate.RequiresDataRefresh = false;
+				App.RequiresDataRefresh = false;
 			return updated;
 		}
 			
@@ -162,14 +161,14 @@ namespace ClockKing
 			var dataUpdated = false;
 			if (condition) 
 			{
-				this.appDelegate.CheckPointData.RefreshData ();
+				this.App.CheckPointData.RefreshData ();
 				notify ("done", "data refreshed", ToastNotificationType.Info, 1);
 				dataUpdated=true;
 				this.RespondToModelChanges ();
 			}
 			if(this.IsViewLoaded)
-				while (appDelegate.LaunchActions.Any ())
-					appDelegate.LaunchActions.Dequeue ().Invoke (this);
+				while (App.LaunchActions.Any ())
+					App.LaunchActions.Dequeue ().Invoke (this);
 			
 			return dataUpdated;
 		}
@@ -182,7 +181,7 @@ namespace ClockKing
 		{
 			Debug.WriteLine("rmc");
 			this.reloadTableView ();
-			appDelegate.EnsureIntegrations();
+			App.EnsureIntegrations();
 			if (currentDetailDialog != null)
 				currentDetailDialog.RespondToChanges ();
 		}

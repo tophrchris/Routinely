@@ -3,14 +3,7 @@ using UIKit;
 using Foundation;
 using CoreGraphics;
 using ClockKing.Core;
-using System.Collections.Generic;
-using System.Linq;
 using SWTableViewCells;
-//using BarChart;
-using Humanizer;
-using System.Threading.Tasks;
-using System.Diagnostics;
-
 
 namespace ClockKing
 {

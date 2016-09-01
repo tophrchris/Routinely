@@ -47,7 +47,7 @@ namespace ClockKing
 			get{
 				var com = new CompositeCheckPointDataProvider ();
 				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
-				//com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
+				com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
 				//return new JSONDataProvider (new PathProvider(".json"));
 				return com;
 			}
@@ -131,9 +131,12 @@ namespace ClockKing
 
 					if (this.Controller != null) {
 						if (this.Window != null) {
-							this.Controller.RespondToModelChanges ();
-							var menu = ((RootViewController)this.Window.RootViewController).OptionsMenu;
-							menu.resetToOptions ();
+							InvokeOnMainThread(() =>
+							{
+								this.Controller.RespondToModelChanges();
+								var menu = ((RootViewController)this.Window.RootViewController).OptionsMenu;
+								menu.resetToOptions();
+							});
 						}
 						this.Commands.ConstructCommands ();
 					}
