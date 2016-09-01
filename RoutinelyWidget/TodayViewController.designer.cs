@@ -9,7 +9,7 @@ using Foundation;
 namespace RoutinelyWidget
 {
 	[Register("TodayViewController")]
-	partial class TodayViewController
+	public partial class TodayViewController
 	{
 		void ReleaseDesignerOutlets()
 		{

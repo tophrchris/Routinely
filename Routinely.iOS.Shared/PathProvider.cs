@@ -16,9 +16,13 @@ namespace ClockKing
 
 		public PathProvider(string extension)
 		{
-			this.MyDocumentsPath = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			this.CheckpointPath = Path.Combine (this.MyDocumentsPath, checkpointFileName+extension);
-			this.OccurrencesPath = Path.Combine (this.MyDocumentsPath, occurrencesFileName+extension);
+			try
+			{
+				this.MyDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+				this.CheckpointPath = Path.Combine(this.MyDocumentsPath, checkpointFileName + extension);
+				this.OccurrencesPath = Path.Combine(this.MyDocumentsPath, occurrencesFileName + extension);
+			}
+			catch { }
 		}
 
 		public string GetCheckpointFileName()
@@ -60,13 +64,28 @@ namespace ClockKing
 	}
 	public class AppGroupPathProvider : PathProvider
 	{
+		public string AppGroupPath
+		{
+			get
+			{
+				var found = string.Empty;
+				NSUrl furl;
+							
+				furl= NSFileManager.DefaultManager.GetContainerUrl("group.org.hollanders.routinely");
+
+				if (furl == null)
+					found = @"/Users/chollander/Library/Developer/CoreSimulator/Devices/7BFEECA6-DB92-4AE0-BDB0-22874C6D9D2D/data/Containers/Shared/AppGroup/4FF57D16-9149-4612-A231-F4669D96B442/";
+				else
+					found = furl.Path;
+				
+				return found;
+			}
+		}
 		public AppGroupPathProvider(string extension):base(extension)
 		{
-			var fm = new NSFileManager();
-			var agc = fm.GetContainerUrl("group.org.hollanders.routinely");
-			var agcPath = agc.Path;
+			
 
-			this.MyDocumentsPath = agcPath;
+			this.MyDocumentsPath = this.AppGroupPath;
 			this.CheckpointPath = Path.Combine(this.MyDocumentsPath, checkpointFileName + extension);
 			this.OccurrencesPath = Path.Combine(this.MyDocumentsPath, occurrencesFileName + extension);
 
