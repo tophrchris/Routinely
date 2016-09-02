@@ -47,7 +47,7 @@ namespace ClockKing
 		{
 			var instrumented = new Action<Command>((c)=>
 			{
-				App.LogEvent(category, cmd.Name,cp.Name);
+				App.Track(category, cmd.Name,cp.Name);
 				existing(cmd);
 			});
 

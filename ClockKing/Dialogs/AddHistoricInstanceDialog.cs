@@ -54,7 +54,7 @@ namespace ClockKing
 
 		public override void ViewDidAppear(bool animated)
 		{
-			this.App.LogActivity("Add Historic");
+			this.App.Track("Add Historic");
 			base.ViewDidAppear(animated);
 		}
 

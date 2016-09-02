@@ -87,7 +87,7 @@ namespace ClockKing
 
 		public override void ViewDidAppear(bool animated)
 		{
-			this.App.LogActivity("Sample Goal Browser");
+			this.App.Track("Sample Goal Browser");
 			base.ViewDidAppear(animated);
 		}
 

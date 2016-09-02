@@ -27,7 +27,7 @@ namespace ClockKing
 			var logger = new Action<string>((msg) =>
 			{
 				if (instance != null)
-					instance.LogEvent("Rating", msg, "n/a");
+					instance.Track("Rating", msg, "n/a");
 
 				Console.WriteLine("Rating:" + msg);
 			});

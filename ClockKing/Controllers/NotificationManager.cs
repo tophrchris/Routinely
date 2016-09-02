@@ -98,7 +98,7 @@ namespace ClockKing
 				nn.Category = "AfterSnooze";
 				nn.RepeatInterval = 0;
 				application.ScheduleLocalNotification (nn);
-				(UIApplication.SharedApplication.Delegate as AppDelegate).LogEvent("notification", "Snoozed!", found.Name);
+				(UIApplication.SharedApplication.Delegate as AppDelegate).Track("notification", "Snoozed!", found.Name);
 
 			} else {
 
@@ -109,7 +109,7 @@ namespace ClockKing
 
 				PresentMotivationalNotification(found);
 
-				(UIApplication.SharedApplication.Delegate as AppDelegate).LogEvent("notification", "Done!", found.Name);
+				(UIApplication.SharedApplication.Delegate as AppDelegate).Track("notification", "Done!", found.Name);
 
 
 

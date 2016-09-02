@@ -46,7 +46,7 @@ namespace ClockKing
 			var foundUtil = this.Controller.Commands.Commands [triggeredUtility];
 			var checkPoints = this.Controller.CheckPoints;
 
-			(UIApplication.SharedApplication.Delegate as AppDelegate).LogEvent("swipe", foundUtil.Name, checkPoint.Name);
+			(UIApplication.SharedApplication.Delegate as AppDelegate).Track("swipe", foundUtil.Name, checkPoint.Name);
 
 			var executed=  foundUtil.ExecuteFor (checkPoints, checkPoint);
 

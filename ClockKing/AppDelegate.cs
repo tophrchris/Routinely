@@ -48,12 +48,11 @@ namespace ClockKing
 				var com = new CompositeCheckPointDataProvider ();
 				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
 				com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
-				//return new JSONDataProvider (new PathProvider(".json"));
 				return com;
 			}
 		}
 
-		public void LogActivity(string screenName)
+		public void Track(string screenName)
 		{
 			EnsureTracking();
 			this.tracking.Set(GaiConstants.ScreenName, screenName);
@@ -61,7 +60,7 @@ namespace ClockKing
 			this.tracking.Send(DictionaryBuilder.CreateScreenView().Build());
 		}
 
-		public void LogEvent(string category, string action, string label, int value=0)
+		public void Track(string category, string action, string label, int value=0)
 		{
 			EnsureTracking();
 			Debug.WriteLine(string.Format("{0}:{1}:{2}", category, action, label));
@@ -217,6 +216,9 @@ namespace ClockKing
 			{
 				var guid = Guid.Parse( url.Host);
 				var f = this.CheckPointData.checkPoints.Values.First((g) =>g.UniqueIdentifier==guid );
+
+				this.Track("Widget", f.IsMissed ? "ViewMissed" : "ViewNext", f.Name);
+
 				c.ShowDetailDialogFor(f) ;
 			} );
 			return true;
