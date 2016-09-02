@@ -15,7 +15,7 @@ namespace RoutinelyWidget
 	{
 		private DataModel Model { get; set; }
 		private NSObject observer { get; set; }
-		private UILabel footerLabel { get; set; }
+	
 		protected TodayViewController(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
@@ -35,7 +35,6 @@ namespace RoutinelyWidget
 			UIVibrancyEffect.CreateForNotificationCenter();
 
 			base.ViewDidLoad();
-			this.PreferredContentSize = new CGSize(0,(CheckPointTableCell.Height-60f)*2.1f);
 
 			var pp = new AppGroupPathProvider(".json");
 			var pv = new JSONDataProvider(pp);
@@ -44,14 +43,10 @@ namespace RoutinelyWidget
 			this.TableView.RegisterClassForCellReuse(typeof(CheckPointTableCell), CheckPointTableCell.Key);
 			this.TableView.Source = new GoalWidgetDataSource(this,Model);
 
-			try
-			{
-				this.footerLabel = new UILabel();
-				this.footerLabel.Font = UIFont.FromName("AvenirNextCondensed-UltraLight", 6f);
-				this.footerLabel.TextAlignment = UITextAlignment.Right;
-				this.TableView.TableFooterView.AddSubview(this.footerLabel);
-			}
-			catch { }
+			var goals = (float)this.TableView.Source.RowsInSection(this.TableView, 0);
+
+			this.PreferredContentSize = new CGSize(0, ((CheckPointTableCell.Height - 60f) * goals) * 1.1f);
+
 			this.observer = NSNotificationCenter.DefaultCenter.
 				AddObserver((NSString)"NSUserDefaultsDidChangeNotification",
 
@@ -117,16 +112,17 @@ namespace RoutinelyWidget
 		public override UIView GetViewForFooter(UITableView tableView, nint section)
 		{
 			var footer = new UILabel();
-			footer.Font = UIFont.FromName("AvenirNextCondensed-UltraLight", 6f);
+			footer.Font = UIFont.FromName("AvenirNextCondensed-UltraLight", 8f);
+			footer.TextColor = UIColor.FromRGB(.9f, .9f, .9f);
 			footer.TextAlignment = UITextAlignment.Right;
 			footer.Text=string.Format("Last Updated: {0}", DateTime.Now.ToString("G"));
 			return footer;
 		}
+
 		public override nfloat GetHeightForFooter(UITableView tableView, nint section)
 		{
 			return 12f;
 		}
-
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
