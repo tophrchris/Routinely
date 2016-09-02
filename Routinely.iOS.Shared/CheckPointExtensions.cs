@@ -26,7 +26,7 @@ namespace ClockKing.Core.Shared
 			if (cp.CompletedToday | cp.IsSkipped)
 			{
 				var precision = cp.SinceLastOccurrence.TotalMinutes > 1 ? 2 : 1;
-				var action = cp.IsSkipped ? "Skipped " : "";
+				var action = cp.IsSkipped ? "Skipped " : preferDue?"Done ":"";
 				return "{1}{0} ago".FormatWith(cp.SinceLastOccurrence.Humanize(precision), action).AsSentence();
 			}
 

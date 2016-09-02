@@ -215,7 +215,10 @@ namespace ClockKing
 			float red = .3f, green = .3f, blue = .3f;
 
 			if (DisplayMode == DisplayModes.Widget)
+			{
+				this.TitleLabel.TextColor = UIColor.LightTextColor;
 				red = green = blue = .6f;
+			}
 
 			if (checkpoint.IsActive & checkpoint.IsEnabled)
 			{

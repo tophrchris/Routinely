@@ -54,6 +54,12 @@ namespace RoutinelyWidget
 
 		}
 
+		public override void TouchesEnded(NSSet touches, UIEvent evt)
+		{
+			base.TouchesEnded(touches, evt);
+			update();
+		}
+
 		public override void ViewDidUnload()
 		{
 			base.ViewDidUnload();
@@ -77,11 +83,10 @@ namespace RoutinelyWidget
 
 			completionHandler(NCUpdateResult.NewData);
 		}
-		private void update()
+		public void update()
 		{
 			this.Model.RefreshData(true);
 			this.TableView.ReloadData();
-
 		}
 
 	}
@@ -89,11 +94,23 @@ namespace RoutinelyWidget
 	{
 		private DataModel Data { get; set; }
 		private TodayViewController Controller { get; set; }
+		private CheckPoint prev
+		{
+			get
+			{	var last = Data.LastCheckpoint;
+				if (last != null)
+					return last;
+				var mr = Data.MostRecentCompletedCheckpoint;
+				if (mr != null)
+					return mr;
+				return null;
+			}
+		}
 		private bool hasPrev
 		{
 			get
 			{
-				return Data.LastCheckpoint != null;
+				return prev != null;
 			}
 		}
 		private bool hasNext
@@ -129,7 +146,7 @@ namespace RoutinelyWidget
 			var cell = GetCell(tableView, indexPath) as CheckPointTableCell;
 			var url = new NSUrl("Routinely://" + cell.CheckPoint.UniqueIdentifier);
 			cell.TitleLabel.Text += "!";
-			Controller.ExtensionContext.OpenUrl(url, null);
+			Controller.ExtensionContext.OpenUrl(url, (c) => this.Controller.update() );
 		}
 
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -169,7 +186,7 @@ namespace RoutinelyWidget
 			int row = indexPath.Row;
 			CheckPoint goal = null;
 			if (row < rows)
-				goal = Data.LastCheckpoint;
+				goal = prev;
 			else
 				goal = Data.NextCheckpoint;
 
