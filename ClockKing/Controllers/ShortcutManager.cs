@@ -58,7 +58,7 @@ namespace ClockKing
 					{
 						var foundCheckpointName = shortcut.UserInfo[cpKey].ToString();
 						var foundCheckPoint = app.CheckPointData.checkPoints[foundCheckpointName];
-						app.LaunchActions.Enqueue(c=>new AddHistoricOccurrenceCommand().ShowCustomDialog(c.CheckPoints,foundCheckPoint));
+						app.LaunchActions.Enqueue(c=>c.ShowDetailDialogFor(foundCheckPoint));
 					}},
 				{AddCheckpoint,()=>
 				app.LaunchActions.Enqueue(c=>c.AddCommand.ShowDialog())}

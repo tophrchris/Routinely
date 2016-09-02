@@ -149,7 +149,7 @@ namespace ClockKing
 						}
 						catch (Exception e) 
 						{
-							Debug.WriteLine ("exception while processing");
+							Debug.WriteLine ("exception while processing:" + e.Message);
 						}
 
 					}

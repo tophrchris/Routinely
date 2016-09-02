@@ -1,18 +1,16 @@
 ﻿using System;
-using Humanizer;
-using Humanizer.Configuration;
-using Humanizer.DateTimeHumanizeStrategy;
 using System.Linq;
 using ClockKing.Core;
 using System.Collections.Generic;
 using Foundation;
 using UIKit;
 using ClockKing.Extensions;
+using ClockKing.Core.Shared;
 
 
 namespace ClockKing
 {
-    public static class CheckPointExtensions
+    public  static class CheckPointExtensions
     {
 		public static TableCellRefresher.RefreshRate GetDesiredRefreshRate(this CheckPoint cp)
 		{
@@ -48,38 +46,6 @@ namespace ClockKing
 			return TableCellRefresher.RefreshRate.Standard;
 		}
 
-
-        public static string GetProgress (this CheckPoint cp)
-        {
-             Configurator.DateTimeHumanizeStrategy = new PrecisionDateTimeHumanizeStrategy (.9D);
-
-
-            if (cp.IsMissed | cp.IsSoon ())
-                return cp.TargetTimeToday.ToUniversalTime ().Humanize ().AsSentence ();
-            
-            if (!cp.Occurrences.Any ())
-                return "created {0}".FormatWith (cp.CreatedOn.ToLocalTime().Humanize (false)).AsSentence ();
-
-            if (!cp.IsActive | !cp.IsEnabled) 
-				return "last completed {0}".FormatWith(cp.MostRecentOccurrenceTimeStamp ().ToUniversalTime().Humanize ()).AsSentence();
-
-
-            if (cp.CompletedToday | cp.IsSkipped) 
-            {
-                var precision = cp.SinceLastOccurrence.TotalMinutes > 1 ? 2 : 1;
-				var action = cp.IsSkipped ? "Skipped " : "";
-				return "{1}{0} ago".FormatWith (cp.SinceLastOccurrence.Humanize(precision),action).AsSentence();
-            }
-
-
-            return "completed {0} times".FormatWith (cp.Occurrences.Count ()).AsSentence();
-
-        }
-
-        public static bool IsSoon (this CheckPoint cp, int mins = 90)
-        {
-            return !(cp.CompletedToday|cp.IsMissed) & cp.TargetTimeToday <= DateTime.Now.AddMinutes (mins);
-        }
 
 		public static IEnumerable<UILocalNotification> RequiredNotifications(this CheckPoint toCreate)
 		{
@@ -144,26 +110,6 @@ namespace ClockKing
 				return alert;
 
 		}
-
-		public static UILocalNotification GetMotivationalNotification(this CheckPoint toCreate)
-		{
-			var eval = new CheckPointEvaluator(toCreate);
-			if (eval.Motivation !=string.Empty)
-			{
-				
-				var alert = new UILocalNotification()
-				{
-					SoundName = UILocalNotification.DefaultSoundName,
-					AlertTitle = toCreate.Name,
-					Category = "Motivation",
-					AlertBody = eval.Motivation + eval.Evaluation
-				};
-				return alert;
-			}
-			return null;
-		}
-
-
 
 		static DateTime DetermineNextAlertTimeStamp(DayOfWeek d, CheckPoint toAlert)
 		{
