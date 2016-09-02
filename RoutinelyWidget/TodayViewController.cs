@@ -15,6 +15,7 @@ namespace RoutinelyWidget
 	{
 		private DataModel Model { get; set; }
 		private NSObject observer { get; set; }
+		private UILabel footerLabel { get; set; }
 		protected TodayViewController(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
@@ -30,8 +31,11 @@ namespace RoutinelyWidget
 
 		public override void ViewDidLoad()
 		{
+			
+			UIVibrancyEffect.CreateForNotificationCenter();
+
 			base.ViewDidLoad();
-			this.PreferredContentSize = new CGSize(100f, 100f);
+			this.PreferredContentSize = new CGSize(0,(CheckPointTableCell.Height-60f)*2.1f);
 
 			var pp = new AppGroupPathProvider(".json");
 			var pv = new JSONDataProvider(pp);
@@ -40,6 +44,14 @@ namespace RoutinelyWidget
 			this.TableView.RegisterClassForCellReuse(typeof(CheckPointTableCell), CheckPointTableCell.Key);
 			this.TableView.Source = new GoalWidgetDataSource(this,Model);
 
+			try
+			{
+				this.footerLabel = new UILabel();
+				this.footerLabel.Font = UIFont.FromName("AvenirNextCondensed-UltraLight", 6f);
+				this.footerLabel.TextAlignment = UITextAlignment.Right;
+				this.TableView.TableFooterView.AddSubview(this.footerLabel);
+			}
+			catch { }
 			this.observer = NSNotificationCenter.DefaultCenter.
 				AddObserver((NSString)"NSUserDefaultsDidChangeNotification",
 
@@ -74,6 +86,7 @@ namespace RoutinelyWidget
 		{
 			this.Model.RefreshData(true);
 			this.TableView.ReloadData();
+
 		}
 
 	}
@@ -100,6 +113,20 @@ namespace RoutinelyWidget
 			this.Controller = controller;
 			this.Data = data;
 		}
+
+		public override UIView GetViewForFooter(UITableView tableView, nint section)
+		{
+			var footer = new UILabel();
+			footer.Font = UIFont.FromName("AvenirNextCondensed-UltraLight", 6f);
+			footer.TextAlignment = UITextAlignment.Right;
+			footer.Text=string.Format("Last Updated: {0}", DateTime.Now.ToString("G"));
+			return footer;
+		}
+		public override nfloat GetHeightForFooter(UITableView tableView, nint section)
+		{
+			return 12f;
+		}
+
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
