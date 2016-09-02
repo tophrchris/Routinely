@@ -47,6 +47,15 @@ namespace RoutinelyWidget
 
 		}
 
+		public override void ViewDidUnload()
+		{
+			base.ViewDidUnload();
+			if (observer != null)
+			{
+				NSNotificationCenter.DefaultCenter.RemoveObserver(observer);
+				observer = null;
+			}
+		}
 
 		[Export("widgetPerformUpdateWithCompletionHandler:")]
 		public void WidgetPerformUpdate(Action<NCUpdateResult> completionHandler)
