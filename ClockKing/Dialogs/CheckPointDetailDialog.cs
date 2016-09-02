@@ -36,7 +36,7 @@ namespace ClockKing
 
 		public override void ViewDidAppear(bool animated)
 		{
-			this.App.LogActivity("Goal Detail");
+			this.App.Track("Goal Detail");
 			base.ViewDidAppear(animated);
 		}
 

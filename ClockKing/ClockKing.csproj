@@ -26,11 +26,14 @@
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchFastDev>true</MtouchFastDev>
+    <CodesignKey>iPhone Developer: chris hollander (ZD8GBBKW54)</CodesignKey>
+    <MtouchFastDev>false</MtouchFastDev>
     <CodesignProvision>feee254b-256e-4022-98bf-8fd0f4378c26</CodesignProvision>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchSdkVersion>9.3</MtouchSdkVersion>
+    <MtouchFloat32>true</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType></DebugType>
@@ -86,7 +89,7 @@
     <MtouchUseSGen>true</MtouchUseSGen>
     <IOSDebugOverWiFi>false</IOSDebugOverWiFi>
     <MtouchFastDev>false</MtouchFastDev>
-    <CodesignProvision>feee254b-256e-4022-98bf-8fd0f4378c26</CodesignProvision>
+    <CodesignProvision></CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'publishing|iPhone' ">
     <Optimize>true</Optimize>
@@ -204,16 +207,13 @@
     <Compile Include="Controllers\CheckPointTableCellUtilityDelegate.cs" />
     <Compile Include="Dialogs\Elements\CheckPointElement.cs" />
     <Compile Include="Dialogs\Elements\ToggledStringElement.cs" />
-    <Compile Include="TableParts\CheckPointTableCell.cs" />
     <Compile Include="TableParts\GroupCheckPointsByStatus.cs" />
     <Compile Include="TableParts\GroupCheckPointsByTimeOfDay.cs" />
     <Compile Include="TableParts\GroupedCheckPointListDataSource.cs" />
     <Compile Include="Dialogs\Menus\AddCheckPointMenuCommand.cs" />
     <Compile Include="Dialogs\Menus\CheckpointDetailCommand.cs" />
-    <Compile Include="Utilities\Conversions.cs" />
     <Compile Include="Utilities\ClockKingOptions.cs" />
     <Compile Include="Controllers\CheckPointManager.cs" />
-    <Compile Include="Utilities\PathProvider.cs" />
     <Compile Include="Controllers\SpotlightManager.cs" />
     <Compile Include="Dialogs\MonthView.cs" />
     <Compile Include="RootViewController.cs" />
@@ -235,6 +235,15 @@
     <ProjectReference Include="..\clockking.Model\clockking.Core.csproj">
       <Project>{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}</Project>
       <Name>clockking.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RoutinelyWidget\RoutinelyWidget.csproj">
+      <Project>{3BFC41C9-B793-466D-805C-3CFDD853A361}</Project>
+      <Name>RoutinelyWidget</Name>
+      <IsAppExtension>true</IsAppExtension>
+    </ProjectReference>
+    <ProjectReference Include="..\Routinely.iOS.Shared\Routinely.iOS.Shared.csproj">
+      <Project>{4671A087-9FB0-459D-833D-98D2A2E7196B}</Project>
+      <Name>Routinely.iOS.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

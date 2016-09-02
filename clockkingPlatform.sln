@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockKing", "ClockKing\Cloc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clockking.Core", "clockking.Model\clockking.Core.csproj", "{7A0A6A3F-8486-4258-AECA-BC05864FE5B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutinelyWidget", "RoutinelyWidget\RoutinelyWidget.csproj", "{3BFC41C9-B793-466D-805C-3CFDD853A361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Routinely.iOS.Shared", "Routinely.iOS.Shared\Routinely.iOS.Shared.csproj", "{4671A087-9FB0-459D-833D-98D2A2E7196B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -68,6 +72,34 @@ Global
 		{6153C0DD-C103-4151-A25B-CB9346697626}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{6153C0DD-C103-4151-A25B-CB9346697626}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{6153C0DD-C103-4151-A25B-CB9346697626}.Debug|iPhone.Build.0 = Debug|iPhone
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Debug|x86.ActiveCfg = Debug|iPhoneSimulator
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Debug|x86.Build.0 = Debug|iPhoneSimulator
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Release|x86.ActiveCfg = Release|iPhone
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Release|x86.Build.0 = Release|iPhone
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Release|iPhone.ActiveCfg = Release|iPhone
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Release|iPhone.Build.0 = Release|iPhone
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.Debug|iPhone.Build.0 = Debug|iPhone
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.publishing|iPhone.ActiveCfg = Release|iPhone
+		{3BFC41C9-B793-466D-805C-3CFDD853A361}.publishing|iPhone.Build.0 = Release|iPhone
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Debug|x86.Build.0 = Debug|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Release|x86.ActiveCfg = Release|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Release|x86.Build.0 = Release|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Release|iPhone.Build.0 = Release|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.publishing|iPhone.ActiveCfg = Release|Any CPU
+		{4671A087-9FB0-459D-833D-98D2A2E7196B}.publishing|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 1.2

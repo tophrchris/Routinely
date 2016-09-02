@@ -58,7 +58,7 @@ namespace ClockKing
 					{
 						var foundCheckpointName = shortcut.UserInfo[cpKey].ToString();
 						var foundCheckPoint = app.CheckPointData.checkPoints[foundCheckpointName];
-						app.LaunchActions.Enqueue(c=>new AddHistoricOccurrenceCommand().ShowCustomDialog(c.CheckPoints,foundCheckPoint));
+						app.LaunchActions.Enqueue(c=>c.ShowDetailDialogFor(foundCheckPoint));
 					}},
 				{AddCheckpoint,()=>
 				app.LaunchActions.Enqueue(c=>c.AddCommand.ShowDialog())}
@@ -67,7 +67,7 @@ namespace ClockKing
 
 			if (handlers.ContainsKey (shortcut.Type)) {
 				handlers [shortcut.Type] ();
-				app.LogEvent("3DtouchShortcut", shortcut.Type,
+				app.Track("3DtouchShortcut", shortcut.Type,
 				             shortcut.UserInfo.ContainsKey(cpKey)?
 				             shortcut.UserInfo[cpKey].ToString():"(none)"
 				            

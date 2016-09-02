@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>org.Hollanders.Routinely.Widget</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>XPC!</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.1.2</string>
+	<key>CFBundleVersion</key>
+	<string>1.06</string>
+	<key>MinimumOSVersion</key>
+	<string>9.0</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionPrincipalClass</key>
+		<string>TodayViewController</string>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.widget-extension</string>
+	</dict>
+	<key>CFBundleName</key>
+	<string>Routinely: Current Goals</string>
+	<key>CFBundleDisplayName</key>
+	<string>Routinely: Current Goals</string>
+</dict>
+</plist>
