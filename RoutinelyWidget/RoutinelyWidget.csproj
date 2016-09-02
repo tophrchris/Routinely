@@ -120,7 +120,7 @@
       <Name>clockking.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Routinely.iOS.Shared\Routinely.iOS.Shared.csproj">
-      <Project>{FB4583CB-46CB-403D-B194-3444CA88E4D9}</Project>
+      <Project>{4671A087-9FB0-459D-833D-98D2A2E7196B}</Project>
       <Name>Routinely.iOS.Shared</Name>
     </ProjectReference>
   </ItemGroup>
