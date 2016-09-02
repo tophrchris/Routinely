@@ -54,7 +54,7 @@ namespace ClockKing.Core
             {
                 var o = this.checkPoints.Values
                             .Where (cp => cp.CompletedToday)
-                            .OrderBy (cp => cp.MostRecentOccurrenceTimeStamp());
+                            .OrderByDescending (cp => cp.MostRecentOccurrenceTimeStamp());
                 return o.FirstOrDefault ();
             }
         }
