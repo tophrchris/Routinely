@@ -4,11 +4,21 @@ using Foundation;
 using CoreGraphics;
 using ClockKing.Core;
 using SWTableViewCells;
+using ClockKing.Core.Shared;
 
 namespace ClockKing
 {
 	public class CheckPointTableCell:SWTableViewCell
 	{
+		public enum DisplayModes
+		{
+			Normal,
+			Detail,
+			Widget
+		}
+
+		public DisplayModes DisplayMode { get; set; } = DisplayModes.Normal;
+
 		public CheckPoint CheckPoint { get; set;}
 
 		public UILabel TitleLabel { get; protected set; }
@@ -39,16 +49,37 @@ namespace ClockKing
 
 		public CheckPointTableCell(string key):base(UITableViewCellStyle.Default,key)	
 		{
-			CreateSubViews(this.TextLabel.Superview);
-			this.Frame = new CGRect (new CGPoint (0, 0), new CGSize (UIApplication.SharedApplication.KeyWindow.Frame.Width, Height));
-			this.ShowBarChartInLandscape = false;
+			
 		}
 
-		public CheckPointTableCell ():this(Key){ }
+		public CheckPointTableCell ():this(Key)
+		{
+			init((float)UIApplication.SharedApplication.KeyWindow.Frame.Width);
+		}
+
+		public CheckPointTableCell(float Width,DisplayModes mode) : this(Key)
+		{
+			this.DisplayMode = mode;
+			init(Width);
+		}
+
+		private void init(float width)
+		{
+			try
+			{
+				CreateSubViews(this.TextLabel.Superview);
+				this.Frame = new CGRect(new CGPoint(0, 0), new CGSize(width, Height));
+				this.ShowBarChartInLandscape = false;
+			}
+			catch (Exception e) { }
+		}
 
 		protected void CalculateSizes(float titleHeightAdjustment = 20f)
 		{
-			var windowFrame = UIApplication.SharedApplication.KeyWindow.Frame;
+			if (DisplayMode == DisplayModes.Widget)
+				titleHeightAdjustment = 10f;
+			
+			var windowFrame = this.Frame;
 			var titleWidth = windowFrame.Width - EmojiSize - AccessoryPadding;
 			var titleCorner = new CGPoint ((padding * 2.0f) + EmojiSize, padding);
 			var titleSize = new CGSize (titleWidth, 22f+titleHeightAdjustment);
@@ -88,9 +119,14 @@ namespace ClockKing
 			TitleStack.AddArrangedSubview (TitleLabel);
 			TitleStack.AddArrangedSubview (ProgressLabel);
 
+
+
 			container.AddSubviews (new UIView[]{this.EmojiLabel,TitleStack});
 
-			this.CreateDetailViews (container);
+			if (this.DisplayMode != DisplayModes.Widget)
+				this.CreateDetailViews(container);
+			
+			
 
 			container.LayoutIfNeeded ();
 
@@ -160,14 +196,23 @@ namespace ClockKing
 			this.CheckPoint = checkpoint;
 			this.EmojiLabel.Text = string.IsNullOrEmpty(this.CheckPoint.Emoji)?"☀":this.CheckPoint.Emoji;
 			this.TitleLabel.Text = checkpoint.Name;
+			this.ProgressLabel.Text = checkpoint.GetProgress(DisplayMode==DisplayModes.Widget);
 
-			this.TargetLabel.Text = checkpoint.TargetTimeToday.ToString ("t");
-			this.AverageLabel.Text = (DateTime.Now.Date + checkpoint.AverageCompletionTime).ToString ("t");
-			this.MostRecentDay.Text = checkpoint.MostRecentOccurrenceTimeStamp ().ToString ("d");
-			this.MostRecentLabel.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("t");
-			this.ProgressLabel.Text = checkpoint.GetProgress();
+			if (this.DisplayMode != DisplayModes.Widget)
+			{
+				this.TargetLabel.Text = checkpoint.TargetTimeToday.ToString("t");
+				this.AverageLabel.Text = (DateTime.Now.Date + checkpoint.AverageCompletionTime).ToString("t");
+				this.MostRecentDay.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("d");
+				this.MostRecentLabel.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("t");
+			}
+			else {
+				
+			}
 
 			float red = .3f, green = .3f, blue = .3f;
+
+			if (DisplayMode == DisplayModes.Widget)
+				red = green = blue = .6f;
 
 			if (checkpoint.IsActive & checkpoint.IsEnabled)
 			{

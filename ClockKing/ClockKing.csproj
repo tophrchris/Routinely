@@ -207,13 +207,11 @@
     <Compile Include="Controllers\CheckPointTableCellUtilityDelegate.cs" />
     <Compile Include="Dialogs\Elements\CheckPointElement.cs" />
     <Compile Include="Dialogs\Elements\ToggledStringElement.cs" />
-    <Compile Include="TableParts\CheckPointTableCell.cs" />
     <Compile Include="TableParts\GroupCheckPointsByStatus.cs" />
     <Compile Include="TableParts\GroupCheckPointsByTimeOfDay.cs" />
     <Compile Include="TableParts\GroupedCheckPointListDataSource.cs" />
     <Compile Include="Dialogs\Menus\AddCheckPointMenuCommand.cs" />
     <Compile Include="Dialogs\Menus\CheckpointDetailCommand.cs" />
-    <Compile Include="Utilities\Conversions.cs" />
     <Compile Include="Utilities\ClockKingOptions.cs" />
     <Compile Include="Controllers\CheckPointManager.cs" />
     <Compile Include="Controllers\SpotlightManager.cs" />

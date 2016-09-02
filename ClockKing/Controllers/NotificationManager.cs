@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ClockKing.Extensions;
 using ClockKing.Core;
+using ClockKing.Core.Shared;
 using System.Diagnostics;
 
 namespace ClockKing

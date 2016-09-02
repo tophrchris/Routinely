@@ -9,8 +9,6 @@ using ClockKing.Core;
 using ClockKing;
 using System.Linq;
 
-
-
 namespace RoutinelyWidget
 {
 	public partial class TodayViewController : UITableViewController, INCWidgetProviding
@@ -35,54 +33,22 @@ namespace RoutinelyWidget
 			base.ViewDidLoad();
 			this.PreferredContentSize = new CGSize(100f, 100f);
 
-			/*
-			this.TodayMessage = new UILabel();
-			this.TodayMessage.TextAlignment = UITextAlignment.Center;
-			this.View.BackgroundColor = UIColor.Green;
-			TodayMessage.TextColor = UIColor.White;
-			TodayMessage.Lines = 0;
-			TodayMessage.LineBreakMode = UILineBreakMode.WordWrap;
-			this.View.AddSubview(TodayMessage);
-			View.SubviewsDoNotTranslateAutoresizingMaskIntoConstraints();
-			View.AddConstraints(
-				TodayMessage.AtLeftOf(View),
-				TodayMessage.AtTopOf(View),
-				TodayMessage.AtBottomOf(View)
-				) ;
-			View.AddConstraints(TodayMessage.FullHeightOf(View));
-			View.LayoutIfNeeded();
-			*/
-			//TodayMessage.Text = "starting:" + Environment.NewLine;
 			var pp = new AppGroupPathProvider(".json");
-			//TodayMessage.Text += pp.AppGroupPath + Environment.NewLine;
 			var pv = new JSONDataProvider(pp);
-			//TodayMessage.Text += pv.ReadCheckPoints().Count() + Environment.NewLine;
-
 			this.Model = new DataModel(pv, true);
-			this.TableView.Source = new GoalWidgetDataSource(this, Model);
-
-
-
-
-		
-
-			// Do any additional setup after loading the view.
+			this.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+			this.TableView.RegisterClassForCellReuse(typeof(CheckPointTableCell), CheckPointTableCell.Key);
+			this.TableView.Source = new GoalWidgetDataSource(Model);
 		}
 
-		public override void TouchesEnded(NSSet touches, UIEvent evt)
-		{
-			//update(UIColor.Purple);
-			if (this.View.BackgroundColor == UIColor.Green)
-				this.View.BackgroundColor = UIColor.Orange;
-			else
-				this.View.BackgroundColor = UIColor.Green;
-		}
 
 		[Export("widgetPerformUpdateWithCompletionHandler:")]
 		public void WidgetPerformUpdate(Action<NCUpdateResult> completionHandler)
 		{
+			this.Model.RefreshData(true);
+			this.TableView.ReloadData();
+		
 			// Perform any setup necessary in order to update the view.
-
 			// If an error is encoutered, use NCUpdateResultFailed
 			// If there's no update required, use NCUpdateResultNoData
 			// If there's an update, use NCUpdateResultNewData
@@ -91,34 +57,9 @@ namespace RoutinelyWidget
 			completionHandler(NCUpdateResult.NewData);
 		}
 
-		/*private void update(UIColor color)
-		{
-			this.View.BackgroundColor = color;
-			TodayMessage.Text = string.Empty;
-
-			try
-			{
-				
-				TodayMessage.Text += this.Model.checkPoints.Count + Environment.NewLine;
-
-				if (Model.LastCheckpoint != null)
-					TodayMessage.Text = Model.LastCheckpoint.Name + Environment.NewLine;
-
-				if (Model.NextCheckpoint != null)
-					TodayMessage.Text += Model.NextCheckpoint.Name;
-
-			}
-			catch (Exception e)
-			{
-				TodayMessage.Text += Environment.NewLine+ "whoops" + Environment.NewLine+ e.Message;
-
-			}
-		}
-		*/
 	}
 	public class GoalWidgetDataSource : UITableViewSource
 	{
-		private TodayViewController Controller { get; set; }
 		private DataModel Data { get; set; }
 		private bool hasPrev
 		{
@@ -134,11 +75,16 @@ namespace RoutinelyWidget
 				return Data.NextCheckpoint != null;
 			}
 		}
-		public GoalWidgetDataSource(TodayViewController controller, DataModel data)
+		public GoalWidgetDataSource(DataModel data)
 		{
-			this.Controller = controller;
 			this.Data = data;
 		}
+
+		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+		{
+			return CheckPointTableCell.Height-60f;
+		}
+
 		public override nint RowsInSection(UITableView tableview, nint section)
 		{
 			var rows = 0;
@@ -148,10 +94,26 @@ namespace RoutinelyWidget
 				rows++;
 			return rows;
 		}
+
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			var cell = new UITableViewCell(UITableViewCellStyle.Subtitle, "goalcell");
-			int rows = (int)RowsInSection(this.Controller.TableView, indexPath.Section);
+			return CheckPointTableCellFactory(tableView, indexPath); ;
+		}
+
+		private UITableViewCell CheckPointTableCellFactory(UITableView tableView, NSIndexPath indexPath)
+		{
+			var cell = new CheckPointTableCell(150f,CheckPointTableCell.DisplayModes.Widget);
+
+			CheckPoint goal = GetGoal(tableView,indexPath);
+
+			cell.RenderCheckpoint(goal);
+
+			return cell;
+		}
+
+		private CheckPoint GetGoal(UITableView tableView, NSIndexPath indexPath)
+		{
+			int rows = (int)RowsInSection(tableView, indexPath.Section)-1;
 			int row = indexPath.Row;
 			CheckPoint goal = null;
 			if (row < rows)
@@ -159,11 +121,7 @@ namespace RoutinelyWidget
 			else
 				goal = Data.NextCheckpoint;
 
-			cell.TextLabel.Text = goal.Name;
-
-			return cell;
-
-				
+			return goal;
 		}
 	}
 }
