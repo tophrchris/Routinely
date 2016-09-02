@@ -52,7 +52,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>CFBundleVersion</key>
-	<string>1.07</string>
+	<string>1.08</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
