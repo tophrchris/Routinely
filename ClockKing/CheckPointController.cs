@@ -2,7 +2,7 @@ using Foundation;
 using System;
 using UIKit;
 using ClockKing.Core;
-using System.Collections.Generic;
+using ClockKing.Extensions;
 using System.Linq;
 using ClockKing.Commands;
 using CoreGraphics;
@@ -108,7 +108,10 @@ namespace ClockKing
 				type = ToastNotificationType.Info;	
 				break;
 			}
-		
+
+			var ud = new NSUserDefaults(AppGroupPathProvider.SuiteName, NSUserDefaultsType.SuiteName);
+			ud.SetValueForKey(DateTime.Now.ToNSDate(), new NSString("MRU"));
+			ud.Synchronize();
 
 			notify (args.Result.ToString(), string.Format ("{0} {1}", args.Entity, args.ActionOccurred.ToString ()), type);
 			if (args.ConditionallyRefreshData)

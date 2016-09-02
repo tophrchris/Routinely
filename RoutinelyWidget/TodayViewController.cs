@@ -14,7 +14,7 @@ namespace RoutinelyWidget
 	public partial class TodayViewController : UITableViewController, INCWidgetProviding
 	{
 		private DataModel Model { get; set; }
-
+		private NSObject observer { get; set; }
 		protected TodayViewController(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
@@ -38,15 +38,20 @@ namespace RoutinelyWidget
 			this.Model = new DataModel(pv, true);
 			this.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 			this.TableView.RegisterClassForCellReuse(typeof(CheckPointTableCell), CheckPointTableCell.Key);
-			this.TableView.Source = new GoalWidgetDataSource(Model);
+			this.TableView.Source = new GoalWidgetDataSource(this,Model);
+
+			this.observer = NSNotificationCenter.DefaultCenter.
+				AddObserver((NSString)"NSUserDefaultsDidChangeNotification",
+
+				            (NSNotification obj) => update());
+
 		}
 
 
 		[Export("widgetPerformUpdateWithCompletionHandler:")]
 		public void WidgetPerformUpdate(Action<NCUpdateResult> completionHandler)
 		{
-			this.Model.RefreshData(true);
-			this.TableView.ReloadData();
+			update();
 		
 			// Perform any setup necessary in order to update the view.
 			// If an error is encoutered, use NCUpdateResultFailed
@@ -56,11 +61,17 @@ namespace RoutinelyWidget
 
 			completionHandler(NCUpdateResult.NewData);
 		}
+		private void update()
+		{
+			this.Model.RefreshData(true);
+			this.TableView.ReloadData();
+		}
 
 	}
 	public class GoalWidgetDataSource : UITableViewSource
 	{
 		private DataModel Data { get; set; }
+		private TodayViewController Controller { get; set; }
 		private bool hasPrev
 		{
 			get
@@ -75,9 +86,18 @@ namespace RoutinelyWidget
 				return Data.NextCheckpoint != null;
 			}
 		}
-		public GoalWidgetDataSource(DataModel data)
+		public GoalWidgetDataSource(TodayViewController controller, DataModel data)
 		{
+			this.Controller = controller;
 			this.Data = data;
+		}
+
+		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+		{
+			var cell = GetCell(tableView, indexPath) as CheckPointTableCell;
+			var url = new NSUrl("Routinely://" + cell.CheckPoint.UniqueIdentifier);
+			cell.TitleLabel.Text += "!";
+			Controller.ExtensionContext.OpenUrl(url, null);
 		}
 
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -102,7 +122,7 @@ namespace RoutinelyWidget
 
 		private UITableViewCell CheckPointTableCellFactory(UITableView tableView, NSIndexPath indexPath)
 		{
-			var cell = new CheckPointTableCell(150f,CheckPointTableCell.DisplayModes.Widget);
+			var cell = new CheckPointTableCell((float)Controller.View.Frame.Width,CheckPointTableCell.DisplayModes.Widget);
 
 			CheckPoint goal = GetGoal(tableView,indexPath);
 

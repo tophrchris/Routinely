@@ -64,6 +64,7 @@ namespace ClockKing
 	}
 	public class AppGroupPathProvider : PathProvider
 	{
+		public static string SuiteName { get; set; } = "group.org.hollanders.routinely";
 		public string AppGroupPath
 		{
 			get
@@ -71,7 +72,7 @@ namespace ClockKing
 				var found = string.Empty;
 				NSUrl furl;
 							
-				furl= NSFileManager.DefaultManager.GetContainerUrl("group.org.hollanders.routinely");
+				furl= NSFileManager.DefaultManager.GetContainerUrl(SuiteName);
 
 				if (furl == null)
 					found = @"/Users/chollander/Library/Developer/CoreSimulator/Devices/7BFEECA6-DB92-4AE0-BDB0-22874C6D9D2D/data/Containers/Shared/AppGroup/4FF57D16-9149-4612-A231-F4669D96B442/";

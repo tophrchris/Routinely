@@ -211,6 +211,17 @@ namespace ClockKing
 			}
 		}
 
+		public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+		{
+			LaunchActions.Enqueue((c) => 
+			{
+				var guid = Guid.Parse( url.Host);
+				var f = this.CheckPointData.checkPoints.Values.First((g) =>g.UniqueIdentifier==guid );
+				c.ShowDetailDialogFor(f) ;
+			} );
+			return true;
+		}
+
 		//for when a user finds a goal via spotlight
 		public override bool ContinueUserActivity(UIApplication application, NSUserActivity userActivity, UIApplicationRestorationHandler completionHandler)
 		{

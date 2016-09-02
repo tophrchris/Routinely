@@ -62,12 +62,12 @@ namespace ClockKing
 			init(Width);
 		}
 
-		private void init(float width)
+		private void init(float Width)
 		{
 			try
 			{
+				this.Frame = new CGRect(new CGPoint(0, 0), new CGSize(Width, Height));
 				CreateSubViews(this.TextLabel.Superview);
-				this.Frame = new CGRect(new CGPoint(0, 0), new CGSize(width, Height));
 				this.ShowBarChartInLandscape = false;
 			}
 			catch (Exception e) { }
