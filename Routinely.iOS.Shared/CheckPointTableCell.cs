@@ -28,7 +28,6 @@ namespace ClockKing
 		public UILabel MostRecentDay { get; protected set;}
 		public UILabel MostRecentLabel { get; protected set;}
 		public UILabel EmojiLabel { get; protected set;}
-		public UILabel AdditionalDetail { get; protected set;}
 		public bool ShowBarChartInLandscape{ get; set;}
 		public bool EnqueuedForRefresh { get; set; } = false;
 
@@ -77,7 +76,9 @@ namespace ClockKing
 		protected void CalculateSizes(float titleHeightAdjustment = 20f)
 		{
 			if (DisplayMode == DisplayModes.Widget)
-				titleHeightAdjustment = 10f;
+			{
+				titleHeightAdjustment = 2f;
+			}
 			
 			var windowFrame = this.Frame;
 			var titleWidth = windowFrame.Width - EmojiSize - AccessoryPadding;
@@ -103,7 +104,10 @@ namespace ClockKing
 			this.TitleLabel.Font = UIFont.FromName ("AvenirNext-Regular", BaseFontSize);
 
 			this.ProgressLabel.TextColor=UIColor.FromRGB (.5f, .5f, .5f);
-			this.ProgressLabel.TextAlignment = UITextAlignment.Right;
+			this.ProgressLabel.TextAlignment = 
+				(this.DisplayMode==DisplayModes.Widget)?
+				UITextAlignment.Left:
+				UITextAlignment.Right;
 			this.ProgressLabel.Font=UIFont.FromName ("AvenirNext-Regular", BaseFontSize*.6f);
 
 			this.EmojiLabel.Layer.MasksToBounds = true;
@@ -117,17 +121,26 @@ namespace ClockKing
 			TitleStack.Spacing = padding*2f;
 
 			TitleStack.AddArrangedSubview (TitleLabel);
-			TitleStack.AddArrangedSubview (ProgressLabel);
+
+			this.DetailStack = new UIStackView(this.DetailRect);
+			DetailStack.Axis = UILayoutConstraintAxis.Horizontal;
+			DetailStack.Alignment = UIStackViewAlignment.Fill;
+			DetailStack.Distribution = UIStackViewDistribution.FillProportionally;
+			DetailStack.Spacing = padding * 2f;
+
+			if (DisplayMode != DisplayModes.Widget)
+				TitleStack.AddArrangedSubview(ProgressLabel);
+			else
+				DetailStack.AddArrangedSubview(ProgressLabel);
 
 
-
-			container.AddSubviews (new UIView[]{this.EmojiLabel,TitleStack});
+			container.AddSubviews (new UIView[]{this.EmojiLabel,TitleStack,DetailStack});
 
 			if (this.DisplayMode != DisplayModes.Widget)
 				this.CreateDetailViews(container);
-			
-			
 
+
+			DetailStack.LayoutIfNeeded();
 			container.LayoutIfNeeded ();
 
 		}
@@ -138,13 +151,8 @@ namespace ClockKing
 			this.AverageLabel = new UILabel ();
 			this.MostRecentLabel = new UILabel ();
 			this.MostRecentDay = new UILabel ();
-			this.AdditionalDetail = new UILabel ();
 
-			this.DetailStack = new UIStackView (this.DetailRect);
-			DetailStack.Axis = UILayoutConstraintAxis.Horizontal;
-			DetailStack.Alignment = UIStackViewAlignment.Fill;
-			DetailStack.Distribution = UIStackViewDistribution.FillProportionally;
-			DetailStack.Spacing = padding*2f;
+
 
 			var targetStack = new UIStackView ();
 			targetStack.Axis = UILayoutConstraintAxis.Vertical;
@@ -178,17 +186,12 @@ namespace ClockKing
 			container.AddSubview (DetailStack);
 
 			MostRecentDay.Font=UIFont.FromName ("AvenirNext-Regular", BaseFontSize*.6f);
-			AdditionalDetail.Font = MostRecentDay.Font;
-
 
 			foreach (var l in new UILabel[]{this.TargetLabel,this.AverageLabel,this.MostRecentLabel}) {
 				l.Font = UIFont.FromName ("AvenirNextCondensed-UltraLight", BaseFontSize*1.1f);
 				l.TextColor=UIColor.FromRGB (.5f, .5f, .5f);
 			}
 
-			//UIView.Animate (.25d, () => 
-			DetailStack.LayoutIfNeeded();
-			               //);
 		}
 			
 		public virtual void RenderCheckpoint(CheckPoint checkpoint)
@@ -226,8 +229,6 @@ namespace ClockKing
 			this.ProgressLabel.TextColor = UIColor.FromRGB(red,green,blue);
 
 
-
-
 			if (this.RenderedOrientation != UIDevice.CurrentDevice.Orientation) 
 			{
 				this.RenderedOrientation = UIDevice.CurrentDevice.Orientation;
@@ -247,9 +248,7 @@ namespace ClockKing
 				this.TitleStack.Frame = this.TitleRect;
 				this.DetailStack.Frame = this.DetailRect;
 
-				//UIView.Animate (.25d, () => 
 				this.LayoutIfNeeded();
-				               //);
 			}
 		}
 
@@ -270,6 +269,7 @@ namespace ClockKing
 
 		public void RenderCheckpointForDetail(CheckPoint checkpoint)
 		{
+			this.DisplayMode = DisplayModes.Detail;
 			CalculateSizes (10f);
 			this.Accessory = UITableViewCellAccessory.None;
 			this.ShowBarChartInLandscape = false;

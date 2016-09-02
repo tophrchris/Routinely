@@ -30,9 +30,9 @@ namespace ClockKing.Core.Shared
 				return "{1}{0} ago".FormatWith(cp.SinceLastOccurrence.Humanize(precision), action).AsSentence();
 			}
 
-
+			var preamble = preferDue ? (cp.IsMissed ? "Missed " : "Due ") : "";
 			if (cp.IsMissed | cp.IsSoon() | preferDue)
-				return (cp.IsMissed?"Missed ":"Due ")+ cp.TargetTimeToday.ToUniversalTime().Humanize().AsSentence();
+				return (preamble + cp.TargetTimeToday.ToUniversalTime().Humanize()).AsSentence();
 
 			if (!cp.Occurrences.Any())
 				return "created {0}".FormatWith(cp.CreatedOn.ToLocalTime().Humanize(false)).AsSentence();
