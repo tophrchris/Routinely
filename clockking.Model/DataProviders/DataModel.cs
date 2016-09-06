@@ -48,6 +48,16 @@ namespace ClockKing.Core
 				return o.FirstOrDefault(cp => cp.TargetTimeToday.TimeOfDay < DateTime.Now.ToLocalTime ().TimeOfDay);
 			}
 		}
+        public CheckPoint MostRecentCompletedCheckpoint 
+        {
+            get 
+            {
+                var o = this.checkPoints.Values
+                            .Where (cp => cp.CompletedToday)
+                            .OrderByDescending (cp => cp.MostRecentOccurrenceTimeStamp());
+                return o.FirstOrDefault ();
+            }
+        }
 
 		public CheckPoint AddNewCheckPoint(string title,TimeSpan TargetTime,string emoji,string category)
 		{
