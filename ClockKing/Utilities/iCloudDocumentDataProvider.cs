@@ -32,14 +32,6 @@ namespace ClockKing
 				return Path.Combine(this.UbiquityContainerUrl.Path, "Documents");
 			}
 		}
-		protected string CheckpointPath
-		{
-			get { return Path.Combine(DocumentsUrl, "Checkpoints.Backup.json");}
-		}
-		protected string OccurrencesPath
-		{
-			get { return Path.Combine(DocumentsUrl, "Occurrences.Backup.csv");}
-		}
 
 		protected bool HasUbiquity
 		{
@@ -54,8 +46,10 @@ namespace ClockKing
 			this.ubiquityResolver.Start();
 			if (HasUbiquity)
 			{
-				this.checkpointDocument = new StringDocument(new NSUrl(CheckpointPath, false));
-				this.occurrenceDocument = new StringDocument(new NSUrl(OccurrencesPath, false));
+				var checkpointPath = Path.Combine(DocumentsUrl, "Checkpoints.Backup.json");
+				var occurrencesPath = Path.Combine(DocumentsUrl, "Occurrences.Backup.csv");
+				this.checkpointDocument = new StringDocument(new NSUrl(checkpointPath, false));
+				this.occurrenceDocument = new StringDocument(new NSUrl(occurrencesPath, false));
 				this.checkpointDocument.Initialize();
 				this.occurrenceDocument.Initialize();
 			}
@@ -73,7 +67,7 @@ namespace ClockKing
 				{
 					foreach (var line in read)
 					{
-
+						//TODO: extract this into core?
 						bool Skipped = false;
 						var parts = line.Split('|');
 						var name = parts[0];
@@ -168,7 +162,7 @@ namespace ClockKing
 		
 		private NSString data;
 
-				public string documentData
+		public string documentData
 		{
 			get
 			{
