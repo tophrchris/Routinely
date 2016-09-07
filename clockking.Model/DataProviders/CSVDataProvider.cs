@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using ClockKing.Extensions;
 
 namespace ClockKing.Core
 {
@@ -89,22 +90,19 @@ namespace ClockKing.Core
 			if(Paths.Exists(this.OccurrencesPath))
 				Paths.Delete(this.OccurrencesPath);
 			
-            var lines = occurrences.Select(o=> AsWriteable(o));
+            var lines = occurrences.Select(o=> o.AsWriteable());
             Paths.WriteAllLines (this.OccurrencesPath, lines.ToArray());
 			return true;
 		}
 
 		public virtual void WriteOccurrence(Occurrence toSave)
 		{
-            var lines = new[]{AsWriteable(toSave) };
+            var lines = new[]{toSave.AsWriteable() };
 
 			Paths.AppendAllLines(this.OccurrencesPath,lines);
 		}
 
-        private string AsWriteable (Occurrence toSave)
-        {
-            return string.Format ("{0}|{1}|{2}", toSave.checkpointLabel, toSave.TimeStamp, toSave.IsSkipped);
-        }
+
 	}
 }
 
