@@ -50,7 +50,7 @@
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchUseLlvm>false</MtouchUseLlvm>
     <MtouchLink>Full</MtouchLink>
-    <CodesignProvision>0c826180-ed6d-4ddb-8cf7-9ef129c39d5d</CodesignProvision>
+    <CodesignProvision>f7058885-3773-4c97-a1cd-08ff8b89a0cf</CodesignProvision>
     <BuildIpa>false</BuildIpa>
     <IpaMetadata>iTunesMetadata.plist</IpaMetadata>
     <IpaIncludeArtwork>false</IpaIncludeArtwork>
