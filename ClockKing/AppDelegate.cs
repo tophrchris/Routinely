@@ -30,7 +30,9 @@ namespace ClockKing
 		{
 			RatingsManager.ConfigureRatingsPrompt();
 		}
-			
+
+
+
 		public bool RequiresDataRefresh { get; set; }
 		public DataModel CheckPointData { get; set; }
 		public CheckPointController Controller{ get; set; }
@@ -48,6 +50,7 @@ namespace ClockKing
 				var com = new CompositeCheckPointDataProvider ();
 				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
 				com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
+				com.AddProvider(new iCloudDocumentDataProvider());
 				return com;
 			}
 		}
@@ -108,8 +111,6 @@ namespace ClockKing
 			Window.RootViewController = root;
 
 			Window.MakeKeyAndVisible();
-
-
 
 			return PerformAdditionalHandling;
 		}
