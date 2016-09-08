@@ -8,6 +8,7 @@ using ClockKing.Commands;
 using CoreGraphics;
 using iiToastNotification.Unified;
 using System.Diagnostics;
+using System.Threading;
 
 
 
@@ -41,14 +42,13 @@ namespace ClockKing
 			this.UtilityButtonHandler = new CheckPointTableCellUtilityDelegate (this);
 			this.CheckPoints = new CheckPointManager (this);
 			this.CheckPoints.CheckPointDataChanged += this.RespondToChangeEvent;
-
 			this.AddCommand = new AddCheckPointMenuCommand (this.CheckPoints);
+			this.setDefaultNavigation();
 			this.Detail = new CheckpointDetailCommand (this.CheckPoints);
 			this.Data = new GroupedCheckPointDataSource (this);
-
 			this.Refresher = new TableCellRefresher((a) => this.InvokeOnMainThread(a));
 
-			this.ResetNavigation ();
+			Debug.WriteLine("cpc constructor finished");
 		}
 
 		#region app lifecycle and maintenance
@@ -56,13 +56,12 @@ namespace ClockKing
 		{
 			base.ViewDidLoad ();
 
-			this.reloadTableView();
-
 			this.RefreshControl.ValueChanged += (o, e) => {
 				this.RefreshControl.EndRefreshing();
 				this.AddCommand.ShowDialog();
 			};
-
+			ThreadPool.QueueUserWorkItem((s) => this.reloadTableView());
+			Debug.WriteLine("viewdidload finished");
 		}
 
 		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
@@ -130,14 +129,19 @@ namespace ClockKing
 		public void ResetNavigation(bool refreshData=false){
 			Debug.WriteLine("checkpoint controller: reset nav");
 			this.NavigationController.PopToRootViewController (true);
-			this.NavigationItem.SetLeftBarButtonItem(
-				new UIBarButtonItem(EmojiSharp.Emoji.All["gear"].Unified,UIBarButtonItemStyle.Plain,(s,e)=>
-				                    App.Sidebar.ToggleMenu()),true);
-			                                      
-			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
+			setDefaultNavigation();
 			this.ConditionallyRefreshData (refreshData);
 			//if (!refreshData)
 			//	this.RespondToModelChanges();
+		}
+
+		private void setDefaultNavigation()
+		{
+			this.NavigationItem.SetLeftBarButtonItem(
+				new UIBarButtonItem(EmojiSharp.Emoji.All["gear"].Unified, UIBarButtonItemStyle.Plain, (s, e) =>
+									  App.Sidebar.ToggleMenu()), true);
+
+			this.NavigationItem.SetRightBarButtonItem(this.AddCommand.MenuButton, true);
 		}
 			
 		/// <summary>
@@ -188,40 +192,46 @@ namespace ClockKing
 			if (currentDetailDialog != null)
 				currentDetailDialog.RespondToChanges ();
 		}
+
 		private void reloadTableView()
 		{
 			EnsureDataSource();
 
-			if (this.IsViewLoaded)
+			this.BeginInvokeOnMainThread(() =>
 			{
-				Refresher.Restart ();
-				this.TableView.ReloadData();
+				if (this.IsViewLoaded)
+				{
+					Refresher.Restart();
+					this.TableView.ReloadData();
 
-
-				notify("done", "table reloaded", ToastNotificationType.Info, 1);
-			}
-			else
-				notify("oops", "view wasn't loaded", ToastNotificationType.Error);
+					notify("done", "table reloaded", ToastNotificationType.Info, 1);
+				}
+				else
+					notify("oops", "view wasn't loaded", ToastNotificationType.Error);
+			});
 		}
 
 		private void EnsureDataSource()
 		{
-			if (this.TableView.Source == null)
+			this.InvokeOnMainThread(() =>
 			{
-				if (this.CheckPointData.checkPoints.Any())
-					this.TableView.Source = this.Data;
-				else
-					this.TableView.Source = new BlankCheckPointDataSource();
-			}
-			else
-			{
-				if (this.TableView.Source is BlankCheckPointDataSource)
+				if (this.TableView.Source == null)
+				{
 					if (this.CheckPointData.checkPoints.Any())
 						this.TableView.Source = this.Data;
-				if (!this.CheckPointData.checkPoints.Any())
-					if (!(this.TableView.Source is BlankCheckPointDataSource))
+					else
 						this.TableView.Source = new BlankCheckPointDataSource();
-			}
+				}
+				else
+				{
+					if (this.TableView.Source is BlankCheckPointDataSource)
+						if (this.CheckPointData.checkPoints.Any())
+							this.TableView.Source = this.Data;
+					if (!this.CheckPointData.checkPoints.Any())
+						if (!(this.TableView.Source is BlankCheckPointDataSource))
+							this.TableView.Source = new BlankCheckPointDataSource();
+				}
+			});
 		}
 
 	#endregion
