@@ -90,6 +90,7 @@
     <IOSDebugOverWiFi>false</IOSDebugOverWiFi>
     <MtouchFastDev>false</MtouchFastDev>
     <CodesignProvision></CodesignProvision>
+    <MtouchNoSymbolStrip>false</MtouchNoSymbolStrip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'publishing|iPhone' ">
     <Optimize>true</Optimize>
@@ -228,6 +229,7 @@
     <Compile Include="Dialogs\RelativeTargetDialog.cs" />
     <Compile Include="Controllers\RatingsManager.cs" />
     <Compile Include="Utilities\iCloudDocumentDataProvider.cs" />
+    <Compile Include="Utilities\SyncServiceDataProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.targets')" />

@@ -9,10 +9,11 @@ using UIKit;
 using Newtonsoft.Json;
 using ClockKing.Extensions;
 using System.Linq;
+using System.Diagnostics;
 
 namespace ClockKing
 {
-	public class iCloudDocumentDataProvider:ICheckPointDataProvider
+	public class iCloudDocumentDataProvider : ICheckPointDataProvider
 	{
 		private Task<NSUrl> ubiquityResolver { get; set; }
 		private StringDocument checkpointDocument { get; set; }
@@ -25,7 +26,7 @@ namespace ClockKing
 				return ubiquityResolver.Result;
 			}
 		}
-		protected string DocumentsUrl 
+		protected string DocumentsUrl
 		{
 			get
 			{
@@ -33,12 +34,12 @@ namespace ClockKing
 			}
 		}
 
-		protected bool HasUbiquity
+		public bool HasUbiquity
 		{
-			get { return this.UbiquityContainerUrl != null;}
+			get { return this.UbiquityContainerUrl != null; }
 		}
 
-		public iCloudDocumentDataProvider() 
+		public iCloudDocumentDataProvider()
 		{
 
 			this.ubiquityResolver = new Task<NSUrl>(() =>
@@ -46,12 +47,10 @@ namespace ClockKing
 			this.ubiquityResolver.Start();
 			if (HasUbiquity)
 			{
-				var checkpointPath = Path.Combine(DocumentsUrl, "Checkpoints.Backup.json");
-				var occurrencesPath = Path.Combine(DocumentsUrl, "Occurrences.Backup.csv");
+				var checkpointPath = Path.Combine(DocumentsUrl, "Checkpoints.json");
+				var occurrencesPath = Path.Combine(DocumentsUrl, "Occurrences.csv");
 				this.checkpointDocument = new StringDocument(new NSUrl(checkpointPath, false));
 				this.occurrenceDocument = new StringDocument(new NSUrl(occurrencesPath, false));
-				this.checkpointDocument.Initialize();
-				this.occurrenceDocument.Initialize();
 			}
 		}
 
@@ -93,20 +92,24 @@ namespace ClockKing
 		{
 			if (!HasUbiquity)
 				yield break;
-				
-			string json = string.Empty;
-			try
-			{
-				if (this.checkpointDocument.documentData != null &&
-				   this.checkpointDocument.documentData != string.Empty)
-					json = this.checkpointDocument.documentData;
-				else
-					yield break;
-			}
-			catch { yield break; }
 
-			var found = JsonConvert.DeserializeObject<List<CheckPoint>>(json);// as IEnumerable<CheckPoint>;
-			var cv = found as IEnumerable<CheckPoint>;
+			string json = string.Empty;
+
+			using (new docHandler(this.checkpointDocument))
+			{
+				try
+				{
+					if (this.checkpointDocument.documentData != null &&
+					   this.checkpointDocument.documentData != string.Empty)
+						json = this.checkpointDocument.documentData;
+					else
+						yield break;
+				}
+				catch { yield break; }
+			}
+
+			var cv = JsonConvert.DeserializeObject<List<CheckPoint>>(json) as IEnumerable<CheckPoint>;
+
 			foreach (var cp in cv)
 			{
 				if (cp.UniqueIdentifier == Guid.Empty)
@@ -124,10 +127,13 @@ namespace ClockKing
 		{
 			if (!HasUbiquity)
 				return false;
-			var lines = string.Join(Environment.NewLine, occurrences.Select(o=>o.AsWriteable()).ToArray());
-			this.occurrenceDocument.documentData = lines;
-			this.occurrenceDocument.UpdateChangeCount(UIDocumentChangeKind.Done);
-			this.occurrenceDocument.SavePresentedItemChanges((obj) => handleSave(obj));
+			var lines = string.Join(Environment.NewLine, occurrences.Select(o => o.AsWriteable()).ToArray());
+
+			using (new docHandler(this.occurrenceDocument))
+			{
+				this.occurrenceDocument.documentData = lines;
+				this.occurrenceDocument.UpdateChangeCount(UIDocumentChangeKind.Done);
+			}
 			return true;
 		}
 
@@ -137,9 +143,12 @@ namespace ClockKing
 				return false;
 			var json = JsonConvert.SerializeObject(CheckPoints, Formatting.Indented,
 				new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-			this.checkpointDocument.documentData = json;
-			this.checkpointDocument.UpdateChangeCount(UIDocumentChangeKind.Done);
-			this.checkpointDocument.SavePresentedItemChanges((obj) => handleSave(obj));
+
+			using (new docHandler(this.checkpointDocument))
+			{
+				this.checkpointDocument.documentData = json;
+				this.checkpointDocument.UpdateChangeCount(UIDocumentChangeKind.Done);
+			}
 			return true;
 		}
 
@@ -148,15 +157,46 @@ namespace ClockKing
 			if (!HasUbiquity)
 				return;
 			var line = toSave.AsWriteable();
-			this.occurrenceDocument.documentData += Environment.NewLine + line;
-			this.occurrenceDocument.UpdateChangeCount(UIDocumentChangeKind.Done);
-			this.occurrenceDocument.SavePresentedItemChanges((obj) => handleSave(obj));
+			using (new docHandler(this.occurrenceDocument))
+			{
+				this.occurrenceDocument.documentData += Environment.NewLine + line;
+				this.occurrenceDocument.UpdateChangeCount(UIDocumentChangeKind.Done);
+			}
 		}
-		private void handleSave(NSError err)
+
+	}
+	public class docHandler:IDisposable
+	{
+		private StringDocument held { get; set; }
+		public docHandler(StringDocument toHold)
 		{
- 			Console.WriteLine("save op completed");
+			this.held = toHold;
+			UIApplication.SharedApplication.InvokeOnMainThread(() =>
+				{
+					this.held.Initialize();
+					var t = this.held.OpenAsync();
+					var success = t.Wait(TimeSpan.FromSeconds(5));
+					successMessenger(success, "open");
+				});
+		}
+
+		void successMessenger(bool success,string operation)
+		{
+			Debug.WriteLine("{0}:{1}:{2}", this.held.FileUrl, operation, success);
+		}
+
+		public void Dispose()
+		{
+			UIApplication.SharedApplication.InvokeOnMainThread(() =>
+				{
+					this.held.SavePresentedItemChanges((obj) => successMessenger(obj==null,"save"));
+					var t = this.held.CloseAsync();
+					var success = t.Wait(TimeSpan.FromSeconds(5));
+					successMessenger(success, "close");
+				});
 		}
 	}
+
 	public class StringDocument : UIDocument
 	{
 		
@@ -184,29 +224,25 @@ namespace ClockKing
 		{
 			if (!File.Exists(this.FileUrl.Path))
 			{
-				this.Save(this.FileUrl, UIDocumentSaveOperation.ForCreating, 
-				          (success) => {
-					this.InvokeOnMainThread(() =>
-					{
-						if (success)
-							Console.WriteLine("created");
-						else
-							Console.WriteLine("wtf");
-					});
-				});
+				this.Save(this.FileUrl, UIDocumentSaveOperation.ForCreating,
+						  (success) =>
+						  {
+							  if (success)
+								  Console.WriteLine("created");
+							  else
+								  Console.WriteLine("not created");
+						});
 			}
-			this.Open((success) => Console.WriteLine(success ? "opened" : "not opened"));
 		}
 		public override bool LoadFromContents(NSObject contents, string typeName, out NSError outError)
 		{
 			outError = null;
 
-			Console.WriteLine("LoadFromContents({0})", typeName);
 
 			if (contents != null)
 				this.data = NSString.FromData((NSData)contents, NSStringEncoding.UTF8);
 
-			NSNotificationCenter.DefaultCenter.PostNotificationName("StringDataLoaded", this);
+			//NSNotificationCenter.DefaultCenter.PostNotificationName("StringDataLoaded", this);
 			return true;
 		}
 

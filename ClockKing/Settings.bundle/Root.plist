@@ -92,6 +92,19 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Sync data using iCloud:</string>
+			<key>Key</key>
+			<string>iCloudSync</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+
+
+		
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Enable debugging notifications?</string>
 			<key>Key</key>
 			<string>tracingKey</string>

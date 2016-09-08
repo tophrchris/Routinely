@@ -52,7 +52,7 @@ namespace ClockKing
 				var com = new CompositeCheckPointDataProvider ();
 				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
 				com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
-				com.AddProvider(new iCloudDocumentDataProvider());
+				//com.AddProvider(new iCloudDocumentDataProvider());
 				return com;
 			}
 		}
@@ -105,9 +105,8 @@ namespace ClockKing
 			Window.RootViewController = root;
 			Window.MakeKeyAndVisible();
 
-
-
 			this.DataModelConstructor = new Task<DataModel>(() =>new DataModel(DefaultDataProvider));
+				
 			this.DataModelConstructor.Start();
 
 			ThreadPool.QueueUserWorkItem((s) =>
