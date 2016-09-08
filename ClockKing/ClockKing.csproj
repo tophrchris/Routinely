@@ -28,7 +28,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer: chris hollander (ZD8GBBKW54)</CodesignKey>
     <MtouchFastDev>false</MtouchFastDev>
-    <CodesignProvision>feee254b-256e-4022-98bf-8fd0f4378c26</CodesignProvision>
+    <CodesignProvision>f5a2933e-192c-4cc4-9d64-2991a2cdea0c</CodesignProvision>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -227,6 +227,7 @@
     <Compile Include="Dialogs\SampleGoalBrowsingDialog.cs" />
     <Compile Include="Dialogs\RelativeTargetDialog.cs" />
     <Compile Include="Controllers\RatingsManager.cs" />
+    <Compile Include="Utilities\iCloudDocumentDataProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.2.2\build\Xamarin.Build.Download.targets')" />
