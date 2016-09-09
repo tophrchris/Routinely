@@ -12,6 +12,9 @@ namespace ClockKing
 	public class CheckPointGrouper
 	{
 		protected int RefreshIntervalInSeconds { get; set; } = 2;
+		protected bool RefreshRequired { get; set; } = false;
+
+		public void RequestForcedRefresh() => this.RefreshRequired = true;
 
 		protected IEnumerable<CheckPoint> checkpoints
 		{
@@ -45,11 +48,14 @@ namespace ClockKing
 			{
 				IEnumerable<KeyValuePair<string, IEnumerable<CheckPoint>>> found = null;
 				var cps = this.checkpoints;
-				if (this.Cached == null | SinceLastRefresh.Elapsed.TotalSeconds > RefreshIntervalInSeconds)
+				if (this.Cached == null | 
+				    RefreshRequired |
+				    SinceLastRefresh.Elapsed.TotalSeconds > RefreshIntervalInSeconds)
 				{
 					found = this.GetSections(cps);
 					Cached = found;
 					SinceLastRefresh.Restart();
+					RefreshRequired = false;
 				}
 				else
 					found = Cached;

@@ -201,7 +201,11 @@ namespace ClockKing
 			{
 				if (this.IsViewLoaded)
 				{
-					Refresher.Restart();
+					if (!(this.TableView.Source is BlankCheckPointDataSource))
+					{
+						Refresher.Restart();
+						((GroupedCheckPointDataSource)this.TableView.Source).RequestRefresh();
+					}
 					this.TableView.ReloadData();
 
 					notify("done", "table reloaded", ToastNotificationType.Info, 1);

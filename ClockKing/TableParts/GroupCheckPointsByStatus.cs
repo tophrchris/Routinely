@@ -17,24 +17,32 @@ namespace ClockKing
 			var active = cps.Where(c => c.IsActive);
 
 			var enabled = active.Where(cp => cp.IsEnabled);
+
+
 			var notYetCompleted = enabled.Where(c => !c.CompletedToday & !c.IsSkipped);
 
+			int creationHorizion = 2;
+			var justCreated = notYetCompleted.Where(cp => (DateTime.Now - cp.CreatedOn).TotalHours<creationHorizion);
+			var existing = notYetCompleted.Where(cp => (DateTime.Now - cp.CreatedOn).TotalHours > creationHorizion);
 
+			sections.Add("New",
+			             justCreated.OrderBy(cp => cp.TargetTimeToday).ToList());
 			sections.Add("Missed",
-			             notYetCompleted.Where(c => c.IsMissed).OrderBy(c => c.TargetTimeToday).ToList());
+			             existing.Where(c => c.IsMissed).OrderBy(c => c.TargetTimeToday).ToList());
 			sections.Add("Upcoming",
-			             notYetCompleted.Where(c => c.TargetTimeToday.TimeOfDay >= DateTime.Now.TimeOfDay).OrderBy(c => c.TargetTimeToday).ToList());
+			             existing.Where(c => c.TargetTimeToday.TimeOfDay >= DateTime.Now.TimeOfDay).OrderBy(c => c.TargetTimeToday).ToList());
 			sections.Add("Completed",
 			             enabled.Where(c => c.CompletedToday).OrderByDescending(c => c.MostRecentOccurrenceTimeStamp()).ToList());
-
+			sections.Add("Skipped",
+							 cps.Where(c => c.IsSkipped).OrderBy(c => c.TargetTimeToday).ToList());
+			
 			if (ClockKingOptions.ShowInactiveGoals)
 			{
 				sections.Add("Disabled",
 				             cps.Where(c => !c.IsEnabled).OrderBy(c => c.TargetTimeToday).ToList());
 				sections.Add("Inactive",
 				             cps.Where(c => !c.IsActive).OrderBy(c => c.CreatedOn).ToList());
-				sections.Add("Skipped",
-				             cps.Where(c => c.IsSkipped).OrderBy(c => c.TargetTimeToday).ToList());
+				
 			}
 
 			return sections;
