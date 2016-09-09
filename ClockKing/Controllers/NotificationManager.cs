@@ -27,17 +27,19 @@ namespace ClockKing
 		{
 			var checkPoints = data.checkPoints.Values;
 
-			var required = checkPoints
-								.Where(cp=>cp.IsEnabled)
-								.SelectMany(cp => cp.RequiredNotifications())
-			                    .OrderBy(n => n.FireDate.ToDateTime())
-								.ToList();
+			app.BeginInvokeOnMainThread(() =>
+			{
+				var required = checkPoints
+									.Where(cp => cp.IsEnabled)
+									.SelectMany(cp => cp.RequiredNotifications())
+									.OrderBy(n => n.FireDate.ToDateTime())
+									.ToList();
 
-			if (resetExisting)
-				app.CancelAllLocalNotifications();
+				if (resetExisting)
+					app.CancelAllLocalNotifications();
 
-			required.ForEach(ln => app.ScheduleLocalNotification(ln));
-
+				required.ForEach(ln => app.ScheduleLocalNotification(ln));
+			});
 		}
 
 
@@ -190,16 +192,18 @@ namespace ClockKing
 
 		public bool EnsureSettings()
 		{
-			var categories = this.NotificationCategories;
+			app.BeginInvokeOnMainThread(() =>
+			{
+				var categories = this.NotificationCategories;
 
-			var settings = UIUserNotificationSettings.GetSettingsForTypes(
-				UIUserNotificationType.Alert |
-				UIUserNotificationType.Badge | 
-				UIUserNotificationType.Sound
-				,new NSSet(categories));
+				var settings = UIUserNotificationSettings.GetSettingsForTypes(
+					UIUserNotificationType.Alert |
+					UIUserNotificationType.Badge |
+					UIUserNotificationType.Sound
+					, new NSSet(categories));
 
-			UIApplication.SharedApplication.RegisterUserNotificationSettings (settings);
-
+				UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+			});
 			return true;
 		}
 

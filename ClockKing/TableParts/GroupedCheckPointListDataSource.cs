@@ -17,7 +17,9 @@ namespace ClockKing
 		private CheckPointController Controller {get;}
 		private Dictionary<GroupingChoices,CheckPointGrouper> groupers { get; set; }
 		private List<string> instructions;
-	
+
+		public void RequestRefresh() => this.groupers[ClockKingOptions.GroupingChoice].RequestForcedRefresh();
+
 		public GroupedCheckPointDataSource (CheckPointController controller)
 		{ 
 			this.Controller = controller;

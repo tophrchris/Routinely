@@ -11,6 +11,8 @@ using ClockKing.Core;
 using Google.Analytics;
 using System.Diagnostics;
 using MTiRate;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ClockKing
 {
@@ -32,9 +34,9 @@ namespace ClockKing
 		}
 
 
-
+		private Task<DataModel> DataModelConstructor;
 		public bool RequiresDataRefresh { get; set; }
-		public DataModel CheckPointData { get; set; }
+		public DataModel CheckPointData { get{ return DataModelConstructor.Result; } }
 		public CheckPointController Controller{ get; set; }
 		public CommandManager Commands{ get; set; }
 		public NotificationManager Notifications{ get; set; }	
@@ -50,7 +52,7 @@ namespace ClockKing
 				var com = new CompositeCheckPointDataProvider ();
 				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
 				com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
-				com.AddProvider(new iCloudDocumentDataProvider());
+				//com.AddProvider(new iCloudDocumentDataProvider());
 				return com;
 			}
 		}
@@ -83,16 +85,10 @@ namespace ClockKing
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
-			LoadOptions();
-
-			this.Commands = new CommandManager();
-			this.Notifications = new NotificationManager();
-			this.CheckPointData = new DataModel(DefaultDataProvider);
 			this.LaunchActions = new Queue<Action<CheckPointController>>();
+			this.Commands = new CommandManager();
 
-
-			this.EnsureIntegrations();
-			this.EnsureTracking();
+			LoadOptions();
 
 			application.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
 
@@ -103,14 +99,22 @@ namespace ClockKing
 				PerformAdditionalHandling = (LastShortcutItem == null);
 			}
 
-			Window = new UIWindow(UIScreen.MainScreen.Bounds);
-
-			// set our root view controller with the sidebar menu as the apps root view controller
+			this.Window = new UIWindow(UIScreen.MainScreen.Bounds);
 			var root = new RootViewController();
 			this.Sidebar = root.SideBar;
 			Window.RootViewController = root;
-
 			Window.MakeKeyAndVisible();
+
+			this.DataModelConstructor = new Task<DataModel>(() =>new DataModel(DefaultDataProvider));
+				
+			this.DataModelConstructor.Start();
+
+			ThreadPool.QueueUserWorkItem((s) =>
+			{
+				this.Notifications = new NotificationManager();
+				this.EnsureTracking();
+				this.EnsureIntegrations();
+			});
 
 			return PerformAdditionalHandling;
 		}

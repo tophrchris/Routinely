@@ -22,10 +22,9 @@ namespace ClockKing
 			return true;
 		}
 
-		public override void DidEndScrolling (SWTableViewCell cell)
+		public override void DidEndScrolling(SWTableViewCell cell)
 		{
 			//TODO: this is where we could auto do-someting?
-			System.Diagnostics.Debug.WriteLine("scrolling ended?");
 		}
 
 		public override void DidTriggerLeftUtilityButton (SWTableViewCell cell, nint index)

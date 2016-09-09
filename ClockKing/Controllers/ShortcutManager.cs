@@ -35,17 +35,20 @@ namespace ClockKing
 					};
 				});
 
-			var items = new []{ data.LastCheckpoint, data.NextCheckpoint }
-				.Where(cp=>cp!=null)
-				.Select (cp => Create (cp)).ToList();
+			UIApplication.SharedApplication.BeginInvokeOnMainThread(() =>
+			{
+				var items = new[] { data.LastCheckpoint, data.NextCheckpoint }
+					.Where(cp => cp != null)
+					.Select(cp => Create(cp)).ToList();
 
-			items.Add(new UIMutableApplicationShortcutItem(AddCheckpoint,"Add a new Goal")
+				items.Add(new UIMutableApplicationShortcutItem(AddCheckpoint, "Add a new Goal")
 				{
-					LocalizedSubtitle="Create a new daily goal",
-					Icon=UIApplicationShortcutIcon.FromType(UIApplicationShortcutIconType.Add)
+					LocalizedSubtitle = "Create a new daily goal",
+					Icon = UIApplicationShortcutIcon.FromType(UIApplicationShortcutIconType.Add)
 				});
 
-			application.ShortcutItems =  items.ToArray() ;
+				application.ShortcutItems = items.ToArray();
+			});
 		}
 
 		public static bool HandleShortcut(UIApplication application, UIApplicationShortcutItem shortcut)

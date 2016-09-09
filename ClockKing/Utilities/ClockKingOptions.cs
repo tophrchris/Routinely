@@ -26,6 +26,9 @@ namespace ClockKing
 		{ get { return GetBoolPreference(skipKey); } set { SetBoolPreference(skipKey, value); } }
 		public static int MinimumInterval
 		{ get { return GetIntPreference (intervalKey); } set { SetIntPreference (intervalKey,value); } }
+		public static bool SynchronizeDataViaICloud
+		{ get { return GetBoolPreference(iCloudSyncKey); } set { SetBoolPreference(iCloudSyncKey, value); } }
+
 
 		private static int GetIntPreference(string key)
 		{
@@ -56,6 +59,7 @@ namespace ClockKing
 		const string debugKey = "debugKey";
 		const string skipKey = "OnlySkipMissed";
 		const string intervalKey = "MinInterval";
+		const string iCloudSyncKey = "iCloudSync";
 
 		public static void ApplyTheme()
 		{
@@ -73,14 +77,16 @@ namespace ClockKing
 
 		public static void LoadDefaultValues()
 		{
-			var defs = new NSDictionary(themeKey, 0,
+			var defs = new NSDictionary(
+									themeKey, 0,
 									groupingChoiceKey, 0,
 									tracingKey, false,
 									inactiveKey, true,
 									exampleBrowserKey, true,
 			                        skipKey,true,
 			                        debugKey,false,
-			                        intervalKey,1);
+			                        intervalKey,1,
+			                        iCloudSyncKey,false);
 
 			NSUserDefaults.StandardUserDefaults.RegisterDefaults(defs);
 		}
