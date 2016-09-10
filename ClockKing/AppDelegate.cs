@@ -59,6 +59,8 @@ namespace ClockKing
 
 		public void Track(string screenName)
 		{
+			if (!ClockKingOptions.EnableAnalyticsTracking)
+				return;
 			EnsureTracking();
 			this.tracking.Set(GaiConstants.ScreenName, screenName);
 			Debug.WriteLine("on screen:" + screenName);
@@ -67,6 +69,8 @@ namespace ClockKing
 
 		public void Track(string category, string action, string label, int value=0)
 		{
+			if (!ClockKingOptions.EnableAnalyticsTracking)
+				return;
 			EnsureTracking();
 			Debug.WriteLine(string.Format("{0}:{1}:{2}", category, action, label));
 			this.tracking.Send(DictionaryBuilder.CreateEvent(category, action, label, value).Build());
