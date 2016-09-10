@@ -62,7 +62,7 @@
 			<key>Key</key>
 			<string>groupingKey</string>
 			<key>Title</key>
-			<string>Theme</string>
+			<string>Group goals by:</string>
 			<key>Titles</key>
 			<array>
 				<string>by Status</string>
@@ -88,7 +88,7 @@
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
-		<dict>
+		<!--<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
@@ -97,10 +97,7 @@
 			<string>iCloudSync</string>
 			<key>DefaultValue</key>
 			<false/>
-		</dict>
-
-
-		
+		</dict>-->
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
@@ -135,9 +132,19 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Enable Debugging options</string>
+			<string>Enable Debugging options:</string>
 			<key>Key</key>
 			<string>debugKey</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Collect anonymous usage data:</string>
+			<key>Key</key>
+			<string>TrackingKey</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
