@@ -44,7 +44,6 @@ namespace ClockKing
 		public Queue<Action<CheckPointController>> LaunchActions{ get; set; }
 		public SidebarNavigation.SidebarController Sidebar;
 		private NSObject observer;
-		private Google.Analytics.ITracker tracking { get; set; }
 
 		public static ICheckPointDataProvider DefaultDataProvider
 		{
@@ -57,34 +56,11 @@ namespace ClockKing
 			}
 		}
 
-		public void Track(string screenName)
-		{
-			if (!ClockKingOptions.EnableAnalyticsTracking)
-				return;
-			EnsureTracking();
-			this.tracking.Set(GaiConstants.ScreenName, screenName);
-			Debug.WriteLine("on screen:" + screenName);
-			this.tracking.Send(DictionaryBuilder.CreateScreenView().Build());
-		}
+		public void Track(string screenName) 
+			=> TrackingManager.Track(screenName);
 
-		public void Track(string category, string action, string label, int value=0)
-		{
-			if (!ClockKingOptions.EnableAnalyticsTracking)
-				return;
-			EnsureTracking();
-			Debug.WriteLine(string.Format("{0}:{1}:{2}", category, action, label));
-			this.tracking.Send(DictionaryBuilder.CreateEvent(category, action, label, value).Build());
-		}
-
-		private void EnsureTracking()
-		{
-			if (this.tracking == null)
-			{
-				Gai.SharedInstance.DispatchInterval = 20;
-				Gai.SharedInstance.TrackUncaughtExceptions = true;
-				this.tracking = Gai.SharedInstance.GetTracker("UA-82950326-1");
-			}
-		}
+		public void Track(string category, string action, string label, int value = 0) =>
+			TrackingManager.Track(category, action, label, value);
 
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
@@ -116,7 +92,6 @@ namespace ClockKing
 			ThreadPool.QueueUserWorkItem((s) =>
 			{
 				this.Notifications = new NotificationManager();
-				this.EnsureTracking();
 				this.EnsureIntegrations();
 			});
 
@@ -219,6 +194,7 @@ namespace ClockKing
 			}
 		}
 
+		//for when application is invoked via a routinely://{guid} url
 		public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
 		{
 			LaunchActions.Enqueue((c) => 
@@ -226,7 +202,11 @@ namespace ClockKing
 				var guid = Guid.Parse( url.Host);
 				var f = this.CheckPointData.checkPoints.Values.First((g) =>g.UniqueIdentifier==guid );
 
-				this.Track("Widget", f.IsMissed ? "ViewMissed" : "ViewNext", f.Name);
+				this.Track("Widget", f.IsMissed ? 
+				           				f.CompletedToday ? "viewPrev" :
+			           					"ViewMissed" : 
+			           				"ViewNext",
+				           			f.Name);
 
 				c.ShowDetailDialogFor(f) ;
 			} );
