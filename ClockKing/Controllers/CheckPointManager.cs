@@ -227,9 +227,13 @@ namespace ClockKing
 		public void PresentCheckPointActionsFor(CheckPoint checkpoint, iNavigatableDialog existing)
 		{
 			var dialog = existing as CheckPointDetailDialog;//TODO: i hate this
+			var impact = new UINotificationFeedbackGenerator();
+
 
 			var handler = new Action<Command> ((c) => 
 				{
+					impact.Prepare();
+					impact.NotificationOccurred(UINotificationFeedbackType.Success);
 					if(c.ExecuteFor(this,checkpoint))
 					{
 						if(c.ChangesCheckpoint)
@@ -247,8 +251,12 @@ namespace ClockKing
 			acs.AddAction(UIAlertAction.Create("Nevermind!",UIAlertActionStyle.Cancel,null));
 
 			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem ("Actions",UIBarButtonItemStyle.Plain,
-				(s, e) => 
-				this.Controller.PresentViewController(acs,true,null)
+		      (s, e) =>
+			  {
+				impact.Prepare();
+				impact.NotificationOccurred(UINotificationFeedbackType.Success);
+				this.Controller.PresentViewController(acs,true,null);
+			}
 			), true);
 		}
 	}
