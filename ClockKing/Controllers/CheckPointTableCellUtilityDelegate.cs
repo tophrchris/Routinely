@@ -45,10 +45,6 @@ namespace ClockKing
 			var foundUtil = this.Controller.Commands.Commands [triggeredUtility];
 			var checkPoints = this.Controller.CheckPoints;
 
-			var impact = new UINotificationFeedbackGenerator();
-			impact.Prepare();
-			impact.NotificationOccurred(UINotificationFeedbackType.Success);
-
 			(UIApplication.SharedApplication.Delegate as AppDelegate).Track("swipe", foundUtil.Name, checkPoint.Name);
 
 			var executed=  foundUtil.ExecuteFor (checkPoints, checkPoint);
@@ -56,7 +52,7 @@ namespace ClockKing
 			if (executed && foundUtil.ChangesCheckpoint)
 				checkPoints.ResaveCheckpoints ();
 			
-			return executed ;
+			return executed;
 		}
 	}
 }

@@ -52,6 +52,7 @@ namespace ClockKing
 
 			return created;
 		}
+
 		public CheckPoint AddNewCheckPoint(CheckPoint toAdd)
 		{
 			if (string.IsNullOrEmpty(toAdd.Emoji))
@@ -81,6 +82,7 @@ namespace ClockKing
 				Entity = "Skip",
 				ActionOccurred = ActionType.Added
 			});
+			HapticsManager.Denounce();
 			return o;
 		}
 
@@ -105,6 +107,7 @@ namespace ClockKing
 				{ Entity = "Completion",
 				ActionOccurred = ActionType.Added
 				});
+			HapticsManager.Celebrate();
 			return o;
 		}
 
@@ -112,6 +115,7 @@ namespace ClockKing
 		{
 			return this.CheckPointData.checkPoints.ContainsKey (checkPointName);
 		}
+
 		public bool CheckPointExists(Guid checkPointGuid)
 		{
 			return this.CheckPointData.checkPoints.Any(cp => cp.Value.UniqueIdentifier == checkPointGuid);
@@ -143,6 +147,7 @@ namespace ClockKing
 				DataChanged (new CheckPointDataChangedEventArgs ()
 					{Entity = "Goals",
 					ActionOccurred = ActionType.Written});
+				HapticsManager.ChangeCompleted();
 			}
 		}
 
@@ -153,8 +158,6 @@ namespace ClockKing
 				{Entity = "Completions",
 				ActionOccurred = ActionType.Written});
 		}
-
-
 
 		public void PresentChoices (string Title, string Instructions, IEnumerable<ModalChoice> choices)
 		{
@@ -170,12 +173,14 @@ namespace ClockKing
 		{
 			var d = SharedDialogs.ConfirmationDialog ((a) => handler (), Title, Message, yes, no, YesIsDestructive);
 			this.Controller.PresentModalViewController (d, true);
+			HapticsManager.Warn();
 		}
 
 		public void NavigateToDialog (iNavigatableDialog dialog)
 		{
 			var dvc = dialog as MonoTouch.Dialog.DialogViewController;
 			this.Controller.NavigationController.PushViewController (dvc, true);
+			HapticsManager.NavigationCompleted();
 		}
 
 		public void PresentHistoricOccurrenceDialogFor (CheckPoint checkpoint)
@@ -224,16 +229,14 @@ namespace ClockKing
 			var d = new RelativeTargetDialog(checkpoint);
 			this.NavigateToDialog(d);
 		}
+
 		public void PresentCheckPointActionsFor(CheckPoint checkpoint, iNavigatableDialog existing)
 		{
 			var dialog = existing as CheckPointDetailDialog;//TODO: i hate this
-			var impact = new UINotificationFeedbackGenerator();
 
 
 			var handler = new Action<Command> ((c) => 
 				{
-					impact.Prepare();
-					impact.NotificationOccurred(UINotificationFeedbackType.Success);
 					if(c.ExecuteFor(this,checkpoint))
 					{
 						if(c.ChangesCheckpoint)
@@ -253,8 +256,7 @@ namespace ClockKing
 			dialog.NavigationItem.SetRightBarButtonItem (new UIBarButtonItem ("Actions",UIBarButtonItemStyle.Plain,
 		      (s, e) =>
 			  {
-				impact.Prepare();
-				impact.NotificationOccurred(UINotificationFeedbackType.Success);
+				  HapticsManager.Trigger();
 				this.Controller.PresentViewController(acs,true,null);
 			}
 			), true);
