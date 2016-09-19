@@ -13,6 +13,7 @@ namespace ClockKing
             this.LongName = "Undo completion for today";
             this.Category = "Right";
             this.EmojiName = EmojiSharp.Emoji.LEFTWARDS_ARROW_WITH_HOOK.ShortName;
+            this.ChangesCheckpoint = false;
         }
         public override bool ExecuteFor (iCheckpointCommandController controller, CheckPoint checkPoint)
         {

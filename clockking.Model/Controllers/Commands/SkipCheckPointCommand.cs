@@ -10,6 +10,7 @@ namespace ClockKing
             this.Category = "Right";
             this.LongName = "Skip this goal for today";
             this.EmojiName = EmojiSharp.Emoji.BLACK_RIGHT_POINTING_DOUBLE_TRIANGLE.ShortName;
+            this.ChangesCheckpoint = false;
 
         }
         public bool AllowForAllIncompleteGoals { get; set; } = false;
