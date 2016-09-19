@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Diagnostics;
 using NotificationCenter;
 using Foundation;
 using UIKit;
@@ -15,7 +15,8 @@ namespace RoutinelyWidget
 	{
 		private DataModel Model { get; set; }
 		private NSObject observer { get; set; }
-	
+		private CGSize maxSize { get; set; }
+
 		protected TodayViewController(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
@@ -31,10 +32,18 @@ namespace RoutinelyWidget
 
 		public override void ViewDidLoad()
 		{
-			
-			UIVibrancyEffect.CreateForNotificationCenter();
+			Debug.WriteLine("tvc");
+			//UIVibrancyEffect.CreateForNotificationCenter();
+
+			UIVibrancyEffect.CreateSecondaryVibrancyEffectForNotificationCenter();
 
 			base.ViewDidLoad();
+
+
+			ExtensionContext.SetWidgetLargestAvailableDisplayMode(NCWidgetDisplayMode.Expanded);
+
+			// Get the maximum size
+			this.maxSize = ExtensionContext.GetWidgetMaximumSize(NCWidgetDisplayMode.Expanded);
 
 			var pp = new AppGroupPathProvider(".json");
 			var pv = new JSONDataProvider(pp);
@@ -43,10 +52,8 @@ namespace RoutinelyWidget
 			this.TableView.RegisterClassForCellReuse(typeof(CheckPointTableCell), CheckPointTableCell.Key);
 			this.TableView.Source = new GoalWidgetDataSource(this,Model);
 
-			var goals = (float)this.TableView.Source.RowsInSection(this.TableView, 0);
 
-			this.PreferredContentSize = new CGSize(0, ((CheckPointTableCell.Height - 60f) * goals) * 1.1f);
-
+			this.update(false);
 			this.observer = NSNotificationCenter.DefaultCenter.
 				AddObserver((NSString)"NSUserDefaultsDidChangeNotification",
 
@@ -73,6 +80,7 @@ namespace RoutinelyWidget
 		[Export("widgetPerformUpdateWithCompletionHandler:")]
 		public void WidgetPerformUpdate(Action<NCUpdateResult> completionHandler)
 		{
+			Debug.WriteLine("wpu");
 			update();
 		
 			// Perform any setup necessary in order to update the view.
@@ -83,9 +91,26 @@ namespace RoutinelyWidget
 
 			completionHandler(NCUpdateResult.NewData);
 		}
-		public void update()
+
+		[Export("widgetActiveDisplayModeDidChange:withMaximumSize:")]
+		public void WidgetActiveDisplayModeDidChange(NCWidgetDisplayMode activeDisplayMode, CGSize maxSize)
 		{
-			this.Model.RefreshData(true);
+			Debug.WriteLine("dmdc");
+			var goals = (float)this.TableView.Source.RowsInSection(this.TableView, 0);
+
+			if (activeDisplayMode == NCWidgetDisplayMode.Compact)
+				this.PreferredContentSize = this.maxSize;
+			else
+				this.PreferredContentSize = new CGSize(0, ((CheckPointTableCell.Height - 70f) * goals) * 1.1f);
+
+			update();
+		}
+
+		public void update(bool refreshData=true)
+		{
+			if(refreshData)
+				this.Model.RefreshData(refreshData);
+
 			this.TableView.ReloadData();
 		}
 
@@ -130,7 +155,7 @@ namespace RoutinelyWidget
 		{
 			var footer = new UILabel();
 			footer.Font = UIFont.FromName("AvenirNextCondensed-UltraLight", 8f);
-			footer.TextColor = UIColor.FromRGB(.9f, .9f, .9f);
+			footer.TextColor = UIColor.LightGray;
 			footer.TextAlignment = UITextAlignment.Right;
 			footer.Text=string.Format("Last Updated: {0}", DateTime.Now.ToString("G"));
 			return footer;
@@ -151,7 +176,7 @@ namespace RoutinelyWidget
 
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
 		{
-			return CheckPointTableCell.Height-60f;
+			return CheckPointTableCell.Height-70f;
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section)

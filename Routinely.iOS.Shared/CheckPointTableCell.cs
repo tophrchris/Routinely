@@ -70,14 +70,14 @@ namespace ClockKing
 				CreateSubViews(this.TextLabel.Superview);
 				this.ShowBarChartInLandscape = false;
 			}
-			catch (Exception e) { }
+			catch { }
 		}
 
 		protected void CalculateSizes(float titleHeightAdjustment = 20f)
 		{
 			if (DisplayMode == DisplayModes.Widget)
 			{
-				titleHeightAdjustment = 2f;
+				titleHeightAdjustment = -2f;
 			}
 			
 			var windowFrame = this.Frame;
@@ -87,7 +87,8 @@ namespace ClockKing
 			this.TitleRect = new CGRect (titleCorner, titleSize);
 
 			var subLayoutCorner = new CGPoint (titleCorner.X, titleSize.Height + padding);
-			var subLayoutSize = new CGSize (titleSize.Width, (Height+titleHeightAdjustment) - (subLayoutCorner.Y+50f));
+			var adjustment = (DisplayMode == DisplayModes.Widget) ? 70f : 50f;
+			var subLayoutSize = new CGSize (titleSize.Width, (Height+titleHeightAdjustment) - (subLayoutCorner.Y+adjustment));
 			this.DetailRect = new CGRect (subLayoutCorner,subLayoutSize);
 		}
 
@@ -98,7 +99,8 @@ namespace ClockKing
 
 			this.TitleLabel = new UILabel ();
 			this.ProgressLabel=new UILabel();
-			this.EmojiLabel = new UILabel (new CGRect(padding*2f,padding*2f,EmojiSize,EmojiSize));
+			var inset = padding * ((DisplayMode==DisplayModes.Widget)?(.8f):(2f));
+			this.EmojiLabel = new UILabel (new CGRect(inset,inset,EmojiSize,EmojiSize));
 
 			this.TitleLabel.BackgroundColor = UIColor.Clear;
 			this.TitleLabel.Font = UIFont.FromName ("AvenirNext-Regular", BaseFontSize);
@@ -215,10 +217,8 @@ namespace ClockKing
 			float red = .3f, green = .3f, blue = .3f;
 
 			if (DisplayMode == DisplayModes.Widget)
-			{
-				this.TitleLabel.TextColor = UIColor.LightTextColor;
-				red = green = blue = .6f;
-			}
+				this.TitleLabel.TextColor = UIColor.DarkTextColor;
+			
 
 			if (checkpoint.IsActive & checkpoint.IsEnabled)
 			{
