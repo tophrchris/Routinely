@@ -123,7 +123,7 @@ namespace ClockKing.Core
         [JsonIgnore]
         public bool IsActive {
             get {
-                return IsActiveForDay (DateTime.Today.DayOfWeek);
+                return IsActiveForDay (DateTime.Today.ToLocalTime().DayOfWeek);
             }
 
         }

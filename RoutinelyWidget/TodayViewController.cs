@@ -102,32 +102,8 @@ namespace RoutinelyWidget
 	{
 		private DataModel Data { get; set; }
 		private TodayViewController Controller { get; set; }
-		private CheckPoint prev
-		{
-			get
-			{	var last = Data.LastCheckpoint;
-				if (last != null)
-					return last;
-				var mr = Data.MostRecentCompletedCheckpoint;
-				if (mr != null)
-					return mr;
-				return null;
-			}
-		}
-		private bool hasPrev
-		{
-			get
-			{
-				return prev != null;
-			}
-		}
-		private bool hasNext
-		{
-			get
-			{
-				return Data.NextCheckpoint != null;
-			}
-		}
+
+
 		public GoalWidgetDataSource(TodayViewController controller, DataModel data)
 		{
 			this.Controller = controller;
@@ -165,12 +141,7 @@ namespace RoutinelyWidget
 
 		public override nint RowsInSection(UITableView tableview, nint section)
 		{
-			var rows = 0;
-			if (hasPrev)
-				rows++;
-			if (hasNext)
-				rows++;
-			return rows;
+			return this.Data.ImmediateCheckpoints.Count();
 		}
 
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
@@ -186,15 +157,7 @@ namespace RoutinelyWidget
 
 		private CheckPoint GetGoal(UITableView tableView, NSIndexPath indexPath)
 		{
-			int rows = (int)RowsInSection(tableView, indexPath.Section)-1;
-			int row = indexPath.Row;
-			CheckPoint goal = null;
-			if (row < rows)
-				goal = prev;
-			else
-				goal = Data.NextCheckpoint;
-
-			return goal;
+			return this.Data.ImmediateCheckpoints.ElementAt(indexPath.Row);
 		}
 	}
 }
