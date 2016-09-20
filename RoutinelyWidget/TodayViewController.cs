@@ -15,7 +15,6 @@ namespace RoutinelyWidget
 	{
 		private DataModel Model { get; set; }
 		private NSObject observer { get; set; }
-		private CGSize maxSize { get; set; }
 
 		protected TodayViewController(IntPtr handle) : base(handle)
 		{
@@ -32,55 +31,53 @@ namespace RoutinelyWidget
 
 		public override void ViewDidLoad()
 		{
-			Debug.WriteLine("tvc");
-			//UIVibrancyEffect.CreateForNotificationCenter();
-
-			UIVibrancyEffect.CreateSecondaryVibrancyEffectForNotificationCenter();
-
 			base.ViewDidLoad();
 
+			//var e = UIVibrancyEffect.CreateSecondaryVibrancyEffectForNotificationCenter();
 
-			ExtensionContext.SetWidgetLargestAvailableDisplayMode(NCWidgetDisplayMode.Expanded);
+			//ExtensionContext.SetWidgetLargestAvailableDisplayMode(NCWidgetDisplayMode.Expanded);
+			this.observer = NSNotificationCenter.DefaultCenter.
+				AddObserver((NSString)"NSUserDefaultsDidChangeNotification",
+							(NSNotification obj) => update());
 
-			// Get the maximum size
-			this.maxSize = ExtensionContext.GetWidgetMaximumSize(NCWidgetDisplayMode.Expanded);
 
 			var pp = new AppGroupPathProvider(".json");
 			var pv = new JSONDataProvider(pp);
 			this.Model = new DataModel(pv, true);
-			this.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
-			this.TableView.RegisterClassForCellReuse(typeof(CheckPointTableCell), CheckPointTableCell.Key);
-			this.TableView.Source = new GoalWidgetDataSource(this,Model);
 
+			this.TableView.Source = new GoalWidgetDataSource(this, Model);
+
+			var goals = (float)this.TableView.Source.RowsInSection(this.TableView, 0);
+			this.PreferredContentSize = new CGSize(0, ((CheckPointTableCell.Height - 70f) * goals) * 1.1f);
+
+			this.TableView.RegisterClassForCellReuse(typeof(CheckPointTableCell), CheckPointTableCell.Key);
+
+			this.TableView.SeparatorEffect = UIVibrancyEffect.CreateSecondaryVibrancyEffectForNotificationCenter();
+			this.TableView.SeparatorColor = UIColor.FromWhiteAlpha(1.0f, .5f);
 
 			this.update(false);
-			this.observer = NSNotificationCenter.DefaultCenter.
-				AddObserver((NSString)"NSUserDefaultsDidChangeNotification",
-
-				            (NSNotification obj) => update());
 
 		}
 
 		public override void TouchesEnded(NSSet touches, UIEvent evt)
 		{
-			base.TouchesEnded(touches, evt);
 			update();
+			base.TouchesEnded(touches, evt);
 		}
 
 		public override void ViewDidUnload()
 		{
 			base.ViewDidUnload();
 			if (observer != null)
-			{
 				NSNotificationCenter.DefaultCenter.RemoveObserver(observer);
-				observer = null;
-			}
+			
+			observer = null;
+
 		}
 
 		[Export("widgetPerformUpdateWithCompletionHandler:")]
 		public void WidgetPerformUpdate(Action<NCUpdateResult> completionHandler)
 		{
-			Debug.WriteLine("wpu");
 			update();
 		
 			// Perform any setup necessary in order to update the view.
@@ -92,26 +89,12 @@ namespace RoutinelyWidget
 			completionHandler(NCUpdateResult.NewData);
 		}
 
-		[Export("widgetActiveDisplayModeDidChange:withMaximumSize:")]
-		public void WidgetActiveDisplayModeDidChange(NCWidgetDisplayMode activeDisplayMode, CGSize maxSize)
-		{
-			Debug.WriteLine("dmdc");
-			var goals = (float)this.TableView.Source.RowsInSection(this.TableView, 0);
-
-			if (activeDisplayMode == NCWidgetDisplayMode.Compact)
-				this.PreferredContentSize = this.maxSize;
-			else
-				this.PreferredContentSize = new CGSize(0, ((CheckPointTableCell.Height - 70f) * goals) * 1.1f);
-
-			update();
-		}
-
 		public void update(bool refreshData=true)
 		{
-			if(refreshData)
-				this.Model.RefreshData(refreshData);
+				if (refreshData)
+					this.Model.RefreshData(refreshData);
 
-			this.TableView.ReloadData();
+				this.TableView.ReloadData();
 		}
 
 	}
@@ -154,8 +137,9 @@ namespace RoutinelyWidget
 		public override UIView GetViewForFooter(UITableView tableView, nint section)
 		{
 			var footer = new UILabel();
+
 			footer.Font = UIFont.FromName("AvenirNextCondensed-UltraLight", 8f);
-			footer.TextColor = UIColor.LightGray;
+			footer.TextColor = UIColor.DarkGray;
 			footer.TextAlignment = UITextAlignment.Right;
 			footer.Text=string.Format("Last Updated: {0}", DateTime.Now.ToString("G"));
 			return footer;
@@ -190,11 +174,6 @@ namespace RoutinelyWidget
 		}
 
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-		{
-			return CheckPointTableCellFactory(tableView, indexPath); ;
-		}
-
-		private UITableViewCell CheckPointTableCellFactory(UITableView tableView, NSIndexPath indexPath)
 		{
 			var cell = new CheckPointTableCell((float)Controller.View.Frame.Width,CheckPointTableCell.DisplayModes.Widget);
 

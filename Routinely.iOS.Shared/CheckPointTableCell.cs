@@ -94,6 +94,8 @@ namespace ClockKing
 
 		protected virtual void CreateSubViews(UIView container)
 		{
+			
+			
 			this.RenderedOrientation = UIDevice.CurrentDevice.Orientation;
 			this.CalculateSizes ();
 
@@ -198,6 +200,11 @@ namespace ClockKing
 			
 		public virtual void RenderCheckpoint(CheckPoint checkpoint)
 		{
+			if (this.DisplayMode == DisplayModes.Widget)
+				this.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+			else
+				this.Accessory = UITableViewCellAccessory.None;
+			
 			this.CheckPoint = checkpoint;
 			this.EmojiLabel.Text = string.IsNullOrEmpty(this.CheckPoint.Emoji)?"☀":this.CheckPoint.Emoji;
 			this.TitleLabel.Text = checkpoint.Name;
@@ -210,15 +217,12 @@ namespace ClockKing
 				this.MostRecentDay.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("d");
 				this.MostRecentLabel.Text = checkpoint.MostRecentOccurrenceTimeStamp().ToString("t");
 			}
-			else {
-				
-			}
+
 
 			float red = .3f, green = .3f, blue = .3f;
 
 			if (DisplayMode == DisplayModes.Widget)
 				this.TitleLabel.TextColor = UIColor.DarkTextColor;
-			
 
 			if (checkpoint.IsActive & checkpoint.IsEnabled)
 			{
@@ -236,16 +240,6 @@ namespace ClockKing
 			{
 				this.RenderedOrientation = UIDevice.CurrentDevice.Orientation;
 
-				//if (this.isPortrait) {
-				//	this.AdditionalDetail.RemoveFromSuperview ();
-				//	DetailStack.Distribution = UIStackViewDistribution.FillProportionally;
-				//} else if (ShowBarChartInLandscape)
-				//{
-				//	DetailStack.AddArrangedSubview (this.AdditionalDetail);
-				//	DetailStack.Distribution = UIStackViewDistribution.Fill;
-				//	this.updateAdditionalDetail ();
-				//}
-
 				CalculateSizes ();
 
 				this.TitleStack.Frame = this.TitleRect;
@@ -254,21 +248,6 @@ namespace ClockKing
 				this.LayoutIfNeeded();
 			}
 		}
-
-		//public void updateAdditionalDetail()
-		//{
-		//	var checkpoint = this.CheckPoint;
-		//	this.AdditionalDetail.Text = checkpoint.UntilNextTargetTime.Humanize ();
-		//}
-
-		//protected bool isPortrait
-		//{
-		//	get 
-		//	{
-		//		return 	this.RenderedOrientation == UIDeviceOrientation.Portrait ||
-		//		this.RenderedOrientation == UIDeviceOrientation.PortraitUpsideDown;
-		//	}	
-		//}
 
 		public void RenderCheckpointForDetail(CheckPoint checkpoint)
 		{
