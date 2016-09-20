@@ -45,7 +45,8 @@ namespace ClockKing.Core
         {
             get{
                 return new [] {(this.LastCheckpoint!=null?this.LastCheckpoint:this.MostRecentCompletedCheckpoint),this.NextCheckpoint }
-                    .Where(cp=>cp!=null); 
+                    .Where(cp=>cp!=null)
+                    .OrderBy(cp=>cp.TargetTimeToday); 
             }
         }
 
