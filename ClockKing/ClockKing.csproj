@@ -91,6 +91,7 @@
     <MtouchFastDev>false</MtouchFastDev>
     <CodesignProvision></CodesignProvision>
     <MtouchNoSymbolStrip>false</MtouchNoSymbolStrip>
+    <MtouchLink>Full</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'publishing|iPhone' ">
     <Optimize>true</Optimize>

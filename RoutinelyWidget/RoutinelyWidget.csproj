@@ -26,11 +26,13 @@
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchLink>None</MtouchLink>
-    <MtouchArch>i386</MtouchArch>
+    <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <CodesignProvision></CodesignProvision>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFloat32>true</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <Optimize>true</Optimize>
@@ -74,20 +76,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: chris hollander (ZD8GBBKW54)</CodesignKey>
-    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFastDev>false</MtouchFastDev>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <IOSDebuggerPort>10001</IOSDebuggerPort>
-    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchLink>Full</MtouchLink>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
-    <CodesignProvision>e13498ff-b878-48ff-ad6b-98e6e3742e0b</CodesignProvision>
+    <CodesignProvision></CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
