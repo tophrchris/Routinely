@@ -28,7 +28,8 @@ namespace ClockKing
 		{ get { return GetIntPreference (intervalKey); } set { SetIntPreference (intervalKey,value); } }
 		public static bool SynchronizeDataViaICloud
 		{ get { return GetBoolPreference(iCloudSyncKey); } set { SetBoolPreference(iCloudSyncKey, value); } }
-
+		public static bool EnableAnalyticsTracking
+		{ get { return GetBoolPreference(TrackingKey); } set { SetBoolPreference(TrackingKey, value); } }
 
 		private static int GetIntPreference(string key)
 		{
@@ -60,6 +61,7 @@ namespace ClockKing
 		const string skipKey = "OnlySkipMissed";
 		const string intervalKey = "MinInterval";
 		const string iCloudSyncKey = "iCloudSync";
+		const string TrackingKey = "TrackingKey";
 
 		public static void ApplyTheme()
 		{
@@ -86,7 +88,8 @@ namespace ClockKing
 			                        skipKey,true,
 			                        debugKey,false,
 			                        intervalKey,1,
-			                        iCloudSyncKey,false);
+			                        iCloudSyncKey,false,
+									TrackingKey,true);
 
 			NSUserDefaults.StandardUserDefaults.RegisterDefaults(defs);
 		}

@@ -54,14 +54,35 @@ namespace ClockKing
 		#region app lifecycle and maintenance
 		public override void ViewDidLoad ()
 		{
-			base.ViewDidLoad ();
+			AddParallexEffect();
+			base.ViewDidLoad();
 
-			this.RefreshControl.ValueChanged += (o, e) => {
+			this.RefreshControl.ValueChanged += (o, e) =>
+			{
 				this.RefreshControl.EndRefreshing();
 				this.AddCommand.ShowDialog();
 			};
 			ThreadPool.QueueUserWorkItem((s) => this.reloadTableView());
 			Debug.WriteLine("viewdidload finished");
+		}
+
+		void AddParallexEffect()
+		{
+			if (UIAccessibility.IsReduceMotionEnabled)
+				return;
+			
+			var min = new NSObject();
+			var max = new NSObject();
+			min = NSNumber.FromInt32(-15);
+			max = NSNumber.FromInt32(15);
+
+			var h = new UIInterpolatingMotionEffect("center.x", UIInterpolatingMotionEffectType.TiltAlongHorizontalAxis);
+			var v = new UIInterpolatingMotionEffect("center.y", UIInterpolatingMotionEffectType.TiltAlongVerticalAxis);
+			h.MinimumRelativeValue = v.MinimumRelativeValue = min;
+			h.MaximumRelativeValue = v.MaximumRelativeValue = max;
+			var g = new UIMotionEffectGroup();
+			g.MotionEffects = new[] { h, v };
+			this.TableView.AddMotionEffect(g);
 		}
 
 		public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)

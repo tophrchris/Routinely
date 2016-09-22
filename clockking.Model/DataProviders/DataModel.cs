@@ -29,22 +29,32 @@ namespace ClockKing.Core
             return true;
         }
 
+        private IEnumerable<CheckPoint> CurrentEffectiveCheckpoints { get {
+                return this.checkPoints.Values.Where (cp =>cp.IsEnabled && cp.IsActive && !cp.CompletedToday && !cp.IsSkipped);} }
+
 		public CheckPoint NextCheckpoint
 		{
 			get{
-				var o= this.checkPoints.Values
-					.Where(cp=>cp.IsActive && cp.IsEnabled &&  !cp.CompletedToday)
+				var o= CurrentEffectiveCheckpoints
 					.OrderBy (cp => cp.TargetTimeToday);
 				return o.FirstOrDefault(cp => cp.TargetTimeToday.TimeOfDay > DateTime.Now.ToLocalTime ().TimeOfDay);
 			}
 		}
 
+        public IEnumerable<CheckPoint> ImmediateCheckpoints 
+        {
+            get{
+                return new [] {(this.LastCheckpoint!=null?this.LastCheckpoint:this.MostRecentCompletedCheckpoint),this.NextCheckpoint }
+                    .Where(cp=>cp!=null)
+                    .OrderBy(cp=>cp.TargetTimeToday); 
+            }
+        }
+
 		public CheckPoint LastCheckpoint
 		{
 			get{
-				var o= this.checkPoints.Values
-					.Where(cp=>cp.IsEnabled && cp.IsActive && !cp.CompletedToday && !cp.IsSkipped)
-					.OrderByDescending (cp => cp.TargetTimeToday);
+				var o= CurrentEffectiveCheckpoints
+                    .OrderByDescending (cp => cp.TargetTimeToday);
 				return o.FirstOrDefault(cp => cp.TargetTimeToday.TimeOfDay < DateTime.Now.ToLocalTime ().TimeOfDay);
 			}
 		}

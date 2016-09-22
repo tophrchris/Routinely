@@ -52,7 +52,7 @@ namespace ClockKing
 			if (executed && foundUtil.ChangesCheckpoint)
 				checkPoints.ResaveCheckpoints ();
 			
-			return executed ;
+			return executed;
 		}
 	}
 }

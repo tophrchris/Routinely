@@ -37,7 +37,7 @@ namespace ClockKing
 
 			UIApplication.SharedApplication.BeginInvokeOnMainThread(() =>
 			{
-				var items = new[] { data.LastCheckpoint, data.NextCheckpoint }
+				var items = data.ImmediateCheckpoints
 					.Where(cp => cp != null)
 					.Select(cp => Create(cp)).ToList();
 
