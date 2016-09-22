@@ -45,10 +45,15 @@ namespace ClockKing
 			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji,category);
 
 			if (created != null)
-				DataChanged (new CheckPointDataChangedEventArgs ()
-					{Entity="Goal",
-						ActionOccurred=ActionType.Added,
-						ConditionallyRefreshData=true});
+			{
+				DataChanged(new CheckPointDataChangedEventArgs()
+				{
+					Entity = "Goal",
+					ActionOccurred = ActionType.Added,
+					ConditionallyRefreshData = true
+				});
+				appDelegate.Track("Dialog", "save", created.Name);
+			}
 
 			return created;
 		}
@@ -60,12 +65,15 @@ namespace ClockKing
 			
 			var added = this.CheckPointData.AddNewCheckPoint(toAdd);
 			if (added != null)
+			{
 				DataChanged(new CheckPointDataChangedEventArgs()
 				{
 					Entity = "Goal",
 					ActionOccurred = ActionType.Added,
 					ConditionallyRefreshData = true
 				});
+				appDelegate.Track("Dialog", "save(adapted)", toAdd.Name);
+			}
 
 			return added;
 		}
