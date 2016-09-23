@@ -29,8 +29,14 @@ namespace ClockKing.Core
             return true;
         }
 
+    
+
         private IEnumerable<CheckPoint> CurrentEffectiveCheckpoints { get {
-                return this.checkPoints.Values.Where (cp =>cp.IsEnabled && cp.IsActive && !cp.CompletedToday && !cp.IsSkipped);} }
+                return this.checkPoints.Values
+                           .Where(cp=>cp.IsEnabled)
+                           .Where(cp=>cp.IsActive)
+                           .Where(cp=>!cp.CompletedToday)
+                           .Where(cp=>!cp.IsSkipped);} }
 
 		public CheckPoint NextCheckpoint
 		{
