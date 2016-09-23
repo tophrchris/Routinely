@@ -9,6 +9,7 @@
     <RootNamespace>Routinely.iOS.Shared</RootNamespace>
     <AssemblyName>Routinely.iOS.Shared</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <ReleaseVersion>1.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +60,7 @@
     <Compile Include="CheckPointTableCell.cs" />
     <Compile Include="Conversions.cs" />
     <Compile Include="PathProvider.cs" />
+    <Compile Include="IOSExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\clockking.Model\clockking.Core.csproj">
