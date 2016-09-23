@@ -31,6 +31,7 @@ namespace ClockKing
 		static AppDelegate()
 		{
 			RatingsManager.ConfigureRatingsPrompt();
+			LaunchTimer = Stopwatch.StartNew();
 		}
 
 
@@ -43,6 +44,7 @@ namespace ClockKing
 		private UIApplicationShortcutItem LastShortcutItem { get; set; }
 		public Queue<Action<CheckPointController>> LaunchActions{ get; set; }
 		public SidebarNavigation.SidebarController Sidebar;
+		public static Stopwatch LaunchTimer { get; } 
 		private NSObject observer;
 
 		public static ICheckPointDataProvider DefaultDataProvider
@@ -61,6 +63,9 @@ namespace ClockKing
 
 		public void Track(string category, string action, string label, int value = 0) =>
 			TrackingManager.Track(category, action, label, value);
+
+		public void Track(string category, string name, Stopwatch timer) =>
+			TrackingManager.Track(category, name, timer);
 
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
@@ -85,7 +90,14 @@ namespace ClockKing
 			Window.RootViewController = root;
 			Window.MakeKeyAndVisible();
 
-			this.DataModelConstructor = new Task<DataModel>(() =>new DataModel(DefaultDataProvider));
+			this.DataModelConstructor = new Task<DataModel>(() =>
+			{
+				DataModel dm;
+				using (new TrackingBenchmark() { Category = "DataModel", Name = "Load" })
+					 dm = new DataModel(DefaultDataProvider);
+				
+				return dm;
+			});
 				
 			this.DataModelConstructor.Start();
 
