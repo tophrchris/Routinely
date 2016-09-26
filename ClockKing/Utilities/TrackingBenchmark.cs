@@ -14,7 +14,7 @@ namespace ClockKing
 		public void Track(bool reset = true)
 		{
 			app.Track(Category, Name, Timer);
-			app.Track(Category, "Timer", Name);
+			app.Track("Timer",Category, Name);
 			if (reset)
 				Timer.Reset();
 		}

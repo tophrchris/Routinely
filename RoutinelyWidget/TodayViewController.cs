@@ -130,7 +130,7 @@ namespace RoutinelyWidget
 		{
 			var cell = GetCell(tableView, indexPath) as CheckPointTableCell;
 			var url = new NSUrl("Routinely://" + cell.CheckPoint.UniqueIdentifier);
-			cell.TitleLabel.Text += "!";
+			//cell.TitleLabel.Text += "!";
 			Controller.ExtensionContext.OpenUrl(url, (c) => this.Controller.update() );
 		}
 
