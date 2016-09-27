@@ -37,6 +37,14 @@ namespace ClockKing
 				tracking =  Gai.SharedInstance.GetTracker("UA-82950326-1");
 			}
 		}
+		public static void Track(string category, string name, Stopwatch timer)
+		{if (!ClockKingOptions.EnableAnalyticsTracking)
+				return;
+			EnsureTracking();
+			Debug.WriteLine(string.Format("{0}:{1}:{2}", category, name, timer.Elapsed));
+			tracking.Send(DictionaryBuilder.CreateTiming(category, timer.ElapsedMilliseconds, name, null).Build());
+
+		}
 	}
 }
 

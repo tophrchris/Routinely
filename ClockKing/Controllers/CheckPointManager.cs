@@ -36,13 +36,15 @@ namespace ClockKing
 			Debug.WriteLine("cpm reset nav");
 			this.Controller.ResetNavigation (refreshData);
 		}
-			
-		public CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji,string category="")
-		{
-			if (string.IsNullOrEmpty (emoji))
-				emoji = title.Substring (0, 2);
 
-			var created = this.CheckPointData.AddNewCheckPoint (title, target,emoji,category);
+		public CheckPoint AddNewCheckPoint(string title, TimeSpan target, string emoji, string category = "")
+		{
+			if (string.IsNullOrEmpty(emoji))
+				emoji = title.Substring(0, 2);
+
+			CheckPoint created = null;
+			using (new TrackingBenchmark() { Category = "DataModel", Name = "AddGoal" })
+				created = this.CheckPointData.AddNewCheckPoint (title, target,emoji,category);
 
 			if (created != null)
 			{
@@ -62,8 +64,11 @@ namespace ClockKing
 		{
 			if (string.IsNullOrEmpty(toAdd.Emoji))
 				toAdd.Emoji = toAdd.Name.Substring(0, 2);
+
+			CheckPoint added = null;
+			using (new TrackingBenchmark() { Category = "DataModel", Name = "AddGoal" })
+				added = this.CheckPointData.AddNewCheckPoint(toAdd);
 			
-			var added = this.CheckPointData.AddNewCheckPoint(toAdd);
 			if (added != null)
 			{
 				DataChanged(new CheckPointDataChangedEventArgs()
@@ -83,7 +88,8 @@ namespace ClockKing
 			var o = checkpoint.CreateOccurrence();
 			o.IsSkipped = true;
 			checkpoint.AddOccurrence(o);
-			this.CheckPointData.SaveOccurrence(o);
+			using (new TrackingBenchmark() { Category = "DataModel", Name = "SaveOccurrence" })
+				this.CheckPointData.SaveOccurrence(o);
 			NotificationManager.PresentMotivationalNotification(checkpoint);
 			DataChanged(new CheckPointDataChangedEventArgs()
 			{
@@ -109,7 +115,8 @@ namespace ClockKing
 		{
 			var o = checkPoint.CreateOccurrence(when.ToLocalTime());
 			checkPoint.AddOccurrence (o);
-			this.CheckPointData.SaveOccurrence (o);
+			using (new TrackingBenchmark() { Category = "DataModel", Name = "SaveOccurrence" })
+				this.CheckPointData.SaveOccurrence (o);
 			NotificationManager.PresentMotivationalNotification(checkPoint);
 			DataChanged (new CheckPointDataChangedEventArgs ()
 				{ Entity = "Completion",
@@ -131,7 +138,10 @@ namespace ClockKing
 
 		public bool RemoveCheckpoint(CheckPoint toDelete)
 		{
-			var deleted =  this.CheckPointData.RemoveCheckPoint (toDelete);
+			bool deleted = false;
+
+			using (new TrackingBenchmark() { Category = "DataModel", Name = "RemoveGoal" })
+				deleted = this.CheckPointData.RemoveCheckPoint (toDelete);
 
 			if (deleted) { 
 				DataChanged (new CheckPointDataChangedEventArgs () 
@@ -149,7 +159,10 @@ namespace ClockKing
 			
 		public void ResaveCheckpoints()
 		{
-			var saved = this.CheckPointData.SaveCheckPoints ();
+			var saved = false;
+			using (new TrackingBenchmark() { Category = "DataModel", Name = "SaveGoals" })
+				saved=this.CheckPointData.SaveCheckPoints ();
+			
 			if (saved) 
 			{
 				DataChanged (new CheckPointDataChangedEventArgs ()
@@ -161,7 +174,8 @@ namespace ClockKing
 
 		public void RewriteOccurrences()
 		{
-			this.CheckPointData.SaveOccurrences ();
+			using (new TrackingBenchmark() { Category = "DataModel", Name = "rewriteOccurrences" })
+				this.CheckPointData.SaveOccurrences ();
 			DataChanged (new CheckPointDataChangedEventArgs () 
 				{Entity = "Completions",
 				ActionOccurred = ActionType.Written});

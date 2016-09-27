@@ -5,6 +5,8 @@ using CoreGraphics;
 using ClockKing.Core;
 using SWTableViewCells;
 using ClockKing.Core.Shared;
+using ClockKing.Extensions;
+
 
 namespace ClockKing
 {
@@ -137,6 +139,11 @@ namespace ClockKing
 			else
 				DetailStack.AddArrangedSubview(ProgressLabel);
 
+
+
+			this.EmojiLabel.setParallaxEffect(15);
+			this.TitleStack.setParallaxEffect(10);
+			this.DetailStack.setParallaxEffect(7);
 
 			container.AddSubviews (new UIView[]{this.EmojiLabel,TitleStack,DetailStack});
 
