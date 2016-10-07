@@ -253,6 +253,11 @@
       <Project>{4671A087-9FB0-459D-833D-98D2A2E7196B}</Project>
       <Name>Routinely.iOS.Shared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClockKing.RoutinelyWatch\ClockKing.RoutinelyWatch.csproj">
+      <IsWatchApp>true</IsWatchApp>
+      <Project>{03A2B7A8-2FBA-4CD2-A846-9E9958C20DF9}</Project>
+      <Name>ClockKing.RoutinelyWatch</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dialogs\" />
