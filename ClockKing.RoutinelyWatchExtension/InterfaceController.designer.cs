@@ -16,26 +16,13 @@ namespace ClockKing.RoutinelyWatchExtension
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        WatchKit.WKInterfaceButton myButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        WatchKit.WKInterfaceLabel MyLabel { get; set; }
-
-        [Action ("IncrementCounter")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void IncrementCounter ();
+        WatchKit.WKInterfaceTable GoalTable { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (myButton != null) {
-                myButton.Dispose ();
-                myButton = null;
-            }
-
-            if (MyLabel != null) {
-                MyLabel.Dispose ();
-                MyLabel = null;
+            if (GoalTable != null) {
+                GoalTable.Dispose ();
+                GoalTable = null;
             }
         }
     }

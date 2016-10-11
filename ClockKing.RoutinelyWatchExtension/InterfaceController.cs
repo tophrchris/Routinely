@@ -2,10 +2,11 @@
 
 using WatchKit;
 using Foundation;
+using WatchConnectivity;
 
 namespace ClockKing.RoutinelyWatchExtension
 {
-	public partial class InterfaceController : WKInterfaceController
+	public partial class InterfaceController : WKInterfaceController,IWCSessionDelegate
 	{
 		protected InterfaceController(IntPtr handle) : base(handle)
 		{
@@ -13,20 +14,25 @@ namespace ClockKing.RoutinelyWatchExtension
 		}
 
 
-
 		public override void Awake(NSObject context)
 		{
 			base.Awake(context);
 
+
+
 			// Configure interface objects here.
 			Console.WriteLine("{0} awake with context", this);
+
+			GoalTable.SetNumberOfRows(5, "default");
+			for (var i = 0; i < GoalTable.NumberOfRows; i++)
+			{
+				var row = GoalTable.GetRowController(i) as RowController;
+				row.render("", $"row {i}");
+			}
+
 		}
 
-		private int counter = 0;
-		partial void IncrementCounter()
-		{
-			MyLabel.SetText(string.Format("clicked {0} times", ++counter));
-		}
+
 
 		public override void WillActivate()
 		{

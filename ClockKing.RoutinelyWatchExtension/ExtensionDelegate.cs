@@ -1,5 +1,5 @@
 ﻿using System;
-
+using WatchConnectivity;
 using Foundation;
 using WatchKit;
 
@@ -26,6 +26,10 @@ namespace ClockKing.RoutinelyWatchExtension
 			// (such as an incoming phone call or SMS message) or when the user quits the application
 			// and it begins the transition to the background state.
 			// Use this method to pause ongoing tasks, disable timers, etc.
+		}
+		public override void HandleBackgroundTasks(NSSet<WKRefreshBackgroundTask> backgroundTasks)
+		{
+			base.HandleBackgroundTasks(backgroundTasks);
 		}
 	}
 }
