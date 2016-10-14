@@ -29,16 +29,26 @@ namespace ClockKing.RoutinelyWatchExtension
 
 		public override void Awake(NSObject context)
 		{
+			this.responder = new RoutinelyHostResponder(this);
+
 			base.Awake(context);
 			// Configure interface objects here.
 			Console.WriteLine("{0} awake with context", this);
-
+			try
+			{
+				var goals = ReadGoals();
+				UpdateModel(goals);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.Message);
+			}
 		}
 
 		public void StartSession()
 		{
 			Debug.WriteLine("attempting to start session:");
-			this.responder = new RoutinelyHostResponder(this);
+
 
 			if (session != null && session.ActivationState!=WCSessionActivationState.Activated)
 			{
@@ -68,10 +78,11 @@ namespace ClockKing.RoutinelyWatchExtension
 		public void UpdateModel(List<GoalSummary> goals)
 		{
 			Debug.WriteLine("UFC");
-			var goalCount = goals.Count;
+			var display = goals.Where(g =>g.Active&&g.Enabled).ToList();
+			var goalCount = display.Count;
 			GoalTable.SetNumberOfRows((nint)goalCount, "default");
 			int rowIndex = 0;
-			foreach (var goal in goals)
+			foreach (var goal in display)
 			{
 				var row = GoalTable.GetRowController(rowIndex) as RowController;
 				var goalName = goal.Name;
@@ -79,6 +90,32 @@ namespace ClockKing.RoutinelyWatchExtension
 				row.render(emoji, goalName);
 				rowIndex++;
 			}
+		}
+		public void SaveModel(List<GoalSummary> goals)
+		{
+			var json = JsonConvert.SerializeObject(goals);
+			var path = responder.GetSummariesPath();
+			System.IO.File.WriteAllText(path, json);
+		}
+		public List<GoalSummary> ReadGoals()
+		{
+			var found = new List<GoalSummary>();
+
+			var path = responder.GetSummariesPath();
+			if (System.IO.File.Exists(path))
+			{
+				try
+				{
+					var json = System.IO.File.ReadAllText(path);
+					found = responder.GetGoalsFromJson(json);
+					Debug.WriteLine($"read {found.Count} goals from disk");
+				}
+				catch (Exception e)
+				{
+					Debug.WriteLine(e.Message);
+				}
+			}
+			return found;
 		}
 	}
 
@@ -106,6 +143,7 @@ namespace ClockKing.RoutinelyWatchExtension
 			var json = message["summaries"];
 			var goals = GetGoalsFromJson(json.ToString());
 			this.controller.UpdateModel(goals);
+			this.controller.SaveModel(goals);
 		}
 		public override void DidReceiveApplicationContext(WCSession session, NSDictionary<NSString, NSObject> applicationContext)
 		{
@@ -113,14 +151,14 @@ namespace ClockKing.RoutinelyWatchExtension
 			var json = applicationContext["summaries"];
 			var goals = GetGoalsFromJson(json.ToString());
 			this.controller.UpdateModel(goals);
+			this.controller.SaveModel(goals);
 		}
 
 		public override void DidReceiveFile(WCSession session, WCSessionFile file)
 		{
 			try
 			{
-				var p = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-				var dest = System.IO.Path.Combine(p, "summaries.json");
+				var dest = GetSummariesPath();
 				System.IO.File.Copy(file.FileUrl.AbsoluteString, dest);
 				Debug.WriteLine(file.FileUrl.AbsoluteString);
 				Debug.WriteLine(dest);
@@ -132,9 +170,19 @@ namespace ClockKing.RoutinelyWatchExtension
 			}
 		}
 
-		private List<GoalSummary> GetGoalsFromJson(string json)=>
+		public List<GoalSummary> GetGoalsFromJson(string json)
+		{
 
-			 Newtonsoft.Json.JsonConvert.DeserializeObject<List<GoalSummary>>(json);
+			var found = Newtonsoft.Json.JsonConvert.DeserializeObject<List<GoalSummary>>(json);
+			return found.OrderBy(f => f.NextTargetTime).ToList();
+		}
+
+		public string GetSummariesPath()
+		{
+			var md = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			var path = System.IO.Path.Combine(md, "summaries.json");
+			return path;
+		}
 
 	}
 }
