@@ -181,6 +181,9 @@ namespace ClockKing
 					this.App.CheckPointData.RefreshData();
 
 				notify ("done", "data refreshed", ToastNotificationType.Info, 1);
+
+				WCSessionManager.Instance.UpdateSharedContext();
+
 				dataUpdated=true;
 				this.RespondToModelChanges ();
 			}

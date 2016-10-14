@@ -3,10 +3,12 @@ using Foundation;
 using System.Collections.Generic;
 using System.Linq;
 using Humanizer;
+using Newtonsoft.Json;
 
 namespace ClockKing.Extensions
 {
-	public static class ConversionExtensions {
+	public static class ConversionExtensions 
+	{
 
 		#region Data
 
@@ -50,5 +52,31 @@ namespace ClockKing.Extensions
 			return passage.ApplyCase(LetterCasing.Sentence);
 		}
 	}
+
+	public static class DictionaryExtensions<K, V>
+	{
+		public static NSDictionary<NSString, NSObject> ToContextDictionary(Dictionary<K, V> existing)
+		{
+			var NSValues = existing.Values.Select(x => new NSString(JsonConvert.SerializeObject(x))).ToArray();
+			var NSKeys = existing.Keys.Select(x => new NSString(x.ToString())).ToArray();
+			var NSApplicationContext = NSDictionary<NSString, NSObject>.FromObjectsAndKeys(NSValues, NSKeys, (nint)NSKeys.Count());
+
+			return NSApplicationContext;
+		}
+
+		public static Dictionary<string, object> toDictionary(NSDictionary<NSString, NSObject> existing)
+		{
+
+			var keys = existing.Keys.Select(k => k.ToString()).ToArray();
+			var values = existing.Values.Select(v => JsonConvert.DeserializeObject(v.ToString())).ToArray();
+			var dictionary = keys.Zip(values, (k, v) => new { Key = k, Value = v })
+								 .ToDictionary(x => x.Key, x => x.Value);
+
+			return dictionary;
+		}
+	}
+
+
+
 }
 

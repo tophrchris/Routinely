@@ -149,6 +149,7 @@ namespace ClockKing
 			this.Notifications.EnsureNotifications(this.CheckPointData);
 			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
 			SpotlightManager.PresentGoalsForIndexing(this.CheckPointData.checkPoints);
+			WCSessionManager.Instance.UpdateSharedContext();
 		}
 
 		public override void OnResignActivation (UIApplication application)
