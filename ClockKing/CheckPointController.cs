@@ -183,6 +183,7 @@ namespace ClockKing
 				notify ("done", "data refreshed", ToastNotificationType.Info, 1);
 
 				WCSessionManager.Instance.UpdateSharedContext();
+				WCSessionManager.Instance.SendGoalSummaryFile ();
 
 				dataUpdated=true;
 				this.RespondToModelChanges ();

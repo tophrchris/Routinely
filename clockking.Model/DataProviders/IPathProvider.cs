@@ -10,6 +10,8 @@ namespace ClockKing.Core
 
 		string GetOccurrencesFileName();
 
+        string GetSummariesFileName ();
+
 		bool Exists (string path);
 
 		string[] ReadAllLines (string path);

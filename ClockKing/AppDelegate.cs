@@ -51,10 +51,12 @@ namespace ClockKing
 		{
 			get{
 				var com = new CompositeCheckPointDataProvider ();
-				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
+				IPathProvider json = new PathProvider (".json");
+				com.AddProvider (new JSONDataProvider (json));
 				com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
 				//com.AddProvider(new iCloudDocumentDataProvider());
-				return com;
+				var dec = new GoalSummaryPersistenceDecorator (com, json);
+				return dec;
 			}
 		}
 

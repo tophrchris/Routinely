@@ -11,9 +11,10 @@ namespace ClockKing
 		protected string MyDocumentsPath{ get; set;}
 		protected string CheckpointPath{ get; set;}
 		protected string OccurrencesPath{ get; set; }
+		protected string SummariesPath { get; set; }
 		protected virtual string checkpointFileName { get; set; } =  "checkpoints";
 		protected virtual string occurrencesFileName  { get; set; } = "occurrences";
-
+		protected virtual string summariesFileName { get; set; } = "summaries";
 		public PathProvider(string extension)
 		{
 			try
@@ -21,10 +22,15 @@ namespace ClockKing
 				this.MyDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 				this.CheckpointPath = Path.Combine(this.MyDocumentsPath, checkpointFileName + extension);
 				this.OccurrencesPath = Path.Combine(this.MyDocumentsPath, occurrencesFileName + extension);
+				this.SummariesPath = Path.Combine (this.MyDocumentsPath, summariesFileName + extension);
 			}
 			catch { }
 		}
 
+		public string GetSummariesFileName ()
+		{
+			return this.SummariesPath;
+		}
 		public string GetCheckpointFileName()
 		{
 			return this.CheckpointPath;
@@ -90,8 +96,7 @@ namespace ClockKing
 			this.MyDocumentsPath = this.AppGroupPath;
 			this.CheckpointPath = Path.Combine(this.MyDocumentsPath, checkpointFileName + extension);
 			this.OccurrencesPath = Path.Combine(this.MyDocumentsPath, occurrencesFileName + extension);
-
-
+			this.SummariesPath = Path.Combine (this.MyDocumentsPath, summariesFileName + extension);
 		}
 	}
 }
