@@ -93,20 +93,20 @@
     <MtouchNoSymbolStrip>false</MtouchNoSymbolStrip>
     <MtouchLink>Full</MtouchLink>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'publishing|iPhone' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Publishing|iPhone' ">
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\publishing</OutputPath>
     <DefineConstants></DefineConstants>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Distribution: chris hollander (52W7633S3D)</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchArch>ARMv7s, ARM64</MtouchArch>
-    <CodesignProvision>0c826180-ed6d-4ddb-8cf7-9ef129c39d5d</CodesignProvision>
+    <CodesignProvision></CodesignProvision>
     <MtouchLink>Full</MtouchLink>
-    <MtouchSdkVersion>9.3</MtouchSdkVersion>
+    <MtouchSdkVersion>10.0</MtouchSdkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

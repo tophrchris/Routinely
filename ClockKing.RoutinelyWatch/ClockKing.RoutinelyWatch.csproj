@@ -91,6 +91,19 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Glance' ">
     <WatchKitExecutionMode>Glance</WatchKitExecutionMode>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Publishing|iPhone' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Publishing</OutputPath>
+    <DefineConstants></DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchFloat32>true</MtouchFloat32>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <AssemblyName>ClockKing.RoutinelyWatch</AssemblyName>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

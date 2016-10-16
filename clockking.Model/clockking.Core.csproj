@@ -29,7 +29,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'publishing|iPhone' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Publishing|iPhone' ">
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\publishing</OutputPath>
     <WarningLevel>4</WarningLevel>
