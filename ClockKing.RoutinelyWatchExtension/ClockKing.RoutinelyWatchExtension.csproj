@@ -100,6 +100,8 @@
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <AssemblyName>ClockKing.RoutinelyWatchExtension</AssemblyName>
+    <MtouchSdkVersion>3.0</MtouchSdkVersion>
+    <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
