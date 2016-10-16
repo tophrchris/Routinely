@@ -105,7 +105,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchArch>ARMv7s, ARM64</MtouchArch>
     <CodesignProvision></CodesignProvision>
-    <MtouchLink>Full</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <MtouchSdkVersion>10.0</MtouchSdkVersion>
   </PropertyGroup>
   <ItemGroup>
