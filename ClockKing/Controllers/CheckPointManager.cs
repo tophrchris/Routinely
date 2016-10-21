@@ -82,6 +82,10 @@ namespace ClockKing
 
 			return added;
 		}
+		public bool UpdateCheckPoint(CheckPoint updated)
+		{
+			return this.CheckPointData.UpdateCheckPoint(updated);
+		}
 
 		public Occurrence SkipCheckpoint(CheckPoint checkpoint)
 		{

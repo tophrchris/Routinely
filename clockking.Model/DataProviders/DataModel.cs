@@ -102,6 +102,16 @@ namespace ClockKing.Core
             SaveCheckPoints ();
             return toAdd;
         }
+
+        public bool UpdateCheckPoint (CheckPoint updated)
+        {
+            if (this.checkPoints.ContainsKey (updated.Name)) 
+            {
+                this.checkPoints [updated.Name] = updated;
+                return true;
+            }
+            return false;
+        }
 			
 		public bool RemoveCheckPoint(CheckPoint toDelete)
 		{
