@@ -4,11 +4,12 @@ using ClockKing.Core;
 using Humanizer;
 using ClockKing.Extensions;
 using System.Linq;
+using UIKit;
 namespace ClockKing
 {
 	public class AlternativeTargetsSection:Section
 	{
-		public AlternativeTargetsSection (CheckPoint checkpoint,iCheckpointCommandController Controller,CheckPointDetailDialog dialog)
+		public AlternativeTargetsSection (CheckPoint checkpoint,iCheckpointCommandController Controller,UIViewController dialog)
 		{
 
 			this.Caption = "Alternative Targets:";
@@ -24,7 +25,7 @@ namespace ClockKing
 				se.Tapped += () => 
 				{
 					var root = new RootElement("Scheduled Target");
-					var d = new ScheduledTargetDialog(root,at,checkpoint,Controller,dialog);
+					var d = new ScheduledTargetDialog(root,at,checkpoint,Controller,dialog as CheckPointDetailDialog);
 					dialog.NavigationController.PushViewController(d,true);	
 				};
 				this.Add (se);

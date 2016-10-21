@@ -30,6 +30,9 @@ namespace ClockKing
 		private BooleanElement categorySwitch { get; set; }
 		private MultilineElement instructionsElement { get; set; }
 		private bool SuggestAbbreviations = true;
+		private CheckPoint existingCheckPoint { get; set; }
+		private Section altTargetsSection { get; set; }
+		private bool AltTargetsSectionVisible { get; set; } = false;
 
 		public CheckPointEditingDialog (iCheckpointCommandController checkpoints, RootElement root, bool pushing) :base()
 		{
@@ -50,17 +53,41 @@ namespace ClockKing
 			this.instructionsElement = new MultilineElement ("What time do you expect to complete this goal, each day?");
 			this.pickerWrapper = new UIViewElement (string.Empty, picker, false);
 
+			var altTargetOption = new BooleanElement("Enable Alternate Targets?", false);
+			var altTargetDescription = new MultilineElement("Alternative targets allow you to designate different target times by day of week.");
+			var AddAltTargetButton = new StringElement("Add Alternative Target");
+			AddAltTargetButton.Alignment = UITextAlignment.Center;
+
+
 			var checkPointForm = new Section ("Goal:") { 	
 				nameElement,
-
 				SuggestEmoji,
 				emojiElement,
 				instructionsElement,
 				pickerWrapper,
 				nowSwitch,
 				nowElement,
-				categorySwitch
+				categorySwitch,
+				altTargetOption
 			};
+
+			altTargetOption.ValueChanged += (sender, e) => 
+			{
+				if (altTargetOption.Value)
+				{
+					checkPointForm.Insert(altTargetOption.IndexPath.Row + 1, UITableViewRowAnimation.Top, altTargetDescription);
+
+					checkPointForm.Insert(altTargetOption.IndexPath.Row + 2, UITableViewRowAnimation.Top, AddAltTargetButton);
+				}
+				else {
+					checkPointForm.Remove(altTargetDescription);
+					checkPointForm.Remove(AddAltTargetButton);
+				}
+
+			};
+
+
+
 
 			this.SuggestEmoji.ValueChanged += (s, e) => this.SuggestAbbreviations = SuggestEmoji.Value;
 
@@ -71,6 +98,22 @@ namespace ClockKing
 				else
 					checkPointForm.Remove(this.categoryElement);
 			};
+
+			AddAltTargetButton.Tapped += () =>
+			{
+				var cmd = Controller.Commands.Commands["Alt Target"] as AddScheduledTargetCommand;
+				cmd.ExistingDialog = this;
+				if (this.nameElement.Value != string.Empty)
+				{
+					if (this.existingCheckPoint == null)
+						this.existingCheckPoint = this.CreateCheckpoint();
+					else
+						UpdateCheckpoint(this.existingCheckPoint);
+					
+					cmd.ExecuteFor(this.Controller.CheckPoints, this.existingCheckPoint);
+				}
+			};
+
 
 			this.nameElement.NotifyChangedOnKeyStroke = true;
 
@@ -93,7 +136,21 @@ namespace ClockKing
 		public override void ViewDidAppear(bool animated)
 		{
 			this.App.Track("Edit Goal");
+			if (AltTargetsSectionVisible)
+				this.Root.Remove(altTargetsSection);
+			
+			if (this.existingCheckPoint != null)
+			{
+				if (this.existingCheckPoint.ScheduledTargets.Any())
+				{
+					this.altTargetsSection = new AlternativeTargetsSection(existingCheckPoint, this.Controller.CheckPoints, this);
+					this.Root.Add(altTargetsSection);
+					AltTargetsSectionVisible = true;
+				}
+
+			}
 			base.ViewDidAppear(animated);
+
 		}
 
 		#region iNavigatableDialog implementation
@@ -108,7 +165,7 @@ namespace ClockKing
 		public void RenderForCheckPoint(CheckPoint toEdit)
 		{
 			var knownEmoji = Emoji.All.Where (e => e.Value.AppleHasImage).Select (e => e.Value.Unified).ToList ();
-
+			this.existingCheckPoint = toEdit;
 			this.nameElement.Value = toEdit.Name;
 			this.categoryElement.Value = toEdit.Category;
 			this.emojiElement.Value = toEdit.Emoji;
@@ -183,26 +240,23 @@ namespace ClockKing
 		public bool Save(CheckPoint toEdit)
 		{
 			var isNew = !CheckPoints.CheckPointExists(toEdit.UniqueIdentifier);
-			var nameChanged = toEdit.Name!=this.nameElement.Value;
+			var nameChanged = toEdit.Name != this.nameElement.Value;
 
-			if((nameChanged|isNew) && this.CheckPoints.CheckPointExists(this.nameElement.Value))
-			{
-				ShowError ("A goal already exists with the new name you've chosen.  Please choose a different name!");
+			var updated = UpdateCheckpoint(toEdit);
+			if (!updated)
 				return false;
-			}
 
-			toEdit.Category = this.categoryElement.Value;
-			toEdit.Emoji=this.emojiElement.Value;
-			toEdit.TargetTime=targetTimeElement.DateValue.ToLocalTime().TimeOfDay;
-			toEdit.IsEnabled= enabledSwitch.Value;
-			if(nameChanged)
-				toEdit.Name=this.nameElement.Value;
+
 
 			if (isNew)
+			{	
 				this.CheckPoints.AddNewCheckPoint(toEdit);
-			else
+			}
+			else 
+			{
+				this.CheckPoints.UpdateCheckPoint(toEdit);	
 				this.CheckPoints.ResaveCheckpoints();
-
+			}
 			if(nameChanged & !isNew)
 				this.CheckPoints.RewriteOccurrences();
 				
@@ -210,23 +264,63 @@ namespace ClockKing
 			return true;
 		}
 
+
+
 		public bool Save()
 		{
-			if (this.CheckPoints.CheckPointExists (nameElement.Value))
-				return ShowError ("A goal already exists with that name.  Please choose a different name!");	
+			if (this.existingCheckPoint != null)
+				return this.Save(this.existingCheckPoint);
 			
+			if (this.CheckPoints.CheckPointExists(nameElement.Value))
+				return ShowError("A goal already exists with that name.  Please choose a different name!");
+			CheckPoint newcp = CreateCheckpoint();
+
+			ResetNavigation();
+
+			return newcp != null;
+		}
+
+		private CheckPoint CreateCheckpoint()
+		{
 			var newcp = this.CheckPoints
-					.AddNewCheckPoint (
-						nameElement.Value,
-					picker.Date.ToDateTime().ToLocalTime().TimeOfDay,
-						emojiElement.Value,categoryElement.Value);
+								.AddNewCheckPoint(
+									nameElement.Value,
+								picker.Date.ToDateTime().ToLocalTime().TimeOfDay,
+									emojiElement.Value, categoryElement.Value);
 
-				if (nowElement.Value)
-					this.CheckPoints.AddOccurrenceToCheckPoint(newcp,0);
+			if (nowElement.Value)
+				this.CheckPoints.AddOccurrenceToCheckPoint(newcp, 0);
+			return newcp;
+		}
+		private bool UpdateCheckpoint(CheckPoint toEdit)
+		{
+			var isNew = !CheckPoints.CheckPointExists(toEdit.UniqueIdentifier);
+			var nameChanged = toEdit.Name != this.nameElement.Value;
 
-				ResetNavigation ();
+			if ((nameChanged | isNew) && this.CheckPoints.CheckPointExists(this.nameElement.Value))
+			{
+				ShowError("A goal already exists with the new name you've chosen.  Please choose a different name!");
+				return false;
+			}
+			TimeSpan targetTime;
+
+			if (this.targetTimeElement != null)
+				targetTime = targetTimeElement.DateValue.ToLocalTime().TimeOfDay;
+			else
+				targetTime = picker.Date.ToDateTime().ToLocalTime().TimeOfDay;
+			
+			toEdit.Category = this.categoryElement.Value;
+			toEdit.Emoji = this.emojiElement.Value;
+			toEdit.TargetTime = targetTime;
+			if (enabledSwitch != null)
+				toEdit.IsEnabled = enabledSwitch.Value;
+			else
+				toEdit.IsEnabled = true;
+			if (nameChanged)
+				toEdit.Name = this.nameElement.Value;
 
 			return true;
+			
 		}
 
 		//TODO: move this to EmojiExtensions
