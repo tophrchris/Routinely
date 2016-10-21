@@ -12,6 +12,7 @@ namespace ClockKing.Core
         bool CheckPointExists (Guid checkPointGuid);
         CheckPoint AddNewCheckPoint(string title, TimeSpan target,string emoji,string category="");
         CheckPoint AddNewCheckPoint (CheckPoint toAdd);
+        bool UpdateCheckPoint (CheckPoint updated);
         bool RemoveCheckpoint(CheckPoint checkPoint);
         Occurrence SkipCheckpoint (CheckPoint checkPoint);
         Occurrence AddOccurrenceToCheckPoint(string checkPointName,int mins);

@@ -178,8 +178,10 @@ namespace ClockKing
 		{
 			if (saveFirst)
 			{
+				
 				Controller.ResaveCheckpoints ();
-				dialog.RespondToChanges ();
+				if(dialog!=null)
+					dialog.RespondToChanges ();
 			}
 			ResetNavigation ();
 		}
