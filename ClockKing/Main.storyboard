@@ -24,7 +24,7 @@
         <scene sceneID="253">
             <objects>
                 <tableViewController id="254" sceneMemberID="viewController" customClass="CheckPointTableViewController" hasRefreshControl="1" modalTransitionStyle="crossDissolve">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="255" separatorStyle="singleLineEtched" allowsSelection="NO">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="255" separatorStyle="singleLineEtched" allowsSelection="NO" indicatorStyle="black">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
@@ -39,7 +39,7 @@
                                             <rect key="frame" x="16" y="12" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="458">
@@ -52,12 +52,14 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections/>
+                                <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="254" id="256"/>
                             <outlet property="delegate" destination="254" id="257"/>
                         </connections>
+                        <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
                     </tableView>
                     <navigationItem id="307" key="navigationItem" title="Today's Goals"/>
                     <connections>
@@ -85,4 +87,7 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedScreenMetrics key="destination" type="retina47"/>
     </simulatedMetricsContainer>
+    <resources>
+        <image name="Material Icons_e877(0)_1024.png" width="1024" height="1024"/>
+    </resources>
 </document>

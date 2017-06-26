@@ -26,7 +26,6 @@ namespace ClockKing.RoutinelyWatchExtension
 		}
 
 
-
 		public override void Awake(NSObject context)
 		{
 			this.responder = new RoutinelyHostResponder(this);
@@ -60,7 +59,6 @@ namespace ClockKing.RoutinelyWatchExtension
 			}
 		}
 
-
 		public override void WillActivate()
 		{
 			StartSession();
@@ -91,12 +89,14 @@ namespace ClockKing.RoutinelyWatchExtension
 				rowIndex++;
 			}
 		}
+
 		public void SaveModel(List<GoalSummary> goals)
 		{
 			var json = JsonConvert.SerializeObject(goals);
 			var path = responder.GetSummariesPath();
 			System.IO.File.WriteAllText(path, json);
 		}
+
 		public List<GoalSummary> ReadGoals()
 		{
 			var found = new List<GoalSummary>();
@@ -145,6 +145,7 @@ namespace ClockKing.RoutinelyWatchExtension
 			this.controller.UpdateModel(goals);
 			this.controller.SaveModel(goals);
 		}
+	
 		public override void DidReceiveApplicationContext(WCSession session, NSDictionary<NSString, NSObject> applicationContext)
 		{
 			Debug.WriteLine("drac");
