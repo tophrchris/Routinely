@@ -30,7 +30,6 @@ namespace ClockKing
 
 		static AppDelegate()
 		{
-			RatingsManager.ConfigureRatingsPrompt();
 			LaunchTimer = Stopwatch.StartNew();
 		}
 

@@ -75,8 +75,7 @@ namespace ClockKing
 			var BuildVer = dict["CFBundleVersion"].ToString();
 			var appVer = dict["CFBundleShortVersionString"].ToString();
 			support.Add(new StringElement("Version", string.Format("{0} ({1})",appVer,BuildVer)));
-			support.Add(new StringElement("Rate Routinely!", () => RatingsManager.Prompt()));
-
+			
 			this.Root.Add(nav);
 			this.Root.Add(switches);
 			this.Root.Add(support);
