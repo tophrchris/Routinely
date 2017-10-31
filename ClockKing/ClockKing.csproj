@@ -22,7 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>x86_64</MtouchArch>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>Full</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchFastDev>false</MtouchFastDev>
@@ -30,7 +30,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
-    <MtouchSdkVersion>11.0</MtouchSdkVersion>
+    <MtouchSdkVersion></MtouchSdkVersion>
     <MtouchFloat32>true</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -50,7 +50,7 @@
     <BuildIpa>false</BuildIpa>
     <IpaMetadata>iTunesMetadata.plist</IpaMetadata>
     <IpaIncludeArtwork>false</IpaIncludeArtwork>
-    <MtouchSdkVersion>9.3</MtouchSdkVersion>
+    <MtouchSdkVersion></MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -59,8 +59,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386</MtouchArch>
-    <MtouchLink>None</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchLink>Full</MtouchLink>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchUseLlvm>false</MtouchUseLlvm>
     <MtouchUseLlvm>false</MtouchUseLlvm>
