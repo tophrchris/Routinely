@@ -37,18 +37,21 @@ namespace ClockKing
 		public CheckPointController (IntPtr handle) : base (handle)
 		{
 			iiToastNotifier.Init ();
+            try
+            {
+                this.App.Controller = this;
+                this.UtilityButtonHandler = new CheckPointTableCellUtilityDelegate(this);
+                this.CheckPoints = new CheckPointManager(this);
+                this.CheckPoints.CheckPointDataChanged += this.RespondToChangeEvent;
+                this.AddCommand = new AddCheckPointMenuCommand(this.CheckPoints);
+                this.setDefaultNavigation();
+                this.Detail = new CheckpointDetailCommand(this.CheckPoints);
+                this.Data = new GroupedCheckPointDataSource(this);
+                this.Refresher = new TableCellRefresher((a) => this.InvokeOnMainThread(a));
 
-			this.App.Controller = this;
-			this.UtilityButtonHandler = new CheckPointTableCellUtilityDelegate (this);
-			this.CheckPoints = new CheckPointManager (this);
-			this.CheckPoints.CheckPointDataChanged += this.RespondToChangeEvent;
-			this.AddCommand = new AddCheckPointMenuCommand (this.CheckPoints);
-			this.setDefaultNavigation();
-			this.Detail = new CheckpointDetailCommand (this.CheckPoints);
-			this.Data = new GroupedCheckPointDataSource (this);
-			this.Refresher = new TableCellRefresher((a) => this.InvokeOnMainThread(a));
-
-			Debug.WriteLine("cpc constructor finished");
+                Debug.WriteLine("cpc constructor finished");
+            }catch
+            {}
 		}
 
 		#region app lifecycle and maintenance
