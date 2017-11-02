@@ -46,7 +46,7 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchUseLlvm>false</MtouchUseLlvm>
     <MtouchLink>Full</MtouchLink>
-    <CodesignProvision>f7058885-3773-4c97-a1cd-08ff8b89a0cf</CodesignProvision>
+    <CodesignProvision></CodesignProvision>
     <BuildIpa>false</BuildIpa>
     <IpaMetadata>iTunesMetadata.plist</IpaMetadata>
     <IpaIncludeArtwork>false</IpaIncludeArtwork>
@@ -64,7 +64,7 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchUseLlvm>false</MtouchUseLlvm>
     <MtouchUseLlvm>false</MtouchUseLlvm>
-    <CodesignProvision>Routinely AppStore Distribution</CodesignProvision>
+    <CodesignProvision></CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
