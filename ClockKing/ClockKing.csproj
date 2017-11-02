@@ -22,11 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>x86_64</MtouchArch>
-<<<<<<< HEAD
-    <MtouchLink>Full</MtouchLink>
-=======
     <MtouchLink>None</MtouchLink>
->>>>>>> 8d0f57a... changing provisioning profiles for release/device.
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchFastDev>false</MtouchFastDev>
@@ -63,15 +59,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-<<<<<<< HEAD
-    <MtouchArch>x86_64</MtouchArch>
-    <MtouchLink>Full</MtouchLink>
-    <CodesignKey>iPhone Distribution</CodesignKey>
-=======
     <MtouchArch>i386</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <CodesignKey>iPhone Developer</CodesignKey>
->>>>>>> 8d0f57a... changing provisioning profiles for release/device.
     <MtouchUseLlvm>false</MtouchUseLlvm>
     <MtouchUseLlvm>false</MtouchUseLlvm>
     <CodesignProvision>Routinely AppStore Distribution</CodesignProvision>
@@ -102,11 +92,7 @@
     <OutputPath>bin\iPhone\publishing</OutputPath>
     <DefineConstants></DefineConstants>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
-    <CodesignKey>iPhone Developer</CodesignKey>
-=======
     <CodesignKey>iPhone Distribution: chris hollander (52W7633S3D)</CodesignKey>
->>>>>>> 8d0f57a... changing provisioning profiles for release/device.
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchArch>ARMv7s, ARM64</MtouchArch>
