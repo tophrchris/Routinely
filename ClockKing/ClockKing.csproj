@@ -60,15 +60,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-<<<<<<< HEAD
-    <MtouchArch>i386</MtouchArch>
-    <MtouchLink>None</MtouchLink>
-    <CodesignKey>iPhone Developer</CodesignKey>
-=======
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>Full</MtouchLink>
     <CodesignKey>iPhone Distribution</CodesignKey>
->>>>>>> b8c716b8f68adddf9d00628954317af53566fdc1
     <MtouchUseLlvm>false</MtouchUseLlvm>
     <MtouchUseLlvm>false</MtouchUseLlvm>
     <CodesignProvision></CodesignProvision>
