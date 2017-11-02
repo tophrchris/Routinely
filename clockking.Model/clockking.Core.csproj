@@ -8,8 +8,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ClockKing.Core</RootNamespace>
     <AssemblyName>clockking.Model</AssemblyName>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <ReleaseVersion>1.2</ReleaseVersion>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
