@@ -45,7 +45,7 @@ namespace ClockKing
 
                 if (checkPoint.IsSkipped)
                 {
-                    instructions = "Would yould you like to complete, and remove the skip?";
+                    instructions = "Would you like to complete, and remove the skip?";
                     okPrompt = "Yes, complete.";
                     var ok = new ModalChoice () {
                         Label = okPrompt,
@@ -59,7 +59,7 @@ namespace ClockKing
                 }
                 else 
                 {
-                    instructions = "Would yould you like to add another completion?";
+                    instructions = "Would you like to add another completion?";
                     okPrompt = "Yes, add another.";
                     noPrompt = "No, Replace existing.";
 
