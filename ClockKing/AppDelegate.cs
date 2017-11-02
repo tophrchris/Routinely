@@ -30,7 +30,6 @@ namespace ClockKing
 
 		static AppDelegate()
 		{
-			RatingsManager.ConfigureRatingsPrompt();
 			LaunchTimer = Stopwatch.StartNew();
 		}
 
@@ -51,10 +50,12 @@ namespace ClockKing
 		{
 			get{
 				var com = new CompositeCheckPointDataProvider ();
-				com.AddProvider (new JSONDataProvider (new PathProvider(".json")));
+				IPathProvider json = new PathProvider (".json");
+				com.AddProvider (new JSONDataProvider (json));
 				com.AddProvider(new JSONDataProvider(new AppGroupPathProvider(".json")));
 				//com.AddProvider(new iCloudDocumentDataProvider());
-				return com;
+				var dec = new GoalSummaryPersistenceDecorator (com, json);
+				return dec;
 			}
 		}
 
@@ -149,6 +150,7 @@ namespace ClockKing
 			this.Notifications.EnsureNotifications(this.CheckPointData);
 			ShortcutManager.CreateShortcutItems (application,this.CheckPointData);
 			SpotlightManager.PresentGoalsForIndexing(this.CheckPointData.checkPoints);
+			WCSessionManager.Instance.UpdateSharedContext();
 		}
 
 		public override void OnResignActivation (UIApplication application)

@@ -66,8 +66,9 @@ namespace ClockKing
 		public static void ApplyTheme()
 		{
 			var themer = new Dictionary<Themes,Action> ();
-			themer.Add (Themes.FitPulse,()=> FitpulseTheme.Apply ());
+			themer.Add (Themes.FitPulse, ()=> FitpulseTheme.Apply ());
 			themer.Add (Themes.TrackBeam,()=> ThemeManager.Register<TrackBeamTheme>().Apply());
+            themer.Add (Themes.Gunmetal, ()=>GunmetalTheme.Apply());
 			//themer.Add (Themes.Foody,()=> FoodyTheme.Apply ());
 			//themer.Add (Themes.Prolific, () => ProlificTheme.Apply ());
 			//themer.Add (Themes.Gridlocked, () => GridlockTheme.Apply ());
@@ -102,6 +103,7 @@ namespace ClockKing
 		FitPulse=0,
 		TrackBeam,
 		Gridlocked,
+        Gunmetal,
 		Prolific,
 		Foody,
 		Industrial

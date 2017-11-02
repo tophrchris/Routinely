@@ -85,4 +85,7 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedScreenMetrics key="destination" type="retina47"/>
     </simulatedMetricsContainer>
+    <resources>
+        <image name="Material Icons_e877(0)_1024.png" width="1024" height="1024"/>
+    </resources>
 </document>
