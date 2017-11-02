@@ -1022,7 +1022,6 @@
       }
     },
     "dependencies": {
-      "Humanizer": "2.2.0",
       "Humanizer.Core": "2.2.0",
       "Humanizer.Core.af": "2.2.0",
       "Humanizer.Core.ar": "2.2.0",
@@ -1064,7 +1063,11 @@
       "Humanizer.Core.zh-CN": "2.2.0",
       "Humanizer.Core.zh-Hans": "2.2.0",
       "Humanizer.Core.zh-Hant": "2.2.0",
-      "Newtonsoft.Json": "10.0.3"
+      "Newtonsoft.Json": "10.0.3",
+      "Humanizer": {
+        "target": "Package",
+        "version": "[2.2.0, )"
+      }
     },
     "frameworks": {
       "portable45-net45+win8+wp8": {}
