@@ -95,9 +95,6 @@
     <Reference Include="SWTableViewCell">
       <HintPath>..\Components\swtableviewcell-0.3.7.0\lib\ios-unified\SWTableViewCell.dll</HintPath>
     </Reference>
-    <Reference Include="Humanizer">
-      <HintPath>..\packages\Humanizer.Core.2.2.0\lib\netstandard1.0\Humanizer.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
