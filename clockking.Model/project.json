@@ -42,11 +42,10 @@
     "Humanizer.Core.zh-CN": "2.2.0",
     "Humanizer.Core.zh-Hans": "2.2.0",
     "Humanizer.Core.zh-Hant": "2.2.0",
-    "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
-    "NETStandard.Library": "1.6.0",
+
     "Newtonsoft.Json": "10.0.3"
   },
   "frameworks": {
-    "netstandard1.5": {}
+    ".NETPortable,Version=v4.5,Profile=Profile78": {}
   }
 }
