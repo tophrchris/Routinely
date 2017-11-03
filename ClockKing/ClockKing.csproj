@@ -32,7 +32,7 @@
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchSdkVersion></MtouchSdkVersion>
     <MtouchFloat32>true</MtouchFloat32>
-<MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+<MtouchEnableSGenConc>false</MtouchEnableSGenConc>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType></DebugType>
@@ -83,11 +83,11 @@
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <CodesignKey>iPhone Developer</CodesignKey>
     <IOSDebugOverWiFi>false</IOSDebugOverWiFi>
-    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFastDev>false</MtouchFastDev>
     <CodesignProvision></CodesignProvision>
     <MtouchNoSymbolStrip>false</MtouchNoSymbolStrip>
     <MtouchLink>None</MtouchLink>
-    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Publishing|iPhone' ">
     <Optimize>true</Optimize>
